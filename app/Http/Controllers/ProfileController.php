@@ -4,12 +4,17 @@ namespace ProjectApp\Http\Controllers;
 
 use Illuminate\Http\Request;
 // use ProjectApp\Http\Requests\ProfileRequest;
-use ProjectApp\Http\Requests\PasswordRequest;
+// use ProjectApp\Http\Requests\PasswordRequest;
+use ProjectApp\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 use ProjectApp\Profile;
 
 class ProfileController extends Controller
 {
+
+    use ResetsPasswords;
 
     //evita que se pueda acceder al perfil sin iniciar sesion
     public function __construct()
@@ -133,7 +138,7 @@ class ProfileController extends Controller
      * @param  \App\Http\Requests\PasswordRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function password(PasswordRequest $request)
+    public function password(Request $request)
     {
         auth()->user()->update(['password' => Hash::make($request->get('password'))]);
 

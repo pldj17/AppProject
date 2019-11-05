@@ -16,9 +16,11 @@ Route::get('/', function () {
 });
 Route::get('user/index','ProfileController@index')->name('user.index'); 
 
-Route::get('profile/update','ProfileController@update')->name('profile.update');
+Route::post('profile/update','ProfileController@update')->name('profile.update');
 
-Route::put('profile/password','ProfileController@password')->name('profile.password');
+Route::post('profile/password','ProfileController@password')->name('profile.password');
+
+Route::post('profile/create', 'ProfileController@store')->name('profile.create'); 
 
 Route::get('profile/edit', 'ProfileController@edit')->name('profile.edit');
 Auth::routes();
