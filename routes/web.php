@@ -22,6 +22,8 @@ Route::post('profile/password','ProfileController@password')->name('profile.pass
 
 Route::post('profile/create', 'ProfileController@store')->name('profile.create'); 
 
+Route::post('user/avatar', 'ProfileController@avatar')->name('avatar'); 
+
 Route::get('profile/edit', 'ProfileController@edit')->name('profile.edit');
 Auth::routes();
 
