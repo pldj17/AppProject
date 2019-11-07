@@ -50,7 +50,10 @@ class ProfileController extends Controller
             $file = $request->file('avatar'); 
             $ext = $file->getClientOriginalExtension();
             $filename = time().'.'.$ext; 
-            $file->move('uploads/avatar/', $filename);  
+            $file->move('uploads/avatar/', $filename); 
+            
+            Image::make($avatar)->resize(300, 300)->save(public_path('/dist/img/' . $filename));
+
             Profile::where('user_id', $user_id)->update([
                 'avatar' => $filename
             ]);
