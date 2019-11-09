@@ -57,5 +57,7 @@
 
         <!-- Argon JS -->
         <script src="{{ asset('js/argon.js?v=1.0.0') }}"></script>
+
+        <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
     </body>
 </html>

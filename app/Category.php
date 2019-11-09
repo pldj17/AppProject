@@ -1,0 +1,10 @@
+<?php
+
+namespace ProjectApp;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Category extends Model
+{
+    //
+}

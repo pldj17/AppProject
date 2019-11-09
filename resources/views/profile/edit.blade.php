@@ -14,33 +14,7 @@
                             <h3 class="col-12 mb-0">{{ __('Editar Perfil') }}</h3>
                         </div>
                     </div>
-                    {{-- cambiar foto de perfil --}}
-                    {{-- <div class="col-md-3 float-right">
-                        <div class="card">
-                            <div class="card-header">
-                                Actualizar foto de perfil
-                            </div> <br> --}}
-                            {{-- avatar --}}
-                            {{-- @if (empty(Auth::user()->profile->avatar))
-                                <img src="{{ asset('avatar/avatar.png')}}" width="100%" style="width:100%">
-                            @else
-                                <img src="{{ asset('uploads/avatar')}}/{{ Auth::user()->profile->avatar }}" width="100%" style="width:100%">    
-                            @endif
-                            
-                            <form action="{{route('avatar')}}" method="POST" enctype="multipart/form-data"> 
-                                @csrf
-                                <div class="card-body">
-                                    <input type="file" class="form-control" name="avatar" enctype="multipart/form-data">
-                                    <br>
-                                    <button class="btn btn-success float-right" type="submit">Guardar cambios</button>
-                                    @if ($errors->has('avatar'))
-                                        <div class="error text-danger">{{ $errors->first('avatar')}}</div>                        
-                                    @endif
-                                </div>
-                            </form>
-                        </div>
-                    </div> --}}
-
+                    
                     <div class="card-body">                                
                         <h6 class="heading-small text-muted mb-4">{{ __('Actualizar foto de perfil') }}</h6>
 
@@ -60,8 +34,8 @@
                                     <div class="card-body">
                                         <input type="file" class="form-control" name="avatar" enctype="multipart/form-data" style="width:170px;">
                                         <div class="text-center">
-                                                <button type="submit" class="btn btn-success mt-4">{{ __('Guardar cambios') }}</button>
-                                            </div>
+                                            <button type="submit" class="btn btn-success mt-4">{{ __('Guardar cambios') }}</button>
+                                        </div>
                                         @if ($errors->has('avatar'))
                                             <div class="error text-danger">{{ $errors->first('avatar')}}</div>                        
                                         @endif
@@ -78,6 +52,15 @@
                             @csrf
                             
                             <h6 class="heading-small text-muted mb-4">{{ __('Información básica') }}</h6>
+
+                            @if (session('Info'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ session('Info') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @endif
 
                             <div class="pl-lg-4">
                                 {{-- editar direccion --}}

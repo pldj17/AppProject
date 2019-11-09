@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use ProjectApp\Profile;
+use Image;
 
 class ProfileController extends Controller
 {
@@ -50,9 +51,9 @@ class ProfileController extends Controller
             $file = $request->file('avatar'); 
             $ext = $file->getClientOriginalExtension();
             $filename = time().'.'.$ext; 
-            $file->move('uploads/avatar/', $filename); 
+            // $file->move('uploads/avatar/', $filename); 
             
-            Image::make($avatar)->resize(300, 300)->save(public_path('/dist/img/' . $filename));
+            Image::make($file)->resize(200, 200)->save(public_path('uploads/avatar/' . $filename));
 
             Profile::where('user_id', $user_id)->update([
                 'avatar' => $filename
@@ -81,6 +82,7 @@ class ProfileController extends Controller
     public function store(Request $request)
     { 
         $this->validate($request,[
+            'fecha_nac' => 'required|date',
             'telefono' => 'numeric|required|min:11111|max:9999999999',
             'direccion' => 'required',
             'descripcion' => 'required|min:20'
@@ -88,12 +90,13 @@ class ProfileController extends Controller
          
         $user_id = auth()->user()->id; 
         Profile::where('user_id', $user_id)->update([
+            'fecha_nac' => request('fecha_nac'),
             'telefono' => request('telefono'),
             'direccion' => request('direccion'),
             'descripcion' => request('descripcion')
         ]);
 
-        return redirect()->back()->with('message', 'Su perfil ha sido actualizado correctamente');
+        return back()->withInfo(__('Su perfil ha sido actualizado correctamente'));
     }
 
     /**
