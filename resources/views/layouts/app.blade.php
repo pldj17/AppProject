@@ -11,7 +11,7 @@
         {{-- Bootstrap --}}
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <!-- Favicon -->
-        <link href="{{ asset('argon') }}/img/brand/favicon.png" rel="icon" type="image/png">
+        <link href="{{ asset('img/brand/favicon.png') }}" rel="icon" type="image/png">
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
         <!-- Icons -->
@@ -42,22 +42,37 @@
             @include('layouts.footers.guest')
         @endguest
 
-        {{-- datepicker --}}
         <script>
+        //calendario de registro
         $('#datepicker').datepicker({
             uiLibrary: 'bootstrap4',
             locale: 'es-es'
         });
-    </script>
+        </script>
+
+        <script>
+        //ojito para ver password
+        $(document).ready(function(){
+            $('#show').mousedown(function(){
+                $('#pass').removeAttr('type');
+                $('#show').addClass('fa-eye-slash').removeClass('fa-eye');
+            });
+            $('#show').mouseup(function(){
+                $('#pass').attr('type', 'password');
+                $('#show').addClass('fa-eye').removeClass('fa-eye-slash');
+            });
+        });
+        </script>
 
         <script src="{{ asset('vendor/jquery/dist/jquery.min.js') }}"></script>
         <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="https://kit.fontawesome.com/9de893e37f.js" crossorigin="anonymous"></script>
         
         @stack('js')
 
         <!-- Argon JS -->
         <script src="{{ asset('js/argon.js?v=1.0.0') }}"></script>
-
+        <script src="{{ asset('js/argon.js') }}"></script>
         <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
     </body>
 </html>
