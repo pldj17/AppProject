@@ -35,11 +35,11 @@
                     <div class=" dropdown-header noti-title">
                         <h6 class="text-overflow m-0">{{ __('Bienvenido!') }}</h6>
                     </div>
-                    <a href="{{ route('user.index') }}" class="dropdown-item">
+                    <a href="{{ route('profile.index') }}" class="dropdown-item">
                         <i class="ni ni-single-02"></i>
                         <span>{{ __('Mi perfil') }}</span>
                     </a>
-                    <a href="#" class="dropdown-item">
+                    <a href="{{ route('profile.ajustes') }}" class="dropdown-item">
                         <i class="ni ni-settings-gear-65"></i>
                         <span>{{ __('Ajustes') }}</span>
                     </a>

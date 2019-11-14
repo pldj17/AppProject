@@ -52,7 +52,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'first_name' => ['required', 'regex:/^[\pL\s\-]+$/u', 'max:30'],
             'last_name' => ['required', 'regex:/^[\pL\s\-]+$/u', 'max:30'],
-            'fecha_nac' => ['required', 'date'],
+            'date_born' => ['required', 'date'],
             'name' => ['string', 'max:255'],    
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -75,7 +75,7 @@ class RegisterController extends Controller
 
         Profile::create([
             'user_id' => $user->id, 
-            'fecha_nac' => request('fecha_nac'),
+            'date_born' => request('date_born'),
         ]);
         
         return $user;

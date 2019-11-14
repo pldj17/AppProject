@@ -53,13 +53,13 @@
                                 <h6>Se unió el: {{date('d F, Y', strtotime(Auth::user()->created_at))}}</h6> 
                             </h3>
                             <div class="h5 font-weight-300">
-                                <i class="ni location_pin mr-2">{{Auth::user()->profile->direccion}}</i>
+                                <i class="ni location_pin mr-2">{{Auth::user()->profile->address}}</i>
                             </div>
                             <div class="h5 mt-4">
                                 <i class="ni business_briefcase-24 mr-2"></i>{{ __('Solution Manager - Creative Tim Officer') }}
                             </div>
                             <div>
-                                <i class="ni education_hat mr-2"></i>{{Auth::user()->profile->descripcion}}
+                                <i class="ni education_hat mr-2"></i>{{Auth::user()->profile->description}}
                             </div>
                             <hr class="my-4" />
                             <p>{{ __('Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci..') }}</p>

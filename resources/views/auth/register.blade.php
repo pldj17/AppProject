@@ -32,7 +32,7 @@
                             <div class="form-group{{ $errors->has('first_name') ? ' has-danger' : '' }}">
                                 <div class="input-group input-group-alternative mb-3">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                                        <span class="input-group-text"><i class="ni ni-single-02"></i></span>
                                     </div>
                                     <input id="nombre" class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Nombre') }}" type="text" name="first_name" value="{{ old('first_name') }}">
                                 </div>
@@ -47,7 +47,7 @@
                             <div class="form-group{{ $errors->has('last_name') ? ' has-danger' : '' }}">
                                 <div class="input-group input-group-alternative mb-3">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                                        <span class="input-group-text"><i class="ni ni-single-02"></i></span>
                                     </div>
                                     <input class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Apellido') }}" type="text" name="last_name" value="{{ old('last_name') }}">
                                 </div>
@@ -64,11 +64,11 @@
                                     {{-- <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                     </div> --}}
-                                    <input id="datepicker" readonly="readonly"  type="text" placeholder="Fecha de nacimiento" class="form-control @error('date') is-invalid @enderror" name="fecha_nac" value="{{ old('fecha_nac') }}"  autocomplete="fecha_nac">
+                                    <input id="datepicker" readonly="readonly"  type="text" placeholder="Fecha de nacimiento" class="form-control @error('date') is-invalid @enderror" name="date_born" value="{{ old('date_born') }}"  autocomplete="date_born">
                                 </div>
-                                @if ($errors->has('fecha_nac'))
+                                @if ($errors->has('date_born'))
                                     <span class="invalid-feedback" style="display: block;" role="alert">
-                                        <strong>{{ $errors->first('fecha_nac') }}</strong>
+                                        <strong>{{ $errors->first('date_born') }}</strong>
                                     </span>
                                 @endif
                             </div>

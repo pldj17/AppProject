@@ -26,7 +26,7 @@
                         <i class="ni ni-single-02"></i>
                         <span>{{ __('Mi perfil') }}</span>
                     </a>
-                    <a href="#" class="dropdown-item">
+                    <a href="{{ route('profile.ajustes') }}" class="dropdown-item">
                         <i class="ni ni-settings-gear-65"></i>
                         <span>{{ __('Ajustes') }}</span>
                     </a>
@@ -84,7 +84,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                        <a class="nav-link" href="{{ route('user.index') }}">
+                        <a class="nav-link" href="{{ route('profile.index') }}">
                             <i class="ni ni-single-02 text-yellow"></i> {{ __('Perfil') }}
                         </a>
                     </li>

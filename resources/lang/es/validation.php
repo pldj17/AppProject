@@ -147,6 +147,7 @@ return [
         'email'                 => 'correo electrónico',
         'first_name'            => 'nombre',
         'last_name'             => 'apellido',
+        'date_born'            => 'fecha de nacimiento',
         'fecha_nac'             => 'fecha de nacimiento',
         'password'              => 'contraseña',
         'password_confirmation' => 'confirmación de la contraseña',

@@ -14,7 +14,7 @@
 Route::get('/', function () {
     return view('auth.login');
 });
-Route::get('user/index','ProfileController@index')->name('user.index'); 
+Route::get('profile/index','ProfileController@index')->name('profile.index'); 
 
 Route::post('profile/update','ProfileController@update')->name('profile.update');
 
@@ -25,6 +25,9 @@ Route::post('profile/create', 'ProfileController@store')->name('profile.create')
 Route::post('user/avatar', 'ProfileController@avatar')->name('avatar'); 
 
 Route::get('profile/edit', 'ProfileController@edit')->name('profile.edit');
+
+Route::get('profile/ajustes', 'ProfileController@update')->name('profile.ajustes');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

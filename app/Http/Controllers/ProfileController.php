@@ -82,21 +82,21 @@ class ProfileController extends Controller
     public function store(Request $request)
     { 
         $this->validate($request,[
-            'fecha_nac' => 'required|date',
-            'telefono' => 'numeric|required|min:11111|max:9999999999',
-            'direccion' => 'required',
-            'descripcion' => 'required|min:20'
+            
+            'phone' => 'numeric|required|min:11111|max:9999999999',
+            'address' => 'required',
+            'description' => 'required|min:20'
         ]); 
          
         $user_id = auth()->user()->id; 
         Profile::where('user_id', $user_id)->update([
-            'fecha_nac' => request('fecha_nac'),
-            'telefono' => request('telefono'),
-            'direccion' => request('direccion'),
-            'descripcion' => request('descripcion')
+            
+            'phone' => request('phone'),
+            'address' => request('address'),
+            'description' => request('description')
         ]);
 
-        return back()->withInfo(__('Su perfil ha sido actualizado correctamente'));
+        return redirect()->back()->with('message', 'Su perfil ha sido actualizado correctamente');
     }
 
     /**
@@ -133,6 +133,8 @@ class ProfileController extends Controller
      */
     public function update(Request $request)
     {
+        return view('profile.ajustes');
+
         auth()->user()->update($request->all());
 
         return back()->withStatus(__('Su perfil ha sido actualizado correctamente.'));
