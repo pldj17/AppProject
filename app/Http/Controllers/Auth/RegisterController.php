@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use ProjectApp\Profile;
+use ProjectApp\Role;
+
 
 class RegisterController extends Controller
 {
@@ -77,6 +79,8 @@ class RegisterController extends Controller
             'user_id' => $user->id, 
             'date_born' => request('date_born'),
         ]);
+
+        $user->roles()->attach(Role::where('name', 'user')->first()); //pedimos el rol con el nombre user, attach se encarga de las tablas relacionadas
         
         return $user;
     }

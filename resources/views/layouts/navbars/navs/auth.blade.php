@@ -23,7 +23,7 @@
                             @if (empty(Auth::user()->profile->avatar))
                                 <img src="{{ asset('avatar/avatar.png')}}" style="width:100%">
                             @else
-                                <img src="{{ asset('uploads/avatar')}}/{{ Auth::user()->profile->avatar }}" style="width:100%; height:100%;">    
+                                <img src="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}" style="width:100%; height:100%;">    
                             @endif
                         </span>
                         <div class="media-body ml-2 d-none d-lg-block">

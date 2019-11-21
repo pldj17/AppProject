@@ -14,7 +14,7 @@ use Image;
 
 class ProfileController extends Controller
 {
-
+  
     use ResetsPasswords;
 
     //evita que se pueda acceder al perfil sin iniciar sesion
@@ -27,8 +27,10 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // $request->user()->authorizeRoles('admin');//validacion de rol de usuario
+
         $profiles = Profile::all(); //consulta todos los perfiles creados y los trae
         return view('profile.index', compact('profiles')); //compact genera una array con la informacion que le asignemos
     }
@@ -38,30 +40,63 @@ class ProfileController extends Controller
         return view('profile.edit');
     }
 
-    public function avatar(Request $request)
-    { 
+    public function AvatarUpload(Request $request)
+    {
+        $status = "";
+        
         $this->validate($request, [
             'avatar' => 'required|mimes:png,jpeg,jpg'
-        ]); 
+        ]);
 
         $user_id = auth()->user()->id;
 
+
         if($request->hasfile('avatar'))
         {
-            $file = $request->file('avatar'); 
-            $ext = $file->getClientOriginalExtension();
-            $filename = time().'.'.$ext; 
-            // $file->move('uploads/avatar/', $filename); 
-            
-            Image::make($file)->resize(200, 200)->save(public_path('uploads/avatar/' . $filename));
+            $image = $request->file('avatar');
+            $ext = $image->guessExtension();
+            $filename = time().'.'.$ext;
+
+            $path = $request->file('avatar')->storeAs(
+                'profile_pictures', $filename
+            );
+
+            $status = "uploaded"; 
 
             Profile::where('user_id', $user_id)->update([
                 'avatar' => $filename
             ]);
-    
-            return redirect()->back()->with('message', 'Su foto de perfil ha sido actualizado!');
-        }
+
+        }        
+        
+        return response($status,200);
+        // return redirect()->back()->with('message', 'Su foto de perfil ha sido actualizado!');
     }
+
+    // public function avatar(Request $request)
+    // { 
+    //     $this->validate($request, [
+    //         'avatar' => 'required|mimes:png,jpeg,jpg'
+    //     ]); 
+
+    //     $user_id = auth()->user()->id;
+
+    //     if($request->hasfile('avatar'))
+    //     {
+    //         $file = $request->file('avatar'); 
+    //         $ext = $file->getClientOriginalExtension();
+    //         $filename = time().'.'.$ext; 
+    //         // $file->move('uploads/avatar/', $filename); 
+            
+    //         Image::make($file)->resize(300, 300)->save(public_path('uploads/avatar/' . $filename));
+
+    //         Profile::where('user_id', $user_id)->update([
+    //             'avatar' => $filename
+    //         ]);
+    
+    //         return redirect()->back()->with('message', 'Su foto de perfil ha sido actualizado!');
+    //     }
+    // }
     
     /**
      * Show the form for creating a new resource.

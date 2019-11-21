@@ -4,6 +4,8 @@ namespace ProjectApp\Http\Controllers\Auth;
 
 use ProjectApp\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use ProjectApp\role;
 
 class LoginController extends Controller
 {
@@ -25,7 +27,27 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    // protected $redirectTo = '/home';
+
+    protected function redirectTo()
+    {
+        if(Auth::user()->roles()->attach(role::where('name', 'admin')->first()))
+        {
+            return 'dashboard';
+        }else
+        {
+            return '/'; 
+        }
+    }
+
+
+    // if(Auth::user()->authorizeRoles(['admin']))
+    // {
+    //     return 'dashboard';
+    // }else
+    // {
+    //     return 'dashboard'; 
+    // }
 
     /**
      * Create a new controller instance.

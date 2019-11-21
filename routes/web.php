@@ -22,7 +22,9 @@ Route::post('profile/password','ProfileController@password')->name('profile.pass
 
 Route::post('profile/create', 'ProfileController@store')->name('profile.create'); 
 
-Route::post('user/avatar', 'ProfileController@avatar')->name('avatar'); 
+// Route::post('profile/avatar', 'ProfileController@avatar')->name('avatar'); 
+Route::get('profile/edit','ProfileController@edit')->name('show.avatar');
+Route::post('profile/edit','ProfileController@AvatarUpload')->name('avatar');
 
 Route::get('profile/edit', 'ProfileController@edit')->name('profile.edit');
 
@@ -31,3 +33,4 @@ Route::get('profile/ajustes', 'ProfileController@update')->name('profile.ajustes
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
