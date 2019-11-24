@@ -4,7 +4,7 @@
     @include('users.partials.header', [
         'title' => auth()->user()->name
     ])   
-
+    <div class="container-fluid mt--7">
         <div class="row justify-content-md-center">
             <div class="col-xl-10 order-xl-2 mb-4 mb-xl-0">
                 <div class="card card-profile shadow">
