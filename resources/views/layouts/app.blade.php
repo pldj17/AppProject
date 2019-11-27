@@ -48,6 +48,7 @@
         
         <div class="main-content">
             @include('layouts.navbars.navbar')
+            @include('partials.alerts')
             @yield('content')
         </div>
 

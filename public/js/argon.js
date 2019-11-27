@@ -16,47 +16,44 @@
 
 */
 
-
 //
 // Bootstrap Datepicker
 //
 
-// 'use strict';
+'use strict';
 
-// var Datepicker = (function() {
+var Datepicker = (function() {
 
-// 	// Variables
+	// Variables
 
-// 	var $datepicker = $('.datepicker');
-
-
-// 	// Methods
-
-// 	function init($this) {
-// 		var options = {
-// 			disableTouchKeyboard: true,
-// 			autoclose: false
-// 		};
-
-// 		$this.datepicker(options);
-// 	}
+	var $datepicker = $('.datepicker');
 
 
-// 	// Events
+	// Methods
 
-// 	if ($datepicker.length) {
-// 		$datepicker.each(function() {
-// 			init($(this));
-// 		});
-// 	}
+	function init($this) {
+		var options = {
+			disableTouchKeyboard: true,
+			autoclose: false
+		};
 
-// })();
+		$this.datepicker(options);
+	}
+
+
+	// Events
+
+	if ($datepicker.length) {
+		$datepicker.each(function() {
+			init($(this));
+		});
+	}
+
+})();
 
 //
 // Icon code copy/paste
 //
-
-
 
 'use strict';
 

@@ -34,3 +34,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+// Route::group(['middleware' => ['auth']], function() {
+//     Route::resource('roles','RoleController');
+//     Route::resource('users','UserController');
+//     Route::resource('products','ProductController');
+// });
+
+Route::namespace('Admin')->prefix('admin')->middleware(['auth','auth.admin'])->name('admin.')->group(function(){
+    Route::resource('/users', 'UserController', ['except' => ['show', 'create', 'store']]);
+});
+

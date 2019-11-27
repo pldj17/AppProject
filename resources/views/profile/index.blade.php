@@ -5,17 +5,18 @@
         'title' => auth()->user()->name
     ])   
     <div class="container-fluid mt--7">
+        
         <div class="row justify-content-md-center">
-            <div class="col-xl-10 order-xl-2 mb-4 mb-xl-0">
+            <div class="col-xl-11 order-xl-2 mb-4 mb-xl-0">
                 <div class="card card-profile shadow">
                     <div class="row justify-content-center">
                         <div class="col-lg-3 order-lg-2">
                             <div class="card-profile-image">
                                 <a href="#">
                                     @if (empty(Auth::user()->profile->avatar))
-                                        <img src="{{ asset('avatar/avatar.png')}}" class="card-img-top rounded-circle mx-auto d-block" style="width:200px; height:200px; margin:20px;">
+                                        <img src="{{ asset('avatar/avatar.png')}}" class="card-img-top rounded-circle mx-auto d-block" style="width:250px; height:200px; margin:20px;">
                                     @else
-                                        <img src="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}" class="card-img-top d-block" style="width:200px; height:200px; margin:20px; border-radius:50%;">  
+                                        <img src="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}" class="card-img-top d-block" style="width:250px; height:200px; margin:20px; border-radius:50%;">  
                                     @endif
                                 </a>
                             </div>
