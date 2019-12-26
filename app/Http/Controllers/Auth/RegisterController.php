@@ -80,8 +80,12 @@ class RegisterController extends Controller
             'date_born' => request('date_born'),
         ]);
 
-        $user->roles()->attach(Role::where('name', 'user')->first()); //pedimos el rol con el nombre user, attach se encarga de las tablas relacionadas
+        // $user->roles()->attach(Role::where('name', 'user')->first()); //pedimos el rol con el nombre user, attach se encarga de las tablas relacionadas
         
+        // return $user;
+        //asignar rol de usuario al registrarse
+        $role = Role::select('id')->where('name','user')->first();
+        $user->roles()->attach($role);
         return $user;
     }
 }

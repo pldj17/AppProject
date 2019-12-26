@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => __('User Profile')])
+{{-- @extends('layouts.app', ['title' => __('User Profile')])
 
 @section('content')
     @include('users.partials.header1', [
@@ -33,4 +33,4 @@
     </div>
 </div>
     
-@endsection
+@endsection --}}

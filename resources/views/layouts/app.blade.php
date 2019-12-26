@@ -62,9 +62,9 @@
                 uiLibrary: 'bootstrap4',
                 locale: 'es-es'
             });
-            </script>
+        </script>
     
-            <script>
+        <script>
             //ojito para ver password
             $(document).ready(function(){
                 $('#show').mousedown(function(){
@@ -76,7 +76,15 @@
                     $('#show').addClass('fa-eye').removeClass('fa-eye-slash');
                 });
             });
-            </script>
+        </script>
+
+        <script>
+        //mostrar modal
+        function mostrarModal(titulo) {
+            $("#modalTitle").html(titulo);
+            $("#myModal").modal("show");
+        }
+        </script>
 
         <script src="{{ asset('vendor/jquery/dist/jquery.min.js') }}"></script>
         <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>

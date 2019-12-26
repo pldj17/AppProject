@@ -27,18 +27,18 @@ class LoginController extends Controller
      *
      * @var string
      */
-    // protected $redirectTo = '/home';
+    protected $redirectTo = '/home';
 
-    protected function redirectTo()
-    {
-        if(Auth::user()->roles()->attach(role::where('name', 'admin')->first()))
-        {
-            return 'dashboard';
-        }else
-        {
-            return '/'; 
-        }
-    }
+    // protected function redirectTo()
+    // {
+    //     if(Auth::user()->roles()->attach(role::where('name', 'admin')->first()))
+    //     {
+    //         return 'dashboard';
+    //     }else
+    //     {
+    //         return '/'; 
+    //     }
+    // }
 
 
     // if(Auth::user()->authorizeRoles(['admin']))

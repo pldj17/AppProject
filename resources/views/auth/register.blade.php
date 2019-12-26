@@ -23,7 +23,7 @@
                     </div> --}}
                     <div class="card-body px-lg-5 py-lg-5">
                         <div class="text-center text-muted mb-4">
-                            <small>{{ __('Or sign up with credentials') }}</small>
+                            <small>{{ __('Registrarse') }}</small>
                         </div>
                         <form role="form" method="POST" action="{{ route('register') }}">
                             @csrf

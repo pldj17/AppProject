@@ -35,7 +35,7 @@ class UsersTableSeeder extends Seeder
         $admin->roles()->attach($adminRole);
         $user->roles()->attach($userRole);
 
-        factory(ProjectApp\User::class, 5)->create(); //crear usuarios automaticos
+        // factory(ProjectApp\User::class, 5)->create(); //crear usuarios automaticos
 
     }
 }

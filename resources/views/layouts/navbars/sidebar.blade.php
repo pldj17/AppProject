@@ -97,12 +97,12 @@
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('profile.index') }}">
-                                    {{ __('Perfil') }}
+                                    <i class="fas fa-user-circle text-pink"></i> {{ __('Perfil') }}
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('profile.edit') }}">
-                                    {{ __('Editar perfil') }}
+                                    <i class="fas fa-user-edit text-green"></i> {{ __('Editar perfil') }}
                                 </a>
                             </li>
                         </ul>
@@ -134,27 +134,31 @@
             <!-- Divider -->
             <hr class="my-3">
             <!-- Heading -->
-            <h6 class="navbar-heading text-muted">Documentation</h6>
+            @hasrole('admin')
+            <h6 class="navbar-heading text-muted">Administración</h6>
             <!-- Navigation -->
             <ul class="navbar-nav mb-md-3">
-                {{-- @hasrole('admin') --}}
+                @hasrole('admin')
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.users.index') }}">
-                        <i class="ni ni-palette"></i> Roles
+                    <a class="nav-link" href="{{ route('admin.role.index')}}">
+                        <i class="fas fa-user-shield"></i> Roles
                     </a>
                 </li>
-                {{-- @endhasrole --}}
+                @endhasrole
+                @hasrole('admin')
                 <li class="nav-item">                    
-                    <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html">
-                        <i class="ni ni-spaceship"></i> Getting started
+                    <a class="nav-link" href="{{ route('admin.users.index') }}">
+                        <i class="fas fa-user-lock"></i> Usuarios
                     </a>
                 </li>
+                @endhasrole
                 <li class="nav-item">
                     <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html">
                         <i class="ni ni-ui-04"></i> Components
                     </a>
                 </li>
             </ul>
+            @endhasrole
         </div>
     </div>
 </nav>
