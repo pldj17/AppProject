@@ -41,12 +41,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 // });
 
 Route::namespace('Admin')->prefix('admin')->middleware(['auth','auth.admin'])->name('admin.')->group(function(){
-    Route::resource('/users', 'UserController', ['except' => ['create', 'store']]);
+    Route::resource('users', 'UserController');
 });
 //administrar roles
 Route::namespace('Admin')->prefix('admin')->middleware(['auth','auth.admin'])->name('admin.')->group(function(){
-    Route::resource('/role', 'RoleController');
+    Route::resource('role', 'RoleController');
 });
 
+// Route::resource('role', 'RoleController');
 
 

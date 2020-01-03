@@ -7,13 +7,24 @@ use ProjectApp\Http\Controllers\Controller;
 use ProjectApp\role;
 use ProjectApp\user;
 use Illuminate\Support\Facades\Auth;
+use DB;
 
 class RoleController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.role.index')->with('roles',Role::paginate(5));
+
+        if($request){
+            
+            $sql=trim($request->get('buscarTexto'));
+            $roles=DB::table('roles')->where('name','LIKE','%'.$sql.'%')
+            ->orderBy('id','desc')
+            ->paginate(3);
+
+            return view('admin.role.index',["roles"=>$roles,"buscarTexto"=>$sql]);
+        }
+
     }
 
     public function edit($id)
@@ -35,23 +46,29 @@ class RoleController extends Controller
         
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        $data = request()->validate([
-            'name' => 'required',
-            'email' => ['required', 'email', 'unique:users,email'],
-            'password' => 'required',
-        ], [
-            'name.required' => 'El campo nombre es obligatorio'
-        ]);
+        $roles= new Role();
+        $roles->name= $request->name;
+        $roles->description= $request->description;
+        $roles->save();
+        return Redirect::to("roles");
 
-        User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password'])
-        ]);
+        // $data = request()->validate([
+        //     'name' => 'required',
+        //     'email' => ['required', 'email', 'unique:users,email'],
+        //     'password' => 'required',
+        // ], [
+        //     'name.required' => 'El campo nombre es obligatorio'
+        // ]);
 
-        return redirect()->route('role.index');
+        // User::create([
+        //     'name' => $data['name'],
+        //     'email' => $data['email'],
+        //     'password' => bcrypt($data['password'])
+        // ]);
+
+        // return redirect()->route('role.index');
     }
 
     public function update(Request $request, $id)

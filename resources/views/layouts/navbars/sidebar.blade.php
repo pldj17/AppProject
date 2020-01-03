@@ -139,24 +139,28 @@
             <!-- Navigation -->
             <ul class="navbar-nav mb-md-3">
                 @hasrole('admin')
+                <li class="nav-item">                    
+                    <a class="nav-link" href="{{ route('admin.users.index') }}">
+                        <i class="fas fa-user"></i> Usuarios
+                    </a>
+                </li>
+                @endhasrole
+
+                @hasrole('admin')
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin.role.index')}}">
                         <i class="fas fa-user-shield"></i> Roles
                     </a>
                 </li>
                 @endhasrole
+
                 @hasrole('admin')
-                <li class="nav-item">                    
-                    <a class="nav-link" href="{{ route('admin.users.index') }}">
-                        <i class="fas fa-user-lock"></i> Usuarios
+                <li class="nav-item">
+                    <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html">
+                        <i class="fas fa-user-lock"></i> Permisos
                     </a>
                 </li>
                 @endhasrole
-                <li class="nav-item">
-                    <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html">
-                        <i class="ni ni-ui-04"></i> Components
-                    </a>
-                </li>
             </ul>
             @endhasrole
         </div>
