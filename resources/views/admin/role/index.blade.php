@@ -1,5 +1,9 @@
 @extends('layouts.app', ['title' => __('User Profile')])
 
+@section('titulo')
+    Roles
+@endsection
+
 @section('content')
     @include('users.partials.header1')   
 {{-- <div class="container-fluid mt--7">

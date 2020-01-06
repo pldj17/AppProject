@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('titulo')
+    Ajustes
+@endsection
+
 @section('content')
     @include('users.partials.header')
 

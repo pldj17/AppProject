@@ -49,5 +49,12 @@ Route::namespace('Admin')->prefix('admin')->middleware(['auth','auth.admin'])->n
 });
 
 // Route::resource('role', 'RoleController');
+Route::namespace('Admin')->prefix('admin')->middleware(['auth','auth.admin'])->name('admin.')->group(function(){
+    Route::resource('permiso', 'PermissionController');
+});
+
+// Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function(){
+//     Route::get('permiso', 'PermissionController@index')->name('permiso');
+// });
 
 

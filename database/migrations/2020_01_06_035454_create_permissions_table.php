@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRolesTable extends Migration
+class CreatePermissionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('permissions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name',30)->unique();
-            $table->string('description',100)->nullable();
+            $table->string('name', 50);
+            $table->string('slug', 50);
             $table->timestamps();
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_spanish_ci';
@@ -30,6 +30,6 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('permissions');
     }
 }

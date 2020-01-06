@@ -8,6 +8,7 @@ use ProjectApp\role;
 use ProjectApp\user;
 use Illuminate\Support\Facades\Auth;
 use DB;
+use ProjectApp\Http\Controllers\Redirect;
 
 class RoleController extends Controller
 {
@@ -52,7 +53,7 @@ class RoleController extends Controller
         $roles->name= $request->name;
         $roles->description= $request->description;
         $roles->save();
-        return Redirect::to("roles");
+        return view('admin.role.index');
 
         // $data = request()->validate([
         //     'name' => 'required',
