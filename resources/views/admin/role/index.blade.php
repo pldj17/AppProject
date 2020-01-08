@@ -6,54 +6,13 @@
 
 @section('content')
     @include('users.partials.header1')   
-{{-- <div class="container-fluid mt--7">
-    <div class="container">
-        <div class="class row justify-content-center">
-            <div class="class col-md-12">
-                <div class="class card">
-                    <div class="class card-header">Roles de usuarios</div>
-                    <div class="class card-body">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th scope="col">Rol</th>
-                                <th scope="col">Acciones</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($roles as $role)
-                                <tr>
-                                    <th>{{ $role->name}}</th>              
-                                    <th>
-                                        <a href="#" class="float-left">
-                                            <button type="button" class="btn btn-primary btn-sm">
-                                                <i class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i>
-                                            </button>
-                                        </a>
-                                        <form action="#" method="POST">
-                                            @csrf
-                                            {{ method_field('DELETE') }}
-                                            <button type="sumit" class="btn btn-danger btn-sm">
-                                                <i class="fas fa-trash-alt" data-toggle="tooltip" title="Eliminar"></i>
-                                            </button>
-                                        </form>
-                                    </th>                                 
-                                </tr>                                
-                            @endforeach
-                            </tbody>
-                        </table>
-                        {{ $users->links() }}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
+
 
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
+                @include('includes.mensaje')
                 <div class="card-header">
                     <h2>Roles</h2>
                     <div class="form-group row">
@@ -85,47 +44,39 @@
                     <table id="users-datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
 
                         <thead>
-
                             <tr>
                                 <th>Nombre</th>
                                 <th>Descripción</th>
-                                <th>Acciones</th>
+                                <th class="width70">Acciones</th>
                             </tr>
-
                         </thead>
                         <tbody>
-
-                            @foreach($roles as $role)
-                                <tr>
-                                    <td>{{$role->name}}</td>
-                                    <td>{{$role->description}}</td>
-                                    <td>
-                                        <a href="#" class="float-left">
-                                            <button type="button" class="btn btn-primary btn-sm" style="margin-left:5px;">
-                                                <i class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i>
-                                            </button>
-                                        </a>
-                                        <form action="{{ route('admin.role.destroy', $role->id) }}" method="POST">
-                                            @csrf
-                                            {{ method_field('DELETE') }}
-                                            <button type="sumit" class="btn btn-danger btn-sm" style="margin-left:5px;">
-                                                <i class="fas fa-trash-alt" data-toggle="tooltip" title="Eliminar"></i>
-                                            </button>
-                                        </form>
-                                        
-                                    </td>
-                                </tr>
+                            @foreach ($roles as $role)
+                            <tr>
+                                <td>{{$role->name}}</td>
+                                <td>{{$role->description}}</td>
+                                <td>
+                                    <a href="{{route('editar_rol', ['id' => $role->id])}}" class="btn-accion-tabla tooltips" title="Editar este registro">
+                                        <i class="fa fa-fw fa-pencil-alt"></i>
+                                    </a>
+                                    <form action="{{route('eliminar_rol', ['id' => $role->id])}}" class="d-inline form-eliminar" method="POST">
+                                        @csrf @method("delete")
+                                        <button type="submit" class="btn-accion-tabla eliminar tooltips" title="Eliminar este registro">
+                                            <i class="fa fa-fw fa-trash text-danger"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
                             @endforeach
-        
+    
                         </tbody>
 
                     </table>
-
+                   
                 </div>
 
             </div>
-
-            <div  style="margin-top:2%;">
+            <div style="float:right;">
                 {{$roles->render()}}
             </div>
         </div>
@@ -143,14 +94,11 @@
                         </div>
                    
                     <div class="modal-body">
-                         
-
-                        <form action="{{route('admin.role.store')}}" method="post" class="form-horizontal">
-                           
-                            {{csrf_field()}}
-                            
-                            @include('admin.role.form')
-
+                         <form action="{{route('guardar_rol')}}" id="form-general" class="form-horizontal" method="POST" autocomplete="off">
+                            @csrf
+                            <div class="box-body">
+                                @include('admin.role.form')
+                            </div>
                         </form>
                     </div>
                     

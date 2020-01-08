@@ -5,36 +5,24 @@ namespace ProjectApp\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use ProjectApp\Http\Controllers\Controller;
 use ProjectApp\role;
-use ProjectApp\Http\Request\ValidacionRol;
-use ProjectApp\user;
-use Illuminate\Support\Facades\Auth;
-use DB;
-use ProjectApp\Http\Controllers\Redirect;
+use ProjectApp\Http\Requests\ValidacionRol;
 
 class RoleController extends Controller
 {
 
-    public function index(Request $request)
+    public function index()
     {
-        if($request){
-            
-            $sql=trim($request->get('buscarTexto'));
-            $roles=DB::table('roles')->where('name','LIKE','%'.$sql.'%')
-            ->orderBy('id','desc')
-            ->paginate(3);
+        return view('admin.role.index')->with('roles',role::paginate(5)); 
 
-            return view('admin.role.index',["roles"=>$roles,"buscarTexto"=>$sql]);
-        }
+        // $datas = Role::orderBy('id')->get();
+        // return view('admin.role.index', compact('datas'));
 
     }
 
     public function edit($id)
     {
-        if(Auth::user()->id == $id){
-            return redirect()->route('admin.role.index')->with('warning', 'No tienes los permisos necesarios para realizar esta acción');
-            
-        }
-        return view('admin.role.edit')->with(['role'=> Role::find($id), 'user' => User::all()]);
+        $data = Role::findOrFail($id);  //findOrFail si no encuentra un registro manda el 404 a diferencia de find
+        return view('admin.role.edit', compact('data'));
     }
 
     public function create()
@@ -42,52 +30,28 @@ class RoleController extends Controller
         return view('admin.role.create');
     }
 
-    public function show()
-    {
-        
-    }
-
     public function store(ValidacionRol $request)
     {
-
-        $roles= new Role();
-        $roles->name= $request->name;
-        $roles->description= $request->description;
-        $roles->save();
-        return view('admin.role.index');
-
-        $data = request()->validate([
-            'name' => 'required',
-            'email' => ['required', 'email', 'unique:users,email'],
-            'password' => 'required',
-        ], [
-            'name.required' => 'El campo nombre es obligatorio'
-        ]);
-
-        User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password'])
-        ]);
-
-        return redirect()->route('role.index');
+        Role::create($request->all());
+        return redirect('admin/role')->with('mensaje', 'Rol creado con exito');
     }
 
-    public function update(Request $request, $id)
+    public function update(ValidacionRol $request, $id)
     {
-        //
+        Role::findOrFail($id)->update($request->all());
+        return redirect('admin/role')->with('mensaje', 'Rol actualizado con exito');
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        if(Auth::user()->id == $id){
-            return redirect()->route('admin.role.index')->with('warning', 'No tienes los permisos necesarios para realizar esta acción');
+        if ($request->ajax()) {
+            if (Role::destroy($id)) {
+                return response()->json(['mensaje' => 'ok']);
+            } else {
+                return response()->json(['mensaje' => 'ng']);
+            }
+        } else {
+            abort(404);
         }
-
-        // eliminar relacion en tabla role_user al eliminar usuario
-        $role = Role::find($id);
-
-        $role->delete();
-        return redirect()->route('admin.role.index')->with('success','El usuario ha sido eliminado con éxito'); 
     }
 }

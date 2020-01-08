@@ -2,3 +2,11 @@ label.requerido:after{
     content: '*';
     color: red;
 }
+.btn-accion-tabla{
+    cursor: pointer;
+    border: none;
+    background: 0;
+    padding: 0 0 0 5px;
+    font-size: 14px !important;
+    line-height: 1.5;
+}

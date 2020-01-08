@@ -64,6 +64,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function(){
     Route::get('menu/crear', 'MenuController@create')->name('crear_menu');
     Route::post('menu', 'MenuController@store')->name('guardar_menu');
     Route::post('menu/guardar-orden', 'MenuController@guardarOrden')->name('guardar_orden');
+
+    // Rutas rol
+    Route::get('rol', 'RoleController@index')->name('rol');
+    Route::get('rol/crear', 'RoleController@create')->name('crear_rol');
+    Route::post('rol', 'RoleController@store')->name('guardar_rol');
+    Route::get('rol/{id}/editar', 'RoleController@edit')->name('editar_rol');
+    Route::put('rol/{id}', 'RoleController@update')->name('actualizar_rol');
+    Route::delete('rol/{id}', 'RoleController@destroy')->name('eliminar_rol');
 });
 
 
