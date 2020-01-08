@@ -20,6 +20,8 @@
         {{-- <link href="{{ asset('vendor/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet"> --}}
         <!-- Argon CSS -->
         <link type="text/css" href="{{ asset('css/argon.css?v=1.0.0') }}" rel="stylesheet">
+
+        @yield("styles")
         
         <link type="text/css" href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
 
@@ -109,7 +111,7 @@
         <script>var url = "{{ route('avatar') }}";</script>
         <script src="{{ asset ('photo/js.js') }}"></script>
         <script src="https://ajax.cloudflare.com/cdn-cgi/scripts/95c75768/cloudflare-static/rocket-loader.min.js" data-cf-settings="ea8a63b81a35e8970c2c9439-|49" defer=""></script>
-    
+        @yield("scriptsPlugins")
         <script src="{{asset("assets/js/jquery-validation/jquery.validate.min.js")}}"></script>
         <script src="{{asset("assets/js/jquery-validation/localization/messages_es.min.js")}}"></script>
         <script src="{{asset("assets/js/funciones.js")}}"></script>

@@ -164,7 +164,7 @@
 
                 @hasrole('admin')
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.menu.create')}}">
+                    <a class="nav-link" href="{{ route('menu')}}">
                         <i class="fas fa-user-lock"></i> Menús
                     </a>
                 </li>

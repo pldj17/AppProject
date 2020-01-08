@@ -13,7 +13,8 @@ class MenuController extends Controller
 
     public function index()
     {
-        
+        $menus = Menu::getMenu();
+        return view('admin.menu.index', compact('menus'));
     }
 
     public function create()
@@ -27,23 +28,32 @@ class MenuController extends Controller
         return redirect('admin/menu/create')->with('mensaje', 'Menú creado con exito');
     }
 
-    public function show($id)
-    {
-        
-    }
-
     public function edit($id)
     {
-    
+        $data = Menu::findOrFail($id);
+        return view('admin.menu.editar', compact('data'));
     }
 
-    public function update(Request $request, $id)
+    public function update(ValidacionMenu $request, $id)
     {
-        
+        Menu::findOrFail($id)->update($request->all());
+        return redirect('admin/menu')->with('mensaje', 'Menú actualizado con exito');
     }
 
     public function destroy($id)
     {
-        
+        Menu::destroy($id);
+        return redirect('admin/menu')->with('mensaje', 'Menú eliminado con exito');
+    }
+
+    public function guardarOrden(Request $request)
+    {
+        if ($request->ajax()) {
+            $menu = new Menu;
+            $menu->guardarOrden($request->menu);
+            return response()->json(['respuesta' => 'ok']);
+        } else {
+            abort(404);
+        }
     }
 }

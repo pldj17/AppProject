@@ -58,7 +58,12 @@ Route::namespace('Admin')->prefix('admin')->middleware(['auth','auth.admin'])->n
 });
 
 Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function(){
+    
+    // Rutas menu
+    Route::get('menu', 'MenuController@index')->name('menu');
+    Route::get('menu/crear', 'MenuController@create')->name('crear_menu');
     Route::post('menu', 'MenuController@store')->name('guardar_menu');
+    Route::post('menu/guardar-orden', 'MenuController@guardarOrden')->name('guardar_orden');
 });
 
 

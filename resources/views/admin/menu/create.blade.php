@@ -24,7 +24,7 @@
                     
                     <div class="col-sm-8" style="margin-left:auto; margin-right:auto;">
                         <div class="card-body">
-                            <form action="{{route('guardar_menu')}}" id="form-general" method="POST" >
+                            <form action="{{route('guardar_menu')}}" id="form-general" method="POST" autocomplete="off">
                                 @csrf
                                 <div class="box-body">
                                     @include('admin.menu.form')
