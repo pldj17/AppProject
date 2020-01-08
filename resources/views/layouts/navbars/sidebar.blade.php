@@ -161,6 +161,14 @@
                     </a>
                 </li>
                 @endhasrole
+
+                @hasrole('admin')
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin.menu.create')}}">
+                        <i class="fas fa-user-lock"></i> Menús
+                    </a>
+                </li>
+                @endhasrole
             </ul>
             @endhasrole
         </div>

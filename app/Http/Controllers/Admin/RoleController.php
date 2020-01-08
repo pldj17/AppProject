@@ -5,6 +5,7 @@ namespace ProjectApp\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use ProjectApp\Http\Controllers\Controller;
 use ProjectApp\role;
+use ProjectApp\Http\Request\ValidacionRol;
 use ProjectApp\user;
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -16,25 +17,28 @@ class RoleController extends Controller
     public function index(Request $request)
     {
 
-        if($request){
-            
-            $sql=trim($request->get('buscarTexto'));
-            $roles=DB::table('roles')->where('name','LIKE','%'.$sql.'%')
-            ->orderBy('id','desc')
-            ->paginate(3);
+        $datas = role::orderBy('id')->get();
+        return view('admin.rol.index', compact('datas'));
 
-            return view('admin.role.index',["roles"=>$roles,"buscarTexto"=>$sql]);
-        }
+        // if($request){
+            
+        //     $sql=trim($request->get('buscarTexto'));
+        //     $roles=DB::table('roles')->where('name','LIKE','%'.$sql.'%')
+        //     ->orderBy('id','desc')
+        //     ->paginate(3);
+
+        //     return view('admin.role.index',["roles"=>$roles,"buscarTexto"=>$sql]);
+        // }
 
     }
 
     public function edit($id)
     {
-        if(Auth::user()->id == $id){
-            return redirect()->route('admin.role.index')->with('warning', 'No tienes los permisos necesarios para realizar esta acción');
+        // if(Auth::user()->id == $id){
+        //     return redirect()->route('admin.role.index')->with('warning', 'No tienes los permisos necesarios para realizar esta acción');
             
-        }
-        return view('admin.role.edit')->with(['role'=> Role::find($id), 'user' => User::all()]);
+        // }
+        // return view('admin.role.edit')->with(['role'=> Role::find($id), 'user' => User::all()]);
     }
 
     public function create()
@@ -47,13 +51,16 @@ class RoleController extends Controller
         
     }
 
-    public function store(Request $request)
+    public function store(ValidacionRol $request)
     {
-        $roles= new Role();
-        $roles->name= $request->name;
-        $roles->description= $request->description;
-        $roles->save();
-        return view('admin.role.index');
+        role::create($request->all());
+        return redirect('admin/rol')->with('mensaje', 'Rol creado con exito');
+
+        // $roles= new Role();
+        // $roles->name= $request->name;
+        // $roles->description= $request->description;
+        // $roles->save();
+        // return view('admin.role.index');
 
         // $data = request()->validate([
         //     'name' => 'required',
