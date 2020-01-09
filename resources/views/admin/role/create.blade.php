@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => __('User Profile')])
+{{-- @extends('layouts.app', ['title' => __('User Profile')])
 
 @section('titulo')
     Roles
@@ -25,13 +25,11 @@
                     @include('admin.role.form')
                 </div>
                 <div class="box-footer">
-                    <div class="col-lg-3"></div>
-                    <div class="col-lg-6">
                         @include('includes.boton-form-crear')
-                    </div>
+                    
                 </div>
             </form>
         </div>
     </div>
 </div>
-@endsection
+@endsection --}}

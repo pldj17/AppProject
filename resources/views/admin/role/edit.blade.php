@@ -1,31 +1,38 @@
-{{-- @extends('layouts.app', ['title' => __('User Profile')])
+@extends('layouts.app', ['title' => __('User Profile')])
+
+@section('titulo')
+    Roles
+@endsection
 
 @section('content')
-    @include('users.partials.header1', [
-        'title' => auth()->user()->name
-    ]) 
-<div class="container-fluid mt--7">
-    <div class="container">
-        <div class="class row justify-content-center">
-            <div class="class col-md-12">
-                <div class="class card">
-                    <div class="class card-header">Rol {{$user->name}}</div>
+    @include('users.partials.header1')   
 
-                    <div class="class card-body">
-                        <form action="{{ route('admin.users.update', ['user'=>$user->id]) }}" method="POST">
-                            @csrf
-                            {{ method_field('PUT') }}
-                            @foreach ($roles as $role)
-                                <div class="class form-check">
-                                    <input type="checkbox" name="roles[]" value="{{ $role->id }}"
-                                        {{ $user->hasAnyRole($role->name)?'checked':'' }}>
-                                    <label>{{ $role->name}}</label>
+@section("scripts")
+    <script src="{{asset("assets/pages/scripts/admin/crear.js")}}" type="text/javascript"></script>
+@endsection    
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                   @include('includes.form-error')
+                    @include('includes.mensaje')
+                    <div class="card-header">
+                        <h2>Roles</h2>                          
+                        <div class="class container" style="margin-top: 3%;">
+                            <form action="{{route('actualizar_rol', ['id' => $data->id])}}" id="form-general" class="form-horizontal" method="POST" autocomplete="off">
+                                @csrf @method("put")
+                                <div class="box-body">
+                                    @include('admin.role.form')
                                 </div>
-                            @endforeach
-                            <button type="submit" class="btn btn-primary">
-                                Actualizar
-                            </button>
-                        </form>
+                                <div class="box-footer">
+                                    <div class="col-lg-3"></div>
+                                    <div class="col-lg-6">
+                                        @include('includes.boton-form-editar')
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -33,4 +40,4 @@
     </div>
 </div>
     
-@endsection --}}
+@endsection

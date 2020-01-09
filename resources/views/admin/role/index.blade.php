@@ -7,6 +7,10 @@
 @section('content')
     @include('users.partials.header1')   
 
+@section("scripts")
+    <script src="{{asset("assets/pages/scripts/admin/crear.js")}}" type="text/javascript"></script>
+    <script src="{{asset("assets/pages/scripts/admin/index.js")}}" type="text/javascript"></script>
+@endsection
 
 <div class="container">
     <div class="row">
@@ -41,7 +45,7 @@
                 </div>
                 
                 <div class="table-responsive">
-                    <table id="users-datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <table id="tabla-data" class="table table-striped table-bordered" cellspacing="0" width="100%">
 
                         <thead>
                             <tr>
@@ -56,12 +60,12 @@
                                 <td>{{$role->name}}</td>
                                 <td>{{$role->description}}</td>
                                 <td>
-                                    <a href="{{route('editar_rol', ['id' => $role->id])}}" class="btn-accion-tabla tooltips" title="Editar este registro">
+                                    <a href="{{route('editar_rol', ['id' => $role->id])}}" class="btn-accion-tabla" data-toggle="tooltip" data-placement="bottom" title="Editar este registro">
                                         <i class="fa fa-fw fa-pencil-alt"></i>
                                     </a>
                                     <form action="{{route('eliminar_rol', ['id' => $role->id])}}" class="d-inline form-eliminar" method="POST">
                                         @csrf @method("delete")
-                                        <button type="submit" class="btn-accion-tabla eliminar tooltips" title="Eliminar este registro">
+                                        <button type="submit" class="btn-accion-tabla eliminar" data-toggle="tooltip" data-placement="bottom" title="Eliminar este registro">
                                             <i class="fa fa-fw fa-trash text-danger"></i>
                                         </button>
                                     </form>
@@ -98,6 +102,9 @@
                             @csrf
                             <div class="box-body">
                                 @include('admin.role.form')
+                            </div>
+                            <div class="box-footer">
+                                    @include('includes.boton-form-crear')
                             </div>
                         </form>
                     </div>

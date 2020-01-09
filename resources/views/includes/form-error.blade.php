@@ -1,5 +1,5 @@
 @if ($errors->any())
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" data-auto-dismiss="3000">
         <span class="alert-inner--icon"><i class="fa fa-exclamation-triangle"></i></span>
         <span class="alert-inner--text"><strong>  &nbsp;&nbsp;Alerta!</strong>!</span>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">

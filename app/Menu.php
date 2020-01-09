@@ -3,6 +3,7 @@
 namespace ProjectApp;
 
 use Illuminate\Database\Eloquent\Model;
+use ProjectApp\role;
 
 class Menu extends Model
 {
@@ -12,7 +13,7 @@ class Menu extends Model
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class, 'menu_rol');
+        return $this->belongsToMany(role::class, 'menu_role');
     }
 
     public function getHijos($padres, $line)

@@ -4,15 +4,15 @@ namespace ProjectApp\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use ProjectApp\Http\Controllers\Controller;
-use ProjectApp\role;
 use ProjectApp\Http\Requests\ValidacionRol;
+use ProjectApp\role;
 
 class RoleController extends Controller
 {
 
     public function index()
     {
-        return view('admin.role.index')->with('roles',role::paginate(5)); 
+        return view('admin.role.index')->with('roles',role::paginate(4)); 
 
         // $datas = Role::orderBy('id')->get();
         // return view('admin.role.index', compact('datas'));

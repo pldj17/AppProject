@@ -23,20 +23,22 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h2>Menús</h2>
-                    </div>
-                    <div class="table-responsive">
-                        @csrf
-                        <div class="dd" id="nestable">
-                            <ol class="dd-list">
-                                @foreach ($menus as $key => $item)
-                                    @if ($item["menu_id"] != 0)
-                                        @break
-                                    @endif
-                                    @include("admin.menu.menu-item",["item" => $item])
-                                @endforeach
-                            </ol>
+                    <div class="container" >
+                        <div class="card-header">
+                            <h2>Menús</h2>
+                        </div>
+                        <div class="table-responsive">
+                            @csrf
+                            <div class="dd" id="nestable">
+                                <ol class="dd-list">
+                                    @foreach ($menus as $key => $item)
+                                        @if ($item["menu_id"] != 0)
+                                            @break
+                                        @endif
+                                        @include("admin.menu.menu-item",["item" => $item])
+                                    @endforeach
+                                </ol>
+                            </div>
                         </div>
                     </div>
                 </div>
