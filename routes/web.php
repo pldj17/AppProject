@@ -75,7 +75,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function(){
 
     // Rutas menu-rol
     Route::get('menu-rol', 'MenuRolController@index')->name('menu_rol');
-    // Route::get('menu-role', 'MenuRolController@store')->name('menu_rol');
     Route::post('menu-rol', 'MenuRolController@store')->name('guardar_menu_rol');
 });
 
