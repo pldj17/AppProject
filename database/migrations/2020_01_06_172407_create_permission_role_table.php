@@ -14,10 +14,17 @@ class CreatePermissionRoleTable extends Migration
     public function up()
     {
         Schema::create('permission_role', function (Blueprint $table) {
-            $table->unsignedInteger('role_id');
-            $table->foreign('role_id', 'fk_permissionrole_role')->references('id')->on('roles')->onDelete('restrict')->onUpdate('restrict');
-            $table->unsignedInteger('permission_id');
-            $table->foreign('permission_id', 'fk_permissionrole_permission')->references('id')->on('permission')->onDelete('restrict')->onUpdate('restrict');
+            // $table->unsignedInteger('role_id');
+            // $table->foreign('role_id', 'fk_permissionrole_role')->references('id')->on('roles')->onDelete('restrict')->onUpdate('restrict');
+            // $table->unsignedInteger('permission_id');
+            // $table->foreign('permission_id', 'fk_permissionrole_permission')->references('id')->on('permission')->onDelete('restrict')->onUpdate('restrict');
+            
+            $table->bigInteger('role_id')->unsigned()->index(); // this is working
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('restrict')->onUpdate('restrict');
+
+            $table->bigInteger('permission_id')->unsigned()->index(); // this is working
+            $table->foreign('permission_id')->references('id')->on('permissions')->onDelete('restrict')->onUpdate('restrict');
+            
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_spanish_ci';
         });

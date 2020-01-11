@@ -93,7 +93,7 @@
                         <span class="nav-link-text" style="color: #f4645f;">{{ auth()->user()->name }}</span>
                     </a>
 
-                    <div class="collapse show" id="navbar-examples">
+                    <div class="collapse" id="navbar-examples">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('profile.index') }}">
@@ -148,7 +148,7 @@
 
                 @hasrole('admin')
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.role.index')}}">
+                    <a class="nav-link" href="{{ route('rol')}}">
                         <i class="fas fa-user-shield"></i> Roles
                     </a>
                 </li>

@@ -12,10 +12,22 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        Role::truncate();
 
-        Role::create(['name' => 'admin', 'description' => 'Rol de admin para uso de la aplicación']);
+        $rols = [
+            'admin',
+            'user',
+            'invitado'
+        ];
+        foreach($rols as $key => $value){
+            Role::create([
+                'name' => $value
+            ]);
+        }
 
-        Role::create(['name' => 'user', 'description' => 'Rol de user para uso de la aplicación']);
+        // Role::truncate();
+
+        // Role::create(['name' => 'admin', 'description' => 'Rol de admin para uso de la aplicación']);
+
+        // Role::create(['name' => 'user', 'description' => 'Rol de user para uso de la aplicación']);
     }
 }

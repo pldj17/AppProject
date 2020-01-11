@@ -25,7 +25,7 @@ class MenuController extends Controller
     public function store(ValidacionMenu $request)
     {
         Menu::create($request->all());
-        return redirect('admin/menu/create')->with('mensaje', 'Menú creado con exito');
+        return redirect('admin/menu/crear')->with('mensaje', 'Menú creado con exito');
     }
 
     public function edit($id)

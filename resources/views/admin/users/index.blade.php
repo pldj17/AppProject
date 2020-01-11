@@ -60,6 +60,8 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
+            @include('includes.form-error')
+            @include('includes.mensaje')
             <div class="card">
                 <div class="card-header">
                     <h2>Usuarios</h2>

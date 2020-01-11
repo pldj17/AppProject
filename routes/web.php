@@ -44,18 +44,18 @@ Route::namespace('Admin')->prefix('admin')->middleware(['auth','auth.admin'])->n
     Route::resource('users', 'UserController');
 });
 //administrar roles
-Route::namespace('Admin')->prefix('admin')->middleware(['auth','auth.admin'])->name('admin.')->group(function(){
-    Route::resource('role', 'RoleController');
-});
+// Route::namespace('Admin')->prefix('admin')->middleware(['auth','auth.admin'])->name('admin.')->group(function(){
+//     Route::resource('role', 'RoleController');
+// });
 
 // Route::resource('role', 'RoleController');
 Route::namespace('Admin')->prefix('admin')->middleware(['auth','auth.admin'])->name('admin.')->group(function(){
     Route::resource('permiso', 'PermissionController');
 });
 
-Route::namespace('Admin')->prefix('admin')->middleware(['auth','auth.admin'])->name('admin.')->group(function(){
-    Route::resource('menu', 'MenuController');
-});
+// Route::namespace('Admin')->prefix('admin')->middleware(['auth','auth.admin'])->name('admin.')->group(function(){
+//     Route::resource('menu', 'MenuController');
+// });
 
 Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function(){
     

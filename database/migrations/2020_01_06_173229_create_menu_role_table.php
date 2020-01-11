@@ -14,10 +14,17 @@ class CreateMenuRoleTable extends Migration
     public function up()
     {
         Schema::create('menu_role', function (Blueprint $table) {
-            $table->unsignedInteger('role_id');
-            $table->foreign('role_id', 'fk_menurole_role')->references('id')->on('roles')->onDelete('restrict')->onUpdate('restrict');
-            $table->unsignedInteger('menu_id');
-            $table->foreign('menu_id', 'fk_menurole_menu')->references('id')->on('menus')->onDelete('restrict')->onUpdate('restrict');
+            // $table->unsignedInteger('role_id');
+            // $table->foreign('role_id', 'fk_menurole_role')->references('id')->on('roles')->onDelete('restrict')->onUpdate('restrict');
+            // $table->unsignedInteger('menu_id');
+            // $table->foreign('menu_id', 'fk_menurole_menu')->references('id')->on('menus')->onDelete('restrict')->onUpdate('restrict');
+            
+            $table->bigInteger('role_id')->unsigned()->index(); // this is working
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('restrict')->onUpdate('restrict');
+
+            $table->bigInteger('menu_id')->unsigned()->index(); // this is working
+            $table->foreign('menu_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('restrict');
+
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_spanish_ci';
         });

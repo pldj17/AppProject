@@ -33,13 +33,13 @@ class RoleController extends Controller
     public function store(ValidacionRol $request)
     {
         Role::create($request->all());
-        return redirect('admin/role')->with('mensaje', 'Rol creado con exito');
+        return redirect('admin/rol')->with('mensaje', 'Rol creado con exito');
     }
 
     public function update(ValidacionRol $request, $id)
     {
         Role::findOrFail($id)->update($request->all());
-        return redirect('admin/role')->with('mensaje', 'Rol actualizado con exito');
+        return redirect('admin/rol')->with('mensaje', 'Rol actualizado con exito');
     }
 
     public function destroy(Request $request, $id)
