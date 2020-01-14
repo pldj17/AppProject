@@ -10,8 +10,8 @@ class Permission extends Model
     protected $fillable = ['name', 'slug'];
     protected $guarded = ['id'];
 
-    // public function roles()
-    // {
-    //     return $this->belongsToMany(Rol::class, 'permiso_rol', 'permiso_id', 'rol_id');
-    // }
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
 }

@@ -26,7 +26,7 @@ class CreateRoleUserTable extends Migration
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('restrict')->onUpdate('restrict');
 
             $table->bigInteger('user_id')->unsigned()->index(); // this is working
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('restrict');
 
             $table->timestamps();
             $table->charset = 'utf8mb4';

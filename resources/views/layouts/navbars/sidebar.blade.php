@@ -149,23 +149,23 @@
                 @hasrole('admin')
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('rol')}}">
-                        <i class="fas fa-user-shield"></i> Roles
+                        <i class="fas fa-user-lock"></i> Roles
                     </a>
                 </li>
                 @endhasrole
 
                 @hasrole('admin')
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.permiso.index')}}">
-                        <i class="fas fa-user-lock"></i> Permisos
+                    <a class="nav-link" href="{{ route('permiso')}}">
+                        <i class="fas fa-user-shield"></i> Permisos
                     </a>
                 </li>
                 @endhasrole
 
                 @hasrole('admin')
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('menu')}}">
-                        <i class="fas fa-user-lock"></i> Menús
+                    <a class="nav-link" href="{{ route('permiso_rol')}}">
+                        <i class="fas fa-user-lock"></i> Permiso-rol
                     </a>
                 </li>
                 @endhasrole

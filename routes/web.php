@@ -49,16 +49,32 @@ Route::namespace('Admin')->prefix('admin')->middleware(['auth','auth.admin'])->n
 // });
 
 // Route::resource('role', 'RoleController');
-Route::namespace('Admin')->prefix('admin')->middleware(['auth','auth.admin'])->name('admin.')->group(function(){
-    Route::resource('permiso', 'PermissionController');
-});
+// Route::namespace('Admin')->prefix('admin')->middleware(['auth','auth.admin'])->name('admin.')->group(function(){
+//     Route::resource('permiso', 'PermissionController');
+// });
 
 // Route::namespace('Admin')->prefix('admin')->middleware(['auth','auth.admin'])->name('admin.')->group(function(){
 //     Route::resource('menu', 'MenuController');
 // });
 
-Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function(){
+Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => 'auth'], function(){
     
+    // Rutas usuario
+    Route::get('usuario', 'UserController@index')->name('usuario');
+    Route::get('usuario/crear', 'UserController@create')->name('crear_usuario');
+    Route::post('usuario', 'UserController@store')->name('guardar_usuario');
+    Route::get('usuario/{id}/editar', 'UserController@edit')->name('editar_usuario');
+    Route::put('usuario/{id}', 'UserController@update')->name('actualizar_usuario');
+    Route::delete('usuario/{id}', 'UserController@destroy')->name('eliminar_usuario');
+
+    // Rutas permisos
+    Route::get('permiso', 'PermissionController@index')->name('permiso');
+    Route::get('permiso/crear', 'PermissionController@create')->name('crear_permiso');
+    Route::post('permiso', 'PermissionController@store')->name('guardar_permiso');
+    Route::get('permiso/{id}/editar', 'PermissionController@edit')->name('editar_permiso');
+    Route::put('permiso/{id}', 'PermissionController@update')->name('actualizar_permiso');
+    Route::delete('permiso/{id}', 'PermissionController@destroy')->name('eliminar_permiso');
+
     // Rutas menu
     Route::get('menu', 'MenuController@index')->name('menu');
     Route::get('menu/crear', 'MenuController@create')->name('crear_menu');
@@ -76,6 +92,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function(){
     // Rutas menu-rol
     Route::get('menu-rol', 'MenuRolController@index')->name('menu_rol');
     Route::post('menu-rol', 'MenuRolController@store')->name('guardar_menu_rol');
+
+    // Rutas permiso-rol
+    Route::get('permiso-rol', 'PermissionRoleController@index')->name('permiso_rol');
+    Route::post('permiso-rol', 'PermissionRoleController@store')->name('guardar_permiso_rol');
+
 });
 
 

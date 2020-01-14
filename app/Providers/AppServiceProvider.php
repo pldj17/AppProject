@@ -4,6 +4,8 @@ namespace ProjectApp\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\View;
+use ProjectApp\Menu;
 // use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,6 +28,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
+        // View::composer("layouts.navbars.sidebar", function ($view) {
+        //     $menus = Menu::getMenu(true);
+        //     $view->with('menusComposer', $menus);
+        // });
+        // View::share('layouts', 'navbars');
 
         // \Carbon::setLocale(config('app.locale'));
     }

@@ -5,9 +5,12 @@
 @endsection
 
 @section('content')
-    @include('users.partials.header1', [
-        'title' => auth()->user()->name
-    ])   
+    @include('users.partials.header1')   
+
+@section('script')
+    <script src="{{asset("assets/pages/scripts/admin/index.js")}}" type="text/javascript"></script>
+@endsection
+    
 {{-- <div class="container-fluid mt--7">
     <div class="container">
         <div class="class row justify-content-center">
@@ -80,7 +83,7 @@
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table id="users-datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <table id="tabla-data" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                         <tr>
                             <th>Nombre</th>
@@ -92,39 +95,22 @@
                         </thead>
 
                         <tbody>
-                            @foreach($users as $user)
+                            @foreach($users as $data)
                                 <tr>
-                                    <td>{{$user->name}}</td>
-                                    <td>{{$user->email}}</td>
-                                    <td>{{ implode(',', $user->roles()->get()->pluck('name')->toArray())}}</td>
-                                    <td>{{$user->created_at}}</td>
+                                    <td>{{$data->name}}</td>
+                                    <td>{{$data->email}}</td>
+                                    <td>{{ implode(',', $data->roles()->get()->pluck('name')->toArray())}}</td>
+                                    <td>{{$data->created_at}}</td>
                                     <td>
-                                        <div class="class row justify-content-center">
-                                            {{-- <form action="{{ route('admin.users.destroy', $user) }}" method="POST">
-                                                {{ csrf_field() }}
-                                                {{ method_field('DELETE') }}
-                                                <a href="{{ route('admin.users.show', $user) }}" class="btn btn-link"><span class="fa fa-eye"></span></a>
-                                                <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-link"><span class="fa fa-pencil-alt"></span></a>
-                                                <button type="submit" class="btn btn-link"><span class="fa fa-trash"></span></button>
-                                            </form> --}}
-                                            <a href="{{ route('admin.users.show', $user->id) }}" class="float-left">
-                                                <button type="button" class="btn btn-success btn-sm">
-                                                    <i class="fas fa-eye" data-toggle="tooltip" title="Ver perfil"></i>
-                                                </button>
-                                            </a>
-                                            <a href="{{ route('admin.users.edit', $user->id) }}" class="float-left">
-                                                <button type="button" class="btn btn-primary btn-sm" style="margin-left:5px;">
-                                                    <i class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i>
-                                                </button>
-                                            </a>
-                                            <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
-                                                @csrf
-                                                {{ method_field('DELETE') }}
-                                                <button type="sumit" class="btn btn-danger btn-sm" style="margin-left:5px;">
-                                                    <i class="fas fa-trash-alt" data-toggle="tooltip" title="Eliminar"></i>
-                                                </button>
-                                            </form>
-                                        </div>
+                                        <a href="{{route('editar_usuario', ['id' => $data->id])}}" class="btn-accion-tabla" data-toggle="tooltip" data-placement="bottom" title="Editar este registro">
+                                            <i class="fa fa-fw fa-pencil-alt"></i>
+                                        </a>
+                                        <form action="{{route('eliminar_usuario', ['id' => $data->id])}}" class="d-inline form-eliminar" method="POST">
+                                            @csrf @method("delete")
+                                            <button type="submit" class="btn-accion-tabla eliminar" data-toggle="tooltip" data-placement="bottom" title="Eliminar este registro">
+                                                <i class="fa fa-fw fa-trash text-danger"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -133,9 +119,9 @@
 
                     </table>
                 </div>
-                {{-- <div  style="margin-top:2%;">
-                    {{$roles->render()}}
-                </div> --}}
+            </div>
+            <div  style="float:right; margin-top:1%;">
+                {{$users->render()}}
             </div>
         </div>
 

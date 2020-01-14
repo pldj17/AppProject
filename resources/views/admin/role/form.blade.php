@@ -6,8 +6,8 @@
 </div>
 
 <div class="form-group">
-    <label for="description" class="col-lg-3 control-label requerido">Descripción</label>
+    <label for="description" class="col-lg-3 control-label">Descripción</label>
     <div class="col-lg-8">
-        <input type="text" name="description" id="description" class="form-control" value="{{old('description', $data->description ?? '')}}" required/>
+        <input type="text" name="description" id="description" class="form-control" value="{{old('description', $data->description ?? '')}}"/>
     </div>
 </div>

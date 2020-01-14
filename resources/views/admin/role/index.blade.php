@@ -10,12 +10,14 @@
 @section("scripts")
     <script src="{{asset("assets/pages/scripts/admin/crear.js")}}" type="text/javascript"></script>
     <script src="{{asset("assets/pages/scripts/admin/index.js")}}" type="text/javascript"></script>
+    <script src="{{asset("assets/pages/scripts/admin/role/js.js")}}" type="text/javascript"></script>
 @endsection
 
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
+                @include('includes.form-error')
                 @include('includes.mensaje')
                 <div class="card-header">
                     <h2>Roles</h2>
@@ -34,7 +36,7 @@
                             {{Form::close()}}
                         </div>
 
-                        <div style="float:initial;">
+                        <div>
                             <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#abrirmodal">
                                 <i class="fa fa-plus fa"></i>&nbsp;&nbsp;Agregar Rol
                             </button>
@@ -80,7 +82,7 @@
                 </div>
 
             </div>
-            <div style="float:right;">
+            <div style="float:right; margin-top:1%;">
                 {{$roles->render()}}
             </div>
         </div>
@@ -91,7 +93,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalCenterTitle">Agregar rol</h5>
+                        <h2 class="modal-title" id="exampleModalCenterTitle">Agregar rol</h2>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
