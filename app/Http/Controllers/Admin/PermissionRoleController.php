@@ -24,10 +24,10 @@ class PermissionRoleController extends Controller
         if ($request->ajax()) {
             $permisos = new Permission();
             if ($request->input('estado') == 1) {
-                $permisos->find($request->input('permission_id'))->roles()->attach($request->input('role_id'));
+                $permisos->find($request->input('permiso_id'))->roles()->attach($request->input('rol_id'));
                 return response()->json(['respuesta' => 'El rol se asigno correctamente']);
             } else {
-                $permisos->find($request->input('permission_id'))->roles()->detach($request->input('role_id'));
+                $permisos->find($request->input('permiso_id'))->roles()->detach($request->input('rol_id'));
                 return response()->json(['respuesta' => 'El rol se elimino correctamente']);
             }
         } else {

@@ -40,7 +40,7 @@ class PermissionController extends Controller
     public function store(ValidarPermiso $request)
     {
         Permission::create($request->all());
-        return redirect('admin/permiso/crear')->with('mensaje', 'Permiso creado con exito');
+        return redirect('admin/permiso')->with('mensaje', 'Permiso creado con exito');
     }
 
     /**

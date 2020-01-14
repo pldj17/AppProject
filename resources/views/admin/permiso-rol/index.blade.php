@@ -1,15 +1,19 @@
 @extends('layouts.app', ['title' => __('User Profile')])
 
 @section('titulo')
-    Permiso - rol
+    Menu-rol
 @endsection
 
 @section('content')
-    @include('users.partials.header1')   
+    @include('users.partials.header1', [
+        'title' => auth()->user()->name
+    ])
 
-@section('script')
+@section("scripts")
     <script src="{{asset("assets/pages/scripts/admin/permiso-rol/index.js")}}" type="text/javascript"></script>
 @endsection
+
+
 
 <div class="container">
     <div class="row">
@@ -33,40 +37,37 @@
                         </div>
                     </div>
                 </div>
-                <div class="table-responsive">
+                <div class="box-body">
                     @csrf
-                <table class="table table-striped table-bordered table-hover" id="tabla-data">
-                    <thead>
-                        <tr>
-                            <th>Permiso</th>
-                            @foreach ($rols as $id => $name)
-                            <th class="text-center">{{$name}}</th>
-                            @endforeach
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($permisos as $key => $permiso)
+                    <table class="table table-striped table-bordered table-hover" id="tabla-data">
+                        <thead>
                             <tr>
-                                <td class="font-weight-bold">{{$permiso["name"]}}</td>
-                                @foreach($rols as $id => $name)
-                                    <td class="text-center">
-                                        <input
-                                        type="checkbox"
-                                        class="permiso_rol"
-                                        name="permiso_rol[]"
-                                        data-permisoid={{$permiso[ "id"]}}
-                                        value="{{$id}}" {{in_array($id, array_column($permisosRols[$permiso["id"]], "id"))? "checked" : ""}}>
-                                    </td>
+                                <th>Permiso</th>
+                                @foreach ($rols as $id => $name)
+                                <th class="text-center">{{$name}}</th>
                                 @endforeach
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($permisos as $key => $permiso)
+                                <tr>
+                                    <td class="font-weight-bold">{{$permiso["name"]}}</td>
+                                    @foreach($rols as $id => $name)
+                                        <td class="text-center">
+                                            <input
+                                            type="checkbox"
+                                            class="permiso_rol"
+                                            name="permiso_rol[]"
+                                            data-permisoid={{$permiso[ "id"]}}
+                                            value="{{$id}}" {{in_array($id, array_column($permisosRols[$permiso["id"]], "id"))? "checked" : ""}}>
+                                        </td>
+                                    @endforeach
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            {{-- <div  style="float:right; margin-top:1%;">
-                {{$users->render()}}
-            </div> --}}
         </div>
 
     </div>

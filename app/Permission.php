@@ -3,6 +3,7 @@
 namespace ProjectApp;
 
 use Illuminate\Database\Eloquent\Model;
+use ProjectApp\role;
 
 class Permission extends Model
 {

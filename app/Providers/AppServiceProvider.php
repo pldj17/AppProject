@@ -29,11 +29,11 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
-        // View::composer("layouts.navbars.sidebar", function ($view) {
-        //     $menus = Menu::getMenu(true);
-        //     $view->with('menusComposer', $menus);
-        // });
-        // View::share('layouts', 'navbars');
+        View::composer("layouts.navbars.sidebar", function ($view) {
+            $menus = Menu::getMenu(true);
+            $view->with('menusComposer', $menus);
+        });
+        View::share('theme', 'public');
 
         // \Carbon::setLocale(config('app.locale'));
     }

@@ -5,6 +5,7 @@ namespace ProjectApp;
 use Illuminate\Database\Eloquent\Model;
 use ProjectApp\User;
 use ProjectApp\Menu;
+use ProjectApp\Permission;
 
 class role extends Model
 {
@@ -21,5 +22,10 @@ class role extends Model
     public function menus()
     {
         return $this->belongsToMany(Menu::class)->withTimestamps();
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class);
     }
 }

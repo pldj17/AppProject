@@ -23,7 +23,7 @@ class CreateMenuRoleTable extends Migration
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('restrict')->onUpdate('restrict');
 
             $table->bigInteger('menu_id')->unsigned()->index(); // this is working
-            $table->foreign('menu_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('restrict');
+            $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade')->onUpdate('restrict');
 
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_spanish_ci';

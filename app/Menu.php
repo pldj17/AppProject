@@ -13,7 +13,7 @@ class Menu extends Model
 
     public function roles()
     {
-        return $this->belongsToMany(role::class, 'menu_role');
+        return $this->belongsToMany(role::class);
     }
 
     public function getHijos($padres, $line)

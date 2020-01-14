@@ -1,3 +1,4 @@
+{{-- {{dd($menusComposer)}} --}}
 <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
         <!-- Toggler -->
@@ -82,54 +83,12 @@
             </form>
             <!-- Navigation -->
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('home') }}">
-                        <i class="ni ni-tv-2 text-primary"></i> {{ __('Inicio') }}
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
-                        <i class="ni ni-single-02" style="color: #f4645f;"></i>
-                        <span class="nav-link-text" style="color: #f4645f;">{{ auth()->user()->name }}</span>
-                    </a>
-
-                    <div class="collapse" id="navbar-examples">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('profile.index') }}">
-                                    <i class="fas fa-user-circle text-pink"></i> {{ __('Perfil') }}
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('profile.edit') }}">
-                                    <i class="fas fa-user-edit text-green"></i> {{ __('Editar perfil') }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="ni ni-planet text-blue"></i> {{ __('Icons') }}
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="ni ni-pin-3 text-orange"></i> {{ __('Maps') }}
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="ni ni-key-25 text-info"></i> {{ __('Login') }}
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="ni ni-circle-08 text-pink"></i> {{ __('Register') }}
-                    </a>
-                </li>
-                
+                @foreach ($menusComposer as $key => $item)
+                    @if ($item["menu_id"] != 0)
+                        @break
+                    @endif
+                    @include("theme.$theme.menu-item", ["item" => $item])
+                @endforeach
             </ul>
             <!-- Divider -->
             <hr class="my-3">
@@ -140,8 +99,24 @@
             <ul class="navbar-nav mb-md-3">
                 @hasrole('admin')
                 <li class="nav-item">                    
-                    <a class="nav-link" href="{{ route('admin.users.index') }}">
+                    <a class="nav-link" href="{{ route('usuario') }}">
                         <i class="fas fa-user"></i> Usuarios
+                    </a>
+                </li>
+                @endhasrole
+
+                @hasrole('admin')
+                <li class="nav-item">                    
+                    <a class="nav-link" href="{{ route('menu') }}">
+                        <i class="fas fa-bars"></i> Menu
+                    </a>
+                </li>
+                @endhasrole
+
+                @hasrole('admin')
+                <li class="nav-item">                    
+                    <a class="nav-link" href="{{ route('menu_rol') }}">
+                        <i class="fas fa-user"></i> Menu-rol
                     </a>
                 </li>
                 @endhasrole
