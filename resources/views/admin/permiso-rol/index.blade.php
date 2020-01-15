@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => __('User Profile')])
+@extends("theme.$theme.app", ['title' => __('User Profile')])
 
 @section('titulo')
     Menu-rol
@@ -37,7 +37,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="box-body">
+                <div class="table-responsive">
                     @csrf
                     <table class="table table-striped table-bordered table-hover" id="tabla-data">
                         <thead>

@@ -1,7 +1,7 @@
-@extends('layouts.app', ['class' => 'bg-default'])
+@extends("theme.$theme.app", ['class' => 'bg-default'])
 
 @section('content')
-    @include('layouts.headers.guest')
+    @include("theme.$theme.headers.guest")
 
     <div class="container mt--8 pb-5">
         <div class="row justify-content-center">
@@ -30,6 +30,9 @@
                                 {{ __('Iniciar sesión') }}
                             </small>
                         </div>
+
+                        @include('includes.form-error')
+
                         <form role="form" method="POST" action="{{ route('login') }}">
                             @csrf
 

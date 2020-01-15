@@ -25,13 +25,13 @@ class MenuController extends Controller
     public function store(ValidacionMenu $request)
     {
         Menu::create($request->all());
-        return redirect('admin/menu/crear')->with('mensaje', 'Menú creado con exito');
+        return redirect('admin/menu')->with('mensaje', 'Menú creado con exito');
     }
 
     public function edit($id)
     {
         $data = Menu::findOrFail($id);
-        return view('admin.menu.editar', compact('data'));
+        return view('admin.menu.edit', compact('data'));
     }
 
     public function update(ValidacionMenu $request, $id)

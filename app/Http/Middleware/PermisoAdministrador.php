@@ -17,11 +17,11 @@ class PermisoAdministrador
     {
         if ($this->permiso())
             return $next($request);
-        return redirect('/')->with('mensaje', 'No tiene permiso para acceder aquí');
+        return redirect('/home')->with('mensaje', 'No tiene permiso para acceder aquí');
     }
 
     private function permiso()
     {
-        return session()->get('rol_nombre') == 'administrador';
+        return session()->get('rol_nombre') == 'admin';
     }
 }

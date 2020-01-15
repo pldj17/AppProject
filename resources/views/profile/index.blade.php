@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => __('User Profile')])
+@extends("theme.$theme.app", ['title' => __('User Profile')])
 
 @section('titulo')
     Perfil

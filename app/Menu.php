@@ -26,12 +26,11 @@ class Menu extends Model
         }
         return $children;
     }
-
     public function getPadres($front)
     {
         if ($front) {
             return $this->whereHas('roles', function ($query) {
-                $query->where('role_id', session()->get('role_id'))->orderby('menu_id');
+                $query->where('role_id', session()->get('rol_id'))->orderby('menu_id');
             })->orderby('menu_id')
                 ->orderby('order')
                 ->get()
@@ -43,7 +42,6 @@ class Menu extends Model
                 ->toArray();
         }
     }
-
     public static function getMenu($front = false)
     {
         $menus = new Menu();
@@ -57,6 +55,7 @@ class Menu extends Model
         }
         return $menuAll;
     }
+
 
     public function guardarOrden($menu)
     {

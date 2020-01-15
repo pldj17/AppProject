@@ -59,7 +59,7 @@ class UserController extends Controller
         $user = User::find($id);
         $user->roles()->sync($request->roles);
 
-        return redirect()->route('admin.users.index')->with('mensaje','Cambio realizado con éxito'); 
+        return redirect()->route('usuario')->with('mensaje','Cambio realizado con éxito'); 
     }
 
     /**

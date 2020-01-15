@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => __('User Profile')])
+@extends("theme.$theme.app", ['title' => __('User Profile')])
 
 @section('titulo')
     Usuarios - roles
@@ -17,7 +17,7 @@
                         <div class="class card-header">Rol {{$user->name}}</div>
 
                         <div class="class card-body">
-                            <form action="{{ route('admin.users.update', ['user'=>$user->id]) }}" method="POST">
+                            <form action="{{ route('actualizar_usuario', ['user'=>$user->id]) }}" method="POST">
                                 @csrf
                                 {{ method_field('PUT') }}
                                 @foreach ($roles as $role)

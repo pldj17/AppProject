@@ -1,11 +1,10 @@
-@extends('layouts.app')
+@extends("theme.$theme.app")
 
-@section('titulo')
-    Inicio
-@endsection
 
 @section('content')
-    @include('layouts.headers.cards')
+    @include("theme.$theme.headers.cards")
+
+    @include('includes.mensaje')
     
     {{-- <div class="container-fluid mt--7">
         <div class="row">
@@ -283,11 +282,11 @@
             </div>
         </div> --}}
 
-        @include('layouts.footers.auth')
+        @include("theme.$theme.footers.auth")
     </div>
 @endsection
 
 @push('js')
-    <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.min.js"></script>
-    <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.extension.js"></script>
+    <script src="{{ asset('vendor/chart.js/dist/Chart.min.js') }}"></script>
+    <script src="{{ asset('vendor/chart.js/dist/Chart.extension.js') }}"></script>
 @endpush

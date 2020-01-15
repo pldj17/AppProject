@@ -11,15 +11,15 @@
         {{-- Bootstrap --}}
         {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> --}}
         <!-- Favicon -->
-        <link href="{{ asset('img/brand/favicon.png') }}" rel="icon" type="image/png">
+        <link href="{{ asset("assets/$theme/img/brand/favicon.png") }}" rel="icon" type="image/png">
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
         <!-- Icons -->
-        <link href="{{ asset('vendor/nucleo/css/nucleo.css') }}" rel="stylesheet">
-        <link href="{{ asset('vendor/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
-        {{-- <link href="{{ asset('vendor/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet"> --}}
+        <link href="{{ asset("assets/$theme/vendor/nucleo/css/nucleo.css") }}" rel="stylesheet">
+        <link href="{{ asset("assets/$theme/vendor/@fortawesome/fontawesome-free/css/all.min.css") }}" rel="stylesheet">
+        {{-- <link href="{{ asset("vendor/@fortawesome/fontawesome-free/css/all.min.css") }}" rel="stylesheet"> --}}
         <!-- Argon CSS -->
-        <link type="text/css" href="{{ asset('css/argon.css?v=1.0.0') }}" rel="stylesheet">
+        <link type="text/css" href="{{ asset("assets/$theme/css/argon.css?v=1.0.0") }}" rel="stylesheet">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
@@ -51,17 +51,17 @@
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
-            @include('layouts.navbars.sidebar')
+            @include("theme.$theme.navbars.sidebar")
         @endauth
         
         <div class="main-content">
-            @include('layouts.navbars.navbar')
+            @include("theme.$theme.navbars.navbar")
             @include('partials.alerts')
             @yield('content')
         </div>
 
         @guest()
-            @include('layouts.footers.guest')
+            @include("theme.$theme.footers.guest")
         @endguest
 
         <script>
@@ -94,13 +94,13 @@
         }
         </script>
 
-        <script src="{{ asset('vendor/jquery/dist/jquery.min.js') }}"></script>
-        <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset("assets/$theme/vendor/jquery/dist/jquery.min.js") }}"></script>
+        <script src="{{ asset("assets/$theme/vendor/bootstrap/dist/js/bootstrap.bundle.min.js") }}"></script>
         
         @stack('js')
         
         <!-- Argon JS -->
-        <script src="{{ asset('js/argon.js?v=1.0.0') }}"></script>
+        <script src="{{ asset("assets/$theme/js/argon.js?v=1.0.0") }}"></script>
 
         {{-- foto de perfil --}}
         <!--  jQuery and Popper.js  -->

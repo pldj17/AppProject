@@ -82,70 +82,113 @@
                 </div>
             </form>
             <!-- Navigation -->
-            <ul class="navbar-nav">
+             <ul class="navbar-nav">
+
                 @foreach ($menusComposer as $key => $item)
                     @if ($item["menu_id"] != 0)
                         @break
                     @endif
                     @include("theme.$theme.menu-item", ["item" => $item])
                 @endforeach
+                
+                {{-- <li class="nav-item">
+                    <a class="nav-link" href="{{ route('home') }}">
+                        <i class="ni ni-tv-2 text-primary"></i> {{ __('Inicio') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
+                        <i class="fas fa-user" style="color: #f4645f;"></i>
+                        <span class="nav-link-text" style="color: #f4645f;">{{auth()->user()->name}}</span>
+                    </a>
+
+                    <div class="collapse" id="navbar-examples">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('profile.index') }}">
+                                    {{ __('Perfil') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('profile.edit') }}">
+                                    {{ __('Editar perfil') }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="ni ni-planet text-blue"></i> {{ __('Icons') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="ni ni-pin-3 text-orange"></i> {{ __('Maps') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="ni ni-key-25 text-info"></i> {{ __('Login') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="ni ni-circle-08 text-pink"></i> {{ __('Register') }}
+                    </a>
+                </li> --}}
             </ul>
             <!-- Divider -->
             <hr class="my-3">
             <!-- Heading -->
-            @hasrole('admin')
+            
             <h6 class="navbar-heading text-muted">Administración</h6>
             <!-- Navigation -->
             <ul class="navbar-nav mb-md-3">
-                @hasrole('admin')
+               
+                 
+                
                 <li class="nav-item">                    
                     <a class="nav-link" href="{{ route('usuario') }}">
                         <i class="fas fa-user"></i> Usuarios
                     </a>
                 </li>
-                @endhasrole
 
-                @hasrole('admin')
+                
                 <li class="nav-item">                    
                     <a class="nav-link" href="{{ route('menu') }}">
                         <i class="fas fa-bars"></i> Menu
                     </a>
                 </li>
-                @endhasrole
 
-                @hasrole('admin')
+                
                 <li class="nav-item">                    
                     <a class="nav-link" href="{{ route('menu_rol') }}">
                         <i class="fas fa-user"></i> Menu-rol
                     </a>
                 </li>
-                @endhasrole
 
-                @hasrole('admin')
+                
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('rol')}}">
                         <i class="fas fa-user-lock"></i> Roles
                     </a>
                 </li>
-                @endhasrole
 
-                @hasrole('admin')
+                
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('permiso')}}">
                         <i class="fas fa-user-shield"></i> Permisos
                     </a>
                 </li>
-                @endhasrole
 
-                @hasrole('admin')
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('permiso_rol')}}">
                         <i class="fas fa-user-lock"></i> Permiso-rol
                     </a>
-                </li>
-                @endhasrole
+                </li> 
             </ul>
-            @endhasrole
         </div>
     </div>
 </nav>

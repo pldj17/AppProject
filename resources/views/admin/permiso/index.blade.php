@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => __('User Profile')])
+@extends("theme.$theme.app", ['title' => __('User Profile')])
 
 @section('titulo')
     Permisos
@@ -16,6 +16,8 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
+                    @include('includes.form-error')
+                    @include('includes.mensaje')
                     <div class="card-header">
                         <h2>Permisos</h2>
                         <div class="form-group row">

@@ -14,6 +14,7 @@
 Route::get('/', function () {
     return view('auth.login');
 });
+
 Route::get('profile/index','ProfileController@index')->name('profile.index'); 
 
 Route::post('profile/update','ProfileController@update')->name('profile.update');
@@ -34,30 +35,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// Route::group(['middleware' => ['auth']], function() {
-//     Route::resource('roles','RoleController');
-//     Route::resource('users','UserController');
-//     Route::resource('products','ProductController');
-// });
 
-Route::namespace('Admin')->prefix('admin')->middleware(['auth','auth.admin'])->name('admin.')->group(function(){
-    Route::resource('users', 'UserController');
-});
-//administrar roles
-// Route::namespace('Admin')->prefix('admin')->middleware(['auth','auth.admin'])->name('admin.')->group(function(){
-//     Route::resource('role', 'RoleController');
-// });
-
-// Route::resource('role', 'RoleController');
-// Route::namespace('Admin')->prefix('admin')->middleware(['auth','auth.admin'])->name('admin.')->group(function(){
-//     Route::resource('permiso', 'PermissionController');
-// });
-
-// Route::namespace('Admin')->prefix('admin')->middleware(['auth','auth.admin'])->name('admin.')->group(function(){
-//     Route::resource('menu', 'MenuController');
-// });
-
-Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => 'auth'], function(){
+Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => ['auth', 'admin']], function(){
     
     // Rutas usuario
     Route::get('usuario', 'UserController@index')->name('usuario');
@@ -79,6 +58,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => 'auth
     Route::get('menu', 'MenuController@index')->name('menu');
     Route::get('menu/crear', 'MenuController@create')->name('crear_menu');
     Route::post('menu', 'MenuController@store')->name('guardar_menu');
+    Route::get('menu/{id}/editar', 'MenuController@edit')->name('editar_menu');
+    Route::put('menu/{id}', 'MenuController@update')->name('actualizar_menu');
+    Route::get('menu/{id}/eliminar', 'MenuController@destroy')->name('eliminar_menu');
     Route::post('menu/guardar-orden', 'MenuController@guardarOrden')->name('guardar_orden');
 
     // Rutas rol
