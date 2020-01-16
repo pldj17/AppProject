@@ -84,14 +84,14 @@
             <!-- Navigation -->
              <ul class="navbar-nav">
 
-                @foreach ($menusComposer as $key => $item)
+                {{-- @foreach ($menusComposer as $key => $item)
                     @if ($item["menu_id"] != 0)
                         @break
                     @endif
                     @include("theme.$theme.menu-item", ["item" => $item])
-                @endforeach
+                @endforeach --}}
                 
-                {{-- <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('home') }}">
                         <i class="ni ni-tv-2 text-primary"></i> {{ __('Inicio') }}
                     </a>
@@ -137,15 +137,16 @@
                     <a class="nav-link" href="#">
                         <i class="ni ni-circle-08 text-pink"></i> {{ __('Register') }}
                     </a>
-                </li> --}}
+                </li> 
             </ul>
             <!-- Divider -->
             <hr class="my-3">
             <!-- Heading -->
             
-            <h6 class="navbar-heading text-muted">Administración</h6>
+            @hasrole('admin')
+           <h6 class="navbar-heading text-muted">Administración</h6>
             <!-- Navigation -->
-            <ul class="navbar-nav mb-md-3">
+             <ul class="navbar-nav mb-md-3">
                
                  
                 
@@ -155,7 +156,7 @@
                     </a>
                 </li>
 
-                
+{{--                 
                 <li class="nav-item">                    
                     <a class="nav-link" href="{{ route('menu') }}">
                         <i class="fas fa-bars"></i> Menu
@@ -167,7 +168,7 @@
                     <a class="nav-link" href="{{ route('menu_rol') }}">
                         <i class="fas fa-user"></i> Menu-rol
                     </a>
-                </li>
+                </li> --}}
 
                 
                 <li class="nav-item">
@@ -189,6 +190,7 @@
                     </a>
                 </li> 
             </ul>
+            @endhasrole
         </div>
     </div>
 </nav>

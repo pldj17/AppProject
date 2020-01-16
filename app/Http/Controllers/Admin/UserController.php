@@ -10,11 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return view('admin.users.index')->with('users',User::paginate(5)); //pagina de usuarios
@@ -25,7 +20,6 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
     // public function show($id){
     //     if(Auth::user()->id == $id){
     //         return redirect()->route('admin.users.index')->with('warning', 'No tienes los permisos necesarios para realizar esta acción');
@@ -33,16 +27,14 @@ class UserController extends Controller
     //     }
     //     return view('profile.index')->with(['user'=> User::find($id)]);
     // }
-
     public function edit($id)
     {
         if(Auth::user()->id == $id){
-            return redirect()->route('admin.users.index')->with('error', 'No tienes los permisos necesarios para realizar esta acción');
+            return redirect()->route('usuario')->with('error', 'No tienes los permisos necesarios para realizar esta acción');
             
         }
         return view('admin.users.edit')->with(['user'=> User::find($id), 'roles' => Role::all()]);
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -53,15 +45,12 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         if(Auth::user()->id == $id){
-            return redirect()->route('admin.users.index')->with('error', 'No tienes los permisos necesarios para realizar esta acción');
+            return redirect()->route('usuario')->with('error', 'No tienes los permisos necesarios para realizar esta acción');
         }
-
         $user = User::find($id);
         $user->roles()->sync($request->roles);
-
         return redirect()->route('usuario')->with('mensaje','Cambio realizado con éxito'); 
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -71,18 +60,15 @@ class UserController extends Controller
     public function destroy($id)
     {
         if(Auth::user()->id == $id){
-            return redirect()->route('admin.users.index')->with('error', 'No tienes los permisos necesarios para realizar esta acción');
+            return redirect()->route('usuario')->with('error', 'No tienes los permisos necesarios para realizar esta acción');
         }
-
         // eliminar relacion en tabla role_user al eliminar usuario
         $user = User::find($id);
-
         if($user){
             $user->roles()->detach();
             $user->delete();
-            return redirect()->route('admin.users.index')->with('mensaje','El usuario ha sido eliminado con éxito'); 
+            return redirect()->route('usuario')->with('mensaje','El usuario ha sido eliminado con éxito'); 
         }
-
-        return redirect()->route('admin.users.index')->with('error','El usuario no puede ser eliminado'); 
+        return redirect()->route('usuario')->with('error','El usuario no puede ser eliminado'); 
     }
 }

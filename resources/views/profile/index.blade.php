@@ -18,9 +18,9 @@
                             <div class="card-profile-image">
                                 <a href="#">
                                     @if (empty(Auth::user()->profile->avatar))
-                                        <img src="{{ asset('avatar/avatar.png')}}" class="card-img-top rounded-circle mx-auto d-block" style="width:250px; height:200px; margin:20px;">
+                                        <img src="{{ asset('avatar/avatar.png')}}" class="card-img-top rounded-circle mx-auto d-block" style="height:150; width:250px;">
                                     @else
-                                        <img src="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}" class="card-img-top d-block" style="width:250px; height:200px; margin:20px; border-radius:50%;">  
+                                        <img src="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}" class="card-img-top d-block" style="width:250px; height:150; border-radius:50%;">  
                                     @endif
                                 </a>
                             </div>
@@ -74,6 +74,6 @@
             </div>
         </div>
         
-        @include('layouts.footers.auth')
+        {{-- @include("layouts.footers.auth") --}}
 
 @endsection

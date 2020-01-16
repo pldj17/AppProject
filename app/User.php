@@ -31,12 +31,18 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class)->withTimestamps();
     }
 
+    public function hasAnyRoles($roles){
+        return null !== $this->roles()->whereIn('name',$roles)->first();
+    }
+    public function hasAnyRole($role){
+        return null !== $this->roles()->where('name',$role)->first();
+    }
 
     public function setSession($roles)
     {
         Session::put([
             'usuario_id' => $this->id,
-            'nombre' => $this->name
+            'usuario_nombre' => $this->name
         ]);
         if (count($roles) == 1) {
             Session::put(

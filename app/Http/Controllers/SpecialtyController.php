@@ -3,13 +3,15 @@
 namespace ProjectApp\Http\Controllers;
 
 use Illuminate\Http\Request;
-use ProjectApp\Category;
+use ProjectApp\Specialty;
 
-class CategoryController extends Controller
+class SpecialtyController extends Controller
 {
     public function index()
     {
-        return view('admin.role.index')->with('roles',role::paginate(4)); 
+        dd(session()->all());
+        $datas = Specialty::orderBy('id')->get();
+        return view('specialty.index', compact('datas'));
     }
 
     public function create()

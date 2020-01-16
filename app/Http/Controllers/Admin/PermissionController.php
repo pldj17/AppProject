@@ -19,6 +19,8 @@ class PermissionController extends Controller
     {
         $permisos = permission::orderBy('id')->get();
         return view('admin.permiso.index', compact('permisos'));
+
+        // return view('admin.permiso.index')->with('permisos', permission::paginate(4));
     }
 
     /**

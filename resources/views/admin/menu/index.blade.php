@@ -30,7 +30,7 @@
                             <h2>Menús</h2>
                             <div >
                                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#abrirmodal">
-                                    <i class="fa fa-plus fa"></i>&nbsp;&nbsp;Agregar Rol
+                                    <i class="fa fa-plus fa"></i>&nbsp;&nbsp;Nuevo registro
                                 </button>
                             </div>
                         </div>

@@ -81,4 +81,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => ['aut
 
 });
 
+// Rutas especialidades
+Route::get('especialidad', 'SpecialtyController@index')->name('especialidad');
+Route::get('especialidad/crear', 'SpecialtyController@create')->name('crear_especialidad');
+Route::post('especialidad', 'SpecialtyController@store')->name('guardar_especialidad');
+Route::get('especialidad/{id}/editar', 'SpecialtyController@edit')->name('editar_especialidad');
+Route::put('especialidad/{id}', 'SpecialtyController@update')->name('actualizar_especialidad');
+Route::delete('especialidad/{id}', 'SpecialtyController@destroy')->name('eliminar_especialidad');
 

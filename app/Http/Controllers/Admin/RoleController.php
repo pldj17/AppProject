@@ -36,7 +36,7 @@ class RoleController extends Controller
         return redirect('admin/rol')->with('mensaje', 'Rol creado con exito');
     }
 
-    public function update(ValidacionRol $request, $id)
+    public function update(Request $request, $id)
     {
         Role::findOrFail($id)->update($request->all());
         return redirect('admin/rol')->with('mensaje', 'Rol actualizado con exito');

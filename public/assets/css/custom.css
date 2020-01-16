@@ -20,3 +20,13 @@ label.requerido:after{
 .pl-40{
     padding-left:55px !important;
 }
+.nounderline, .violet{
+    color: #7c4dff !important;
+}
+
+
+.profile-img img{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+} 

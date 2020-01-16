@@ -282,7 +282,7 @@
             </div>
         </div> --}}
 
-        @include("theme.$theme.footers.auth")
+        {{-- @include("theme.$theme.footers.auth") --}}
     </div>
 @endsection
 

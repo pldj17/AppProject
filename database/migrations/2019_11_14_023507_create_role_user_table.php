@@ -26,7 +26,7 @@ class CreateRoleUserTable extends Migration
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('restrict')->onUpdate('restrict');
 
             $table->bigInteger('user_id')->unsigned()->index(); // this is working
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('restrict');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('restrict');
 
             $table->string('state',30)->nullable();
 

@@ -18,8 +18,7 @@
 
                         <div class="class card-body">
                             <form action="{{ route('actualizar_usuario', ['user'=>$user->id]) }}" method="POST">
-                                @csrf
-                                {{ method_field('PUT') }}
+                                @csrf @method("put")
                                 @foreach ($roles as $role)
                                     <div class="class form-check">
                                         <input type="checkbox" name="roles[]" value="{{ $role->id }}"

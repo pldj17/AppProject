@@ -22,7 +22,7 @@
                         <h2>Permisos</h2>
                         <div class="form-group row">
                             <div class="col-md-6">
-                                {!!Form::open(array('url'=>'permiso','method'=>'GET','autocomplete'=>'off','role'=>'search'))!!} 
+                                {!!Form::open(array('url'=>'role','method'=>'GET','autocomplete'=>'off','roles'=>'search'))!!} 
                                     <div class="input-group">
                                         {{-- <input type="text" name="buscarTexto" class="form-control" placeholder="Buscar texto" value="{{$buscarTexto}}">
                                         <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button> --}}
@@ -30,14 +30,14 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-search"></i></span>
                                         </div>
-                                        <input class="form-control" placeholder="Realizar búsqueda" type="text" name="buscarTexto" value="">
+                                        <input class="form-control form-control" placeholder="Realizar búsqueda" type="text" name="buscarTexto" value="">
                                     </div>
                                 {{Form::close()}}
                             </div>
-    
-                            <div>
+                            <br><br>
+                            <div style="margin-left: 15px;">
                                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#abrirmodal">
-                                    <i class="fa fa-plus fa"></i>&nbsp;&nbsp;Agregar Permiso
+                                    <i class="fa fa-plus fa"></i>&nbsp;&nbsp;Nuevo registro
                                 </button>
                             </div>
                         </div>
@@ -86,7 +86,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h2 class="modal-title" id="exampleModalCenterTitle">Agregar Permisos</h2>
+                        <h2 class="modal-title" id="exampleModalCenterTitle">Agregar Permiso</h2>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -98,7 +98,7 @@
                             <div class="box-body">
                                 @include('admin.permiso.form')
                             </div>
-                            <div class="box-footer">
+                            <div class="box-footer" >
                                     @include('includes.boton-form-crear')
                             </div>
                         </form>

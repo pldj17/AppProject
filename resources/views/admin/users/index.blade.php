@@ -120,9 +120,9 @@
                     </table>
                 </div>
             </div>
-            <div  style="float:right; margin-top:1%;">
+            {{-- <div  style="float:right; margin-top:1%;">
                 {{$users->render()}}
-            </div>
+            </div> --}}
         </div>
 
     </div>

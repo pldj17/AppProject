@@ -26,9 +26,9 @@
                                     <div class="card text-center">
                                         <div class="card-body">
                                             <div class="profile-img p-3">
-                                                <img src="{{ asset('/avatar/avatar.png') }}" id="profile-pic">
+                                                <img src="{{ asset('/avatar/avatar.png') }}" id="profile-pic" >
                                             </div>
-                                            <div class="btn btn-dark">
+                                            <div class="btn btn-dark btn-sm">
                                                 <input type="file" class="file-upload" id="file-upload" 
                                                 name="profile_picture" accept="image/*">
                                                 Seleccionar nueva foto
@@ -59,7 +59,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                        </div>
 
                         <hr class="my-4">
                     </div>
@@ -115,6 +115,7 @@
 
         </div>
     </div>
-    
+
+    {{-- @include("layouts.footers.auth") --}}
     
     @endsection

@@ -1,7 +1,7 @@
 @extends("theme.$theme.app", ['title' => __('User Profile')])
 
 @section('titulo')
-    Roles
+    Especialidades
 @endsection
 
 @section('content')
@@ -20,7 +20,7 @@
                 @include('includes.form-error')
                 @include('includes.mensaje')
                 <div class="card-header">
-                    <h2>Roles</h2>
+                    <h2>Especialidades</h2>
                     <div class="form-group row">
                         <div class="col-md-6">
                             {!!Form::open(array('url'=>'role','method'=>'GET','autocomplete'=>'off','roles'=>'search'))!!} 
@@ -39,6 +39,7 @@
                         <div style="margin-left: 15px;">
                             <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#abrirmodal">
                                 <i class="fa fa-plus fa"></i>&nbsp;&nbsp;Nuevo registro
+                            </button>
                         </div>
                     </div>
                     
@@ -56,15 +57,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($roles as $role)
+                            @foreach ($datas as $data)
                             <tr>
-                                <td>{{$role->name}}</td>
-                                <td>{{$role->description}}</td>
+                                <td>{{$data->name}}</td>
+                                <td>{{$data->description}}</td>
                                 <td>
-                                    <a href="{{route('editar_rol', ['id' => $role->id])}}" class="btn-accion-tabla" data-toggle="tooltip" data-placement="bottom" title="Editar este registro">
+                                    <a href="{{route('editar_especialidad', ['id' => $data->id])}}" class="btn-accion-tabla" data-toggle="tooltip" data-placement="bottom" title="Editar este registro">
                                         <i class="fa fa-fw fa-pencil-alt"></i>
                                     </a>
-                                    <form action="{{route('eliminar_rol', ['id' => $role->id])}}" class="d-inline form-eliminar" method="POST">
+                                    <form action="{{route('eliminar_especialidad', ['id' => $data->id])}}" class="d-inline form-eliminar" method="POST">
                                         @csrf @method("delete")
                                         <button type="submit" class="btn-accion-tabla eliminar" data-toggle="tooltip" data-placement="bottom" title="Eliminar este registro">
                                             <i class="fa fa-fw fa-trash text-danger"></i>
@@ -81,9 +82,9 @@
                 </div>
 
             </div>
-            <div style="float:right; margin-top:1%;">
-                {{$roles->render()}}
-            </div>
+            {{-- <div style="float:right; margin-top:1%;">
+                {{$datas->render()}}
+            </div> --}}
         </div>
 
         <!--Inicio del modal agregar-->
@@ -92,17 +93,17 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h2 class="modal-title" id="exampleModalCenterTitle">Agregar Rol</h2>
+                        <h2 class="modal-title" id="exampleModalCenterTitle">Agregar especialidad</h2>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                    
                     <div class="modal-body">
-                         <form action="{{route('guardar_rol')}}" id="form-general" class="form-horizontal" method="POST" autocomplete="off">
+                         <form action="{{route('guardar_especialidad')}}" id="form-general" class="form-horizontal" method="POST" autocomplete="off">
                             @csrf
                             <div class="box-body">
-                                @include('admin.role.form')
+                                {{-- @include('admin.especialidad.form') --}}
                             </div>
                             <div class="box-footer">
                                     @include('includes.boton-form-crear')
