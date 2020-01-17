@@ -12,6 +12,7 @@ class RoleController extends Controller
 
     public function index()
     {
+        can('ver-listado-rol');
         return view('admin.role.index')->with('roles',role::paginate(4)); 
 
         // $datas = Role::orderBy('id')->get();
@@ -21,12 +22,14 @@ class RoleController extends Controller
 
     public function edit($id)
     {
+        can('editar-rol');
         $data = Role::findOrFail($id);  //findOrFail si no encuentra un registro manda el 404 a diferencia de find
         return view('admin.role.edit', compact('data'));
     }
 
     public function create()
     {
+        can('agregar-nuevo-rol');
         return view('admin.role.create');
     }
 
@@ -44,6 +47,7 @@ class RoleController extends Controller
 
     public function destroy(Request $request, $id)
     {
+        can('eliminar-rol');
         if ($request->ajax()) {
             if (Role::destroy($id)) {
                 return response()->json(['mensaje' => 'ok']);

@@ -84,14 +84,14 @@
             <!-- Navigation -->
              <ul class="navbar-nav">
 
-                {{-- @foreach ($menusComposer as $key => $item)
+                @foreach ($menusComposer as $key => $item)
                     @if ($item["menu_id"] != 0)
                         @break
                     @endif
                     @include("theme.$theme.menu-item", ["item" => $item])
-                @endforeach --}}
+                @endforeach
                 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="{{ route('home') }}">
                         <i class="ni ni-tv-2 text-primary"></i> {{ __('Inicio') }}
                     </a>
@@ -117,12 +117,13 @@
                         </ul>
                     </div>
                 </li>
-
+                @hasrole('supervisor')
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="ni ni-planet text-blue"></i> {{ __('Icons') }}
+                    <a class="nav-link" href="{{ route('especialidad') }}">
+                        <i class="ni ni-planet text-blue"></i> {{ __('Especialidades') }}
                     </a>
                 </li>
+                @endhasrole
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="ni ni-pin-3 text-orange"></i> {{ __('Maps') }}
@@ -137,12 +138,12 @@
                     <a class="nav-link" href="#">
                         <i class="ni ni-circle-08 text-pink"></i> {{ __('Register') }}
                     </a>
-                </li> 
-            </ul>
+                </li> --}}
+            </ul> 
             <!-- Divider -->
             <hr class="my-3">
             <!-- Heading -->
-            
+{{--             
             @hasrole('admin')
            <h6 class="navbar-heading text-muted">Administración</h6>
             <!-- Navigation -->
@@ -154,7 +155,7 @@
                     <a class="nav-link" href="{{ route('usuario') }}">
                         <i class="fas fa-user"></i> Usuarios
                     </a>
-                </li>
+                </li> --}}
 
 {{--                 
                 <li class="nav-item">                    
@@ -170,7 +171,7 @@
                     </a>
                 </li> --}}
 
-                
+{{--                 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('rol')}}">
                         <i class="fas fa-user-lock"></i> Roles
@@ -190,7 +191,7 @@
                     </a>
                 </li> 
             </ul>
-            @endhasrole
+            @endhasrole --}}
         </div>
     </div>
 </nav>
