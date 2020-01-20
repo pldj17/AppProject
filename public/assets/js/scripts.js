@@ -17,7 +17,7 @@ $(document).ready(function () {
         container: 'body'
     });
 
-    $('ul.navbar-nav').find('li.active').parents('li').addClass('active');
+    $('ul.navbar-nav').find('a.nav-link active').parents('a.nav-link').addClass('active');
     // Trabajo con Ventana de Roles.
     const modal = $('#modal-seleccionar-rol');
     if (modal.length && modal.data('rol-set') == 'NO') {

@@ -16,16 +16,9 @@ class ValidacionMenu extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|alpha|max:50|unique:menus,name,' . $this->route('id'),
+            'name' => 'required|max:50|unique:menus,name,' . $this->route('id'),
             'url' => ['required', 'max:100', new ValidarCampoUrl],
             'icon' => 'nullable|max:50'
-        ];
-    }
-
-    public function messeges(){
-        return [
-            'name.required' => 'El campo Nombre es obligatorio',
-            'url.required' => 'El campo Url es obligatorio', 
         ];
     }
 }

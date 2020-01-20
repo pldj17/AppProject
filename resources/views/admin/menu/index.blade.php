@@ -17,6 +17,7 @@
 
 @section("scripts")
     <script src="{{asset("assets/pages/scripts/admin/menu/index.js")}}" type="text/javascript"></script>
+    <script src="{{asset("assets/pages/scripts/admin/menu/crear.js")}}" type="text/javascript"></script>
 @endsection
 
     <div class="container">
@@ -45,7 +46,7 @@
                                         @include("admin.menu.menu-item",["item" => $item])
                                     @endforeach
                                 </ol>
-                            </div>
+                            </div>  
                         </div>
                     </div>
                 </div>
@@ -70,7 +71,10 @@
                                 @include('admin.menu.form')
                             </div>
                             <div class="box-footer">
-                                @include('includes.boton-form-crear')
+                                <div class="col-lg-3"></div>
+                                <div class="col-lg-6">
+                                    @include('includes.boton-form-crear')
+                                </div>
                             </div>
                         </form>
                     </div>

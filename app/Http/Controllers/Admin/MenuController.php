@@ -5,47 +5,43 @@ namespace ProjectApp\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use ProjectApp\Http\Controllers\Controller;
-use ProjectApp\Menu;
 use ProjectApp\Http\Requests\ValidacionMenu;
+use ProjectApp\Menu;
 
 class MenuController extends Controller
 {
 
     public function index()
     {
-        can('ver-listado-menu');
         $menus = Menu::getMenu();
         return view('admin.menu.index', compact('menus'));
     }
 
-    public function create()
+    public function crear()
     {
         return view('admin.menu.create');
     }
 
-    public function store(ValidacionMenu $request)
+    public function guardar(ValidacionMenu $request)
     {
-        can('agregar-nuevo-menu');
         Menu::create($request->all());
         return redirect('admin/menu')->with('mensaje', 'Menú creado con exito');
     }
 
-    public function edit($id)
+    public function editar($id)
     {
-        can('editar-menu');
         $data = Menu::findOrFail($id);
         return view('admin.menu.edit', compact('data'));
     }
 
-    public function update(ValidacionMenu $request, $id)
+    public function actualizar(ValidacionMenu $request, $id)
     {
         Menu::findOrFail($id)->update($request->all());
         return redirect('admin/menu')->with('mensaje', 'Menú actualizado con exito');
     }
 
-    public function destroy($id)
+    public function eliminar($id)
     {
-        can('eliminar-menu');
         Menu::destroy($id);
         return redirect('admin/menu')->with('mensaje', 'Menú eliminado con exito');
     }

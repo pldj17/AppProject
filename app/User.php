@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Session;
 use ProjectApp\Profile;
 use ProjectApp\Role;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
     

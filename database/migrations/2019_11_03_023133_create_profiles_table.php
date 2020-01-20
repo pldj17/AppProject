@@ -24,7 +24,7 @@ class CreateProfilesTable extends Migration
             $table->timestamps();
 
             $table->bigInteger('user_id')->unsigned()->index(); // this is working
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

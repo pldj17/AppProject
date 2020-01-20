@@ -43,19 +43,17 @@ class UserController extends Controller
         return redirect()->route('usuario')->with('mensaje','Cambio realizado con éxito'); 
     }
     
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        can('eliminar-usuario')
-        if(Auth::user()->id == $id){
-            return redirect()->route('usuario')->with('error', 'No tienes los permisos necesarios para realizar esta acción');
+        can('eliminar-usuario');
+        if ($request->ajax()) {
+            if (Role::destroy($id)) {
+                return response()->json(['mensaje' => 'ok']);
+            } else {
+                return response()->json(['mensaje' => 'ng']);
+            }
+        } else {
+            abort(404);
         }
-        // eliminar relacion en tabla role_user al eliminar usuario
-        $user = User::find($id);
-        if($user){
-            $user->roles()->detach();
-            $user->delete();
-            return redirect()->route('usuario')->with('mensaje','El usuario ha sido eliminado con éxito'); 
-        }
-        return redirect()->route('usuario')->with('error','El usuario no puede ser eliminado'); 
     }
 }

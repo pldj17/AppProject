@@ -15,25 +15,28 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('profile/index','ProfileController@index')->name('profile.index'); 
-
-Route::post('profile/update','ProfileController@update')->name('profile.update');
-
-Route::post('profile/password','ProfileController@password')->name('profile.password');
-
-Route::post('profile/create', 'ProfileController@store')->name('profile.create'); 
-
-// Route::post('profile/avatar', 'ProfileController@avatar')->name('avatar'); 
-Route::get('profile/edit','ProfileController@edit')->name('show.avatar');
-Route::post('profile/edit','ProfileController@AvatarUpload')->name('avatar');
-
-Route::get('profile/edit', 'ProfileController@edit')->name('profile.edit');
-
-Route::get('profile/ajustes', 'ProfileController@update')->name('profile.ajustes');
+Auth::routes(['verify' => true]);
 
 Auth::routes();
 
+//verificacion de correo ->middleware('verified');
+
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['middleware' => ['auth']], function(){
+
+    Route::get('profile/index','ProfileController@index')->name('profile.index'); 
+    Route::post('profile/update','ProfileController@update')->name('profile.update');
+    Route::post('profile/password','ProfileController@password')->name('profile.password');
+    Route::post('profile/create', 'ProfileController@store')->name('profile.create');   
+    // Route::post('profile/avatar', 'ProfileController@avatar')->name('avatar'); 
+    Route::get('profile/edit','ProfileController@edit')->name('show.avatar');
+    Route::post('profile/edit','ProfileController@AvatarUpload')->name('avatar');
+    Route::get('profile/edit', 'ProfileController@edit')->name('profile.edit');
+    Route::get('profile/ajustes', 'ProfileController@update')->name('profile.ajustes');  
+});
+
+
 
 
 Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => ['auth', 'admin']], function(){
@@ -56,11 +59,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => ['aut
 
     // Rutas menu
     Route::get('menu', 'MenuController@index')->name('menu');
-    Route::get('menu/crear', 'MenuController@create')->name('crear_menu');
-    Route::post('menu', 'MenuController@store')->name('guardar_menu');
-    Route::get('menu/{id}/editar', 'MenuController@edit')->name('editar_menu');
-    Route::put('menu/{id}', 'MenuController@update')->name('actualizar_menu');
-    Route::get('menu/{id}/eliminar', 'MenuController@destroy')->name('eliminar_menu');
+    Route::get('menu/crear', 'MenuController@crear')->name('crear_menu');
+    Route::post('menu', 'MenuController@guardar')->name('guardar_menu');
+    Route::get('menu/{id}/editar', 'MenuController@editar')->name('editar_menu');
+    Route::put('menu/{id}', 'MenuController@actualizar')->name('actualizar_menu');
+    Route::get('menu/{id}/eliminar', 'MenuController@eliminar')->name('eliminar_menu');
     Route::post('menu/guardar-orden', 'MenuController@guardarOrden')->name('guardar_orden');
 
     // Rutas rol

@@ -26,14 +26,14 @@ class ValidacionUsuario extends FormRequest
         if ($this->route('id')) {
             return [
                 'name' => 'required|max:50',
-                'email' => 'required|email|max:100|unique:usuario,email,' . $this->route('id'),
+                'email' => 'required|email|max:100|unique:users,email,' . $this->route('id'),
                 'password' => 'nullable|min:5',
                 'role_id' => 'required|array'
             ];
         } else {
             return [
                 'name' => 'required|max:50',
-                'email' => 'required|email|max:100|unique:usuario,email,' . $this->route('id'),
+                'email' => 'required|email|max:100|unique:users,email,' . $this->route('id'),
                 'password' => 'required|min:5',
                 'role_id' => 'required|array'
             ];
