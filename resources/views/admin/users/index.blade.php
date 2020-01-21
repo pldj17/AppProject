@@ -55,7 +55,7 @@
                                     <td>{{$data->created_at}}</td>
                                     <td>
                                         <a href="{{route('editar_usuario', ['id' => $data->id])}}" class="btn-accion-tabla" data-toggle="tooltip" data-placement="bottom" title="Editar rol de usuario">
-                                            <i class="fa fa-fw fa-pencil-alt"></i>
+                                            <i class="fa fa-edit"></i>
                                         </a>
                                         {{-- <form action="{{route('eliminar_usuario', ['id' => $data->id])}}" class="d-inline form-eliminar" method="POST">
                                             @csrf @method("delete")

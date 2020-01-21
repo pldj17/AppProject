@@ -4,6 +4,18 @@
     Editar perfil
 @endsection
 
+{{-- @section('styles')
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- References: https://github.com/fancyapps/fancyBox -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+@endsection
+
+@section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+@endsection --}}
+
 @section('content')
     @include('users.partials.header')   
 
@@ -11,6 +23,8 @@
         <div class="row justify-content-center">
             
             <div class="col-xl-11 order-xl-2 mb-4 mb-xl-0">
+                @include('includes.form-error')
+                    @include('includes.mensaje')
                 <div class="card bg-secondary shadow">
                     <div class="card-header bg-white border-0">
                         <div class="row align-items-center">
@@ -93,18 +107,30 @@
                                             <div class="error text-danger">{{ $errors->first('description')}}</div>                        
                                         @endif
                                     </div>
-            
+                                    
+                                    {{-- <div class="class form-group">
+                                        <div class="input-group input-group-merge">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-globe-americas"></i></span>
+                                            </div>
+                                            <input class="form-control" type="text" placeholder="Telefono">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                            </div>
+                                        </div>
+                                    </div> --}}
+
                                     <div class="text-center">
-                                        <button class="btn btn-success mt-4" type="submit">Guardar cambios</button>
+                                        @include('profile.boton-form-editar')
                                     </div>
                                 </div>
                             </form>   
                                     
-                            @if (Session::has('message'))
+                            {{-- @if (Session::has('message'))
                             <div class="alert alert-success">
                                 {{ Session::get('message') }}
                             </div>
-                            @endif  
+                            @endif   --}}
     
                         <hr class="my-4" />
                     </div>

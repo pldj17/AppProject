@@ -62,7 +62,7 @@
                                 <td>{{$role->description}}</td>
                                 <td>
                                     <a href="{{route('editar_rol', ['id' => $role->id])}}" class="btn-accion-tabla" data-toggle="tooltip" data-placement="bottom" title="Editar este registro">
-                                        <i class="fa fa-fw fa-pencil-alt"></i>
+                                        <i class="fa fa-edit"></i>
                                     </a>
                                     <form action="{{route('eliminar_rol', ['id' => $role->id])}}" class="d-inline form-eliminar" method="POST">
                                         @csrf @method("delete")

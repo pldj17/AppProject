@@ -19,7 +19,7 @@
                     @include('includes.mensaje')
                     @include('includes.form-error')
                     <div class="card-header">
-                        <h2>Crear permisos</h2>
+                        <h2>Añadir especialidad</h2>
                     </div>
                     
                     <div class="col-sm-8" style="margin-left:auto; margin-right:auto;">
@@ -27,7 +27,7 @@
                             <form action="{{route('guardar_especialidad')}}" id="form-general" class="form-horizontal" method="POST" autocomplete="off">
                                 @csrf
                                 <div class="box-body">
-                                    {{-- @include('admin.permiso.form') --}}
+                                    @include('specialty.form')
                                 </div>
                                 <div class="box-footer">
                                     <div class="col-lg-3"></div>

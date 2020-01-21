@@ -22,11 +22,7 @@ class ProfileController extends Controller
     {
         $this->middleware('auth');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+  
     public function index(Request $request)
     {
         // $request->user()->authorizeRoles('admin');//validacion de rol de usuario
@@ -97,23 +93,22 @@ class ProfileController extends Controller
     //         return redirect()->back()->with('message', 'Su foto de perfil ha sido actualizado!');
     //     }
     // }
-    
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+  
+    public function info()
+    {
+        return view('profile.info');
+    }
+
+    public function contact()
+    {
+        return view('profile.contact');
+    }
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     { 
         $this->validate($request,[
@@ -131,69 +126,30 @@ class ProfileController extends Controller
             'description' => request('description')
         ]);
 
-        return redirect()->back()->with('message', 'Su perfil ha sido actualizado correctamente');
+        return redirect()->back()->with('mensaje', 'Su perfil ha sido actualizado correctamente');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    /**
-     * Update the profile
-     *
-     * @param  \App\Http\Requests\ProfileRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function update(Request $request)
     {
         return view('profile.ajustes');
 
         auth()->user()->update($request->all());
 
-        return back()->withStatus(__('Su perfil ha sido actualizado correctamente.'));
+        return back()->with('mensaje', 'Su perfil ha sido actualizado correctamente.');
     }
 
-    /**
-     * Change the password
-     *
-     * @param  \App\Http\Requests\PasswordRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function password(Request $request)
     {
         auth()->user()->update(['password' => Hash::make($request->get('password'))]);
 
-        return back()->withPasswordStatus(__('Su contraseña ha sido actualizado correctamente.'));
+        return back()->with('mensaje', 'Su perfil ha sido actualizado correctamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

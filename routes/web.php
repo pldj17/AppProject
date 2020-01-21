@@ -11,6 +11,7 @@
 |
 */
 
+
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -25,15 +26,23 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function(){
 
-    Route::get('profile/index','ProfileController@index')->name('profile.index'); 
-    Route::post('profile/update','ProfileController@update')->name('profile.update');
-    Route::post('profile/password','ProfileController@password')->name('profile.password');
-    Route::post('profile/create', 'ProfileController@store')->name('profile.create');   
+    Route::get('perfil','ProfileController@index')->name('profile.index'); 
+    Route::post('perfil/actualizar','ProfileController@update')->name('profile.update');
+    Route::post('perfil/password','ProfileController@password')->name('profile.password');
+    Route::post('perfil/crear', 'ProfileController@store')->name('profile.create');   
     // Route::post('profile/avatar', 'ProfileController@avatar')->name('avatar'); 
-    Route::get('profile/edit','ProfileController@edit')->name('show.avatar');
-    Route::post('profile/edit','ProfileController@AvatarUpload')->name('avatar');
-    Route::get('profile/edit', 'ProfileController@edit')->name('profile.edit');
-    Route::get('profile/ajustes', 'ProfileController@update')->name('profile.ajustes');  
+    Route::get('perfil/editar','ProfileController@edit')->name('show.avatar');
+    Route::post('perfil/editar','ProfileController@AvatarUpload')->name('avatar');
+    Route::get('perfil/editar', 'ProfileController@edit')->name('profile.edit');
+    Route::get('perfil/ajustes', 'ProfileController@update')->name('profile.ajustes');  
+    Route::get('perfil/informacion', 'ProfileController@info')->name('profile.info');
+    Route::get('perfil/contacto', 'ProfileController@contact')->name('profile.contact');
+
+    //galeria
+    // Route::get('image-gallery', 'GalleryController@index');
+    Route::post('perfil/galeria', 'GalleryController@upload')->name('guardar_foto');
+    Route::delete('perfil/galeria/{id}', 'GalleryController@destroy')->name('eliminar_foto');
+    Route::get('perfil/galeria', 'GalleryController@index')->name('profile.gallery');
 });
 
 
