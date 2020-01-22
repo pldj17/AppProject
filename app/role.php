@@ -28,4 +28,12 @@ class role extends Model
     {
         return $this->belongsToMany(Permission::class);
     }
+
+    //Query Scope
+    public function scopeName($query, $name )
+    {
+        if($name){
+            return $query->where('name', 'LIKE', "%$name%"); //%antes y despues significa cualquier palabra semejante antes o despues a la palabra que se esta buscando
+        }
+    }
 }

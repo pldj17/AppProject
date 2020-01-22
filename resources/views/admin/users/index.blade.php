@@ -22,15 +22,16 @@
                     <h2>Usuarios</h2>
                     <div class="form-group row">
                         <div class="col-md-6">
-                            {!!Form::open(array('url'=>'role','method'=>'GET','autocomplete'=>'off','roles'=>'search'))!!} 
-                                <div class="input-group">
-                                   
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                    </div>
-                                    <input class="form-control" placeholder="Realizar búsqueda" type="text" name="buscarTexto" value="">
+                            {{ Form::open(['route' => 'usuario', 'method' => 'GET', 'class' => 'form-inline pull-right']) }}
+                                <div class="form-group">
+                                    {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Realizar búsqueda', 'autocomplete' => 'off']) }}
                                 </div>
-                            {{Form::close()}}
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-default">
+                                        <span class="fas fa-search"></span>
+                                    </button>
+                                </div>
+                            {{ Form::close() }}
                         </div>
                     </div>
                 </div>
@@ -72,9 +73,9 @@
                     </table>
                 </div>
             </div>
-            {{-- <div  style="float:right; margin-top:1%;">
+            <div  style="float:right; margin-top:1%;">
                 {{$users->render()}}
-            </div> --}}
+            </div>
         </div>
 
     </div>

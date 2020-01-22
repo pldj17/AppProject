@@ -25,13 +25,14 @@
                     <h2>Permisos</h2>
                     <div class="form-group row">
                         <div class="col-md-6">
-                            {!!Form::open(array('url'=>'role','method'=>'GET','autocomplete'=>'off','roles'=>'search'))!!} 
+                            {{ Form::open(['route' => 'permiso_rol', 'method' => 'GET', 'class' => 'form-inline pull-right']) }}
                                 <div class="input-group">
                                    
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-search"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="Realizar búsqueda" type="text" name="buscarTexto" value="">
+                                    {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Realizar búsqueda', 'autocomplete' => 'off']) }}
+                                    {{-- <input class="form-control" placeholder="Realizar búsqueda" type="text" name="buscarTexto" value=""> --}}
                                 </div>
                             {{Form::close()}}
                         </div>

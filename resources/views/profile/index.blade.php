@@ -56,7 +56,7 @@
                                 <h6>Se unió el: {{date('d F, Y', strtotime(Auth::user()->created_at))}}</h6> 
                             </h3>
                             <div class="h5 font-weight-300">
-                                <i class="ni location_pin mr-2">{{Auth::user()->profile->address}}</i>
+                                <i class="fa fa-globe">&nbsp;{{Auth::user()->profile->address}}</i>
                             </div>
                             {{-- <div class="h5 mt-4">
                                 <i class="ni business_briefcase-24 mr-2"></i>{{ __('Developer') }}

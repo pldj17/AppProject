@@ -94,9 +94,9 @@
         }
         </script>
 
-        <script src="{{ asset("assets/$theme/vendor/jquery/dist/jquery.min.js") }}"></script>
+        {{-- <script src="{{ asset("assets/$theme/vendor/jquery/dist/jquery.min.js") }}"></script>
         <script src="{{ asset("assets/$theme/vendor/bootstrap/dist/js/bootstrap.bundle.min.js") }}"></script>
-        
+         --}}
         @stack('js')
         
         <!-- Argon JS -->

@@ -21,20 +21,18 @@
                     <div class="card-header">
                         <h2>Permisos</h2>
                         <div class="form-group row">
-                            <div class="col-md-6">
-                                {!!Form::open(array('url'=>'role','method'=>'GET','autocomplete'=>'off','roles'=>'search'))!!} 
-                                    <div class="input-group">
-                                        {{-- <input type="text" name="buscarTexto" class="form-control" placeholder="Buscar texto" value="{{$buscarTexto}}">
-                                        <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button> --}}
-                                        
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                        </div>
-                                        <input class="form-control form-control" placeholder="Realizar búsqueda" type="text" name="buscarTexto" value="">
+                            <div class="col-md-4">
+                                {{ Form::open(['route' => 'permiso', 'method' => 'GET', 'class' => 'form-inline pull-right']) }}
+                                    <div class="form-group">
+                                        {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Realizar búsqueda', 'autocomplete' => 'off']) }}
                                     </div>
-                                {{Form::close()}}
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-default">
+                                            <span class="fas fa-search"></span>
+                                        </button>
+                                    </div>
+                                {{ Form::close() }}
                             </div>
-                            <br><br>
                             <div style="margin-left: 15px;">
                                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#abrirmodal">
                                     <i class="fa fa-plus fa"></i>&nbsp;&nbsp;Nuevo registro
@@ -76,6 +74,9 @@
     
                         </table>
                     </div>
+                </div>
+                <div style="float:right; margin-top:1%;">
+                    {{$permisos->render()}}
                 </div>
             </div>
     

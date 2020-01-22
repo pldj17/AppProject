@@ -61,4 +61,13 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(Profile::class); //esta relacion buscara en la tabla Profile una llave foranea con el nombre de user_id
     }
+
+    //Query Scope
+    public function scopeName($query, $name )
+    {
+        if($name){
+            return $query->where('name', 'LIKE', "%$name%"); //%antes y despues significa cualquier palabra semejante antes o despues a la palabra que se esta buscando
+        }
+    }
+
 }

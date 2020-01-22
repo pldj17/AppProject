@@ -15,10 +15,17 @@ class PermissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $permisos = permission::orderBy('id')->get();
-        return view('admin.permiso.index', compact('permisos'));
+        // $permisos = permission::orderBy('id')->get();
+        // return view('admin.permiso.index', compact('permisos'));
+
+        $name = $request->get('name');
+
+        $permisos = Permission::orderBy('id', 'ASC')
+            ->name($name)
+            ->paginate(6);
+        return view('admin.permiso.index', compact('permisos')); 
 
         // return view('admin.permiso.index')->with('permisos', permission::paginate(4));
     }

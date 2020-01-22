@@ -10,13 +10,17 @@ use ProjectApp\role;
 class RoleController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
         can('ver-listado-rol');
-        return view('admin.role.index')->with('roles',role::paginate(4)); 
+        // return view('admin.role.index')->with('roles',role::paginate(4)); 
 
-        // $datas = Role::orderBy('id')->get();
-        // return view('admin.role.index', compact('datas'));
+        $name = $request->get('name');
+
+        $roles = Role::orderBy('id', 'ASC')
+            ->name($name)
+            ->paginate(3);
+        return view('admin.role.index', compact('roles')); //pagina de usuarios
 
     }
 

@@ -4,11 +4,15 @@
     Perfil
 @endsection
 
+@section("styles")
+    <link href="{{asset("assets/css/gallery.css")}}" rel="stylesheet" type="text/css" />
+@endsection
+
 @section('content')
     @include('users.partials.header', [
         'title' => auth()->user()->name
     ])   
-    <div class="container-fluid mt--7">
+    <div class="container-fluid mt--7 justify-content-center">
         
         <div class="row justify-content-md-center">
             <div class="col-11 order-xl-2 mb-4 mb-xl-0">
@@ -81,6 +85,7 @@
                                 </ul>
                             </div>
 
+                            
 
                             @include('profile.form-gallery')
 
@@ -89,6 +94,10 @@
                             <form action="{{ route('guardar_foto') }}" class="form-image-upload" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
+                                    {{-- <div class="col-md-5">
+                                        <strong>Descripcion:</strong>
+                                        <input type="text" name="title" class="form-control" placeholder="Title">
+                                    </div> --}}
                                     <div class="col-md-5">
                                         <strong>Imagen:</strong>
                                         <input type="file" name="image" class="form-control">

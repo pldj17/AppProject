@@ -10,10 +10,16 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         can('ver-listado-usuario');
-        return view('admin.users.index')->with('users',User::paginate(5)); //pagina de usuarios
+
+        $name = $request->get('name');
+
+        $users = User::orderBy('id', 'ASC')
+            ->name($name)
+            ->paginate(3);
+        return view('admin.users.index', compact('users')); //pagina de usuarios
     }
     
     // public function show($id){
