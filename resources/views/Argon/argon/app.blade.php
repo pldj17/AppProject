@@ -57,7 +57,7 @@
         <div class="main-content">
             @include("theme.$theme.navbars.navbar")
             @include('partials.alerts')
-            @yield('content')
+            @yield('contenido')
         </div>
 
         @guest()
@@ -94,9 +94,8 @@
         }
         </script>
 
-        {{-- <script src="{{ asset("assets/$theme/vendor/jquery/dist/jquery.min.js") }}"></script>
-        <script src="{{ asset("assets/$theme/vendor/bootstrap/dist/js/bootstrap.bundle.min.js") }}"></script>
-         --}}
+
+        
         @stack('js')
         
         <!-- Argon JS -->
@@ -111,8 +110,8 @@
         <!-- Croppie js -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.min.js"></script>
         {{-- archivo js --}}
-        <script>var url = "{{ route('avatar') }}";</script>
-        <script src="{{ asset ('photo/js.js') }}"></script>
+        <script>var url = "{{route('avatar')}}";</script>
+        <script src="{{asset('photo/js.js')}}"></script>
         <script src="https://ajax.cloudflare.com/cdn-cgi/scripts/95c75768/cloudflare-static/rocket-loader.min.js" data-cf-settings="ea8a63b81a35e8970c2c9439-|49" defer=""></script>
         @yield("scriptsPlugins")
         <script src="{{asset("assets/js/jquery-validation/jquery.validate.min.js")}}"></script>

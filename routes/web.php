@@ -13,7 +13,7 @@
 
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('dashboard');
 });
 
 Auth::routes(['verify' => true]);
@@ -22,7 +22,7 @@ Auth::routes();
 
 //verificacion de correo ->middleware('verified');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('dashboard', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function(){
 
@@ -40,9 +40,9 @@ Route::group(['middleware' => ['auth']], function(){
 
     //galeria
     // Route::get('image-gallery', 'GalleryController@index');
-    Route::post('perfil/galeria', 'GalleryController@upload')->name('guardar_foto');
-    Route::delete('perfil/galeria/{id}', 'GalleryController@destroy')->name('eliminar_foto');
-    Route::get('perfil/galeria', 'GalleryController@index')->name('profile.gallery');
+    Route::post('perfil/post', 'GalleryController@upload')->name('guardar_post');
+    Route::delete('perfil/post/{id}', 'GalleryController@destroy')->name('eliminar_post');
+    Route::get('perfil/post', 'GalleryController@index')->name('perfil_post');
 });
 
 

@@ -12,13 +12,13 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        can('ver-listado-usuario');
+        
 
         $name = $request->get('name');
-
+        can('ver-listado-usuario');
         $users = User::orderBy('id', 'ASC')
             ->name($name)
-            ->paginate(3);
+            ->paginate(5);
         return view('admin.users.index', compact('users')); //pagina de usuarios
     }
     

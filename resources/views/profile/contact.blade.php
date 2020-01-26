@@ -1,10 +1,17 @@
-@extends("theme.$theme.app", ['title' => __('User Profile')])
+@extends("theme.$theme.app")
 
 @section('titulo')
     Perfil
 @endsection
 
-@section('content')
+@section('scripts')
+    <script src="{{asset("assets/js/galeria.js")}}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+@endsection
+
+@section('contenido')
     @include('users.partials.header', [
         'title' => auth()->user()->name
     ])   
@@ -16,11 +23,11 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-3 order-lg-2">
                             <div class="card-profile-image">
-                                <a href="#">
+                                <a href="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}" class="zoom img-fluid">
                                     @if (empty(Auth::user()->profile->avatar))
-                                        <img src="{{ asset('avatar/avatar.png')}}" class="card-img-top rounded-circle mx-auto d-block" style="height:150; width:250px;">
+                                        <img src="{{ asset('avatar/avatar.png')}}" class="card-img-top rounded-circle mx-auto d-block" style="height:180px; width:180px;">
                                     @else
-                                        <img src="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}" class="card-img-top d-block" style="width:250px; height:150; border-radius:50%;">  
+                                        <img src="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}" rel="ligthbox" class="card-img-top d-block fancybox" style="width:180px; height:180px; borderdius:50%;">  
                                     @endif
                                 </a>
                             </div>
@@ -67,19 +74,7 @@
                             <hr class="my-4" />
 
 
-                            <div class="nav-wrapper">
-                                <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
-                                    <li class="nav-item">
-                                        <a href="{{ route('profile.index') }}" class="nav-link mb-sm-3 mb-md-0 "  aria-controls="tabs-icons-text-1" aria-selected="true"><i class="fa fa-info-circle mr-2"></i>información</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('profile.gallery') }}" class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" aria-selected="false"><i class="ni ni-image mr-2"></i>Galería</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('profile.contact') }}" class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-3-tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="fa fa-mobile mr-2"></i>Contacto</a>
-                                    </li>
-                                </ul>
-                            </div>
+                            @include('profile/tabs')
 
 
                             <p>{{ __('Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci..') }}</p>

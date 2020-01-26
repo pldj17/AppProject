@@ -3,6 +3,12 @@
 @section('content')
     @include("theme.$theme.headers.guest")
 
+
+@section("scripts")
+    <script src="{{ asset("assets/$theme/vendor/jquery/dist/jquery.min.js") }}"></script>
+    <script src="{{ asset("assets/$theme/vendor/bootstrap/dist/js/bootstrap.bundle.min.js") }}"></script>
+@endsection
+
     <div class="container mt--8 pb-5">
         <div class="row justify-content-center">
             <div class="col-lg-5 col-md-7">

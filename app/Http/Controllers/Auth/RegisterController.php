@@ -2,11 +2,13 @@
 
 namespace ProjectApp\Http\Controllers\Auth;
 
+use GuzzleHttp\Psr7\Request;
 use ProjectApp\User;
 use ProjectApp\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use ProjectApp\Profile;
 use ProjectApp\Role;
 
@@ -31,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/dashboard';
 
     /**
      * Create a new controller instance.
@@ -80,7 +82,7 @@ class RegisterController extends Controller
             'date_born' => request('date_born'),
         ]);
 
-        // $user->roles()->attach(Role::where('name', 'user')->first()); //pedimos el rol con el nombre user, attach se encarga de las tablas relacionadas
+        //  $user->roles()->attach(Role::where('name', 'user')->first()); //pedimos el rol con el nombre user, attach se encarga de las tablas relacionadas
         
         // return $user;
         //asignar rol de usuario al registrarse
@@ -88,4 +90,16 @@ class RegisterController extends Controller
         $user->roles()->attach($role);
         return $user;
     }
+
+    // protected function authenticated(Request $request, $user)
+    // {
+    //     $roles = $user->roles()->get();
+    //     if ($roles->isNotEmpty()) {
+    //         $user->setSession($roles->toArray());
+    //     } else {
+    //         $this->guard()->logout();
+    //         $request->session()->invalidate();
+    //         return redirect('login')->withErrors(['error' => 'Este usuario no tiene un rol activo']);
+    //     }
+    // }
 }

@@ -22,10 +22,10 @@ class CreateRoleUserTable extends Migration
             // $table->unsignedInteger('user_id');
             // $table->foreign('user_id', 'fk_roleuser_user')->references('id')->on('users')->onDelete('restrict')->onUpdate('restrict');
             
-            $table->bigInteger('role_id')->unsigned()->index(); // this is working
+            $table->bigInteger('role_id')->unsigned()->index(); 
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('restrict')->onUpdate('restrict');
 
-            $table->bigInteger('user_id')->unsigned()->index(); // this is working
+            $table->bigInteger('user_id')->unsigned()->index(); 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('restrict');
 
             $table->string('state',30)->nullable();

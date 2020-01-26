@@ -17,7 +17,7 @@ class PermisoAdministrador
     {
         if ($this->permiso())
             return $next($request);
-        return redirect('/home')->with('mensaje', 'No tiene permiso para acceder aquí');
+        return redirect('/dashboard')->with('mensaje', 'No tiene permiso para acceder aquí');
     }
 
     private function permiso()

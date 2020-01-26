@@ -1,11 +1,8 @@
-@extends("theme.$theme.app", ['title' => __('User Profile')])
+@extends("theme.$theme.app")
 
 @section('titulo')
     Sistema de menus
 @endsection
-
-@section('content')
-    @include('users.partials.header1') 
     
 @section("styles")
     <link href="{{asset("assets/js/jquery-nestable/jquery.nestable.css")}}" rel="stylesheet" type="text/css" />
@@ -20,6 +17,12 @@
     <script src="{{asset("assets/pages/scripts/admin/menu/crear.js")}}" type="text/javascript"></script>
 @endsection
 
+@section('title')
+    <h2>Menús</h2>
+@endsection
+
+@section('contenido')
+
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
@@ -28,7 +31,6 @@
                     @include('includes.mensaje')
                     <div class="container" >
                         <div class="card-header">
-                            <h2>Menús</h2>
                             <div >
                                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#abrirmodal">
                                     <i class="fa fa-plus fa"></i>&nbsp;&nbsp;Nuevo registro

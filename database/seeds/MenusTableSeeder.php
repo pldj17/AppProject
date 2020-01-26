@@ -17,25 +17,34 @@ class MenusTableSeeder extends Seeder
             'url' => '#'
         ]);
         $Usuario = Menu::create([
-            'name' => 'Usuario',
-            'url' => 'admin/usuario'
+            'name' => 'Usuarios',
+            'url' => 'admin/usuario',
+            'icon' => 'fa-users'
         ]);
         $Rol = Menu::create([
             'name' => 'Roles',
-            'url' => 'admin/rol'
+            'url' => 'admin/rol',
+            'icon' => 'fa-user-lock'
         ]);
         $Permiso = Menu::create([
             'name' => 'Permisos',
-            'url' => 'admin/Permiso'
+            'url' => 'admin/permiso',
+            'icon' => 'fa-user-shield'
         ]);
-
+        $PermisoRol = Menu::create([
+            'name' => 'PermisoRol',
+            'url' => 'admin/permiso-rol',
+            'icon' => 'fa-user-shield'
+        ]);
         $Menu = Menu::create([
             'name' => 'Menus',
-            'url' => 'admin/menu'
+            'url' => 'admin/menu',
+            'icon' => 'fa-bars'
         ]);
         $MenuRol = Menu::create([
             'name' => 'MenuRol',
-            'url' => 'admin/menu-rol'
+            'url' => 'admin/menu-rol',
+            'icon' => 'fa-bars'
         ]);
     }
 }

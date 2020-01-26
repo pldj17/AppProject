@@ -4,19 +4,15 @@
     Editar perfil
 @endsection
 
-{{-- @section('styles')
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <!-- References: https://github.com/fancyapps/fancyBox -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+@section('styles')
+  
 @endsection
 
 @section('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
-@endsection --}}
+    <script src="{{ asset ('assets/photo/js.js') }}"></script>
+@endsection
 
-@section('content')
+@section('contenido')
     @include('users.partials.header')   
 
     <div class="container-fluid mt--7">

@@ -4,8 +4,7 @@
     Ajustes
 @endsection
 
-@section('content')
-    @include('users.partials.header')
+@section('contenido')
 
     <div class="container-fluid mt--7">
         <div class="row justify-content-center">

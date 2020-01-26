@@ -1,103 +1,108 @@
-@extends("theme.$theme.app", ['class' => 'bg-default'])
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 3 | Log in</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@section('content')
-    @include("theme.$theme.headers.guest")
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{asset("assets/$theme/plugins/fontawesome-free/css/all.min.css")}}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css")>
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="{{asset("assets/$theme/plugins/icheck-bootstrap/icheck-bootstrap.min.css")}}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{asset("assets/$theme/dist/css/adminlte.min.css")}}">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  
+ 
 
-    <div class="container mt--8 pb-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-7">
-                <div class="card bg-secondary shadow border-0">
-                    {{-- <div class="card-header bg-transparent pb-5">
-                        <div class="text-muted text-center mt-2 mb-3"><small>{{ __('Sign in with') }}</small></div>
-                        <div class="btn-wrapper text-center">
-                            <a href="#" class="btn btn-neutral btn-icon">
-                                <span class="btn-inner--icon"><img src="{{ asset('argon') }}/img/icons/common/github.svg"></span>
-                                <span class="btn-inner--text">{{ __('Github') }}</span>
-                            </a>
-                            <a href="#" class="btn btn-neutral btn-icon">
-                                <span class="btn-inner--icon"><img src="{{ asset('argon') }}/img/icons/common/google.svg"></span>
-                                <span class="btn-inner--text">{{ __('Google') }}</span>
-                            </a>
-                        </div>
-                    </div> --}}
-                    <div class="card-body px-lg-5 py-lg-5">
-                        <div class="text-center text-muted mb-4">
-                            <small>
-                                {{-- <a href="{{ route('register') }}">{{ __('Create new account') }}</a> {{ __('OR Sign in with these credentials:') }} --}}
-                            </small>
-                            <br>
-                            <small>
-                                {{ __('Iniciar sesión') }}
-                            </small>
-                        </div>
 
-                        @include('includes.form-error')
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <a href="{{asset("dashboard")}}"><b>App</b></a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Iniciar sesión</p>
 
-                        <form role="form" method="POST" action="{{ route('login') }}">
-                            @csrf
+      <form role="form" method="POST" action="{{ route('login') }}">
+        @csrf
 
-                            {{-- email --}}
-                            <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }} mb-3">
-                                <div class="input-group input-group-alternative">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                                    </div>
-                                    <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" type="email" name="email" value="{{ old('email') }}">
-                                </div>
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-
-                            {{-- password --}}
-                            <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
-                                <div class="input-group input-group-alternative">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                                    </div>
-                                    <input id="pass" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="{{ __('Password') }}" type="password">
-                                    <i class="fa fa-eye" id="show" style="margin-top:4%; margin-left:2%; margin-right:2%;"></i>
-                                </div>
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-
-                            {{-- recordar contrasena --}}
-                            {{-- <div class="custom-control custom-control-alternative custom-checkbox">
-                                <input class="custom-control-input" name="remember" id="customCheckLogin" type="checkbox" {{ old('remember') ? 'checked' : '' }}>
-                                <label class="custom-control-label" for="customCheckLogin">
-                                    <span class="text-muted">{{ __('Recordar usuario') }}</span>
-                                </label>
-                            </div> --}}
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary my-4">{{ __('Ingresar') }}</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                {{-- olvido contrasena --}}
-                <div class="row mt-3">
-                    <div class="col-6">
-                        @if (Route::has('password.request'))
-                            <a href="{{ route('password.request') }}" class="text-light">
-                                <small>{{ __('¿Olvidó su contraseña?') }}</small>
-                            </a>
-                        @endif
-                    </div>
-
-                    {{-- crear cuenta --}}
-                    <div class="col-6 text-right">
-                        <a href="{{ route('register') }}" class="text-light">
-                            <small>{{ __('Crear nueva cuenta') }}</small>
-                        </a>
-                    </div>
-                </div>
+        {{-- email --}}
+        <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }} mb-3">
+            <div class="input-group-alternative">
+                <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" type="email" name="email" value="{{ old('email') }}">
             </div>
+            @if ($errors->has('email'))
+                <span class="invalid-feedback" style="display: block;" role="alert">
+                    <strong>{{ $errors->first('email') }}</strong>
+                </span>
+            @endif
+        </div>
+
+        {{-- password --}}
+        <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
+            <div class="input-group input-group-alternative">
+                <input id="pass" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="{{ __('Password') }}" type="password">
+                <i class="fa fa-eye" id="show" style="margin-top:4%; margin-left:2%; margin-right:2%;"></i>
+            </div>
+            @if ($errors->has('password'))
+                <span class="invalid-feedback" style="display: block;" role="alert">
+                    <strong>{{ $errors->first('password') }}</strong>
+                </span>
+            @endif
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary my-2">{{ __('Ingresar') }}</button>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col-12 text-right">
+            @if (Route::has('password.request'))
+                <a href="{{ route('password.request') }}" class="text-center">
+                    ¿Olvidaste tu contraseña?
+                </a>
+            @endif
         </div>
     </div>
-@endsection
+
+    <div class="row mt-3">
+        <div class="col-12 text-right">
+            <a href="{{ route('register') }}" class="text-center">Crear cuenta</a>
+        </div>
+    </div>
+      
+    <script>
+        //ojito para ver password
+        $(document).ready(function(){
+            $('#show').mousedown(function(){
+                $('#pass').removeAttr('type');
+                $('#show').addClass('fa-eye-slash').removeClass('fa-eye');
+            });
+            $('#show').mouseup(function(){
+                $('#pass').attr('type', 'password');
+                $('#show').addClass('fa-eye').removeClass('fa-eye-slash');
+            });
+        });
+    </script>
+
+    <!-- jQuery -->
+    <script src="{{asset("assets/$theme/plugins/jquery/jquery.min.js")}}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{{asset("assets/$theme/plugins/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{asset("assets/$theme/dist/js/adminlte.min.js")}}"></script>
+
+</body>
+</html>
+
+

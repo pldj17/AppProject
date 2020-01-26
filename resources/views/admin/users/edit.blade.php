@@ -4,8 +4,11 @@
     Usuarios - roles
 @endsection
 
-@section('content')
-    @include('users.partials.header1')   
+@section('title')
+    <h2>Rol {{$user->name}}</h2>
+@endsection
+
+@section('contenido')   
 
     <div class="container">
         <div class="row">
@@ -14,8 +17,6 @@
                     @include('includes.form-error')
                     @include('includes.mensaje')
                     <div class="card-header">
-                        <div class="class card-header">Rol {{$user->name}}</div>
-
                         <div class="class card-body">
                             <form action="{{ route('actualizar_usuario', ['user'=>$user->id]) }}" method="POST">
                                 @csrf @method("put")

@@ -18,3 +18,8 @@
     height: 150px;
     border-radius: 50%;
 } 
+.editar{
+    border-bottom: none;
+    border-radius: 10px;
+    outline: none;
+}
