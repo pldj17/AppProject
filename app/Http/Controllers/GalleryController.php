@@ -3,34 +3,35 @@
 namespace ProjectApp\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use ProjectApp\Gallery;
+use ProjectApp\Http\Requests\ActualizarPost;
 
 class GalleryController extends Controller
 {
 
     public function index()
     {
-    	$images = Gallery::get();
-    	return view('profile.gallery',compact('images'));
+    	$posts = Gallery::get();
+    	return view('profile.gallery',compact('posts'));
     }
 
-    public function upload(Request $request)
+    public function upload(ActualizarPost $request)
     {
-    	$this->validate($request, [
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-
-
-        $input['image'] = time().'.'.$request->image->getClientOriginalExtension();
-        $request->image->move(public_path('images'), $input['image']);
-
-
-        $input['title'] = $request->title;
-        Gallery::create($input);
-
-
-    	return back()
-    		->with('mensaje','Archivo actualizado correctamente.');
+    	$file = $request->file('image');
+        $description = $request->get('description');
+        $filename = str_random(10) . '.' .$file->getClientOriginalExtension();
+        
+        $user = Auth::user();
+        $post = new Gallery();
+        $file->move($this->userPhotosFolder, $filename);// subimos al servidor
+        
+        $post->profile_id = $user->id; // Asociamos el post al usuario actual
+        $post->image = $filename;
+        $post->description = $description;
+        $post->save();
+        
+        return redirect()->route('home');
     }
 
     public function destroy($id)

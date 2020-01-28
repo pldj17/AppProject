@@ -19,15 +19,7 @@ class ActualizarPost extends FormRequest
     public function rules()
     {
         return [
-            'photo' => 'required|image',
-        ];
-    }
-
-    public function messages() 
-    {
-        return [
-            'photo.required' => 'No has seleccionado ningun archivo.',
-            'photo.image' => 'Debes subir una imagen.',
+            'image' => 'required|image',
         ];
     }
 }

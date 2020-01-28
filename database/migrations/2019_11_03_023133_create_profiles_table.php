@@ -23,7 +23,7 @@ class CreateProfilesTable extends Migration
             $table->string('date_born')->nullable()->default(null);
             $table->timestamps();
 
-            $table->bigInteger('user_id')->unsigned()->index(); // this is working
+            $table->bigInteger('user_id')->unsigned()->index(); 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }

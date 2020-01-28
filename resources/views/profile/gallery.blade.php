@@ -30,7 +30,7 @@
         <!-- Profile Image -->
         <div class="card card-primary card-outline">
           <div class="card-body box-profile">
-              <a href="{{route("profile.edit")}}" class="float-right btn-tool" style="position:fixed;">
+              <a href="{{route("profile.edit")}}" class="float-right btn-tool" style="position:absolute;">
                   <i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Editar perfil"></i>
               </a>
             <div class="text-center">
@@ -142,12 +142,14 @@
                 @include('profile.form-gallery')
 
                 <hr>
-                <form action="{{ route('guardar_post') }}" class="form-image-upload" method="POST" enctype="multipart/form-data">
+
+                <form action="{{ route('guardar_post') }}" class="form-image-upload" method="POST" enctype="multipart/form-data" autocomplete="off">
                     @csrf
                     <div class="row">
+                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                         <div class="col-md-5">
                             <strong>Descripcion:</strong>
-                            <input type="text" name="title" class="form-control" placeholder="Descripción">
+                            <input type="text" name="description" class="form-control" placeholder="Descripción">
                         </div>  
                         <div class="col-md-5">
                             <strong>Imagen:</strong>

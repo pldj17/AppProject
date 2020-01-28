@@ -14,6 +14,7 @@ class role extends Model
     protected $fillable=['name','description'];
     protected $guarded = ['id'];
 
+    //un rol puede pertenecer a muchos usuarios
     public function users()
     {
         return $this->belongsToMany(User::class)->withTimestamps();

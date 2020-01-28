@@ -9,40 +9,28 @@ use ProjectApp\Post;
 
 class PostController extends Controller
 {
+    private $userPhotosFolder = "photos";
+
     public function index()
     {
-        $posts = Post::get();
-    	return view('profile.gallery',compact('images'));
+        $posts = Post::orderBy('id','DESC')->where('user_id', Auth::id())->paginate(10);
+        return view('profile.gallery', compact('posts'));
     }
 
-    public function upload(Request $request)
+    public function store(ActualizarPost $request)
     {
-    	$this->validate($request, [
-    		'description' => 'required',
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-
-
-        $input['photo'] = time().'.'.$request->photo->getClientOriginalExtension();
-        $request->photo->move(public_path('images'), $input['photo']);
-
-
-        $input['description'] = $request->description;
-        Post::create($input);
-
-
-    	return back()
-    		->with('success','Image Uploaded successfully.');
-    }
-
-    public function create()
-    {
+        $file = $request->file('image');
+        $filename = str_random(10) . '.' .$file->getClientOriginalExtension();
         
-    }
+        $post = new Post;
+        $file->move($this->userPhotosFolder, $filename);// subimos al servidor
 
-    public function store(Request $request)
-    {
-        
+        $post->user_id = $request->get('user_id');
+        $post->description = $request->get('description');
+        $post->image = $filename;
+        $post->save();
+
+        return redirect()->route('perfil_post')->with('mensaje', 'Se guardaron los cambios');
     }
 
     public function show($id)

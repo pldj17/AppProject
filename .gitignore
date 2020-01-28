@@ -4,6 +4,7 @@
 /storage/*.key
 /vendor
 public/images
+public/photos
 public/assets/lte
 public/assets
 /public/assets/argon

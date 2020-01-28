@@ -31,7 +31,7 @@
           <div class="card card-primary card-outline">
             <div class="card-body box-profile">
                 <a href="{{route("profile.edit")}}" class="float-right btn-tool" style="position:absolute;">
-                    <i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Eliminar este registro"></i>
+                    <i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Editar perfil"></i>
                 </a>
               <div class="text-center">
                 {{-- <img class="profile-user-img img-fluid img-circle"
@@ -62,7 +62,7 @@
                 </li>
               </ul>--}}
               
-              <a href="#" class="btn btn-primary btn-block"><b>Puntuar</b></a> 
+              <a href="#" class="btn btn-primary btn-block"><b>Calificar</b></a> 
             </div>
             <!-- /.card-body -->
           </div>

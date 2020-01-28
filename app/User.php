@@ -26,6 +26,7 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     // definir metodo para la relacion de muchos a muchos con la tabla role
+    //un usuario puede tener muchos roles
     public function roles()
     {
         return $this->belongsToMany(Role::class)->withTimestamps();
@@ -62,10 +63,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Profile::class); //esta relacion buscara en la tabla Profile una llave foranea con el nombre de user_id
     }
 
-    public function post()
-    {
-        return $this->hasOne(Post::class); //esta relacion buscara en la tabla Profile una llave foranea con el nombre de user_id
-    }
     //Query Scope
     public function scopeName($query, $name )
     {

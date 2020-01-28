@@ -68,26 +68,24 @@
 </head>
 <body>
     <div class="row" style="margin-top:10px;">
-        @if($images->count())
-            @foreach($images as $image)
+            @foreach($posts as $post)
                 <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                    <form action="{{ route('eliminar_post',$image->id) }}" method="POST">
+                    <form action="{{ route('eliminar_post',$post->id) }}" method="POST">
                         <input type="hidden" name="_method" value="delete">
                         @csrf
                         <button type="submit" class="btn-accion-tabla eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar este registro" style="float:right;">
                             <i class="fa fa-fw fa-times text-danger" ></i>
                         </button>                    
                     </form>
-                    <a href="/images/{{ $image->image }}" class="fancybox" rel="ligthbox">
-                        <img id="imagen" src="/images/{{ $image->image }}" class="zoom img-fluid "  alt="">
-                        {{-- <div class='text-center'>
-                            <small class='text-muted'>{{ $image->title }}</small>
-                        </div> --}}
+                    <a href="{{ $post->image }}" class="fancybox" rel="ligthbox">
+                        <img id="image" src="{{ $post->image }}" class="zoom img-fluid "  alt="">
+                        <div class='text-center'>
+                            <small class='text-muted'>{{ $post->description }}</small>
+                        </div>
                     </a>
                     
                 </div>
             @endforeach
-        @endif 
     </div>
     <script>
         $(document).ready(function(){

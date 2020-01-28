@@ -40,9 +40,10 @@ Route::group(['middleware' => ['auth']], function(){
 
     //galeria
     // Route::get('image-gallery', 'GalleryController@index');
-    Route::post('perfil/post', 'GalleryController@upload')->name('guardar_post');
-    Route::delete('perfil/post/{id}', 'GalleryController@destroy')->name('eliminar_post');
-    Route::get('perfil/post', 'GalleryController@index')->name('perfil_post');
+    Route::post('perfil/post', 'PostController@store')->name('guardar_post');
+    Route::delete('perfil/post/{id}', 'PostController@destroy')->name('eliminar_post');
+    Route::get('perfil/post', 'PostController@index')->name('perfil_post');
+    
 });
 
 

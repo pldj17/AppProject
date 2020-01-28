@@ -7,11 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     protected $table = 'posts';
-    protected $fillable = ['photo', 'description'];
+    protected $fillable = ['image', 'description'];
 
-    public function user()
+    //un perfil puede tener muchos post
+    public function profile()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Profile::class);
+    }
+
+    public function getPhotoAttribute(): string 
+    {
+        return url('photos/' . $this->attributes['image']);
     }
 
 }
