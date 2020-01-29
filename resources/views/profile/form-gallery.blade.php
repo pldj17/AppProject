@@ -77,8 +77,8 @@
                             <i class="fa fa-fw fa-times text-danger" ></i>
                         </button>                    
                     </form>
-                    <a href="{{ $post->image }}" class="fancybox" rel="ligthbox">
-                        <img id="image" src="{{ $post->image }}" class="zoom img-fluid "  alt="">
+                    <a href="/photos/{{$post->image }}" class="fancybox" rel="ligthbox">
+                        <img id="image" src="/photos/{{$post->image }}" class="zoom img-fluid "  alt="">
                         <div class='text-center'>
                             <small class='text-muted'>{{ $post->description }}</small>
                         </div>

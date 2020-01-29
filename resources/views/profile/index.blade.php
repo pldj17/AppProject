@@ -37,13 +37,13 @@
                 {{-- <img class="profile-user-img img-fluid img-circle"
                      src="../../dist/img/user4-128x128.jpg"
                      alt="User profile picture"> --}}
-                     <a href="#/{{ Auth::user()->profile->avatar }}" class="zoom img-fluid" style="">
+                     {{-- <a href="#/{{ Auth::user()->profile->avatar }}" class="zoom img-fluid" style=""> --}}
                         @if (empty(Auth::user()->profile->avatar))
                             <img src="{{ asset('avatar/avatar.png')}}" class="card-img-top rounded-circle mx-auto d-block" style="height:130px; width:130px;">
                         @else
-                            <img src="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}" rel="ligthbox" class="card-img-top d-block fancybox" style="width:130px; height:130px; borderdius:50%; margin-left: auto; margin-right: auto;">  
+                            <img src="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}" rel="ligthbox" class="card-img-top d-block" style="width:130px; height:130px; borderdius:50%; margin-left: auto; margin-right: auto;">  
                         @endif
-                    </a>
+                    {{-- </a> --}}
               </div>
 
               <h3 class="profile-username text-center">{{auth()->user()->name}}</h3>
@@ -140,7 +140,36 @@
               <div class="tab-content">
                 <div class="active tab-pane" id="activity">
                   <!-- Post -->
-                    
+                  <div class="col-xs-8">
+                    <div class="panel panel-default publish-post">
+                        <div class="panel-heading type-post-buttons">
+                                <div class="text-center" style="display: inline-block;vertical-align: middle;width: 48%;">
+                                    <button class="btn btn-link" autofocus  >
+                                        <i class="icon icon-pencil"></i>
+                                        Crear una publicacion
+                                    </button>
+                                </div>
+                                <div class="text-center" style="display: inline-block;vertical-align: middle;width: 48%;">
+                                    <button class="btn btn-link" name="change-file">
+                                        <i class="icon icon-camera"></i>
+                                        Publicar una foto
+                                    </button>
+                                </div>
+                        </div>
+                        <div class="panel-body">
+                            <form class="post-home-form" onsubmit="return false;" enctype="multipart/form-data">
+                                <input type="file" name="file" class="hide">
+                                <input type="hidden" name="post-type" value="0">
+                                <div class="form-group">
+                                    <textarea class="form-control input-sm" name="post-text" placeholder="Write on the wall" style="max-width: 100%;max-height: 10em"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-success">Submit</button>
+                                <div class="pull-right preview-photo">
+
+                                </div> <!-- pull-right -->
+                            </form>
+                        </div> <!-- panel body -->
+                    </div> <!-- panel -->
                   <!-- /.post -->
                 </div>
 

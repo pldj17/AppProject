@@ -17,6 +17,11 @@ class PostController extends Controller
         return view('profile.gallery', compact('posts'));
     }
 
+    public function create()
+    {
+        //
+    }
+
     public function store(ActualizarPost $request)
     {
         $file = $request->file('image');

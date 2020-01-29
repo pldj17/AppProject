@@ -8,9 +8,9 @@
   <li class="nav-item has-treeview">
     <a href="#" class="nav-link">
       <i class="nav-icon fas {{$item["icon"]}}"></i> <span>{{$item["name"]}}</span>
-      <p>
-        <i class="right fas fa-angle-left"></i>
-      </p>
+      <span class="pull-right-container">
+        <i class="fas fa-angle-left pull-right"></i>
+      </span>
     </a>
     <ul class="nav nav-treeview">
       @foreach ($item["submenu"] as $submenu)

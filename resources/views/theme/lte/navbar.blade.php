@@ -47,6 +47,12 @@
             <i class="fas fa-cog mr-2"></i> Ajustes
           </a>
         <div class="dropdown-divider"></div>
+          @guest
+          <a href="{{ route('login') }}" class="dropdown-item">
+            <i class="fas fa-sign-in-alt mr-2"></i> Iniciar sesión
+          </a>
+            @endguest
+        <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
               <i class="fas fa-sign-out-alt mr-2"></i>Cerrar sesión
             </a>
