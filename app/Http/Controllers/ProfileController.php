@@ -9,8 +9,10 @@ use ProjectApp\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Support\Facades\Auth;
 use ProjectApp\Profile;
 use Image;
+use ProjectApp\Post;
 
 class ProfileController extends Controller
 {
@@ -26,9 +28,9 @@ class ProfileController extends Controller
     public function index(Request $request)
     {
         // $request->user()->authorizeRoles('admin');//validacion de rol de usuario
-
+        $posts = Post::orderBy('id','DESC')->where('user_id', Auth::id())->paginate(10);
         $profiles = Profile::all(); //consulta todos los perfiles creados y los trae
-        return view('profile.index', compact('profiles')); //compact genera una array con la informacion que le asignemos
+        return view('profile.index', compact('profiles', 'posts')); //compact genera una array con la informacion que le asignemos
     }
 
     public function edit()

@@ -29,41 +29,46 @@
   <ul class="navbar-nav ml-auto">
     
     <!-- Notifications Dropdown Menu -->
-    
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="dropdown" href="#">
-      <i class="far fa-user">&nbsp;&nbsp;{{auth()->user()->name ?? 'Invitado'}}</i>
-      </a>
-      <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-        <span class="dropdown-item dropdown-header" style="text-align:center;">
-          Bienvenido!
-        </span>
-        <div class="dropdown-divider"></div>
-          <a href="{{route("profile.index")}}" class="dropdown-item">
-            <i class="fas fa-user mr-2"></i> Perfil
-          </a>
-        <div class="dropdown-divider"></div>
-          <a href="{{ route('profile.ajustes') }}" class="dropdown-item">
-            <i class="fas fa-cog mr-2"></i> Ajustes
-          </a>
-        <div class="dropdown-divider"></div>
-          @guest
-          <a href="{{ route('login') }}" class="dropdown-item">
-            <i class="fas fa-sign-in-alt mr-2"></i> Iniciar sesión
-          </a>
-            @endguest
-        <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-              <i class="fas fa-sign-out-alt mr-2"></i>Cerrar sesión
+    @if (auth()->user())
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+        <i class="far fa-user">&nbsp;&nbsp;{{auth()->user()->name ?? 'Invitado'}}</i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <span class="dropdown-item dropdown-header" style="text-align:center;">
+            Bienvenido!
+          </span>
+          <div class="dropdown-divider"></div>
+            <a href="{{route("profile.index")}}" class="dropdown-item">
+              <i class="fas fa-user mr-2"></i> Perfil
             </a>
+          <div class="dropdown-divider"></div>
+            <a href="{{ route('profile.ajustes') }}" class="dropdown-item">
+              <i class="fas fa-cog mr-2"></i> Ajustes
+            </a>
+          
+          <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <i class="fas fa-sign-out-alt mr-2"></i>Cerrar sesión
+              </a>
 
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-              @csrf
-          </form>
-        <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer"></a>
-      </div>
-    </li>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+          <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item dropdown-footer"></a>
+        </div>
+      </li>
+    @else
+      <div class="dropdown-divider"></div>
+      @guest
+      <a href="{{ route('login') }}" class="dropdown-item">
+        <i class="fas fa-sign-in-alt mr-2"></i> Iniciar sesión
+      </a>
+        @endguest
+    @endif
+
+    
   </ul>
 </nav>
 <!-- /.navbar -->

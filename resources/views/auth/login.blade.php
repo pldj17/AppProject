@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Log in</title>
+  <title>Iniciar sesión</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -25,7 +25,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="{{asset("dashboard")}}"><b>App</b></a>
+    <a href="{{asset("dashboard")}}"><b>App</b>Project</a>
   </div>
   <!-- /.login-logo -->
   <div class="card">

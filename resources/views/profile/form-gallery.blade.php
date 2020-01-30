@@ -13,7 +13,13 @@
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
     <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
- 
+
+@section("scripts")
+{{-- <script src="{{asset("assets/pages/scripts/admin/crear.js")}}" type="text/javascript"></script>
+    <script src="{{asset("assets/pages/scripts/admin/index.js")}}" type="text/javascript"></script>
+    <script src="{{asset("assets/pages/scripts/admin/role/js.js")}}" type="text/javascript"></script>
+    <script src="{{asset("assets/profile/js/perfil.js")}}" type="text/javascript"></script> --}}
+@endsection
 
 <style>
     #demo {
@@ -67,21 +73,28 @@
 
 </head>
 <body>
-    <div class="row" style="margin-top:10px;">
+    <div class="row" style="margin-top:10px;" id="tabla-data">
             @foreach($posts as $post)
                 <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                    <form action="{{ route('eliminar_post',$post->id) }}" method="POST">
+                    {{-- <form action="{{ route('eliminar_post',$post->id) }}" class="d-inline form-eliminar" method="POST">
                         <input type="hidden" name="_method" value="delete">
                         @csrf
                         <button type="submit" class="btn-accion-tabla eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar este registro" style="float:right;">
                             <i class="fa fa-fw fa-times text-danger" ></i>
                         </button>                    
+                    </form> --}}
+                    <form action="{{route('eliminar_post', $post->id)}}" class="d-inline form-eliminar" method="POST">
+                        <input type="hidden" name="_method" value="delete">
+                        @csrf 
+                        <button type="submit" class="btn-accion-tabla eliminar" data-toggle="tooltip" data-placement="bottom" title="Eliminar este registro" style="float:right;">
+                            <i class="fa fa-fw fa-times text-danger"></i>
+                        </button>
                     </form>
                     <a href="/photos/{{$post->image }}" class="fancybox" rel="ligthbox">
-                        <img id="image" src="/photos/{{$post->image }}" class="zoom img-fluid "  alt="">
-                        <div class='text-center'>
+                        <img id="image" src="/photos/{{$post->image }}" class="zoom img-fluid " data-toggle="tooltip" data-placement="bottom" title="{{$post->description}}" alt="">
+                        {{-- <div class='text-center'>
                             <small class='text-muted'>{{ $post->description }}</small>
-                        </div>
+                        </div> --}}
                     </a>
                     
                 </div>

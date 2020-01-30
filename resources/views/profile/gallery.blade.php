@@ -9,6 +9,7 @@
 @endsection
 
 @section('scripts')
+    <script src="{{asset("assets/profile/js/perfil.js")}}" type="text/javascript"></script>
     <script src="{{ asset ('assets/photo/js.js') }}"></script>
     <script src="{{asset("assets/js/galeria.js")}}"></script>
     {{-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> --}}
@@ -23,6 +24,7 @@
 @section('contenido')
 
 <div class="container-fluid">
+    @include('includes.form-error')
     @include('includes.mensaje')
     <div class="row">
       <div class="col-md-3">
@@ -141,7 +143,7 @@
 
                 <hr>
 
-                <form action="{{ route('guardar_post') }}" class="form-image-upload" method="POST" enctype="multipart/form-data" autocomplete="off">
+                {{-- <form action="{{ route('guardar_post') }}" class="form-image-upload" method="POST" enctype="multipart/form-data" autocomplete="off">
                     @csrf
                     <div class="row">
                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
@@ -151,14 +153,14 @@
                         </div>  
                         <div class="col-md-5">
                             <strong>Imagen:</strong>
-                            <input type="file" name="image" class="form-control">
+                            <input type="file" name="image" class="form-control inputfile inputfile-1">
                         </div>
                         <div class="col-md-2">
                             <br/>
                             <button type="submit" class="btn btn-success">Guardar</button>
                         </div>
                     </div>
-                </form>
+                </form> --}}
 
             </div>
           </div>

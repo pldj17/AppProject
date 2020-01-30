@@ -6,7 +6,7 @@
          alt="AdminLTE Logo"
          class="brand-image img-circle elevation-3"
          style="opacity: .8">
-    <span class="brand-text font-weight-light">AdminLTE 3</span>
+    <span class="brand-text font-weight-light">Project</span>
   </a>
 
   <!-- Sidebar -->
@@ -14,7 +14,11 @@
     <!-- Sidebar user (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="{{asset("assets/$theme/dist/img/user2-160x160.jpg")}}" class="img-circle elevation-2" alt="User Image">
+        @if (empty(Auth::user()->profile->avatar))
+            <img src="{{ asset('avatar/avatar.png')}}" class="img-circle img-bordered-sm">
+        @else
+            <img src="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}"  class="img-circle img-bordered-sm">  
+        @endif
       </div>
       <div class="info"> 
         <a href="{{route("profile.index")}}" class="d-block">{{auth()->user()->name ?? 'Invitado'}}</a>

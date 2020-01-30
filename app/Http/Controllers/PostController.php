@@ -35,7 +35,7 @@ class PostController extends Controller
         $post->image = $filename;
         $post->save();
 
-        return redirect()->route('perfil_post')->with('mensaje', 'Se guardaron los cambios');
+        return redirect()->route('profile.index')->with('mensaje', 'Se guardaron los cambios');
     }
 
     public function show($id)
@@ -53,10 +53,17 @@ class PostController extends Controller
         
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        Post::find($id)->delete();
-    	return back()
-    		->with('mensaje','Archivo eliminado correctamente.');
+        if ($request->ajax()) {
+            if (Post::destroy($id)) {
+                return response()->json(['mensaje' => 'ok']);
+            } else {
+                return response()->json(['mensaje' => 'ng']);
+            }
+        } else {
+            abort(404);
+        }
+        return redirect()->route('profile.index');
     }
 }

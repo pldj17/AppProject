@@ -5,7 +5,8 @@
 @endsection
 
 @section('scripts')
-<script src="{{ asset ('assets/photo/js.js') }}"></script>
+    <script src="{{ asset ('assets/profile/js/perfil.js') }}"></script>
+    <script src="{{ asset ('assets/photo/js.js') }}"></script>
     <script src="{{asset("assets/js/galeria.js")}}"></script>
     {{-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> --}}
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
@@ -13,6 +14,8 @@
 @endsection
 
 @section('styles')
+    {{-- <link rel="stylesheet" type="text/css" href="{{asset('assets/css/custom.css') }}"> --}}
+
     <link rel="stylesheet" type="text/css" href="{{asset('assets/photo/fotoPerfil.css') }}">
 @endsection
 
@@ -34,16 +37,11 @@
                     <i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Editar perfil"></i>
                 </a>
               <div class="text-center">
-                {{-- <img class="profile-user-img img-fluid img-circle"
-                     src="../../dist/img/user4-128x128.jpg"
-                     alt="User profile picture"> --}}
-                     {{-- <a href="#/{{ Auth::user()->profile->avatar }}" class="zoom img-fluid" style=""> --}}
-                        @if (empty(Auth::user()->profile->avatar))
-                            <img src="{{ asset('avatar/avatar.png')}}" class="card-img-top rounded-circle mx-auto d-block" style="height:130px; width:130px;">
-                        @else
-                            <img src="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}" rel="ligthbox" class="card-img-top d-block" style="width:130px; height:130px; borderdius:50%; margin-left: auto; margin-right: auto;">  
-                        @endif
-                    {{-- </a> --}}
+                @if (empty(Auth::user()->profile->avatar))
+                    <img src="{{ asset('avatar/avatar.png')}}" class="card-img-top rounded-circle mx-auto d-block" style="height:130px; width:130px;">
+                @else
+                    <img src="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}" rel="ligthbox" class="card-img-top d-block" style="width:130px; height:130px; borderdius:50%; margin-left: auto; margin-right: auto;">  
+                @endif
               </div>
 
               <h3 class="profile-username text-center">{{auth()->user()->name}}</h3>
@@ -140,133 +138,99 @@
               <div class="tab-content">
                 <div class="active tab-pane" id="activity">
                   <!-- Post -->
-                  <div class="col-xs-8">
-                    <div class="panel panel-default publish-post">
-                        <div class="panel-heading type-post-buttons">
-                                <div class="text-center" style="display: inline-block;vertical-align: middle;width: 48%;">
-                                    <button class="btn btn-link" autofocus  >
-                                        <i class="icon icon-pencil"></i>
-                                        Crear una publicacion
-                                    </button>
-                                </div>
-                                <div class="text-center" style="display: inline-block;vertical-align: middle;width: 48%;">
-                                    <button class="btn btn-link" name="change-file">
-                                        <i class="icon icon-camera"></i>
-                                        Publicar una foto
-                                    </button>
-                                </div>
-                        </div>
-                        <div class="panel-body">
-                            <form class="post-home-form" onsubmit="return false;" enctype="multipart/form-data">
-                                <input type="file" name="file" class="hide">
-                                <input type="hidden" name="post-type" value="0">
-                                <div class="form-group">
-                                    <textarea class="form-control input-sm" name="post-text" placeholder="Write on the wall" style="max-width: 100%;max-height: 10em"></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-success">Submit</button>
-                                <div class="pull-right preview-photo">
-
-                                </div> <!-- pull-right -->
-                            </form>
-                        </div> <!-- panel body -->
-                    </div> <!-- panel -->
-                  <!-- /.post -->
-                </div>
-
-                <div class="tab-pane" id="settings">
-                  <form class="form-horizontal">
-                    
-                  </form>
-                </div>
-                <!-- /.tab-pane -->
+                
+                  <div >
+                    <div class="container">
+                        <form action="{{ route('guardar_post') }}" class="form-image-upload" method="POST" enctype="multipart/form-data" autocomplete="off">
+                          @csrf
+                          <div class="row">
+                              <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                              <div class="col-md-12">
+                                  <strong>Crear publicacion:</strong><br><br>
+                                  <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3" placeholder="Descripción"></textarea>
+                                  {{-- <input type="text" name="description" class="form-control" placeholder="Descripción"> --}}
+                              </div>  
+                          </div>
+                          
+                          <div class="col-md-5 mr--1">
+                              <input type="file" class="custom-file-input" id="customFile" name="image">
+                              <label class="custom-file-label" for="customFile">Seleccionar imagen</label>
+                          </div>
+                          <div class="col-md-2">
+                              <br/>
+                              <button type="submit" class="btn btn-primary">Publicar</button>
+                          </div>
+                        </form>
+                      </div>
+                  </div>
+                  
               </div>
-              <!-- /.tab-content -->
+
+              <hr>
+
             </div><!-- /.card-body -->
-          </div>
-          <!-- /.nav-tabs-custom -->
-        </div>
+
+
+
+            <div class="card-body">
+              @foreach ($posts as $post)
+              <div class="tab-content">
+                <div class="active tab-pane" id="activity">
+                  <!-- Post -->
+                  <div class="post">
+                    <div class="user-block">
+                      {{-- <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image"> --}}
+                      @if (empty(Auth::user()->profile->avatar))
+                          <img src="{{ asset('avatar/avatar.png')}}" class="img-circle img-bordered-sm">
+                      @else
+                          <img src="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}"  class="img-circle img-bordered-sm">  
+                      @endif
+                      <span class="username">
+                        <a href="#">{{auth()->user()->name}}</a>
+                        <a href="#" class="float-right btn-tool">
+                          <i class="fas fa-ellipsis-v"></i></a>
+                      </span>
+                      <span class="description" title="{{ $post->created_at->format('d-m-Y') }}">{{$post->created_at->diffForHumans()}} </span>
+                    </div>
+                    <!-- /.user-block -->
+                    <p>
+                      {{$post->description}}
+                    </p>
+
+                    
+                    <div class="row mb-3">
+                      <div class="col-lg-6 col-md-4 col-xs-6 thumb">
+                        <a href="/photos/{{$post->image }}" class="fancybox" rel="ligthbox" style="width:90%; height:70%">
+                          <img src="/photos/{{$post->image }}" class="zoom img-fluid" alt="" style="width:90%; height:100%">
+                        </a>
+                      </div>                      
+                    </div>
+
+                    <p>
+                      <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
+                      <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
+                      <span class="float-right">
+                        <a href="#" class="link-black text-sm">
+                          <i class="far fa-comments mr-1"></i> Comments (5)
+                        </a>
+                      </span>
+                    </p>
+
+                    <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
+                  
+                  </div>
+                <!-- /.nav-tabs-custom -->
+              </div>
+              <br><hr>
+              @endforeach
+              
+
+
+
+          
         <!-- /.col -->
       </div>
       <!-- /.row -->
     </div><!-- /.container-fluid -->
-
-
-
-    {{-- <div class="container-fluid mt--7">
-        
-        <div class="row justify-content-md-center">
-            <div class="col-11 order-xl-2 mb-4 mb-xl-0">
-                <div class="card card-profile shadow">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-3 order-lg-2">
-                            <div class="card-profile-image">
-                                <a href="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}" class="zoom img-fluid">
-                                    @if (empty(Auth::user()->profile->avatar))
-                                        <img src="{{ asset('avatar/avatar.png')}}" class="card-img-top rounded-circle mx-auto d-block" style="height:180px; width:180px;">
-                                    @else
-                                        <img src="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}" rel="ligthbox" class="card-img-top d-block fancybox" style="width:180px; height:180px; borderdius:50%;">  
-                                    @endif
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-                        <div class="d-flex justify-content-between">
-                            <a href="{{ route('profile.edit') }}" class="btn btn-sm btn-default float-right">{{ __('Editar perfil') }}</a>
-                        </div>
-                    </div><br>
-                    <div class="card-body pt-0 pt-md-4">
-                        <div class="row">
-                            <div class="col"> --}}
-                                {{-- <div class="card-profile-stats d-flex justify-content-center mt-md-5">
-                                    <div>
-                                        <span class="heading">22</span>
-                                        <span class="description">{{ __('Friends') }}</span>
-                                    </div>
-                                    <div>
-                                        <span class="heading">10</span>
-                                        <span class="description">{{ __('Photos') }}</span>
-                                    </div>
-                                    <div>
-                                        <span class="heading">89</span>
-                                        <span class="description">{{ __('Comments') }}</span>
-                                    </div>
-                                </div> --}}
-                            {{-- </div>
-                        </div>
-                        <div class="text-center">
-                            <h3>
-                                {{ auth()->user()->name }}<span class="font-weight-light"></span>
-                                <h6>Se unió el: {{date('d F, Y', strtotime(Auth::user()->created_at))}}</h6> 
-                            </h3>
-                            <div class="h5 font-weight-300">
-                                <i class="fa fa-globe">&nbsp;{{Auth::user()->profile->address}}</i>
-                            </div> --}}
-                            {{-- <div class="h5 mt-4">
-                                <i class="ni business_briefcase-24 mr-2"></i>{{ __('Developer') }}
-                            </div>
-                            <div>
-                                <i class="ni education_hat mr-2"></i>{{Auth::user()->profile->description}}
-                            </div> --}}
-                            {{-- <hr class="my-4" />
-
-
-                            @include('profile.tabs' )
-
-                            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit phasellus cursus pharetra purus luctus sociis dictumst risus consequat, massa ante gravida egestas mollis suspendisse litora senectus lacus pretium class erat dui cubilia. Fames aliquam parturient odio natoque est enim semper felis viverra velit egestas habitant, justo molestie primis nunc dui lacinia pulvinar ante nisl magnis arcu mus senectus, ac auctor tempor vitae sed nibh bibendum aenean rutrum cursus venenatis. Justo natoque nisi hendrerit ante convallis aptent varius, proin nascetur nullam viverra velit vehicula, orci volutpat interdum mus auctor consequat.
-
-                                Gravida arcu morbi laoreet accumsan vel vulputate, tristique venenatis cursus iaculis tempus nostra inceptos, primis pharetra ullamcorper leo ante. Nisi nostra himenaeos augue mollis in porta class, aliquet laoreet posuere montes bibendum dignissim a, magnis ut nascetur sapien proin nullam. Condimentum est fringilla ornare litora nec lacinia sed odio, commodo ultrices ut justo mattis sociosqu tellus ullamcorper, convallis curabitur dictum inceptos quis gravida enim.
-                                
-                                </p>
-
-                            <p>{{ __('Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci..') }}</p>
-                            <a href="#">{{ __('Más información') }}</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-        
-        {{-- @include("layouts.footers.auth") --}}
 
 @endsection

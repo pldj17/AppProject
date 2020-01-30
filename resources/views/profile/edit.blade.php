@@ -5,7 +5,7 @@
 @endsection
 
 @section('styles')
-  
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/profile/css/edit.css') }}">
 @endsection
 
 @section('scripts')
