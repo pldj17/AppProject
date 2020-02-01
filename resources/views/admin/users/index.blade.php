@@ -43,6 +43,7 @@
                             <th>Email</th>
                             <th>Rol</th>
                             <th>Registrado</th>
+                            <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
@@ -54,6 +55,7 @@
                                     <td>{{$data->email}}</td>
                                     <td>{{ implode(',', $data->roles()->get()->pluck('name')->toArray())}}</td>
                                     <td>{{$data->created_at}}</td>
+                                    <td>Activo</td>
                                     <td>
                                         <a href="{{route('editar_usuario', ['id' => $data->id])}}" class="btn-accion-tabla" data-toggle="tooltip" data-placement="top" title="Editar rol de usuario">
                                             <i class="fa fa-edit"></i>

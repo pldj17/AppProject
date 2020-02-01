@@ -49,9 +49,9 @@
 
         {{-- password --}}
         <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
-            <div class="input-group input-group-alternative">
+            <div class="input-group-alternative">
                 <input id="pass" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="{{ __('Password') }}" type="password">
-                <i class="fa fa-eye" id="show" style="margin-top:4%; margin-left:2%; margin-right:2%;"></i>
+                {{-- <i class="fa fa-eye" id="show" style="margin-top:4%; margin-left:2%; margin-right:2%;"></i> --}}
             </div>
             @if ($errors->has('password'))
                 <span class="invalid-feedback" style="display: block;" role="alert">

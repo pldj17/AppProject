@@ -88,7 +88,7 @@
 
               <strong><i class="fas fa-map-marker-alt mr-1"></i> Ubicación</strong>
 
-              <p class="text-muted">Malibu, California</p>
+              <p class="text-muted">{{Auth::user()->profile->address}}</p>
 
               <hr>
 
