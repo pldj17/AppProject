@@ -88,7 +88,7 @@
 
               <strong><i class="fas fa-map-marker-alt mr-1"></i> Ubicación</strong>
 
-              <p class="text-muted">{{Auth::user()->profile->address}}</p>
+              <p class="text-muted">{{Auth::user()->profile->address ?? 'Agregar ubicacion'}}</p>
 
               <hr>
 
@@ -148,20 +148,27 @@
                               <div class="col-md-12">
                                   <strong>Crear publicacion:</strong><br><br>
                                   <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3" placeholder="Descripción"></textarea>
-                                  {{-- <input type="text" name="description" class="form-control" placeholder="Descripción"> --}}
                               </div>  
                           </div>
                           
                           <div class="col-md-5 mr--1">
-                              <input type="file" class="custom-file-input" id="customFile" name="image">
-                              <label class="custom-file-label" for="customFile">Seleccionar imagen</label>
+                            <input type="file" name="file[]" id="file" accept="image/*" multiple />
+                              {{-- <input type="file" class="custom-file-input" id="customFile" name="image">
+                              <label class="custom-file-label" for="customFile">Seleccionar imagen</label> --}}
                           </div>
                           <div class="col-md-2">
                               <br/>
-                              <button type="submit" class="btn btn-primary">Publicar</button>
+                              <button type="submit"  name="upload" value="Upload" class="btn btn-primary">Publicar</button>
                           </div>
                         </form>
-                      </div>
+                        <br />
+                        <div class="progress">
+                            <div class="progress-bar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                0%
+                            </div>
+                        </div>
+                      
+                    </div>
                   </div>
                   
               </div>
@@ -170,16 +177,14 @@
 
             </div><!-- /.card-body -->
 
-
+            <h4>Mis publicaciones</h4>
 
             <div class="card-body">
-              @foreach ($posts as $post)
+              @foreach ($photos as $post)
               <div class="tab-content">
                 <div class="active tab-pane" id="activity">
-                  <!-- Post -->
                   <div class="post">
                     <div class="user-block">
-                      {{-- <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image"> --}}
                       @if (empty(Auth::user()->profile->avatar))
                           <img src="{{ asset('avatar/avatar.png')}}" class="img-circle img-bordered-sm">
                       @else
@@ -192,20 +197,18 @@
                       </span>
                       <span class="description" title="{{ $post->created_at->format('d-m-Y') }}">{{$post->created_at->diffForHumans()}} </span>
                     </div>
-                    <!-- /.user-block -->
                     <p>
-                      {{$post->description}}
+                      {{ implode(',', $post->post()->get()->pluck('description')->toArray())}}
                     </p>
 
-                    
                     <div class="row mb-3">
                       <div class="col-lg-6 col-md-4 col-xs-6 thumb">
-                        <a href="/photos/{{$post->image }}" class="fancybox" rel="ligthbox" style="width:90%; height:70%">
-                          <img src="/photos/{{$post->image }}" class="zoom img-fluid" alt="" style="width:90%; height:100%">
+                        <a href="images/{{$post->file }}" class="fancybox" rel="ligthbox" style="width:90%; height:70%">
+                          <img src="images/{{$post->file }}" class="zoom img-fluid" alt="" style="width:90%; height:100%">
                         </a>
                       </div>                      
                     </div>
-
+                    
                     <p>
                       <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
                       <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
@@ -219,18 +222,37 @@
                     <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
                   
                   </div>
-                <!-- /.nav-tabs-custom -->
               </div>
               <br><hr>
+              </div>
               @endforeach
-              
+            </div>  
 
-
-
-          
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </div><!-- /.container-fluid -->
 
 @endsection
+
+{{-- <script>
+  $(document).ready(function(){
+      $('form').ajaxForm({
+          beforeSend:function(){
+              $('#success').empty();
+              $('.progress-bar').text('0%');
+              $('.progress-bar').css('width', '0%');
+          },
+          uploadProgress:function(event, position, total, percentComplete){
+              $('.progress-bar').text(percentComplete + '0%');
+              $('.progress-bar').css('width', percentComplete + '0%');
+          },
+          success:function(data)
+          {
+              if(data.success)
+              {
+                  $('#success').html('<div class="text-success text-center"><b>'+data.success+'</b></div><br /><br />');
+                  $('#success').append(data.image);
+                  $('.progress-bar').text('Uploaded');
+                  $('.progress-bar').css('width', '100%');
+              }
+          }
+      });
+  });
+  </script> --}}

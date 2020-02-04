@@ -57,6 +57,12 @@ class User extends Authenticatable implements MustVerifyEmail
         }
     }
 
+    //un usuario puede tener muchas fotos
+    public function Photo()
+    {
+        return $this->hasMany(photo::class);
+    }
+
     /**definir relacion con la tabla profile */
     public function profile()
     {

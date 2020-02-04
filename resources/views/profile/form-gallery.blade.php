@@ -74,7 +74,7 @@
 </head>
 <body>
     <div class="row" style="margin-top:10px;" id="tabla-data">
-            @foreach($posts as $post)
+            @foreach($photos as $post)
                 <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                     {{-- <form action="{{ route('eliminar_post',$post->id) }}" class="d-inline form-eliminar" method="POST">
                         <input type="hidden" name="_method" value="delete">
@@ -90,8 +90,8 @@
                             <i class="fa fa-fw fa-times text-danger"></i>
                         </button>
                     </form>
-                    <a href="/photos/{{$post->image }}" class="fancybox" rel="ligthbox">
-                        <img id="image" src="/photos/{{$post->image }}" class="zoom img-fluid " data-toggle="tooltip" data-placement="bottom" title="{{$post->description}}" alt="">
+                    <a href="/images/{{$post->file }}" class="fancybox" rel="ligthbox">
+                        <img id="image" src="/images/{{$post->file }}" class="zoom img-fluid " data-toggle="tooltip" data-placement="bottom" title="{{$post->description}}" alt="">
                         {{-- <div class='text-center'>
                             <small class='text-muted'>{{ $post->description }}</small>
                         </div> --}}

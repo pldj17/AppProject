@@ -38,11 +38,10 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('perfil/informacion', 'ProfileController@info')->name('profile.info');
     Route::get('perfil/contacto', 'ProfileController@contact')->name('profile.contact');
 
-    //galeria
-    // Route::get('image-gallery', 'GalleryController@index');
-    Route::post('perfil/post', 'PostController@store')->name('guardar_post');
-    Route::delete('perfil/post/{id}', 'PostController@destroy')->name('eliminar_post');
-    Route::get('perfil/post', 'PostController@index')->name('perfil_post');
+    //publicaciones
+    Route::post('perfil/post', 'PhotoController@upload')->name('guardar_post');
+    Route::delete('perfil/post/{id}', 'PhotoController@destroy')->name('eliminar_post');
+    Route::get('perfil/post', 'PhotoController@index')->name('perfil_post');
     
 });
 
