@@ -12,8 +12,11 @@ class PhotoController extends Controller
 
     public function index()
     {
-         $photos = Photo::all()->where('user_id', Auth::id());
-         return view('profile.gallery', compact('photos'));
+        //  $photos = Photo::all()->where('user_id', Auth::id());
+        //  return view('profile.gallery', compact('photos'));
+
+        $photos = Photo::orderBy('id','DESC')->where('user_id', Auth::id())->paginate(10);
+        return view('profile.gallery', compact('photos'));
     }
 
     public function upload(Request $request)

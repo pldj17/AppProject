@@ -5,6 +5,9 @@
 @endsection
 
 @section('scripts')
+    <script src="{{asset("assets/pages/scripts/admin/crear.js")}}" type="text/javascript"></script>
+    <script src="{{asset("assets/pages/scripts/admin/index.js")}}" type="text/javascript"></script>
+
     <script src="{{ asset ('assets/profile/js/perfil.js') }}"></script>
     <script src="{{ asset ('assets/photo/js.js') }}"></script>
     <script src="{{asset("assets/js/galeria.js")}}"></script>
@@ -14,7 +17,7 @@
 @endsection
 
 @section('styles')
-    {{-- <link rel="stylesheet" type="text/css" href="{{asset('assets/css/custom.css') }}"> --}}
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/galeria.css') }}">
 
     <link rel="stylesheet" type="text/css" href="{{asset('assets/photo/fotoPerfil.css') }}">
 @endsection
@@ -146,27 +149,23 @@
                           <div class="row">
                               <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                               <div class="col-md-12">
-                                  <strong>Crear publicacion:</strong><br><br>
+                                  <strong>Crear publicación:</strong><br><br>
                                   <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3" placeholder="Descripción"></textarea>
                               </div>  
                           </div>
                           
                           <div class="col-md-5 mr--1">
-                            <input type="file" name="file[]" id="file" accept="image/*" multiple />
-                              {{-- <input type="file" class="custom-file-input" id="customFile" name="image">
-                              <label class="custom-file-label" for="customFile">Seleccionar imagen</label> --}}
+                            <input type="file" class="custom-file-input" name="file[]" id="file" accept="image/*" multiple />
+                            
+                              {{-- <input type="file" class="custom-file-input" id="customFile" name="image">--}}
+                              <label class="custom-file-label" for="customFile"><i class="far fa-images"></i></label> 
+                              
                           </div>
                           <div class="col-md-2">
                               <br/>
                               <button type="submit"  name="upload" value="Upload" class="btn btn-primary">Publicar</button>
                           </div>
                         </form>
-                        <br />
-                        <div class="progress">
-                            <div class="progress-bar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
-                                0%
-                            </div>
-                        </div>
                       
                     </div>
                   </div>
@@ -177,56 +176,107 @@
 
             </div><!-- /.card-body -->
 
-            <h4>Mis publicaciones</h4>
 
-            <div class="card-body">
-              @foreach ($photos as $post)
-              <div class="tab-content">
-                <div class="active tab-pane" id="activity">
-                  <div class="post">
-                    <div class="user-block">
-                      @if (empty(Auth::user()->profile->avatar))
-                          <img src="{{ asset('avatar/avatar.png')}}" class="img-circle img-bordered-sm">
-                      @else
-                          <img src="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}"  class="img-circle img-bordered-sm">  
-                      @endif
-                      <span class="username">
-                        <a href="#">{{auth()->user()->name}}</a>
-                        <a href="#" class="float-right btn-tool">
-                          <i class="fas fa-ellipsis-v"></i></a>
-                      </span>
-                      <span class="description" title="{{ $post->created_at->format('d-m-Y') }}">{{$post->created_at->diffForHumans()}} </span>
+            {{-- <div class="card-body">
+              @foreach ($photo as $imgCollection)
+              <h4>publicación</h4>
+                @foreach ($imgCollection as $post)
+                  <div class="tab-content">
+                      <div class="active tab-pane" id="activity">
+                          <div class="post">
+                              <div class="row mb-3">
+                                  <div class="col-lg-6 col-md-4 col-xs-6 thumb">
+                                      <a href="images/{{$post->file }}" class="fancybox" rel="ligthbox">
+                                          <img src="images/{{$post->file }}" class="zoom img-fluid">
+                                      </a>
+                                  </div>                      
+                              </div>
+
+                              <div>
+                                {{$post->description}}
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                @endforeach
+                <hr>
+              @endforeach
+            </div> --}}
+
+
+
+            <div class="card-body" id="tabla-data">
+              @foreach ($photo as $imgCollection)
+                
+                    <div class="active tab-pane" id="activity">
+                      <div class="post">
+                        <div class="user-block">
+                          @if (empty(Auth::user()->profile->avatar))
+                              <img src="{{ asset('avatar/avatar.png')}}" class="img-circle img-bordered-sm">
+                          @else
+                              <img src="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}"  class="img-circle img-bordered-sm">  
+                          @endif
+                          <span class="username">
+                            <a href="#">{{auth()->user()->name}}</a>
+                              <div class="btn-group" style="float:right;">
+                                <button type="button" class="btn btn-tool" data-toggle="dropdown" style="display:">
+                                  <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" id="tabla-data" role="menu">
+                                  <a href="#" class="dropdown-item"><i class="fa fa-edit"></i>&nbsp; <small>Editar</small></a>
+                                  <form action="#" class="d-inline form-eliminar" method="POST"  onsubmit="setTimeout(function () { window.location.reload(); }, 2500)" >
+                                    <input type="hidden" name="_method" value="delete">
+                                    @csrf 
+                                    <button type="submit"  class="btn-accion-tabla eliminar" style="margin-left:20px;" >
+                                      <i class="fa fa-trash text-danger"></i>&nbsp; Eliminar
+                                    </button>
+                                  </form>
+                                  <a href="#" class="dropdown-item"><i class="fa fa-trash text-danger"></i>&nbsp; <small>Eliminar</small></a>
+                                </div>
+                              </div>
+                            
+                          </span>
+
+
+
+                          {{-- @foreach ($imgCollection as $post)
+                          <span class="description" title="{{ $post->created_at->format('d-m-Y') }}">{{$post->created_at->diffForHumans()}} </span>
+                          @endforeach --}}
+                        </div>
+                        {{-- <p>{{$post->description}}</p> --}}
+{{--                 
+                  @foreach($posts as $pub)
+                      <p>{{$pub->description}}</p>
+                  @endforeach
+                           --}}
+                <div class="row" style="margin-top:10px;" id="tabla-data">
+                  @foreach ($imgCollection as $post)
+                    <div class="col-lg-4 col-md-4 col-xs-6 thumb">
+                      <a href="images/{{$post->file }}" class="fancybox" rel="ligthbox" style="width:100%; height:70%">
+                        <img src="images/{{$post->file }}" class="zoom img-fluid" alt="" style="width:100%; height:100%">
+                      </a>                     
                     </div>
-                    <p>
-                      {{ implode(',', $post->post()->get()->pluck('description')->toArray())}}
-                    </p>
+                  @endforeach
+                </div>
+                  <p>
+                    <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
+                    <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
+                    <span class="float-right">
+                      <a href="#" class="link-black text-sm">
+                        <i class="far fa-comments mr-1"></i> Comments (5)
+                      </a>
+                    </span>
+                  </p>
 
-                    <div class="row mb-3">
-                      <div class="col-lg-6 col-md-4 col-xs-6 thumb">
-                        <a href="images/{{$post->file }}" class="fancybox" rel="ligthbox" style="width:90%; height:70%">
-                          <img src="images/{{$post->file }}" class="zoom img-fluid" alt="" style="width:90%; height:100%">
-                        </a>
-                      </div>                      
-                    </div>
-                    
-                    <p>
-                      <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
-                      <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
-                      <span class="float-right">
-                        <a href="#" class="link-black text-sm">
-                          <i class="far fa-comments mr-1"></i> Comments (5)
-                        </a>
-                      </span>
-                    </p>
-
-                    <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
+                  <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
                   
                   </div>
-              </div>
-              <br><hr>
-              </div>
+                </div>
+              <br>
               @endforeach
-            </div>  
+            </div>
+            
+          </div>  
 
 
 @endsection

@@ -25,6 +25,11 @@ $(document).ready(function () {
             success: function (respuesta) {
                 if (respuesta.mensaje == "ok") {
                     form.parents('tr').remove();
+                    setTimeout(
+                        function() 
+                        {
+                           location.reload();
+                        }, 0001);  
                     AppProject.notificaciones('El registro fue eliminado correctamente', 'AppProject', 'success');
                 } else {
                     AppProject.notificaciones('El registro no pudo ser eliminado, hay recursos usandolo', 'AppProject', 'error');

@@ -50,17 +50,17 @@ class PostController extends Controller
         
     }
 
-    // public function destroy(Request $request, $id)
-    // {
-    //     if ($request->ajax()) {
-    //         if (Post::destroy($id)) {
-    //             return response()->json(['mensaje' => 'ok']);
-    //         } else {
-    //             return response()->json(['mensaje' => 'ng']);
-    //         }
-    //     } else {
-    //         abort(404);
-    //     }
-    //     return redirect()->route('profile.index');
-    // }
+    public function destroy(Request $request, $id)
+    {
+        if ($request->ajax()) {
+            if (Post::destroy($id)) {
+                return response()->json(['mensaje' => 'ok']);
+            } else {
+                return response()->json(['mensaje' => 'ng']);
+            }
+        } else {
+            abort(404);
+        }
+        return redirect()->route('profile.index');
+    }
 }

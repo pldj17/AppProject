@@ -1,12 +1,3 @@
-.zoom{
-    width: 300px;
-    border-radius: 50%;
-}
-
-.fancybox{
-    height: 300px;
-    width: 300px;
-}
 #demo {
     height:100%;
     position:relative;
@@ -27,7 +18,6 @@
     margin-top:85px;
 }
 
-
 img.zoom {
     width: 100%;
     height: 200px;
@@ -40,12 +30,12 @@ img.zoom {
 }
         
 
-.transition {
+/* .transition {
     -webkit-transform: scale(1.2); 
     -moz-transform: scale(1.2);
     -o-transform: scale(1.2);
     transform: scale(1.2);
-}
+} */
 .modal-header {
     border-bottom: none;
 }

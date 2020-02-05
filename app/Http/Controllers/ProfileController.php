@@ -28,12 +28,12 @@ class ProfileController extends Controller
   
     public function index(Request $request)
     {
-        // $request->user()->authorizeRoles('admin');//validacion de rol de usuario
-        
-        $posts = Post::where('id', '=', '');
-        $photos = Photo::all()->where('user_id', Auth::id()); //toma todas las fotos en donde user_id sea igual al id del usuario en sesion
+        // $post = Post::orderBy('id')->pluck('description', 'id')->toArray();
+        // dd($post);
+        $photo = photo::with('post')->orderBy('id','desc')->get()->groupBy('post_id');
+        // dd($photo);
         $profiles = Profile::all(); //consulta todos los perfiles creados y los trae
-        return view('profile.index', compact('profiles', 'photos', 'posts')); //compact genera una array con la informacion que le asignemos
+        return view('profile.index', compact('profiles', 'photo', 'post')); //compact genera una array con la informacion que le asignemos
     }
 
     public function edit()
