@@ -184,14 +184,21 @@
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right" id="tabla-data" role="menu">
                                   <a href="#" class="dropdown-item"><i class="fa fa-edit"></i>&nbsp; <small>Editar</small></a>
-                                  <form action="#" class="d-inline form-eliminar" method="POST"  onsubmit="setTimeout(function () { window.location.reload(); }, 2500)" >
-                                    <input type="hidden" name="_method" value="delete">
-                                    @csrf 
-                                    <button type="submit"  class="btn-accion-tabla eliminar" style="margin-left:20px;" >
-                                      <i class="fa fa-trash text-danger"></i>&nbsp; Eliminar
-                                    </button>
-                                  </form>
-                                  <a href="#" class="dropdown-item"><i class="fa fa-trash text-danger"></i>&nbsp; <small>Eliminar</small></a>
+                                  
+                                  @foreach ($imgCollection as $post)
+
+                                    <form action="{{route('eliminar_post', ['id' => $post->post_id])}}" class="d-inline form-eliminar" method="POST"  onsubmit="setTimeout(function () { window.location.reload(); }, 2500)" >
+                                      <input type="hidden" name="_method" value="delete">
+                                      @csrf 
+                                      <button type="submit"  class="btn-accion-tabla eliminar" style="margin-left:20px;" >
+                                        <i class="fa fa-trash text-danger"></i>&nbsp; Eliminar
+                                      </button>
+                                    </form>
+                                    @if ($loop->first)
+                                        @break
+                                    @endif
+                                  @endforeach
+                                  {{-- <a href="#" class="dropdown-item"><i class="fa fa-trash text-danger"></i>&nbsp; <small>Eliminar</small></a> --}}
                                 </div>
                               </div>
                             
