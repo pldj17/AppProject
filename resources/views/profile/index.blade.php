@@ -50,18 +50,6 @@
               <h3 class="profile-username text-center">{{auth()->user()->name}}</h3>
 
               <p class="text-muted text-center">Software Engineer</p>
-
-              {{-- <ul class="list-group list-group-unbordered mb-3">
-                <li class="list-group-item">
-                  <b>Followers</b> <a class="float-right">1,322</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Following</b> <a class="float-right">543</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Friends</b> <a class="float-right">13,287</a>
-                </li>
-              </ul>--}}
               
               <a href="#" class="btn btn-primary btn-block"><b>Calificar</b></a> 
             </div>
@@ -177,34 +165,6 @@
             </div><!-- /.card-body -->
 
 
-            {{-- <div class="card-body">
-              @foreach ($photo as $imgCollection)
-              <h4>publicación</h4>
-                @foreach ($imgCollection as $post)
-                  <div class="tab-content">
-                      <div class="active tab-pane" id="activity">
-                          <div class="post">
-                              <div class="row mb-3">
-                                  <div class="col-lg-6 col-md-4 col-xs-6 thumb">
-                                      <a href="images/{{$post->file }}" class="fancybox" rel="ligthbox">
-                                          <img src="images/{{$post->file }}" class="zoom img-fluid">
-                                      </a>
-                                  </div>                      
-                              </div>
-
-                              <div>
-                                {{$post->description}}
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                @endforeach
-                <hr>
-              @endforeach
-            </div> --}}
-
-
-
             <div class="card-body" id="tabla-data">
               @foreach ($photo as $imgCollection)
                 
@@ -237,26 +197,26 @@
                             
                           </span>
 
-
-
-                          {{-- @foreach ($imgCollection as $post)
+                        @foreach ($imgCollection as $post)
+                          @if ($loop->first)
                           <span class="description" title="{{ $post->created_at->format('d-m-Y') }}">{{$post->created_at->diffForHumans()}} </span>
-                          @endforeach --}}
+                         
                         </div>
-                        {{-- <p>{{$post->description}}</p> --}}
-{{--                 
-                  @foreach($posts as $pub)
-                      <p>{{$pub->description}}</p>
-                  @endforeach
-                           --}}
+                        
+                            {{ implode(',', $post->post()->get()->pluck('description')->toArray())}}
+                          @endif
+                        @endforeach
+                          
                 <div class="row" style="margin-top:10px;" id="tabla-data">
-                  @foreach ($imgCollection as $post)
-                    <div class="col-lg-4 col-md-4 col-xs-6 thumb">
-                      <a href="images/{{$post->file }}" class="fancybox" rel="ligthbox" style="width:100%; height:70%">
-                        <img src="images/{{$post->file }}" class="zoom img-fluid" alt="" style="width:100%; height:100%">
-                      </a>                     
-                    </div>
-                  @endforeach
+
+                    @foreach ($imgCollection as $post)
+                      <div class="col-lg-4 col-md-4 col-xs-6 thumb">
+                        <a href="images/{{$post->file }}" class="fancybox" rel="ligthbox" style="width:100%; height:70%">
+                          <img src="images/{{$post->file }}" class="zoom img-fluid" alt="" style="width:100%; height:100%">
+                        </a>   
+                      </div>
+                    @endforeach
+                 
                 </div>
                   <p>
                     <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
@@ -280,29 +240,3 @@
 
 
 @endsection
-
-{{-- <script>
-  $(document).ready(function(){
-      $('form').ajaxForm({
-          beforeSend:function(){
-              $('#success').empty();
-              $('.progress-bar').text('0%');
-              $('.progress-bar').css('width', '0%');
-          },
-          uploadProgress:function(event, position, total, percentComplete){
-              $('.progress-bar').text(percentComplete + '0%');
-              $('.progress-bar').css('width', percentComplete + '0%');
-          },
-          success:function(data)
-          {
-              if(data.success)
-              {
-                  $('#success').html('<div class="text-success text-center"><b>'+data.success+'</b></div><br /><br />');
-                  $('#success').append(data.image);
-                  $('.progress-bar').text('Uploaded');
-                  $('.progress-bar').css('width', '100%');
-              }
-          }
-      });
-  });
-  </script> --}}

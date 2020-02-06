@@ -28,12 +28,10 @@ class ProfileController extends Controller
   
     public function index(Request $request)
     {
-        // $post = Post::orderBy('id')->pluck('description', 'id')->toArray();
-        // dd($post);
-        $photo = photo::with('post')->orderBy('id','desc')->get()->groupBy('post_id');
+        $photo = photo::with('post')->orderBy('id','desc')->get()->where('user_id', Auth::id())->groupBy('post_id');
         // dd($photo);
         $profiles = Profile::all(); //consulta todos los perfiles creados y los trae
-        return view('profile.index', compact('profiles', 'photo', 'post')); //compact genera una array con la informacion que le asignemos
+        return view('profile.index', compact('profiles', 'photo')); //compact genera una array con la informacion que le asignemos
     }
 
     public function edit()
