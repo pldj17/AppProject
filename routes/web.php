@@ -48,7 +48,7 @@ Route::group(['middleware' => ['auth']], function(){
 
 
 
-Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => ['auth', 'admin']], function(){
+Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => ['auth']], function(){
     
     // Rutas usuario
     Route::get('usuario', 'UserController@index')->name('usuario');
@@ -90,6 +90,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => ['aut
     // Rutas permiso-rol
     Route::get('permiso-rol', 'PermissionRoleController@index')->name('permiso_rol');
     Route::post('permiso-rol', 'PermissionRoleController@store')->name('guardar_permiso_rol');
+
+    // Rutas especialidad
+    Route::get('especialidad', 'SpecialtyController@index')->name('especialidad');
+    Route::get('especialidad/crear', 'SpecialtyController@create')->name('crear_especialidad');
+    Route::post('especialidad', 'SpecialtyController@store')->name('guardar_especialidad');
+    Route::get('especialidad/{id}/editar', 'SpecialtyController@edit')->name('editar_especialidad');
+    Route::put('especialidad/{id}', 'SpecialtyController@update')->name('actualizar_especialidad');
+    Route::delete('especialidad/{id}', 'SpecialtyController@destroy')->name('eliminar_especialidad');
 
 });
 

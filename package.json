@@ -23,6 +23,8 @@
         "vue": "^2.5.17"
     },
     "dependencies": {
-        "croppie": "^2.6.4"
+        "@ttskch/select2-bootstrap4-theme": "^1.3.2",
+        "croppie": "^2.6.4",
+        "select2": "^4.0.13"
     }
 }

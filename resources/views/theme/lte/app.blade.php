@@ -31,10 +31,14 @@
     <!-- Font Awesome 5 -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     
-    {{-- Dropzone --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css">
 
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     
   </head>
 
@@ -66,9 +70,15 @@
 
     </div>
 
-
-  <script>
-      //ojito para ver password
+    <script> 
+     $(document).ready(function() {
+        $('.select2').select2({
+          width: '300px'
+        });
+      });
+  </script>
+  {{-- <script>
+      ojito para ver password
       $(document).ready(function(){
           $('#show').mousedown(function(){
               $('#pass').removeAttr('type');
@@ -82,15 +92,17 @@
   </script>
 
   <script>
-  //mostrar modal
+  mostrar modal
   function mostrarModal(titulo) {
       $("#modalTitle").html(titulo);
       $("#myModal").modal("show");
   }
-  </script>
+  </script> --}}
+    {{-- icon --}}
+    {{-- <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script> --}}
 
     <!-- jQuery -->
-    <script src="{{asset("assets/$theme/plugins/jquery/jquery.min.js")}}"></script>
+    {{-- <script src="{{asset("assets/$theme/plugins/jquery/jquery.min.js")}}"></script> --}}
     <!-- Bootstrap 4 -->
     <script src="{{asset("assets/$theme/plugins/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
     <!-- AdminLTE App -->
@@ -122,7 +134,8 @@
      <script src="{{asset("assets/js/scripts.js")}}"></script>
      <script src="{{asset("assets/js/funciones.js")}}"></script>
      {{-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> --}}
-     @yield("scripts")
+     
+    @yield("scripts")
 
   </body>
 </html>

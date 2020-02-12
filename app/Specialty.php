@@ -9,4 +9,9 @@ class Specialty extends Model
     protected $table = 'specialties';
     protected $fillable = ['name', 'description'];
     protected $guarded = ['id'];
+
+    public function profiles()
+    {
+        return $this->belongsToMany(Profile::class);
+    }
 }

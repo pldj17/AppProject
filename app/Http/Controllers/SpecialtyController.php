@@ -12,13 +12,13 @@ class SpecialtyController extends Controller
     {
         can('ver-listado-de-especialidad');
         $datas = Specialty::orderBy('id')->get();
-        return view('specialty.index', compact('datas'));
+        return view('admin.especialidad.index', compact('datas'));
     }
 
     public function create()
     {   
         can('agregar-especialidad');
-        return view('specialty.create');
+        return view('admin.especialidad.create');
     }
 
     public function store(Request $request)
@@ -36,7 +36,7 @@ class SpecialtyController extends Controller
     {
 
         $data = Specialty::findOrFail($id);
-        return view('specialty.edit', compact('data'));
+        return view('admin.especialidad.edit', compact('data'));
     }
 
     public function update(Request $request, $id)
@@ -45,7 +45,7 @@ class SpecialtyController extends Controller
         return redirect('especialidad')->with('mensaje', 'Especialidad actualizada con exito');
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         if ($request->ajax()) {
             if (Specialty::destroy($id)) {

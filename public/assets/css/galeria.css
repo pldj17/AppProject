@@ -36,6 +36,13 @@ img.zoom {
     -o-transform: scale(1.2);
     transform: scale(1.2);
 } */
+
+
+.ubicacion{
+    text-decoration: none;
+}
+
+
 .modal-header {
     border-bottom: none;
 }

@@ -16,7 +16,7 @@ class CreateSpecialtiesTable extends Migration
         Schema::create('specialties', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name',100)->unique();
-            $table->string('description0',100)->nullable();
+            // $table->string('description0',100)->nullable();
             $table->timestamps();
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_spanish_ci';
