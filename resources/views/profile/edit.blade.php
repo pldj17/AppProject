@@ -23,8 +23,7 @@
 @endsection
 
 @section('contenido')
-
-<section class="content">
+<div class="container-fluid">
     @include('includes.form-error')
             @include('includes.mensaje')
     <div class="row">
@@ -92,13 +91,7 @@
             <form action="{{ route('profile.create') }}" method="POST" autocomplete="off">
                 @csrf
                 <div class="pl-lg-4">
-                    <div class="form-group">
-                        <label for="">Teléfono</label>
-                        <input type="text" class="form-control" name="phone" value="{{Auth::user()->profile->phone ?? ''}}">
-                        @if ($errors->has('phone'))
-                            <div class="error text-danger">{{ $errors->first('phone')}}</div>                        
-                        @endif
-                    </div>
+                    
                     <div class="form-group">
                         <label for="">Dirección</label>
                         <input type="text" class="form-control" name="address" value="{{Auth::user()->profile->address ?? ''}}">
@@ -129,18 +122,6 @@
                             </div>
                         @endif
                     </div>
-                    
-                    {{-- <div class="class form-group">
-                        <div class="input-group input-group-merge">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-globe-americas"></i></span>
-                            </div>
-                            <input class="form-control" type="text" placeholder="Telefono">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                            </div>
-                        </div>
-                    </div> --}}
 
                     <div class="text-center" style="margin-top:23px;">
                         @include('profile.boton-form-editar')
@@ -152,7 +133,70 @@
       </div>
     </div>
    
-  </section>
+
+
+    {{-- informacion de contacto --}}
+
+
+    <!-- SELECT2 EXAMPLE -->
+    <div class="card card-secondary">
+        <div class="card-header">
+          <h3 class="card-title">información de contacto</h3>
+
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+          </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="">Teléfono</label>
+                    <input type="text" class="form-control" name="phone" value="{{Auth::user()->profile->phone ?? ''}}">
+                    @if ($errors->has('phone'))
+                        <div class="error text-danger">{{ $errors->first('phone')}}</div>                        
+                    @endif
+                </div>
+                {{-- <div class="form-group">
+                    <label for="">Correo</label>
+                    <input type="text" class="form-control" name="email" value="{{Auth::user()->profile->correo ?? ''}}">
+                    @if ($errors->has('correo'))
+                        <div class="error text-danger">{{ $errors->first('correo')}}</div>                        
+                    @endif
+                </div> --}}
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="">Correo</label>
+                    <input type="text" class="form-control" name="email" value="{{Auth::user()->profile->correo ?? ''}}">
+                    @if ($errors->has('correo'))
+                        <div class="error text-danger">{{ $errors->first('correo')}}</div>                        
+                    @endif
+                </div>
+              {{-- <div class="form-group">
+                <label>Disabled Result</label>
+                <select class="form-control select2bs4" style="width: 100%;">
+                  <option selected="selected">Alabama</option>
+                  <option>Alaska</option>
+                  <option disabled="disabled">California (disabled)</option>
+                  <option>Delaware</option>
+                  <option>Tennessee</option>
+                  <option>Texas</option>
+                  <option>Washington</option>
+                </select>
+              </div> --}}
+            </div>
+            <div style="float:right;">
+                <a href="{{route('profile.index')}}" class="btn btn-secondary"> Cancelar</a>
+                <button type="submit" class="btn btn-success">Guardar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
 
     
     @endsection

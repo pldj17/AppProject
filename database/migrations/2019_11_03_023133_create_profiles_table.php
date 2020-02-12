@@ -18,6 +18,7 @@ class CreateProfilesTable extends Migration
             // $table->integer('user_id')->unsigned(); //no acepta valores negativos 
             $table->text('description', 45)->nullable()->default(null);
             $table->string('phone', 45)->nullable()->default(null);
+            $table->string('correo')->nullable()->default(null);
             $table->string('address', 45)->nullable()->default(null);
             $table->string('avatar', 45)->nullable()->default(null);
             $table->string('date_born')->nullable()->default(null);
