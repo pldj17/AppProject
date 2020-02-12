@@ -5,10 +5,16 @@
 @endsection
 
 @section('scripts')
+    <!-- Select2 -->
+    <script src="{{asset("assets/$theme/plugins/select2/js/select2.full.min.js")}}"></script>
     <script src="{{ asset ('assets/photo/js.js') }}"></script>
 @endsection
 
 @section('styles')
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{asset("assets/$theme/plugins/select2/css/select2.min.css")}}">
+    <link rel="stylesheet" href="{{asset("assets/$theme/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css")}}">
+
     <link rel="stylesheet" type="text/css" href="{{asset('assets/profile/css/edit.css') }}">
 @endsection
 
@@ -112,11 +118,11 @@
                     <div class="form-group">
                         <label for="especialidad">Especialidad</label><br>
                         {{-- <select id="sel" class="select" name="especialidad[]" multiple="multiple"> --}}
-                        <select class="form-control select2 {{ $errors->has('especialidad') ? 'is-invalid' : '' }}" name="especialidad[]" id="exampleFormControlSelect2" multiple >
-                            @foreach($especialidad as $id => $especialidad)
-                                <option value="{{ $id }}" {{ in_array($id, old('especialidad', [])) ? 'selected' : '' }}>{{ $especialidad }}</option>
-                            @endforeach
-                        </select>
+                            <select class="select2bs4" name="especialidad[]" multiple="multiple" data-placeholder="" style="width: 100%;">
+                                @foreach($especialidad as $id => $especialidad)
+                                   <option value="{{ $id }}" {{ in_array($id, old('especialidad', [])) ? 'selected' : '' }}>{{ $especialidad }}</option>
+                               @endforeach
+                           </select>  
                         @if($errors->has('especialidad'))
                             <div class="invalid-feedback">
                                 {{ $errors->first('especialidad') }}

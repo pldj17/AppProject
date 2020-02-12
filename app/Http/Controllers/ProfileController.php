@@ -38,6 +38,9 @@ class ProfileController extends Controller
 
     public function edit()
     {
+        // $profile_id = Profile::all()->where('user_id', Auth::id());
+        // dd($profile_id);
+
         $especialidad = Specialty::all()->pluck('name', 'id');
         return view('profile.edit', compact('especialidad'));
     }
@@ -68,87 +71,40 @@ class ProfileController extends Controller
             Profile::where('user_id', $user_id)->update([
                 'avatar' => $filename
             ]);
-
         }        
         
         return response($status,200);
         // return redirect()->back()->with('message', 'Su foto de perfil ha sido actualizado!');
     }
 
-    // public function avatar(Request $request)
-    // { 
-    //     $this->validate($request, [
-    //         'avatar' => 'required|mimes:png,jpeg,jpg'
-    //     ]); 
-
-    //     $user_id = auth()->user()->id;
-
-    //     if($request->hasfile('avatar'))
-    //     {
-    //         $file = $request->file('avatar'); 
-    //         $ext = $file->getClientOriginalExtension();
-    //         $filename = time().'.'.$ext; 
-    //         // $file->move('uploads/avatar/', $filename); 
-            
-    //         Image::make($file)->resize(300, 300)->save(public_path('uploads/avatar/' . $filename));
-
-    //         Profile::where('user_id', $user_id)->update([
-    //             'avatar' => $filename
-    //         ]);
-    
-    //         return redirect()->back()->with('message', 'Su foto de perfil ha sido actualizado!');
-    //     }
-    // }
-  
-    public function info()
-    {
-        return view('profile.info');
-    }
-
-    public function contact()
-    {
-        return view('profile.contact');
-    }
-
     public function create()
     {
-        //
+        $especialidad = Specialty::all()->pluck('name', 'id');
+
+        return view('profile.create', compact('especialidad'));
     }
 
     public function store(ValidarPerfil $request)
     { 
+
+        $profile_id = Profile::all()->where('user_id', Auth::id());
+        // dd($profile_id);
 
         $user_id = auth()->user()->id; 
         Profile::where('user_id', $user_id)->update([
             
             'phone' => request('phone'),
             'address' => request('address'),
-            'description' => request('description')
+            'description' => request('description'),
         ]);
 
+        // $Perfil_especialidad = Profile::create($request->all());
+        // $Perfil_especialidad->especialidades()->sync($request->input('especialidad', []));
+
         $Perfil_especialidad = Profile::create($request->all());
-        $Perfil_especialidad->especialidades()->sync($request->input('especialidad', []));
+        $profile_id->especialidades()->attach($Perfil_especialidad);
 
-        // $hours = collect($request->input('from_hours'))->mapWithKeys(function($value, $id) use ($request) {
-        //     return $value ? [ 
-        //             $id => [
-        //                 'from_hours'    => $value, 
-        //                 'from_minutes'  => $request->input('from_minutes.'.$id), 
-        //                 'to_hours'      => $request->input('to_hours.'.$id),
-        //                 'to_minutes'    => $request->input('to_minutes.'.$id)
-        //             ]
-        //         ] 
-        //         : [];
-        // });
-        // $shop->days()->sync($hours);
-
-        // foreach ($request->input('photos', []) as $file) {
-        //     $shop->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('photos');
-        // }
-
-        // return redirect()->route('admin.shops.index'); 
-
-        return redirect()->back()->with('mensaje', 'Su perfil ha sido actualizado correctamente');
+        // return redirect()->back()->with('mensaje', 'Su perfil ha sido actualizado correctamente');
     }
 
     public function show($id)
@@ -176,4 +132,15 @@ class ProfileController extends Controller
     {
         //
     }
+
+    public function info()
+    {
+        return view('profile.info');
+    }
+
+    public function contact()
+    {
+        return view('profile.contact');
+    }
+
 }

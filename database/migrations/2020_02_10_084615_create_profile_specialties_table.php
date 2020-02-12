@@ -22,8 +22,6 @@ class CreateProfileSpecialtiesTable extends Migration
             $table->bigInteger('specialty_id')->unsigned()->index(); 
             $table->foreign('specialty_id')->references('id')->on('specialties')->onDelete('restrict')->onUpdate('restrict');
 
-            $table->string('state',30)->nullable();
-
             $table->timestamps();
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_spanish_ci';

@@ -35,7 +35,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css">
 
 
-
+    {{-- select2 --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
@@ -71,11 +71,29 @@
     </div>
 
     <script> 
-     $(document).ready(function() {
-        $('.select2').select2({
-          width: '300px'
-        });
-      });
+    //  $(document).ready(function() {
+    //     $('.select2').select2({
+    //       width: '300px'
+    //     });
+    //   });
+
+    // $(document).ready(function() {
+    //     $('.js-example-basic-multiple').select2();
+    // });
+
+    $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
+    })
+
+  })
+
+
+    
   </script>
   {{-- <script>
       ojito para ver password
@@ -102,7 +120,7 @@
     {{-- <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script> --}}
 
     <!-- jQuery -->
-    {{-- <script src="{{asset("assets/$theme/plugins/jquery/jquery.min.js")}}"></script> --}}
+    <script src="{{asset("assets/$theme/plugins/jquery/jquery.min.js")}}"></script>
     <!-- Bootstrap 4 -->
     <script src="{{asset("assets/$theme/plugins/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
     <!-- AdminLTE App -->

@@ -68,12 +68,12 @@
           <!-- /.card -->
 
           <!-- About Me Box -->
-          <div class="card card-primary collapsed-card">
+          <div class="card card-primary">
             <div class="card-header">
               <h3 class="card-title">Sobre Mi</h3>
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                  <i class="fas fa-plus"></i>
+                  <i class="fas fa-minus"></i>
                 </button>
               </div>
             </div>
@@ -100,15 +100,26 @@
 
               <hr>
 
-              <strong><i class="fas fa-map-marker-alt mr-1"></i> Ubicación</strong>
+              <strong><i class="fas fa-map-marker-alt mr-1"></i> Ubicación</strong><br>
 
-              <p class="text-muted">{{Auth::user()->profile->address ?? 'Agregar ubicacion'}}</p>
+              @if (empty(Auth::user()->profile->address))
+                <a href="{{route("profile.edit")}}" class="ubicacion" style="text-decoration:none;"><small>Agregar Ubicación</small></a>
+              @else
+                <small class="text-muted">{{Auth::user()->profile->address}}</small>
+              @endif
+
+              {{-- <p class="text-muted">{{Auth::user()->profile->address ?? 'Agregar ubicacion'}}</p> --}}
 
               <hr>
 
-              <strong><i class="far fa-file-alt mr-1"></i> Notas</strong>
+              <strong><i class="far fa-file-alt mr-1"></i> Descripción</strong><br>
 
-              <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+              @if (empty(Auth::user()->profile->description))
+                <a href="{{route("profile.edit")}}" class="ubicacion" style="text-decoration:none;"><small>Agregar Descripción</small></a>
+              @else
+                <small class="text-muted">{{Auth::user()->profile->description}}</small>
+              @endif
+              {{-- <p class="text-muted">{{Auth::user()->profile->description ?? 'Agregar breve descripción'}}</p> --}}
             </div>
             <!-- /.card-body -->
           </div>
