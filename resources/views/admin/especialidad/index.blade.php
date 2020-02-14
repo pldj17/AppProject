@@ -89,7 +89,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h2 class="modal-title" id="exampleModalCenterTitle">Agregar Rol</h2>
+                        <h2 class="modal-title" id="exampleModalCenterTitle">Agregar Especialidad</h2>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>

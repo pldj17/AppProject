@@ -17,12 +17,20 @@
         @if (empty(Auth::user()->profile->avatar))
             <img src="{{ asset('avatar/avatar.png')}}" class="img-circle img-bordered-sm">
         @else
-            <img src="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}"  class="img-circle img-bordered-sm">  
+            <img src="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}" class="img-circle img-bordered-sm">  
         @endif
       </div>
+      @auth()
       <div class="info"> 
-        <a href="{{route("profile.index")}}" class="d-block">{{auth()->user()->name ?? 'Invitado'}}</a>
+        <a href="{{route('perfil', ['id' => Auth::user()->id])}}" class="d-block">{{auth()->user()->name}}</a>
       </div>
+      @endauth
+      @guest
+      <div class="info">
+        <a href="{{route('login')}}" class="d-block">Invitado</a>
+      </div>
+      @endguest
+       
     </div>
 
     <!-- Sidebar Menu -->

@@ -12,7 +12,7 @@ class RoleController extends Controller
 
     public function index(Request $request)
     {
-        can('ver-listado-rol');
+        can('ver-rol');
         // return view('admin.role.index')->with('roles',role::paginate(4)); 
 
         $name = $request->get('name');
@@ -33,7 +33,7 @@ class RoleController extends Controller
 
     public function create()
     {
-        can('agregar-nuevo-rol');
+        can('crear-rol');
         return view('admin.role.create');
     }
 

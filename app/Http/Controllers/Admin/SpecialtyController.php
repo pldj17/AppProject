@@ -1,8 +1,9 @@
 <?php
 
-namespace ProjectApp\Http\Controllers;
+namespace ProjectApp\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use ProjectApp\Http\Controllers\Controller;
 use ProjectApp\Specialty;
 use Helper\AppProject;
 
@@ -10,7 +11,7 @@ class SpecialtyController extends Controller
 {
     public function index()
     {
-        can('ver-listado-de-especialidad');
+        can('ver-especialidad');
         $datas = Specialty::orderBy('id')->get();
         return view('admin.especialidad.index', compact('datas'));
     }

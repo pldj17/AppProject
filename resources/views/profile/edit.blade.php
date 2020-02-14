@@ -91,7 +91,13 @@
             <form action="{{ route('profile.create') }}" method="POST" autocomplete="off">
                 @csrf
                 <div class="pl-lg-4">
-                    
+                  <div class="form-group">
+                    <label for="">Teléfono</label>
+                    <input type="text" class="form-control" name="phone" value="{{Auth::user()->profile->phone ?? ''}}">
+                    @if ($errors->has('phone'))
+                        <div class="error text-danger">{{ $errors->first('phone')}}</div>                        
+                    @endif
+                </div>
                     <div class="form-group">
                         <label for="">Dirección</label>
                         <input type="text" class="form-control" name="address" value="{{Auth::user()->profile->address ?? ''}}">
@@ -108,9 +114,8 @@
                         @endif
                     </div>
                     
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="especialidad">Especialidad</label><br>
-                        {{-- <select id="sel" class="select" name="especialidad[]" multiple="multiple"> --}}
                             <select class="select2bs4" name="especialidad[]" multiple="multiple" data-placeholder="" style="width: 100%;">
                                 @foreach($especialidad as $id => $especialidad)
                                    <option value="{{ $id }}" {{ in_array($id, old('especialidad', [])) ? 'selected' : '' }}>{{ $especialidad }}</option>
@@ -121,13 +126,13 @@
                                 {{ $errors->first('especialidad') }}
                             </div>
                         @endif
-                    </div>
+                    </div> --}}
 
                     <div class="text-center" style="margin-top:23px;">
                         @include('profile.boton-form-editar')
                     </div>
                 </div>
-            </form> 
+            
           </div>
         </div>
       </div>
@@ -152,13 +157,7 @@
         <div class="card-body">
           <div class="row">
             <div class="col-md-6">
-                <div class="form-group">
-                    <label for="">Teléfono</label>
-                    <input type="text" class="form-control" name="phone" value="{{Auth::user()->profile->phone ?? ''}}">
-                    @if ($errors->has('phone'))
-                        <div class="error text-danger">{{ $errors->first('phone')}}</div>                        
-                    @endif
-                </div>
+               
                 {{-- <div class="form-group">
                     <label for="">Correo</label>
                     <input type="text" class="form-control" name="email" value="{{Auth::user()->profile->correo ?? ''}}">
@@ -170,7 +169,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="">Correo</label>
-                    <input type="text" class="form-control" name="email" value="{{Auth::user()->profile->correo ?? ''}}">
+                    <input type="text" class="form-control" name="correo" value="{{Auth::user()->profile->correo ?? ''}}">
                     @if ($errors->has('correo'))
                         <div class="error text-danger">{{ $errors->first('correo')}}</div>                        
                     @endif
@@ -189,9 +188,10 @@
               </div> --}}
             </div>
             <div style="float:right;">
-                <a href="{{route('profile.index')}}" class="btn btn-secondary"> Cancelar</a>
+                <a href="{{route('perfil', ['id' => Auth::user()->id])}}" class="btn btn-secondary"> Cancelar</a>
                 <button type="submit" class="btn btn-success">Guardar</button>
             </div>
+          </form> 
           </div>
         </div>
       </div>

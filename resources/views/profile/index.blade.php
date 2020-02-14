@@ -36,25 +36,28 @@
           <!-- Profile Image -->
           <div class="card card-primary card-outline">
             <div class="card-body box-profile">
-                <a href="{{route("profile.edit")}}" class="float-right btn-tool" style="position:absolute;">
-                    <i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Editar perfil"></i>
+              @if (Auth::user()->id == $user->id)
+                <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="float-right btn-tool" style="position:absolute;">
+                  <i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Editar perfil"></i>
                 </a>
+              @endif
+                
               <div class="text-center">
-                @if (empty(Auth::user()->profile->avatar))
+                @if (empty($perfil->avatar))
                     <img src="{{ asset('avatar/avatar.png')}}" class="card-img-top rounded-circle mx-auto d-block" style="height:130px; width:130px;">
                 @else
-                    <img src="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}" rel="ligthbox" class="card-img-top d-block" style="width:130px; height:130px; borderdius:50%; margin-left: auto; margin-right: auto;">  
+                    <img src="{{ asset('uploads/profile_pictures')}}/{{ $perfil->avatar }}" rel="ligthbox" class="card-img-top d-block" style="width:130px; height:130px; borderdius:50%; margin-left: auto; margin-right: auto;">  
                 @endif
               </div>
 
-              <h3 class="profile-username text-center">{{auth()->user()->name}}</h3>
+              <h3 class="profile-username text-center">{{$user->name}}</h3>
 
               <center><i class="fas fa-map-marker-alt mr-1"></i>
 
-              @if (empty(Auth::user()->profile->address))
-                <a href="{{route("profile.edit")}}" class="ubicacion" style="text-decoration:none;"><small>Agregar Ubicación</small></a>
+              @if (empty($perfil->address))
+                <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="ubicacion" style="text-decoration:none;"><small>Agregar Ubicación</small></a>
               @else
-                <small class="text-muted">{{Auth::user()->profile->address}}</small>
+                <small class="text-muted">{{$perfil->address}}</small>
               @endif
               <br><br></center>
              
@@ -102,24 +105,24 @@
 
               <strong><i class="fas fa-map-marker-alt mr-1"></i> Ubicación</strong><br>
 
-              @if (empty(Auth::user()->profile->address))
-                <a href="{{route("profile.edit")}}" class="ubicacion" style="text-decoration:none;"><small>Agregar Ubicación</small></a>
+              @if (empty($perfil->address))
+                <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="ubicacion" style="text-decoration:none;"><small>Agregar Ubicación</small></a>
               @else
-                <small class="text-muted">{{Auth::user()->profile->address}}</small>
+                <small class="text-muted">{{$perfil->address}}</small>
               @endif
 
-              {{-- <p class="text-muted">{{Auth::user()->profile->address ?? 'Agregar ubicacion'}}</p> --}}
+              {{-- <p class="text-muted">{{$perfil->address ?? 'Agregar ubicacion'}}</p> --}}
 
               <hr>
 
               <strong><i class="far fa-file-alt mr-1"></i> Descripción</strong><br>
 
-              @if (empty(Auth::user()->profile->description))
-                <a href="{{route("profile.edit")}}" class="ubicacion" style="text-decoration:none;"><small>Agregar Descripción</small></a>
+              @if (empty($perfil->description))
+                <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="ubicacion" style="text-decoration:none;"><small>Agregar Descripción</small></a>
               @else
-                <small class="text-muted">{{Auth::user()->profile->description}}</small>
+                <small class="text-muted">{{$perfil->description}}</small>
               @endif
-              {{-- <p class="text-muted">{{Auth::user()->profile->description ?? 'Agregar breve descripción'}}</p> --}}
+              {{-- <p class="text-muted">{{$perfil->description ?? 'Agregar breve descripción'}}</p> --}}
             </div>
             <!-- /.card-body -->
           </div>
@@ -128,61 +131,47 @@
         <!-- /.col -->
         <div class="col-md-9">
           <div class="card">
-            <div class="card-header p-2">
-              <ul class="nav nav-pills">
-                <li class="nav-item">
-                  <a class="nav-link active" href="{{route("profile.index")}}">
-                      Actividades
-                  </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="{{route("perfil_post")}}">
-                        Fotos
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#settings" data-toggle="tab">
-                        Contactos
-                    </a>
-                </li>
-              </ul>
-            </div><!-- /.card-header -->
+
+            @include('includes.tabs')
+            
             <div class="card-body">
               <div class="tab-content">
-                <div class="active tab-pane" id="activity">
+
+                @if (Auth::user()->id == $user->id)
+
+                  <div class="active tab-pane" id="activity">
+
                   <!-- Post -->
-                
-                  <div >
-                    <div class="container">
-                        <form action="{{ route('guardar_post') }}" class="form-image-upload" method="POST" enctype="multipart/form-data" autocomplete="off">
-                          @csrf
-                          <div class="row">
-                              <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                              <div class="col-md-12">
-                                  <strong>Crear publicación:</strong><br><br>
-                                  <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3" placeholder="Descripción"></textarea>
-                              </div>  
-                          </div>
-                          
-                          <div class="col-md-5 mr--1">
-                            <input type="file" class="custom-file-input" name="file[]" id="file" accept="image/*" multiple />
+                    <div >
+                      <div class="container">
+                          <form action="{{ route('guardar_post') }}" class="form-image-upload" method="POST" enctype="multipart/form-data" autocomplete="off">
+                            @csrf
+                            <div class="row">
+                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                <div class="col-md-12">
+                                    <strong>Crear publicación:</strong><br><br>
+                                    <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3" placeholder="Descripción"></textarea>
+                                </div>  
+                            </div>
                             
-                              {{-- <input type="file" class="custom-file-input" id="customFile" name="image">--}}
-                              <label class="custom-file-label" for="customFile"><i class="far fa-images"></i></label> 
+                            <div class="col-md-5 mr--1">
+                              <input type="file" class="custom-file-input" name="file[]" id="file" accept="image/*" multiple />
                               
-                          </div>
-                          <div class="col-md-2">
-                              <br/>
-                              <button type="submit"  name="upload" value="Upload" class="btn btn-primary">Publicar</button>
-                          </div>
-                        </form>
-                      
+                                {{-- <input type="file" class="custom-file-input" id="customFile" name="image">--}}
+                                <label class="custom-file-label" for="customFile"><i class="far fa-images"></i></label> 
+                                
+                            </div>
+                            <div class="col-md-2">
+                                <br/>
+                                <button type="submit"  name="upload" value="Upload" class="btn btn-primary">Publicar</button>
+                            </div>
+                          </form>
+                        
+                      </div>
                     </div>
                   </div>
-                  
-              </div>
-
-              <hr>
+                  <hr>
+                @endif
 
             </div><!-- /.card-body -->
 
@@ -193,13 +182,13 @@
                     <div class="active tab-pane" id="activity">
                       <div class="post">
                         <div class="user-block">
-                          @if (empty(Auth::user()->profile->avatar))
+                          @if (empty($perfil->avatar))
                               <img src="{{ asset('avatar/avatar.png')}}" class="img-circle img-bordered-sm">
                           @else
-                              <img src="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}"  class="img-circle img-bordered-sm">  
+                              <img src="{{ asset('uploads/profile_pictures')}}/{{ $perfil->avatar }}"  class="img-circle img-bordered-sm">  
                           @endif
                           <span class="username">
-                            <a href="#">{{auth()->user()->name}}</a>
+                            <a href="#">{{$user->name}}</a>
                               <div class="btn-group" style="float:right;">
                                 <button type="button" class="btn btn-tool" data-toggle="dropdown" style="display:">
                                   <i class="fas fa-ellipsis-v"></i>
@@ -220,7 +209,6 @@
                                         @break
                                     @endif
                                   @endforeach
-                                  {{-- <a href="#" class="dropdown-item"><i class="fa fa-trash text-danger"></i>&nbsp; <small>Eliminar</small></a> --}}
                                 </div>
                               </div>
                             
@@ -240,25 +228,15 @@
 
                     @foreach ($imgCollection as $post)
                       <div class="col-lg-4 col-md-4 col-xs-6 thumb">
-                        <a href="images/{{$post->file }}" class="fancybox" rel="ligthbox" style="width:100%; height:70%">
-                          <img src="images/{{$post->file }}" class="zoom img-fluid" alt="" style="width:100%; height:100%">
+                        <a href="/images/{{$post->file }}" class="fancybox" rel="ligthbox" style="width:100%; height:70%">
+                          <img src="/images/{{$post->file }}" class="zoom img-fluid" alt="" style="width:100%; height:100%">
                         </a>   
                       </div>
                     @endforeach
                  
                 </div>
-                    {{-- <p>
-                      <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
-                      <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
-                      <span class="float-right">
-                        <a href="#" class="link-black text-sm">
-                          <i class="far fa-comments mr-1"></i> Comments (5)
-                        </a>
-                      </span>
-                    </p> --}}
 
                   <input class="form-control form-control-sm" type="text" placeholder="Comentar">
-                  {{-- <ion-icon name="send-outline"></ion-icon> --}}
                   
                   </div>
                 </div>
@@ -267,6 +245,7 @@
             </div>
             
           </div>  
-
-
+        </div>
+      </div>
+    </div>
 @endsection

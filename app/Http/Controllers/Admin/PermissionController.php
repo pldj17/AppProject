@@ -10,16 +10,11 @@ use ProjectApp\Http\Requests\ValidarPermiso;
 
 class PermissionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         // $permisos = permission::orderBy('id')->get();
         // return view('admin.permiso.index', compact('permisos'));
-
+        can('ver-permiso');
         $name = $request->get('name');
 
         $permisos = Permission::orderBy('id', 'ASC')
@@ -30,72 +25,39 @@ class PermissionController extends Controller
         // return view('admin.permiso.index')->with('permisos', permission::paginate(4));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
+        can('crear-permiso');
         return view('admin.permiso.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(ValidarPermiso $request)
     {
         Permission::create($request->all());
         return redirect('admin/permiso')->with('mensaje', 'Permiso creado con exito');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
+        can('editar-permiso');
         $data = Permission::findOrFail($id);
         return view('admin.permiso.edit', compact('data'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(ValidarPermiso $request, $id)
     {
         Permission::findOrFail($id)->update($request->all());
         return redirect('admin/permiso')->with('mensaje', 'Permiso actualizado con exito');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Request $request, $id)
     {
+        can('eliminar-permiso');
         if ($request->ajax()) {
             if (Permission::destroy($id)) {
                 return response()->json(['mensaje' => 'ok']);

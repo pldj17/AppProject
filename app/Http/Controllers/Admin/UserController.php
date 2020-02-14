@@ -7,6 +7,8 @@ use ProjectApp\Http\Controllers\Controller;
 use ProjectApp\User;
 use ProjectApp\Role;
 use Illuminate\Support\Facades\Auth;
+use ProjectApp\Photo;
+use ProjectApp\Profile;
 
 class UserController extends Controller
 {
@@ -22,13 +24,6 @@ class UserController extends Controller
         return view('admin.users.index', compact('users')); //pagina de usuarios
     }
     
-    // public function show($id){
-    //     if(Auth::user()->id == $id){
-    //         return redirect()->route('admin.users.index')->with('warning', 'No tienes los permisos necesarios para realizar esta acción');
-            
-    //     }
-    //     return view('profile.index')->with(['user'=> User::find($id)]);
-    // }
     public function edit($id)
     {
         can('editar-usuario');
@@ -39,6 +34,19 @@ class UserController extends Controller
         return view('admin.users.edit')->with(['user'=> User::find($id), 'roles' => Role::all()]);
     }
     
+    public function show($id, User $user, Profile $perfil)
+    {
+
+        $photo = Photo::with('post')->orderBy('id','desc')->get()->where('user_id', $id)->groupBy('post_id');
+
+        $perfil = Profile::all()->where('user_id', $id)->first();
+        $user = user::find($id);
+
+        // dd($photo);
+
+        return view('profile.index', compact('perfil', 'user', 'photo'));
+    }
+
     public function update(Request $request, $id)
     {
         if(Auth::user()->id == $id){

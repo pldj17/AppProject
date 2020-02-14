@@ -13,12 +13,14 @@ class MenuController extends Controller
 
     public function index()
     {
+        can('ver-menu');
         $menus = Menu::getMenu();
         return view('admin.menu.index', compact('menus'));
     }
 
     public function crear()
     {
+        can('crear-menu');
         return view('admin.menu.create');
     }
 
@@ -30,6 +32,7 @@ class MenuController extends Controller
 
     public function editar($id)
     {
+        can('editar-menu');
         $data = Menu::findOrFail($id);
         return view('admin.menu.edit', compact('data'));
     }
@@ -42,6 +45,7 @@ class MenuController extends Controller
 
     public function eliminar($id)
     {
+        can('eliminar-menu');
         Menu::destroy($id);
         return redirect('admin/menu')->with('mensaje', 'Menú eliminado con exito');
     }

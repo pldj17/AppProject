@@ -16,10 +16,10 @@ class Profile extends Model
     }
 
     //un post puede pertenecer a un solo perfil
-    public function post()
-    {
-        return $this->hasMany(Post::class);
-    }
+    // public function post()
+    // {
+    //     return $this->hasMany(Post::class);
+    // }
 
     public function especialidades()
     {

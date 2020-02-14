@@ -26,14 +26,14 @@ Route::get('dashboard', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function(){
 
-    Route::get('perfil','ProfileController@index')->name('profile.index'); 
+    Route::get('perfil/{id}','ProfileController@index')->name('perfil'); 
     Route::post('perfil/actualizar','ProfileController@update')->name('profile.update');
     Route::post('perfil/password','ProfileController@password')->name('profile.password');
     Route::post('perfil/crear', 'ProfileController@store')->name('profile.create');   
     // Route::post('profile/avatar', 'ProfileController@avatar')->name('avatar'); 
     Route::get('perfil/editar','ProfileController@edit')->name('show.avatar');
     Route::post('perfil/editar','ProfileController@AvatarUpload')->name('avatar');
-    Route::get('perfil/editar', 'ProfileController@edit')->name('profile.edit');
+    Route::get('perfil/{id}/editar', 'ProfileController@edit')->name('editar_perfil');
     Route::get('perfil/ajustes', 'ProfileController@update')->name('profile.ajustes');  
     Route::get('perfil/informacion', 'ProfileController@info')->name('profile.info');
     Route::get('perfil/contacto', 'ProfileController@contact')->name('profile.contact');
@@ -41,7 +41,7 @@ Route::group(['middleware' => ['auth']], function(){
     //publicaciones
     Route::post('perfil/post', 'PhotoController@upload')->name('guardar_post');
     Route::delete('perfil/post/{id}', 'PhotoController@destroy')->name('eliminar_post');
-    Route::get('perfil/post', 'PhotoController@index')->name('perfil_post');
+    Route::get('perfil/post/{id}', 'PhotoController@index')->name('perfil_post');
     
 });
 
@@ -57,6 +57,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => ['aut
     Route::get('usuario/{id}/editar', 'UserController@edit')->name('editar_usuario');
     Route::put('usuario/{id}', 'UserController@update')->name('actualizar_usuario');
     Route::delete('usuario/{id}', 'UserController@destroy')->name('eliminar_usuario');
+    Route::get('usuario/{id}/ver', 'UserController@show')->name('ver_perfil');
 
     // Rutas permisos
     Route::get('permiso', 'PermissionController@index')->name('permiso');
@@ -101,11 +102,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => ['aut
 
 });
 
-// Rutas especialidades
-Route::get('especialidad', 'SpecialtyController@index')->name('especialidad');
-Route::get('especialidad/crear', 'SpecialtyController@create')->name('crear_especialidad');
-Route::post('especialidad', 'SpecialtyController@store')->name('guardar_especialidad');
-Route::get('especialidad/{id}/editar', 'SpecialtyController@edit')->name('editar_especialidad');
-Route::put('especialidad/{id}', 'SpecialtyController@update')->name('actualizar_especialidad');
-Route::delete('especialidad/{id}', 'SpecialtyController@destroy')->name('eliminar_especialidad');
+// // Rutas especialidades
+// Route::get('especialidad', 'SpecialtyController@index')->name('especialidad');
+// Route::get('especialidad/crear', 'SpecialtyController@create')->name('crear_especialidad');
+// Route::post('especialidad', 'SpecialtyController@store')->name('guardar_especialidad');
+// Route::get('especialidad/{id}/editar', 'SpecialtyController@edit')->name('editar_especialidad');
+// Route::put('especialidad/{id}', 'SpecialtyController@update')->name('actualizar_especialidad');
+// Route::delete('especialidad/{id}', 'SpecialtyController@destroy')->name('eliminar_especialidad');
 

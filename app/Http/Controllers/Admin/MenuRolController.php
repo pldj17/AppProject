@@ -11,6 +11,7 @@ class MenuRolController extends Controller
 {
     public function index()
     {
+        can('administrar-menu');
         $rols = Role::orderBy('id')->pluck('name', 'id')->toArray();
         $menus = Menu::getMenu();
         // dd($rols);

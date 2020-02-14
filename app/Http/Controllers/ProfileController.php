@@ -3,46 +3,83 @@
 namespace ProjectApp\Http\Controllers;
 
 use Illuminate\Http\Request;
-// use ProjectApp\Http\Requests\ProfileRequest;
-// use ProjectApp\Http\Requests\PasswordRequest;
-use ProjectApp\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Support\Facades\Auth;
-use ProjectApp\Profile;
-use Image;
+use Illuminate\Support\Facades\Hash;
 use ProjectApp\Http\Requests\ValidarPerfil;
 use ProjectApp\Photo;
-use ProjectApp\Post;
+use ProjectApp\Profile;
 use ProjectApp\Specialty;
+use ProjectApp\User;
 
 class ProfileController extends Controller
 {
-  
-    use ResetsPasswords;
-
-    //evita que se pueda acceder al perfil sin iniciar sesion
-    public function __construct()
+    public function index($id, Request $request)
     {
-        $this->middleware('auth');
-    }
-  
-    public function index(Request $request)
-    {   
-        $photo = photo::with('post')->orderBy('id','desc')->get()->where('user_id', Auth::id())->groupBy('post_id');
-        // dd($photo);
-        $profiles = Profile::all(); //consulta todos los perfiles creados y los trae
-        return view('profile.index', compact('profiles', 'photo')); //compact genera una array con la informacion que le asignemos
+        $photo = Photo::with('post')->orderBy('id','desc')->get()->where('user_id', $id)->groupBy('post_id');
+
+        $perfil = Profile::all()->where('user_id', $id)->first();
+        $user = User::find($id);
+
+        return view('profile.index', compact('perfil', 'user', 'photo'));
     }
 
-    public function edit()
+    public function create()
     {
-        // $profile_id = Profile::all()->where('user_id', Auth::id());
+        $especialidad = Specialty::all()->pluck('name', 'id');
+        return view('profile.edit', compact('especialidad'));
+    }
+
+    public function store(ValidarPerfil $request)
+    {
+        $profile_id = Profile::all()->where('user_id', Auth::id());
+        // dd($profile_id);
+
+        $Perfil_especialidad = Profile::create($request->all());
+        $Perfil_especialidad->especialidades()->sync($request->input('especialidad', []));
+
+        $user_id = auth()->user()->id; 
+        Profile::where('user_id', $user_id)->update([
+            
+            'phone' => request('phone'),
+            'address' => request('address'),
+            'description' => request('description'),
+            'correo' => request('correo')
+        ]);
+
+        // $Perfil_especialidad = Profile::create($request->all());
+        // $profile_id->especialidades()->attach($Perfil_especialidad);
+
+         return redirect()->back()->with('mensaje', 'Su perfil ha sido actualizado correctamente');
+    }
+
+    public function show($id)
+    {
+        
+    }
+
+    public function edit($id)
+    {
+         // $profile_id = Profile::all()->where('user_id', Auth::id());
         // dd($profile_id);
 
         $especialidad = Specialty::all()->pluck('name', 'id');
         return view('profile.edit', compact('especialidad'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        return view('profile.ajustes');
+
+        auth()->user()->update($request->all());
+
+        return back()->with('mensaje', 'Su perfil ha sido actualizado correctamente.');
+    }
+
+    public function password(Request $request)
+    {
+        auth()->user()->update(['password' => Hash::make($request->get('password'))]);
+
+        return back()->with('mensaje', 'Su perfil ha sido actualizado correctamente.');
     }
 
     public function AvatarUpload(Request $request)
@@ -75,57 +112,6 @@ class ProfileController extends Controller
         
         return response($status,200);
         // return redirect()->back()->with('message', 'Su foto de perfil ha sido actualizado!');
-    }
-
-    public function create()
-    {
-        $especialidad = Specialty::all()->pluck('name', 'id');
-
-        return view('profile.create', compact('especialidad'));
-    }
-
-    public function store(ValidarPerfil $request)
-    { 
-
-        $profile_id = Profile::all()->where('user_id', Auth::id());
-        // dd($profile_id);
-
-        $user_id = auth()->user()->id; 
-        Profile::where('user_id', $user_id)->update([
-            
-            'phone' => request('phone'),
-            'address' => request('address'),
-            'description' => request('description'),
-        ]);
-
-        // $Perfil_especialidad = Profile::create($request->all());
-        // $Perfil_especialidad->especialidades()->sync($request->input('especialidad', []));
-
-        $Perfil_especialidad = Profile::create($request->all());
-        $profile_id->especialidades()->attach($Perfil_especialidad);
-
-        // return redirect()->back()->with('mensaje', 'Su perfil ha sido actualizado correctamente');
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-    public function update(Request $request)
-    {
-        return view('profile.ajustes');
-
-        auth()->user()->update($request->all());
-
-        return back()->with('mensaje', 'Su perfil ha sido actualizado correctamente.');
-    }
-
-    public function password(Request $request)
-    {
-        auth()->user()->update(['password' => Hash::make($request->get('password'))]);
-
-        return back()->with('mensaje', 'Su perfil ha sido actualizado correctamente.');
     }
 
     public function destroy($id)

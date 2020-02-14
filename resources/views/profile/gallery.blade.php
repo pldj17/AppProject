@@ -32,18 +32,20 @@
         <!-- Profile Image -->
         <div class="card card-primary card-outline">
           <div class="card-body box-profile">
-              <a href="{{route("profile.edit")}}" class="float-right btn-tool" style="position:absolute;">
+              @if (Auth::user()->id == $user->id)
+                <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="float-right btn-tool" style="position:absolute;">
                   <i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Editar perfil"></i>
-              </a>
+                </a>
+            @endif
             <div class="text-center">
               {{-- <img class="profile-user-img img-fluid img-circle"
                    src="../../dist/img/user4-128x128.jpg"
                    alt="User profile picture"> --}}
-                      @if (empty(Auth::user()->profile->avatar))
-                          <img src="{{ asset('avatar/avatar.png')}}" class="card-img-top rounded-circle mx-auto d-block" style="height:130px; width:130px;">
-                      @else
-                          <img src="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}"  class="card-img-top d-block" style="width:130px; height:130px; borderdius:50%; margin-left: auto; margin-right: auto;">  
-                      @endif
+                   @if (empty($perfil->avatar))
+                      <img src="{{ asset('avatar/avatar.png')}}" class="card-img-top rounded-circle mx-auto d-block" style="height:130px; width:130px;">
+                  @else
+                      <img src="{{ asset('uploads/profile_pictures')}}/{{ $perfil->avatar }}" rel="ligthbox" class="card-img-top d-block" style="width:130px; height:130px; borderdius:50%; margin-left: auto; margin-right: auto;">  
+                  @endif
             </div>
 
             <h3 class="profile-username text-center">{{auth()->user()->name}}</h3>
@@ -117,25 +119,7 @@
       <!-- /.col -->
       <div class="col-md-9">
         <div class="card">
-          <div class="card-header p-2">
-            <ul class="nav nav-pills">
-              <li class="nav-item">
-                  <a class="nav-link " href="{{route("profile.index")}}">
-                      Actividades
-                  </a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link active" href="{{route("perfil_post")}}">
-                      Fotos
-                  </a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="#settings" data-toggle="tab">
-                      Contactos
-                  </a>
-              </li>
-            </ul>
-          </div><!-- /.card-header -->
+          @include('includes.tabs')
           <div class="card-body">
             <div class="tab-content">
 

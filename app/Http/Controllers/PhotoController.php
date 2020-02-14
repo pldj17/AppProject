@@ -6,17 +6,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use ProjectApp\Photo;
 use ProjectApp\Post;
+use ProjectApp\Profile;
+use ProjectApp\User;
 
 class PhotoController extends Controller
 {
 
-    public function index()
+    public function index($id)
     {
-        //  $photos = Photo::all()->where('user_id', Auth::id());
-        //  return view('profile.gallery', compact('photos'));
+        $photo = Photo::with('post')->orderBy('id','desc')->get()->where('user_id', $id)->groupBy('post_id');
 
-        $photos = Photo::orderBy('id','DESC')->where('user_id', Auth::id())->paginate(10);
-        return view('profile.gallery', compact('photos'));
+        $perfil = Profile::all()->where('user_id', $id)->first();
+        $user = User::find($id);
+
+        return view('profile.gallery', compact('perfil', 'user', 'photo'));
+
     }
 
     public function upload(Request $request)
@@ -40,7 +44,7 @@ class PhotoController extends Controller
             $GuardarImg->save();
         }
 
-        return redirect()->route('profile.index')->with('mensaje', 'Se guardaron los cambios');
+        return redirect()->route('perfil', ['id' => Auth::user()->id])->with('mensaje', 'Se guardaron los cambios');
     }
 
     public function show($id)

@@ -74,30 +74,23 @@
 </head>
 <body>
     <div class="row" style="margin-top:10px;" id="tabla-data">
-            @foreach($photos as $post)
+            @foreach($photo as $post)
+                @foreach ($post as $item)
                 <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                    {{-- <form action="{{ route('eliminar_post',$post->id) }}" class="d-inline form-eliminar" method="POST">
-                        <input type="hidden" name="_method" value="delete">
-                        @csrf
-                        <button type="submit" class="btn-accion-tabla eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar este registro" style="float:right;">
-                            <i class="fa fa-fw fa-times text-danger" ></i>
-                        </button>                    
-                    </form> --}}
-                    <form action="{{route('eliminar_post', $post->id)}}" class="d-inline form-eliminar" method="POST">
+                    <form action="{{route('eliminar_post', $item->id)}}" class="d-inline form-eliminar" method="POST">
                         <input type="hidden" name="_method" value="delete">
                         @csrf 
                         <button type="submit" class="btn-accion-tabla eliminar" data-toggle="tooltip" data-placement="bottom" title="Eliminar este registro" style="float:right;">
                             <i class="fa fa-fw fa-times text-danger"></i>
                         </button>
                     </form>
-                    <a href="/images/{{$post->file }}" class="fancybox" rel="ligthbox">
-                        <img id="image" src="/images/{{$post->file }}" class="zoom img-fluid " data-toggle="tooltip" data-placement="bottom" title="{{$post->description}}" alt="">
-                        {{-- <div class='text-center'>
-                            <small class='text-muted'>{{ $post->description }}</small>
-                        </div> --}}
+                    <a href="/images/{{$item->file }}" class="fancybox" rel="ligthbox">
+                        <img id="image" src="/images/{{$item->file }}" class="zoom img-fluid " data-toggle="tooltip" data-placement="bottom" title="{{$item->description}}" alt="">
                     </a>
                     
                 </div>
+                @endforeach
+               
             @endforeach
     </div>
     <script>
