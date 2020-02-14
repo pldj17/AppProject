@@ -34,18 +34,18 @@ class UserController extends Controller
         return view('admin.users.edit')->with(['user'=> User::find($id), 'roles' => Role::all()]);
     }
     
-    public function show($id, User $user, Profile $perfil)
-    {
+    // public function show($id, User $user, Profile $perfil)
+    // {
 
-        $photo = Photo::with('post')->orderBy('id','desc')->get()->where('user_id', $id)->groupBy('post_id');
+    //     $photo = Photo::with('post')->orderBy('id','desc')->get()->where('user_id', $id)->groupBy('post_id');
 
-        $perfil = Profile::all()->where('user_id', $id)->first();
-        $user = user::find($id);
+    //     $perfil = Profile::all()->where('user_id', $id)->first();
+    //     $user = user::find($id);
 
-        // dd($photo);
+    //     dd($photo);
 
-        return view('profile.index', compact('perfil', 'user', 'photo'));
-    }
+    //     return view('profile.index', compact('perfil', 'user', 'photo'));
+    // }
 
     public function update(Request $request, $id)
     {

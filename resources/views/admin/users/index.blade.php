@@ -57,7 +57,7 @@
                                     <td>{{$data->created_at}}</td>
                                     <td>Activo</td>
                                     <td>
-                                        <a href="{{route('ver_perfil', ['id' => $data->id   ])}}" class="btn-accion-tabla" data-toggle="tooltip" data-placement="top" title="Ver perfil de usuario">
+                                        <a href="{{route('perfil', ['id' => $data->id   ])}}" class="btn-accion-tabla" data-toggle="tooltip" data-placement="top" title="Ver perfil de usuario">
                                             <i class="fas fa-eye"></i>
                                         </a>
                                         <a href="{{route('editar_usuario', ['id' => $data->id])}}" class="btn-accion-tabla" data-toggle="tooltip" data-placement="top" title="Editar rol de usuario">

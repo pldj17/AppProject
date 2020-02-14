@@ -2,19 +2,27 @@
 
 namespace ProjectApp\Http\Controllers;
 
+use ProjectApp\Photo;
 use ProjectApp\Profile;
+use ProjectApp\User;
 
 class HomeController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
 
     public function index()
     {
         $profiles = Profile::all(); 
-        //dd(auth()->user()->name);
-        return view('dashboard', compact('profiles'));
+        $user = User::all();
+        return view('dashboard', compact('profiles', 'user'));
+    }
+
+    public function show($id)
+    {
+        $photo = Photo::with('post')->orderBy('id','desc')->get()->where('user_id', $id)->groupBy('post_id');
+
+        $perfil = Profile::all()->where('user_id', $id)->first();
+        $user = User::find($id);
+
+        return view('profile.index', compact('perfil', 'user', 'photo'));
     }
 }

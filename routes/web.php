@@ -16,13 +16,14 @@ Route::get('/', function () {
     return view('dashboard');
 });
 
-Auth::routes(['verify' => true]);
+// Auth::routes(['verify' => true]);
 
 Auth::routes();
 
 //verificacion de correo ->middleware('verified');
 
-Route::get('dashboard', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('perfil/{id}', 'HomeController@show')->name('perfil_publico');
 
 Route::group(['middleware' => ['auth']], function(){
 
@@ -57,7 +58,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => ['aut
     Route::get('usuario/{id}/editar', 'UserController@edit')->name('editar_usuario');
     Route::put('usuario/{id}', 'UserController@update')->name('actualizar_usuario');
     Route::delete('usuario/{id}', 'UserController@destroy')->name('eliminar_usuario');
-    Route::get('usuario/{id}/ver', 'UserController@show')->name('ver_perfil');
+    // Route::get('usuario/{id}/ver', 'UserController@show')->name('ver_perfil');
 
     // Rutas permisos
     Route::get('permiso', 'PermissionController@index')->name('permiso');

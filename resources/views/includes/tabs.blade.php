@@ -1,7 +1,7 @@
 <div class="card-header p-2">
     <ul class="nav nav-pills">
       <li class="nav-item">
-        <a class="nav-link active" href="{{route('ver_perfil',  ['id' => $user->id])}}">
+        <a class="nav-link active" href="{{route('perfil',  ['id' => $user->id])}}">
             Actividades
         </a>
       </li>
@@ -16,4 +16,4 @@
           </a>
       </li>
     </ul>
-  </div><!-- /.card-header -->
+  </div>

@@ -32,15 +32,10 @@
         <!-- Profile Image -->
         <div class="card card-primary card-outline">
           <div class="card-body box-profile">
-              @if (Auth::user()->id == $user->id)
-                <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="float-right btn-tool" style="position:absolute;">
-                  <i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="Editar perfil"></i>
-                </a>
-            @endif
+
+            @include('includes.icon_editar_perfil')
+
             <div class="text-center">
-              {{-- <img class="profile-user-img img-fluid img-circle"
-                   src="../../dist/img/user4-128x128.jpg"
-                   alt="User profile picture"> --}}
                    @if (empty($perfil->avatar))
                       <img src="{{ asset('avatar/avatar.png')}}" class="card-img-top rounded-circle mx-auto d-block" style="height:130px; width:130px;">
                   @else
@@ -48,9 +43,16 @@
                   @endif
             </div>
 
-            <h3 class="profile-username text-center">{{auth()->user()->name}}</h3>
+            <h3 class="profile-username text-center">{{$user->name}}</h3>
 
-            <p class="text-muted text-center">Software Engineer</p>
+              <center><i class="fas fa-map-marker-alt mr-1"></i>
+
+              @if (empty($perfil->address) && (Auth::user()->id == $user->id))
+                <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="ubicacion" style="text-decoration:none;"><small>Agregar Ubicación</small></a>
+              @else
+                <small class="text-muted">{{$perfil->address ?? 'Sin ubicacion'}}</small>
+              @endif
+              <br><br></center>
 
             {{-- <ul class="list-group list-group-unbordered mb-3">
               <li class="list-group-item">
@@ -64,62 +66,38 @@
               </li>
             </ul>--}}
             
-            <a href="#" class="btn btn-primary btn-block"><b>Puntuar</b></a> 
+            <a href="#" class="btn btn-primary btn-block"><b>Calificar</b></a> 
           </div>
           <!-- /.card-body -->
         </div>
         <!-- /.card -->
 
         <!-- About Me Box -->
-        <div class="card card-primary collapsed-card">
-          <div class="card-header">
-            <h3 class="card-title">Sobre Mi</h3>
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                  <i class="fas fa-plus"></i>
-                </button>
-              </div>
-          </div>
-          <!-- /.card-header -->
-          <div class="card-body">
-            <strong><i class="fas fa-book mr-1"></i>Formación</strong>
-
-            <p class="text-muted">
-              B.S. in Computer Science from the University of Tennessee at Knoxville
-            </p>
-
-            <hr>
-
-            <strong><i class="fas fa-map-marker-alt mr-1"></i> Ubicación</strong>
-
-            <p class="text-muted">Malibu, California</p>
-
-            <hr>
-
-            <strong><i class="fas fa-pencil-alt mr-1"></i> Especialidad</strong>
-
-            <p class="text-muted">
-              <span class="tag tag-danger">UI Design</span>
-              <span class="tag tag-success">Coding</span>
-              <span class="tag tag-info">Javascript</span>
-              <span class="tag tag-warning">PHP</span>
-              <span class="tag tag-primary">Node.js</span>
-            </p>
-
-            <hr>
-
-            <strong><i class="far fa-file-alt mr-1"></i> Notas</strong>
-
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-          </div>
-          <!-- /.card-body -->
-        </div>
+        @include('includes.about_me')
         <!-- /.card -->
       </div>
       <!-- /.col -->
       <div class="col-md-9">
         <div class="card">
-          @include('includes.tabs')
+          <div class="card-header p-2">
+            <ul class="nav nav-pills">
+              <li class="nav-item">
+                <a class="nav-link " href="{{route('perfil',  ['id' => $user->id])}}">
+                    Actividades
+                </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link active " href="{{route("perfil_post", ['id' => $user->id])}}">
+                      Fotos
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="#settings" data-toggle="tab">
+                      Contactos
+                  </a>
+              </li>
+            </ul>
+          </div>
           <div class="card-body">
             <div class="tab-content">
 
