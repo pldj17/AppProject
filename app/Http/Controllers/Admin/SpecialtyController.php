@@ -19,13 +19,13 @@ class SpecialtyController extends Controller
     public function create()
     {   
         can('agregar-especialidad');
-        return view('admin.especialidad.create');
+        return view('admin.especialidad');
     }
 
     public function store(Request $request)
     {
         Specialty::create($request->all());
-        return redirect('especialidad')->with('mensaje', 'Especialidad creada con exito');
+        return redirect('admin/especialidad')->with('mensaje', 'Especialidad creada con exito');
     }
 
     public function show($id)

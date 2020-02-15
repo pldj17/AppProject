@@ -26,7 +26,7 @@ class ValidarPerfil extends FormRequest
         return [
             'phone' => 'numeric|min:11111|max:9999999999',
             'address' => 'required',
-            'description' => 'required|min:20',
+            'description' => 'required|min:5',
             'especialidad.*' => [
                 'integer',
             ]

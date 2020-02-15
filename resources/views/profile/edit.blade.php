@@ -88,7 +88,7 @@
             </div>
           </div>
           <div class="card-body">
-            <form action="{{ route('profile.create') }}" method="POST" autocomplete="off">
+            <form action="{{ route('guardar_perfil' ) }}" method="POST" autocomplete="">
                 @csrf
                 <div class="pl-lg-4">
                   <div class="form-group">
@@ -114,11 +114,12 @@
                         @endif
                     </div>
                     
-                    {{-- <div class="form-group">
+                    <div class="form-group">
                         <label for="especialidad">Especialidad</label><br>
                             <select class="select2bs4" name="especialidad[]" multiple="multiple" data-placeholder="" style="width: 100%;">
                                 @foreach($especialidad as $id => $especialidad)
                                    <option value="{{ $id }}" {{ in_array($id, old('especialidad', [])) ? 'selected' : '' }}>{{ $especialidad }}</option>
+                                   {{-- <option value="{{ $id }}" {{ (in_array($id, old('especialidades', [])) || $profile->especialidades->contains($id)) ? 'selected' : '' }}>{{ $especialidad }}</option> --}}
                                @endforeach
                            </select>  
                         @if($errors->has('especialidad'))
@@ -126,7 +127,7 @@
                                 {{ $errors->first('especialidad') }}
                             </div>
                         @endif
-                    </div> --}}
+                    </div>
 
                     <div class="text-center" style="margin-top:23px;">
                         @include('profile.boton-form-editar')
@@ -144,7 +145,7 @@
 
 
     <!-- SELECT2 EXAMPLE -->
-    <div class="card card-secondary">
+    {{-- <div class="card card-secondary">
         <div class="card-header">
           <h3 class="card-title">información de contacto</h3>
 
@@ -153,18 +154,18 @@
             <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
           </div>
         </div>
-        <!-- /.card-header -->
+       
         <div class="card-body">
           <div class="row">
             <div class="col-md-6">
                
-                {{-- <div class="form-group">
+                <div class="form-group">
                     <label for="">Correo</label>
                     <input type="text" class="form-control" name="email" value="{{Auth::user()->profile->correo ?? ''}}">
                     @if ($errors->has('correo'))
                         <div class="error text-danger">{{ $errors->first('correo')}}</div>                        
                     @endif
-                </div> --}}
+                </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
@@ -174,7 +175,7 @@
                         <div class="error text-danger">{{ $errors->first('correo')}}</div>                        
                     @endif
                 </div>
-              {{-- <div class="form-group">
+              <div class="form-group">
                 <label>Disabled Result</label>
                 <select class="form-control select2bs4" style="width: 100%;">
                   <option selected="selected">Alabama</option>
@@ -185,7 +186,7 @@
                   <option>Texas</option>
                   <option>Washington</option>
                 </select>
-              </div> --}}
+              </div>
             </div>
             <div style="float:right;">
                 <a href="{{route('perfil', ['id' => Auth::user()->id])}}" class="btn btn-secondary"> Cancelar</a>
@@ -196,7 +197,7 @@
         </div>
       </div>
       
-    </div>
+    </div> --}}
 
     
     @endsection

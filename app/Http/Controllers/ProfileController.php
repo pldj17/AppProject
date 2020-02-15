@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use ProjectApp\Http\Requests\ValidarPerfil;
 use ProjectApp\Photo;
 use ProjectApp\Profile;
+use ProjectApp\profile_specialties;
 use ProjectApp\Specialty;
 use ProjectApp\User;
 
@@ -25,17 +26,24 @@ class ProfileController extends Controller
 
     public function create()
     {
-        $especialidad = Specialty::all()->pluck('name', 'id');
-        return view('profile.edit', compact('especialidad'));
+        // $especialidad = Specialty::all()->pluck('name', 'id');
+        // return view('profile.edit', compact('especialidad'));
     }
 
     public function store(ValidarPerfil $request)
     {
-        $profile_id = Profile::all()->where('user_id', Auth::id());
-        // dd($profile_id);
+        $perfil_primary = Profile::all();
+        $perfil_id = $perfil_primary->last();
+        $perfilll = $perfil_id->id;
+        // dd($perfilll);
+        // $perfil= new profile();
+        // $perfil->phone = $request->phone;
+        // $perfil->address= $request->address;
+        // $perfil->description = $request->description;
+        // $perfil->correo = $request->correo;
+        // $perfil->user_id = auth()->user()->id;
 
-        $Perfil_especialidad = Profile::create($request->all());
-        $Perfil_especialidad->especialidades()->sync($request->input('especialidad', []));
+        // $perfil->save();
 
         $user_id = auth()->user()->id; 
         Profile::where('user_id', $user_id)->update([
@@ -46,8 +54,39 @@ class ProfileController extends Controller
             'correo' => request('correo')
         ]);
 
+        $perfil_id = profile::get('id')->where('user_id', auth()->user()->id);
+
+        $Perfil_especialidades = $request->especialidad;
+
+        foreach($Perfil_especialidades as $perfil_especialidad)
+        {
+            $obj = new profile_specialties();
+            $obj->profile_id = $perfilll;
+            $obj->specialty_id = $perfil_especialidad;
+            $obj->save();
+        }   
+        
+        // dd($especialidad);
+
+
+
+       // dd($request);
+        // $profile_id = Profile::all()->where('user_id', Auth::id());
+        // dd($profile_id);
+
         // $Perfil_especialidad = Profile::create($request->all());
-        // $profile_id->especialidades()->attach($Perfil_especialidad);
+        
+        // $Perfil_especialidad->especialidades()->sync($request->input('especialidad', []));
+
+        // $user_id = auth()->user()->id; 
+        // Profile::where('user_id', $user_id)->update([
+            
+        //     'phone' => request('phone'),
+        //     'address' => request('address'),
+        //     'description' => request('description'),
+        //     'correo' => request('correo')
+        // ]);
+
 
          return redirect()->back()->with('mensaje', 'Su perfil ha sido actualizado correctamente');
     }
@@ -59,8 +98,8 @@ class ProfileController extends Controller
 
     public function edit($id)
     {
-         // $profile_id = Profile::all()->where('user_id', Auth::id());
-        // dd($profile_id);
+        // cargar modelo perfil en argumento
+        // $shop->load('categories', 'created_by', 'days');
 
         $especialidad = Specialty::all()->pluck('name', 'id');
         return view('profile.edit', compact('especialidad'));
@@ -117,16 +156,6 @@ class ProfileController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function info()
-    {
-        return view('profile.info');
-    }
-
-    public function contact()
-    {
-        return view('profile.contact');
     }
 
 }

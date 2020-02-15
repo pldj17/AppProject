@@ -25,7 +25,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="{{asset("dashboard")}}"><b>App</b>Project</a>
+    <a href="{{asset("/")}}"><b>App</b>Project</a>
   </div>
   <!-- /.login-logo -->
   <div class="card">

@@ -45,7 +45,7 @@
 
       <strong><i class="far fa-file-alt mr-1"></i> Descripción</strong><br>
 
-      @if (empty($perfil->description))
+      @if (empty($perfil->description) && (Auth::user()->id == $user->id))
         <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="ubicacion" style="text-decoration:none;"><small>Agregar Descripción</small></a>
       @else
         <small class="text-muted">{{$perfil->description}}</small>
