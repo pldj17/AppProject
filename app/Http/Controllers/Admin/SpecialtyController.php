@@ -19,7 +19,7 @@ class SpecialtyController extends Controller
     public function create()
     {   
         can('agregar-especialidad');
-        return view('admin.especialidad');
+        return view('admin.especialidad.index');
     }
 
     public function store(Request $request)
@@ -43,7 +43,7 @@ class SpecialtyController extends Controller
     public function update(Request $request, $id)
     {
         Specialty::findOrFail($id)->update($request->all());
-        return redirect('especialidad')->with('mensaje', 'Especialidad actualizada con exito');
+        return redirect('admin/especialidad')->with('mensaje', 'Especialidad actualizada con exito');
     }
 
     public function destroy(Request $request, $id)

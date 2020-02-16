@@ -27,9 +27,7 @@ class ValidarPerfil extends FormRequest
             'phone' => 'numeric|min:11111|max:9999999999',
             'address' => 'required',
             'description' => 'required|min:5',
-            'especialidad.*' => [
-                'integer',
-            ]
+            'specialty_id' => 'unique'
         ];
     }
 }

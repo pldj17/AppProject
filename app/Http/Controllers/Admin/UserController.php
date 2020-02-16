@@ -14,8 +14,6 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        
-
         $name = $request->get('name');
         can('ver-listado-usuario');
         $users = User::orderBy('id', 'ASC')

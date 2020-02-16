@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProfileSpecialtiesTable extends Migration
+class CreateProfileSpecialtyTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateProfileSpecialtiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('profile_specialties', function (Blueprint $table) {
+        Schema::create('profile_specialty', function (Blueprint $table) {
             $table->bigIncrements('id');
             
-            $table->bigInteger('profile_id')->unsigned()->index(); 
+            $table->bigInteger('profile_id')->unsigned()->index();
             $table->foreign('profile_id')->references('id')->on('profiles')->onDelete('restrict')->onUpdate('restrict');
 
-            $table->bigInteger('specialty_id')->unsigned()->index(); 
+            $table->bigInteger('specialty_id')->unsigned()->index()->unique(); 
             $table->foreign('specialty_id')->references('id')->on('specialties')->onDelete('restrict')->onUpdate('restrict');
 
             $table->timestamps();
@@ -35,6 +35,6 @@ class CreateProfileSpecialtiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profile_specialties');
+        Schema::dropIfExists('profile_specialty');
     }
 }

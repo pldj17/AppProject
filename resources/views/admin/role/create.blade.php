@@ -8,6 +8,7 @@
     @include('users.partials.header1', [
         'title' => auth()->user()->name
     ]) 
+    
 <div class="container">
     <div class="row justify-content-center">
         <div class="box box-danger">

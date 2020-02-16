@@ -11,8 +11,9 @@ class HomeController extends Controller
 
     public function index()
     {
-        $profiles = Profile::all(); 
         $user = User::all();
+        $profiles = Profile::with('user')->get(); 
+        // dd($profiles);
         return view('dashboard', compact('profiles', 'user'));
     }
 

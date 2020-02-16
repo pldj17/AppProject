@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use ProjectApp\Menu;
+use ProjectApp\Specialty;
 
 class MenusTableSeeder extends Seeder
 {
@@ -20,6 +21,11 @@ class MenusTableSeeder extends Seeder
             'name' => 'Usuarios',
             'url' => 'admin/usuario',
             'icon' => 'fa-users'
+        ]);
+        $Especialidades = Menu::create([
+            'name' => 'Especialidades',
+            'url' => 'admin/especialidad',
+            'icon' => 'fa-pencil-alt'
         ]);
         $Rol = Menu::create([
             'name' => 'Roles',

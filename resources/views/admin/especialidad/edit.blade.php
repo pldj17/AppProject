@@ -24,7 +24,7 @@
                     @include('includes.mensaje')
                     <div class="card-header">                         
                         <div class="class container" style="margin-top: 3%;">
-                            <form action="{{route('actualizar_rol', ['id' => $data->id])}}" id="form-general" class="form-horizontal" method="POST" autocomplete="off">
+                            <form action="{{route('actualizar_especialidad', ['id' => $data->id])}}" id="form-general" class="form-horizontal" method="POST" autocomplete="off">
                                 @csrf @method("put")
                                 <div class="box-body">
                                     @include('admin.especialidad.form')

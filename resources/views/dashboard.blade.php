@@ -20,12 +20,8 @@
                   <div class="card-body pt-0">
                     <div class="row">
                       <div class="col-7">
-{{-- 
-                        @foreach ($user as $post)
-                          @if ($loop->first) --}}
-                           <h2 class="lead"><b>{{$profile->user_id}}</b></h2>
-                          {{-- @endif
-                        @endforeach --}}
+
+                        <h2 class="lead"><b>{{$profile->user->name}}</b></h2>
                         
                         <p class="text-muted text-sm"><b>About: </b> Web Designer / UX / Graphic Artist / Coffee Lover </p>
                         {{-- <ul class="ml-4 mb-0 fa-ul text-muted">

@@ -115,16 +115,16 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="especialidad">Especialidad</label><br>
-                            <select class="select2bs4" name="especialidad[]" multiple="multiple" data-placeholder="" style="width: 100%;">
-                                @foreach($especialidad as $id => $especialidad)
-                                   <option value="{{ $id }}" {{ in_array($id, old('especialidad', [])) ? 'selected' : '' }}>{{ $especialidad }}</option>
-                                   {{-- <option value="{{ $id }}" {{ (in_array($id, old('especialidades', [])) || $profile->especialidades->contains($id)) ? 'selected' : '' }}>{{ $especialidad }}</option> --}}
+                        <label for="especialidades">Especialidad</label><br>
+                            <select class="select2bs4" name="especialidades[]" multiple="multiple" data-placeholder="" style="width: 100%;">
+                                @foreach($especialidades as $id => $especialidades)
+                                   {{-- <option value="{{ $id }}" {{ in_array($id, old('especialidades', [])) ? 'selected' : '' }}>{{ $especialidades }}</option> --}}
+                                   <option value="{{ $id }}" {{ (in_array($id, old('especialidades', [])) || $perfil->especialidades->contains($id)) ? 'selected' : '' }}>{{ $especialidades }}</option>
                                @endforeach
                            </select>  
-                        @if($errors->has('especialidad'))
+                        @if($errors->has('especialidades'))
                             <div class="invalid-feedback">
-                                {{ $errors->first('especialidad') }}
+                                {{ $errors->first('especialidades') }}
                             </div>
                         @endif
                     </div>

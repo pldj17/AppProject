@@ -11,15 +11,12 @@
     <div class="card-body">
 
       <strong><i class="fas fa-pencil-alt mr-1"></i> Especialidad</strong>
-
+      @foreach ($perfil as $data)
       <p class="text-muted">
-        <span class="tag tag-danger">UI Design</span>
-        <span class="tag tag-success">Coding</span>
-        <span class="tag tag-info">Javascript</span>
-        <span class="tag tag-warning">PHP</span>
-        <span class="tag tag-primary">Node.js</span>
+        <span class="tag tag-danger">{{ implode(',', $data->especialidades()->get()->pluck('name')->toArray())}}</span>
       </p>
-
+      @endforeach
+    
       <hr>
 
       <strong><i class="fas fa-book mr-1"></i>Formación</strong>

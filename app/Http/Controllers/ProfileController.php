@@ -32,9 +32,15 @@ class ProfileController extends Controller
 
     public function store(ValidarPerfil $request)
     {
-        $perfil_primary = Profile::all();
-        $perfil_id = $perfil_primary->last();
-        $perfilll = $perfil_id->id;
+        $user_id = auth()->user()->id; 
+
+        // $perfil_primary = Profile::all()->where('user_id', auth()->user()->id);
+        // $perfil_id = $perfil_primary->last();
+        // $perfilll = $perfil_id->id;
+    
+        $perfil_id = Profile::where('user_id', $user_id)->get('id');
+
+
         // dd($perfilll);
         // $perfil= new profile();
         // $perfil->phone = $request->phone;
@@ -44,8 +50,7 @@ class ProfileController extends Controller
         // $perfil->user_id = auth()->user()->id;
 
         // $perfil->save();
-
-        $user_id = auth()->user()->id; 
+        
         Profile::where('user_id', $user_id)->update([
             
             'phone' => request('phone'),
@@ -54,14 +59,16 @@ class ProfileController extends Controller
             'correo' => request('correo')
         ]);
 
-        $perfil_id = profile::get('id')->where('user_id', auth()->user()->id);
+        // $perfil_id = profile::get('id')->where('user_id', auth()->user()->id);
 
-        $Perfil_especialidades = $request->especialidad;
+        $Perfil_especialidades = $request->especialidades;
 
         foreach($Perfil_especialidades as $perfil_especialidad)
         {
             $obj = new profile_specialties();
-            $obj->profile_id = $perfilll;
+            foreach($perfil_id as $id){
+                $obj->profile_id = $id->id;
+            }
             $obj->specialty_id = $perfil_especialidad;
             $obj->save();
         }   
@@ -96,13 +103,13 @@ class ProfileController extends Controller
         
     }
 
-    public function edit($id)
+    public function edit($id, Profile $perfil)
     {
         // cargar modelo perfil en argumento
-        // $shop->load('categories', 'created_by', 'days');
+        $perfil->load('especialidades');
 
-        $especialidad = Specialty::all()->pluck('name', 'id');
-        return view('profile.edit', compact('especialidad'));
+        $especialidades = Specialty::all()->pluck('name', 'id');
+        return view('profile.edit', compact('especialidades', 'perfil'));
     }
 
     public function update(Request $request, $id)
