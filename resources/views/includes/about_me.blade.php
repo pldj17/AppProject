@@ -11,11 +11,16 @@
     <div class="card-body">
 
       <strong><i class="fas fa-pencil-alt mr-1"></i> Especialidad</strong>
-      @foreach ($perfil as $data)
+
+  
+          {{-- <ul>
+            <li>{{ implode($perfil->especialidades()->get()->pluck('name')->toArray())}}</li>
+          </ul> --}}
+   
+
       <p class="text-muted">
-        <span class="tag tag-danger">{{ implode(',', $data->especialidades()->get()->pluck('name')->toArray())}}</span>
+        <span class="tag tag-danger">{{ implode(', ', $perfil->especialidades()->get()->pluck('name')->toArray())}}</span>
       </p>
-      @endforeach
     
       <hr>
 

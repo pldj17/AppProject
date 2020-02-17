@@ -14,7 +14,7 @@ use ProjectApp\User;
 
 class ProfileController extends Controller
 {
-    public function index($id, Request $request)
+    public function index($id)
     {
         $photo = Photo::with('post')->orderBy('id','desc')->get()->where('user_id', $id)->groupBy('post_id');
 
