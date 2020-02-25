@@ -23,7 +23,7 @@ class PhotoController extends Controller
 
     }
 
-    public function upload(Request $request)
+    public function upload(Request $request, user $user)
     {
         $post  = new Post();
         $post->description = $request->get('description');

@@ -141,7 +141,6 @@
      <!-- Croppie js -->
      <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.min.js"></script>
      {{-- archivo js --}}
-     <script>var url = "{{ route('avatar') }}";</script>
      <script src="{{ asset ('assets/photo/js.js') }}"></script>
      <script src="https://ajax.cloudflare.com/cdn-cgi/scripts/95c75768/cloudflare-static/rocket-loader.min.js" data-cf-settings="ea8a63b81a35e8970c2c9439-|49" defer=""></script>
      @yield("scriptsPlugins")

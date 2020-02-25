@@ -87,7 +87,7 @@
                   <!-- Post -->
                     <div >
                       <div class="container">
-                          <form action="{{ route('guardar_post') }}" class="form-image-upload" method="POST" enctype="multipart/form-data" autocomplete="off">
+                          <form action="{{ route('guardar_post', [$user->id]) }}" class="form-image-upload" method="POST" enctype="multipart/form-data" autocomplete="off">
                             @csrf
                             <div class="row">
                                 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">

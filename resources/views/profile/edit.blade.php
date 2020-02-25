@@ -7,6 +7,7 @@
 @section('scripts')
     <!-- Select2 -->
     <script src="{{asset("assets/$theme/plugins/select2/js/select2.full.min.js")}}"></script>
+    <script>var url = "{{ route('avatar', [$user->id]) }}";</script>
     <script src="{{ asset ('assets/photo/js.js') }}"></script>
 @endsection
 
@@ -77,6 +78,7 @@
         </div>
         <!-- /.card -->
       </div>
+      
       <div class="col-md-6">
         <div class="card card-secondary">
           <div class="card-header">

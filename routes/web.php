@@ -37,7 +37,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('perfil/{user}', 'ProfileController@store')->name('guardar_perfil');   
     // Route::post('profile/avatar', 'ProfileController@avatar')->name('avatar'); 
     // Route::get('perfil/editar','ProfileController@edit')->name('show.avatar');
-    Route::post('perfil/editar','ProfileController@AvatarUpload')->name('avatar');
+    Route::post('perfil/{user}/editar','ProfileController@AvatarUpload')->name('avatar');
 
     Route::get('perfil/{user}/editar', 'ProfileController@edit')->name('editar_perfil');
     
@@ -46,7 +46,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('perfil/contacto', 'ProfileController@contact')->name('profile.contact');
 
     //publicaciones
-    Route::post('perfil/post', 'PhotoController@upload')->name('guardar_post');
+    Route::post('perfil/post/{user}', 'PhotoController@upload')->name('guardar_post');
     Route::delete('perfil/post/{id}', 'PhotoController@destroy')->name('eliminar_post');
     Route::get('perfil/post/{id}', 'PhotoController@index')->name('perfil_post');
     
