@@ -5,6 +5,7 @@ namespace ProjectApp\Http\Controllers;
 use ProjectApp\Photo;
 use ProjectApp\Profile;
 use ProjectApp\profile_specialties;
+use ProjectApp\Specialty;
 use ProjectApp\User;
 
 class HomeController extends Controller
@@ -12,14 +13,30 @@ class HomeController extends Controller
 
     public function index()
     {
-        $esp_por_perfil = profile_specialties::all('id');
+        // $esp_por_perfil = profile_specialties::all('id');
 
-        $perfil = profile_specialties::all()->first();
+        // $perfil = profile_specialties::all()->first(); //condicional para mostrar perfiles solo si tienen alguna especialidad
 
-        $user = User::all();
+        // $user_id = User::all()->pluck('id');
+
+        // $especialidades = Specialty::all();
+        
+        // $user_id = profile_specialties::all('user_id');
+
+        // $users = User::with('especialidades')
+        //     ->searchResults()
+        //     ->paginate(1);
+
+        $categories = Specialty::all();
+        $shops = User::with(['especialidades'])
+            ->searchResults()
+            ->paginate(9);
+
+        // $user->paginate(4);
+
         $profiles = Profile::with('user')->get(); 
-        //  dd($perfil);
-        return view('dashboard', compact('profiles', 'user', 'perfil'));
+        // dd($especialidades, $users, $profiles);
+        return view('dashboard', compact('profiles', 'users', 'especialidades', 'shops', 'categories'));
     }
 
     public function show($id)

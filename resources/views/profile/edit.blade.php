@@ -88,7 +88,7 @@
             </div>
           </div>
           <div class="card-body">
-            <form action="{{ route('guardar_perfil' ) }}" method="POST" autocomplete="">
+            <form action="{{ route('guardar_perfil', [$user->id]) }}" method="POST" autocomplete="">
                 @csrf
                 <div class="pl-lg-4">
                   <div class="form-group">
@@ -115,89 +115,31 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="especialidades">Especialidad</label><br>
-                            <select class="select2bs4" name="especialidades[]" multiple="multiple" data-placeholder="" style="width: 100%;">
-                                @foreach($especialidades as $id => $especialidades)
-                                   {{-- <option value="{{ $id }}" {{ in_array($id, old('especialidades', [])) ? 'selected' : '' }}>{{ $especialidades }}</option> --}}
-                                   <option value="{{ $id }}" {{ (in_array($id, old('especialidades', [])) || $perfil->especialidades->contains($id)) ? 'selected' : '' }}>{{ $especialidades }}</option>
-                               @endforeach
-                           </select>  
-                        @if($errors->has('especialidades'))
-                            <div class="invalid-feedback">
-                                {{ $errors->first('especialidades') }}
-                            </div>
-                        @endif
-                    </div>
+                      <label for="especialidades">Especialidad</label><br>
+                          
+                         <select class="select2bs4 {{ $errors->has('especialidades') ? 'is-invalid' : '' }}" name="especialidades[]" id="especialidades" multiple data-placeholder="" style="width: 100%;">
+                            @foreach($especialidades as $id => $especialidades)
+                                <option value="{{ $id }}" {{ (in_array($id, old('especialidades', [])) || $user->especialidades->contains($id)) ? 'selected' : '' }}>{{ $especialidades }}</option>
+                            @endforeach
+                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+
+                         </select>
+
+                      @if($errors->has('especialidades'))
+                          <div class="invalid-feedback">
+                              {{ $errors->first('especialidades') }}
+                          </div>
+                      @endif
+                  </div>
 
                     <div class="text-center" style="margin-top:23px;">
                         @include('profile.boton-form-editar')
                     </div>
                 </div>
-            
+            </form>
           </div>
         </div>
       </div>
     </div>
-   
-
-
-    {{-- informacion de contacto --}}
-
-
-    <!-- SELECT2 EXAMPLE -->
-    {{-- <div class="card card-secondary">
-        <div class="card-header">
-          <h3 class="card-title">información de contacto</h3>
-
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
-          </div>
-        </div>
        
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-6">
-               
-                <div class="form-group">
-                    <label for="">Correo</label>
-                    <input type="text" class="form-control" name="email" value="{{Auth::user()->profile->correo ?? ''}}">
-                    @if ($errors->has('correo'))
-                        <div class="error text-danger">{{ $errors->first('correo')}}</div>                        
-                    @endif
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="">Correo</label>
-                    <input type="text" class="form-control" name="correo" value="{{Auth::user()->profile->correo ?? ''}}">
-                    @if ($errors->has('correo'))
-                        <div class="error text-danger">{{ $errors->first('correo')}}</div>                        
-                    @endif
-                </div>
-              <div class="form-group">
-                <label>Disabled Result</label>
-                <select class="form-control select2bs4" style="width: 100%;">
-                  <option selected="selected">Alabama</option>
-                  <option>Alaska</option>
-                  <option disabled="disabled">California (disabled)</option>
-                  <option>Delaware</option>
-                  <option>Tennessee</option>
-                  <option>Texas</option>
-                  <option>Washington</option>
-                </select>
-              </div>
-            </div>
-            <div style="float:right;">
-                <a href="{{route('perfil', ['id' => Auth::user()->id])}}" class="btn btn-secondary"> Cancelar</a>
-                <button type="submit" class="btn btn-success">Guardar</button>
-            </div>
-          </form> 
-          </div>
-        </div>
-      </div>
-      
-    </div> --}}
-
-    
     @endsection

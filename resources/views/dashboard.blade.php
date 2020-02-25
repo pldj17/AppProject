@@ -5,9 +5,9 @@
 @section('contenido')
     @include('includes.mensaje')
 
-  @if (empty($perfil->id))
+  {{-- @if (empty($perfil->id)) --}}
     
-  @else
+  {{-- @else --}}
   <div class="card card-solid">
     @section('title')
         <h2>Servicios disponibles</h2>
@@ -26,7 +26,22 @@
 
                     <h2 class="lead"><b>{{$profile->user->name}}</b></h2>
                     
-                    <p class="text-muted text-sm"><b>Especialidad: </b> {{ implode(', ', $profile->especialidades()->get()->pluck('name')->toArray())}} </p>
+                    {{-- <p class="text-muted text-sm"><b>Especialidad: </b> {{ implode(', ', $profile->especialidades()->get()->pluck('name')->toArray())}} </p> --}}
+
+                    <p class="text-muted text-sm"><b>Especialidad: </b> 
+                      {{-- @foreach($users as $user)
+                        @foreach($user->especialidades as $especialidad)
+                          {{ $especialidad->id }}
+                        @endforeach
+                      @endforeach --}}
+                      @foreach($shops as $shop) 
+                        @foreach($shop->especialidades as $category)
+                            <div class="gd-badge-meta gd-badge-alignleft" title="{{ $category->name }}">
+                                <div class="gd-badge" style="background-color:#ffb100;color:#ffffff;"><i class="fas fa-certificate"></i> <span class='gd-secondary'>{{ $category->name }}</span></div>
+                            </div>
+                        @endforeach
+                      @endforeach
+                    </p>
                     {{-- <ul class="ml-4 mb-0 fa-ul text-muted">
                       <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: {{$profile->address}}</li>
                       <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Telefono: {{$profile->phone}}</li>
@@ -57,7 +72,7 @@
       </div>
     </div>
   </div>
-  @endif
+  {{-- @endif --}}
 
     
 @endsection

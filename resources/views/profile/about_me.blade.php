@@ -12,14 +12,10 @@
 
       <strong><i class="fas fa-pencil-alt mr-1"></i> Especialidad</strong>
 
-  
-          {{-- <ul>
-            <li>{{ implode($perfil->especialidades()->get()->pluck('name')->toArray())}}</li>
-          </ul> --}}
+        <p class="text-muted">{{ implode(', ',$user->especialidades()->get()->pluck('name')->toArray())}}</p>
    
-
       <p class="text-muted">
-        <span class="tag tag-danger">{{ implode(', ', $perfil->especialidades()->get()->pluck('name')->toArray())}}</span>
+        {{-- <span class="tag tag-danger">{{ implode(', ', $user->especialidades()->get()->pluck('name')->toArray())}}</span> --}}
       </p>
     
       <hr>

@@ -21,8 +21,8 @@ class Profile extends Model
     //     return $this->hasMany(Post::class);
     // }
 
-    public function especialidades()
-    {
-        return $this->belongsToMany(Specialty::class);
-    }
+    // public function especialidades()
+    // {
+    //     return $this->belongsToMany(Specialty::class);
+    // }
 }

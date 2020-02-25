@@ -68,7 +68,7 @@
           <!-- /.card -->
 
           <!-- About Me Box -->
-            @include('includes.about_me')
+            @include('profile.about_me')
           <!-- /.card -->
         </div>
         <!-- /.col -->
@@ -179,7 +179,14 @@
                  
                 </div>
 
-                  <input class="form-control form-control-sm" type="text" placeholder="Comentar">
+                <form class="form-horizontal">
+                  <div class="input-group input-group-sm mb-0">
+                    <input class="form-control form-control-sm" placeholder="Agregar comentario...">
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                  </div>
+                </form>
                   
                   </div>
                 </div>

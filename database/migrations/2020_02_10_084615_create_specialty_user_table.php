@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProfileSpecialtyTable extends Migration
+class CreateSpecialtyUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,14 @@ class CreateProfileSpecialtyTable extends Migration
      */
     public function up()
     {
-        Schema::create('profile_specialty', function (Blueprint $table) {
+        Schema::create('specialty_user', function (Blueprint $table) {
             $table->bigIncrements('id');
             
-            $table->bigInteger('profile_id')->unsigned()->index();
-            $table->foreign('profile_id')->references('id')->on('profiles')->onDelete('restrict')->onUpdate('restrict');
+            $table->bigInteger('user_id')->unsigned()->index();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('restrict');
 
-            $table->bigInteger('specialty_id')->unsigned()->index()->unique(); 
+            $table->bigInteger('specialty_id')->unsigned()->index(); 
             $table->foreign('specialty_id')->references('id')->on('specialties')->onDelete('restrict')->onUpdate('restrict');
-
-            $table->timestamps();
-            $table->charset = 'utf8mb4';
-            $table->collation = 'utf8mb4_spanish_ci';
         });
     }
 

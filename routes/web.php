@@ -30,12 +30,16 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('perfil/{id}','ProfileController@index')->name('perfil'); 
     Route::post('perfil/actualizar','ProfileController@update')->name('profile.update');
     Route::post('perfil/password','ProfileController@password')->name('profile.password');
-    Route::post('perfil/crear', 'ProfileController@store')->name('guardar_perfil');   
+
+    //cambiar perfil anda asi
+    //Route::post('perfil/crear', 'ProfileController@store')->name('guardar_perfil');   
+
+    Route::post('perfil/{user}', 'ProfileController@store')->name('guardar_perfil');   
     // Route::post('profile/avatar', 'ProfileController@avatar')->name('avatar'); 
     // Route::get('perfil/editar','ProfileController@edit')->name('show.avatar');
     Route::post('perfil/editar','ProfileController@AvatarUpload')->name('avatar');
 
-    Route::get('perfil/{id}/editar', 'ProfileController@edit')->name('editar_perfil');
+    Route::get('perfil/{user}/editar', 'ProfileController@edit')->name('editar_perfil');
     
     Route::get('perfil/ajustes', 'ProfileController@update')->name('profile.ajustes');  
     Route::get('perfil/informacion', 'ProfileController@info')->name('profile.info');

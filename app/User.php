@@ -25,6 +25,32 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    public function especialidades()
+    {
+        return $this->belongsToMany(Specialty::class);
+    }
+
+    //, 'profile_specialty', 'user_id', 'specialty_id'
+
+    public function scopeSearchResults($query)
+    {
+        return $query->where('active', 1)
+            ->when(request()->filled('search'), function($query) {
+                $query->where(function($query) {
+                    $search = request()->input('search');
+                    $query->where('name', 'LIKE', "%$search%")
+                        ->orWhere('description', 'LIKE', "%$search%")
+                        ->orWhere('address', 'LIKE', "%$search%");
+                });
+            })
+            ->when(request()->filled('especialidad'), function($query) {
+                $query->whereHas('especialidades', function($query) {
+                    $query->where('id', request()->input('especialidad'));
+                });
+            });
+    }
+
+
     // definir metodo para la relacion de muchos a muchos con la tabla role
     //un usuario puede tener muchos roles
     public function roles()

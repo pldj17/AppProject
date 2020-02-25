@@ -73,7 +73,7 @@
         <!-- /.card -->
 
         <!-- About Me Box -->
-        @include('includes.about_me')
+        @include('profile.about_me')
         <!-- /.card -->
       </div>
       <!-- /.col -->

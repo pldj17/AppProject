@@ -10,8 +10,8 @@ class Specialty extends Model
     protected $fillable = ['name'];
     protected $guarded = ['id'];
 
-    public function profiles()
+    public function users()
     {
-        return $this->belongsToMany(Profile::class);
+        return $this->belongsToMany(User::class, 'profile_specialty', 'user_id', 'specialty_id');
     }
 }
