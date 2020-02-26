@@ -16,16 +16,16 @@ class ProfileController extends Controller
 {
     public function index($id, user $user)
     {
-        // $especialidad_usuario = profile_specialties::where('user_id', $id)->get();
+        $especialidad_usuario = profile_specialties::where('user_id', $id)->get();
 
         $photo = Photo::with('post')->orderBy('id','desc')->get()->where('user_id', $id)->groupBy('post_id');
 
         $perfil = Profile::all()->where('user_id', $id)->first();
         $user = User::with('especialidades')->find($id);
 
-        // dd($id);
+        // dd($especialidad_usuario);
 
-        return view('profile.index', compact('perfil', 'user', 'photo'));
+        return view('profile.index', compact('perfil', 'user', 'photo', 'especialidad_usuario'));
     }
 
     public function create()
