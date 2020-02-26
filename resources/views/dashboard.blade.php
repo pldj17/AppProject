@@ -36,9 +36,7 @@
                       @endforeach --}}
                       @foreach($shops as $shop) 
                         @foreach($shop->especialidades as $category)
-                            <div class="gd-badge-meta gd-badge-alignleft" title="{{ $category->name }}">
-                                <div class="gd-badge" style="background-color:#ffb100;color:#ffffff;"><i class="fas fa-certificate"></i> <span class='gd-secondary'>{{ $category->name }}</span></div>
-                            </div>
+                        {{ $category->name }}
                         @endforeach
                       @endforeach
                     </p>
@@ -49,9 +47,9 @@
                   </div>
                   <div class="col-5 text-center">
                       @if (empty($profile->avatar))
-                          <img src="{{ asset('avatar/avatar.png')}}" class="img-circle img-fluid">
+                          <img src="{{ asset('avatar/avatar.png')}}" class="profile-user-img img-fluid img-circle">
                       @else
-                          <img src="{{ asset('uploads/profile_pictures')}}/{{$profile->avatar }}"  class="img-circle img-fluid">  
+                          <img src="{{ asset('uploads/profile_pictures')}}/{{$profile->avatar }}"  class="profile-user-img img-fluid img-circle">  
                       @endif
                   </div>
                 </div>

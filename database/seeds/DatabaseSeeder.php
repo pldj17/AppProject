@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             'role_user'
         ]);
 
+        $this->call(EspecialidadesTableSeeder::class);
+
         $this->call(RolesTableSeeder::class);
 
         $this->call(UsersTableSeeder::class);

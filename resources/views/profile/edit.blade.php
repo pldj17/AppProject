@@ -123,7 +123,7 @@
                             @foreach($especialidades as $id => $especialidades)
                                 <option value="{{ $id }}" {{ (in_array($id, old('especialidades', [])) || $user->especialidades->contains($id)) ? 'selected' : '' }}>{{ $especialidades }}</option>
                             @endforeach
-                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                            {{-- <input type="hidden" name="user_id" value="{{ Auth::user()->id }}"> --}}
 
                          </select>
 

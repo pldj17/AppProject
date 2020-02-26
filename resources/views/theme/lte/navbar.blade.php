@@ -32,7 +32,7 @@
     @if (auth()->user())
       <li class="nav-item">
         <a class="nav-link" data-toggle="dropdown" href="#">
-        <i class="far fa-user">&nbsp;&nbsp;{{auth()->user()->name ?? 'Invitado'}}</i>
+        <i class="far fa-user">&nbsp;&nbsp;{{auth()->user()->name}}</i>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <span class="dropdown-item dropdown-header" style="text-align:center;">

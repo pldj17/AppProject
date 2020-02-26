@@ -16,12 +16,14 @@ class ProfileController extends Controller
 {
     public function index($id, user $user)
     {
+        // $especialidad_usuario = profile_specialties::where('user_id', $id)->get();
+
         $photo = Photo::with('post')->orderBy('id','desc')->get()->where('user_id', $id)->groupBy('post_id');
 
         $perfil = Profile::all()->where('user_id', $id)->first();
         $user = User::with('especialidades')->find($id);
 
-        // dd($user);
+        // dd($id);
 
         return view('profile.index', compact('perfil', 'user', 'photo'));
     }
@@ -82,7 +84,7 @@ class ProfileController extends Controller
 
         
 
-        $especialidades = Specialty::all()->pluck('name', 'id');
+        $especialidades = Specialty::orderBy('name')->pluck('name', 'id');
 
         $user->load('especialidades');
 

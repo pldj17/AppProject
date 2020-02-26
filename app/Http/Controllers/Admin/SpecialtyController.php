@@ -12,7 +12,7 @@ class SpecialtyController extends Controller
     public function index()
     {
         can('ver-especialidad');
-        $datas = Specialty::orderBy('id')->get();
+        $datas = Specialty::orderBy('name')->get();
         return view('admin.especialidad.index', compact('datas'));
     }
 

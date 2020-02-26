@@ -41,9 +41,9 @@
                 
               <div class="text-center">
                 @if (empty($perfil->avatar))
-                    <img src="{{ asset('avatar/avatar.png')}}" class="card-img-top rounded-circle mx-auto d-block" style="height:130px; width:130px;">
+                    <img src="{{ asset('avatar/avatar.png')}}" class="profile-user-img img-fluid img-circle" style="height:130px; width:130px;">
                 @else
-                    <img src="{{ asset('uploads/profile_pictures')}}/{{ $perfil->avatar }}" rel="ligthbox" class="card-img-top d-block" style="width:130px; height:130px; borderdius:50%; margin-left: auto; margin-right: auto;">  
+                    <img src="{{ asset('uploads/profile_pictures')}}/{{ $perfil->avatar }}" rel="ligthbox" class="profile-user-img img-fluid img-circle" style="width:130px; height:130px; borderdius:50%; margin-left: auto; margin-right: auto;">  
                 @endif
               </div>
 
@@ -59,13 +59,10 @@
               <br><br></center>
              
 
-              {{-- <p class="text-muted text-center">Software Engineer</p> --}}
               
               <a href="#" class="btn btn-primary btn-block"><b>Calificar</b></a> 
             </div>
-            <!-- /.card-body -->
           </div>
-          <!-- /.card -->
 
           <!-- About Me Box -->
             @include('profile.about_me')

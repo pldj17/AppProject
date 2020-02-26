@@ -11,7 +11,7 @@ use ProjectApp\User;
 class HomeController extends Controller
 {
 
-    public function index()
+    public function index(user $user)
     {
         // $esp_por_perfil = profile_specialties::all('id');
 

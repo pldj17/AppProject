@@ -11,12 +11,12 @@
     <div class="card-body">
 
       <strong><i class="fas fa-pencil-alt mr-1"></i> Especialidad</strong>
-
+{{-- 
+      @if (empty($especialidad_usuario) && (Auth::user()->id == $user->id))
+        <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="ubicacion" style="text-decoration:none;"><small>Agregar Ubicación</small></a>
+      @else
         <p class="text-muted">{{ implode(', ',$user->especialidades()->get()->pluck('name')->toArray())}}</p>
-   
-      <p class="text-muted">
-        {{-- <span class="tag tag-danger">{{ implode(', ', $user->especialidades()->get()->pluck('name')->toArray())}}</span> --}}
-      </p>
+      @endif --}}
     
       <hr>
 
