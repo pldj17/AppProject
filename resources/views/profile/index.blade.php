@@ -29,6 +29,7 @@
 @section('contenido')  
 
     <div class="container-fluid">
+      @include('includes.form-error')
       @include('includes.mensaje')
       <div class="row">
         <div class="col-md-3">
@@ -49,33 +50,43 @@
 
               <h3 class="profile-username text-center">{{$user->name}}</h3>
 
-              <center><i class="fas fa-map-marker-alt mr-1"></i>
+              
 
-              @if (empty($perfil->address) && (Auth::user()->id == $user->id))
-                <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="ubicacion" style="text-decoration:none;"><small>Agregar Ubicación</small></a>
-              @else
-                <small class="text-muted">{{$perfil->address ?? 'Sin ubicacion'}}</small>
+              @if ($perfil->private == 0 )
+                @if(empty($perfil->address) && (Auth::user()->id == $user->id))
+                  <center><i class="fas fa-map-marker-alt mr-1"></i>
+                  <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="ubicacion" style="text-decoration:none;"><small>Agregar Ubicación</small></a>
+                @else
+                  <center><i class="fas fa-map-marker-alt mr-1"></i>
+                  <small class="text-muted">{{$perfil->address}}</small>
+                @endif
               @endif
               <br><br></center>
-             
-
-              
-              <a href="#" class="btn btn-primary btn-block"><b>Calificar</b></a> 
+                  
+              @if ($perfil->private == 0 )
+                <a href="#" class="btn btn-primary btn-block"><b>Calificar</b></a>                   
+              @endif
             </div>
           </div>
 
           <!-- About Me Box -->
+          @if ($perfil->private == 0 )
             @include('profile.about_me')
+          @endif
           <!-- /.card -->
         </div>
         <!-- /.col -->
         <div class="col-md-9">
           <div class="card">
-
-            @include('includes.tabs')
-            
+            @if ($perfil->private == 0 )
+              @include('includes.tabs')
+            @else
+              @include('includes.tabsPrivate')
+            @endif
             <div class="card-body">
               <div class="tab-content">
+
+              @if($perfil->private == 0 )
 
                 @if (Auth::user()->id == $user->id)
 
@@ -154,43 +165,67 @@
                             
                           </span>
 
-                        @foreach ($imgCollection as $post)
-                          @if ($loop->first)
-                          <span class="description" title="{{ $post->created_at->format('d-m-Y H:i') }}">{{$post->created_at->diffForHumans()}} </span>
-                         
+                          @foreach ($imgCollection as $post)
+                            @if ($loop->first)
+                            <span class="description" title="{{ $post->created_at->format('d-m-Y H:i') }}">{{$post->created_at->diffForHumans()}} </span>
+                          
                         </div>
-                        
+                          
                             {{ implode(',', $post->post()->get()->pluck('description')->toArray())}}
                           @endif
                         @endforeach
-                          
-                <div class="row" style="margin-top:10px;" id="tabla-data">
+                        
+                        <div class="row" style="margin-top:10px;" id="tabla-data">
 
-                    @foreach ($imgCollection as $post)
-                      <div class="col-lg-4 col-md-4 col-xs-6 thumb">
-                        <a href="/images/{{$post->file }}" class="fancybox" rel="ligthbox" style="width:100%; height:70%">
-                          <img src="/images/{{$post->file }}" class="zoom img-fluid" alt="" style="width:100%; height:100%">
-                        </a>   
-                      </div>
-                    @endforeach
-                 
-                </div>
+                            @foreach ($imgCollection as $post)
+                              <div class="col-lg-4 col-md-4 col-xs-6 thumb">
+                                <a href="/images/{{$post->file }}" class="fancybox" rel="ligthbox" style="width:100%; height:70%">
+                                  <img src="/images/{{$post->file }}" class="zoom img-fluid" alt="" style="width:100%; height:100%">
+                                </a>   
+                              </div>
+                            @endforeach
+                        
+                        </div>
 
-                <form class="form-horizontal">
-                  <div class="input-group input-group-sm mb-0">
-                    <input class="form-control form-control-sm" placeholder="Agregar comentario...">
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-primary">Enviar</button>
+                        <form action="#" method="post">
+                          @if (empty(Auth::user()->profile->avatar))
+                            <img class="img-fluid img-circle img-sm" src="{{ asset('avatar/avatar.png')}}" alt="Alt Text">
+                          @else
+                            <img class="img-fluid img-circle img-sm" src="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}" alt="Alt Text">  
+                          @endif
+                          <div class="img-push">
+                            <input type="text" class="form-control form-control-sm" placeholder="Agregar comentario...">
+                            {{-- <div class="input-group-append">
+                              <button type="submit" class="btn btn-primary">Enviar</button>
+                            </div> --}}
+                          </div>
+                        </form>
+                        {{-- <form class="form-horizontal">
+                          <div class="input-group input-group-sm mb-0">
+                            <input class="form-control form-control-sm" placeholder="Agregar comentario...">
+                            <div class="input-group-append">
+                              <button type="submit" class="btn btn-primary">Enviar</button>
+                            </div>
+                          </div>
+                        </form> --}}
+                        
+                        <hr>
                     </div>
                   </div>
-                </form>
-                  
-                  </div>
-                </div>
-              <br>
+                <br>
               @endforeach
             </div>
-            
+            @else
+
+              <div class="active tab-pane" id="activity">
+                <div class="container">
+                  <b>Nombre y apellido:</b> <a>{{$user->name}}</a><br>
+                  <b>Correo:</b> <a>{{$user->email}}</a><br>
+                  <b>Fecha de nacimiento:</b> <a>{{date('d-m-Y', strtotime($perfil->date_born))}}</a>
+                </div>
+              </div>
+
+            @endif
           </div>  
         </div>
       </div>

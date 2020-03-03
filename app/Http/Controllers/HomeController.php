@@ -34,7 +34,7 @@ class HomeController extends Controller
 
         // $user->paginate(4);
 
-        $profiles = Profile::with('user')->get(); 
+        $profiles = Profile::where('private', 0)->with('user')->get(); 
         // dd($especialidades, $users, $profiles);
         return view('dashboard', compact('profiles', 'users', 'especialidades', 'shops', 'categories'));
     }

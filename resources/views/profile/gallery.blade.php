@@ -45,84 +45,44 @@
 
             <h3 class="profile-username text-center">{{$user->name}}</h3>
 
-              <center><i class="fas fa-map-marker-alt mr-1"></i>
-
-              @if (empty($perfil->address) && (Auth::user()->id == $user->id))
-                <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="ubicacion" style="text-decoration:none;"><small>Agregar Ubicación</small></a>
-              @else
-                <small class="text-muted">{{$perfil->address ?? 'Sin ubicacion'}}</small>
+              @if (($perfil->private == 0))
+                @if(empty($perfil->address) && (Auth::user()->id == $user->id))
+                  <center><i class="fas fa-map-marker-alt mr-1"></i>
+                  <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="ubicacion" style="text-decoration:none;"><small>Agregar Ubicación</small></a>
+                @else
+                  <center><i class="fas fa-map-marker-alt mr-1"></i>
+                  <small class="text-muted">{{$perfil->address}}</small>
+                @endif
               @endif
               <br><br></center>
 
-            {{-- <ul class="list-group list-group-unbordered mb-3">
-              <li class="list-group-item">
-                <b>Followers</b> <a class="float-right">1,322</a>
-              </li>
-              <li class="list-group-item">
-                <b>Following</b> <a class="float-right">543</a>
-              </li>
-              <li class="list-group-item">
-                <b>Friends</b> <a class="float-right">13,287</a>
-              </li>
-            </ul>--}}
             
-            <a href="#" class="btn btn-primary btn-block"><b>Calificar</b></a> 
+              @if (($perfil->private == 0))
+                <a href="#" class="btn btn-primary btn-block"><b>Calificar</b></a>                   
+              @endif
           </div>
-          <!-- /.card-body -->
         </div>
-        <!-- /.card -->
 
         <!-- About Me Box -->
-        @include('profile.about_me')
+        @if (($perfil->private == 0))
+          @include('profile.about_me')
+        @endif
         <!-- /.card -->
       </div>
       <!-- /.col -->
       <div class="col-md-9">
         <div class="card">
-          <div class="card-header p-2">
-            <ul class="nav nav-pills">
-              <li class="nav-item">
-                <a class="nav-link " href="{{route('perfil',  ['id' => $user->id])}}">
-                    Actividades
-                </a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link active " href="{{route("perfil_post", ['id' => $user->id])}}">
-                      Fotos
-                  </a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="#settings" data-toggle="tab">
-                      Contactos
-                  </a>
-              </li>
-            </ul>
-          </div>
+          @if (($perfil->private == 0))
+              @include('includes.tabs')
+            @else
+              @include('includes.tabsPrivate')
+            @endif
           <div class="card-body">
             <div class="tab-content">
 
                 @include('profile.form-gallery')
 
                 <hr>
-
-                {{-- <form action="{{ route('guardar_post') }}" class="form-image-upload" method="POST" enctype="multipart/form-data" autocomplete="off">
-                    @csrf
-                    <div class="row">
-                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                        <div class="col-md-5">
-                            <strong>Descripcion:</strong>
-                            <input type="text" name="description" class="form-control" placeholder="Descripción">
-                        </div>  
-                        <div class="col-md-5">
-                            <strong>Imagen:</strong>
-                            <input type="file" name="image" class="form-control inputfile inputfile-1">
-                        </div>
-                        <div class="col-md-2">
-                            <br/>
-                            <button type="submit" class="btn btn-success">Guardar</button>
-                        </div>
-                    </div>
-                </form> --}}
 
             </div>
           </div>

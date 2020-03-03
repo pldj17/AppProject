@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="{{asset("assets/$theme/dist/css/adminlte.min.css")}}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <script src="{{asset("assets/pages/scripts/session/register.js")}}"></script>
     
     </head>
     <body class="hold-transition register-page">
@@ -29,7 +31,7 @@
                 <div class="card-body register-card-body">
                 <p class="login-box-msg">Registrarse</p>
 
-                <form role="form" method="POST" action="{{ route('register') }}">
+                <form role="form" id="registerForm" method="POST" action="{{ route('register') }}">
                     @csrf
 
                     {{-- nombre --}}
