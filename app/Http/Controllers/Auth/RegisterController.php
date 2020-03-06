@@ -48,6 +48,7 @@ class RegisterController extends Controller
         Profile::create([
             'user_id' => $user->id, 
             'date_born' => request('date_born'),
+            'private' => 1,
         ]);
 
         //  $user->roles()->attach(Role::where('name', 'user')->first()); //pedimos el rol con el nombre user, attach se encarga de las tablas relacionadas

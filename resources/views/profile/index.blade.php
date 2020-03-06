@@ -6,7 +6,7 @@
 
 @section('scripts')
     <script src="{{asset("assets/pages/scripts/admin/crear.js")}}" type="text/javascript"></script>
-    <script src="{{asset("assets/pages/scripts/admin/index.js")}}" type="text/javascript"></script>
+    {{-- <script src="{{asset("assets/pages/scripts/admin/index.js")}}" type="text/javascript"></script> --}}
 
     <script src="{{ asset ('assets/profile/js/perfil.js') }}"></script>
     <script src="{{ asset ('assets/photo/js.js') }}"></script>
@@ -149,7 +149,7 @@
                                   
                                   @foreach ($imgCollection as $post)
 
-                                    <form action="{{route('eliminar_post', ['id' => $post->post_id])}}" class="d-inline form-eliminar" method="POST"  onsubmit="setTimeout(function () { window.location.reload(); }, 2500)" >
+                                    <form action="{{route('eliminar_post', ['id' => $post->post_id])}}" class="d-inline form-eliminar" method="POST"   >
                                       <input type="hidden" name="_method" value="delete">
                                       @csrf 
                                       <button type="submit"  class="btn-accion-tabla eliminar" style="margin-left:20px;" >
@@ -223,6 +223,13 @@
                   <b>Correo:</b> <a>{{$user->email}}</a><br>
                   <b>Fecha de nacimiento:</b> <a>{{date('d-m-Y', strtotime($perfil->date_born))}}</a>
                 </div>
+              </div>
+
+              <div class="card-body" style="width:90%;">
+                <button type="button" class="btn btn-primary btn-block" >
+                  Publicar perfil
+                </button>
+                
               </div>
 
             @endif

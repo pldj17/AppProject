@@ -18,8 +18,10 @@ class UserController extends Controller
         can('ver-listado-usuario');
         $users = User::orderBy('id', 'ASC')
             ->name($name)
-            ->paginate(5);
-        return view('admin.users.index', compact('users')); //pagina de usuarios
+            ->paginate(6);
+        $perfil = Profile::get();
+        // dd($perfil);
+        return view('admin.users.index', compact('users', 'perfil')); //pagina de usuarios
     }
     
     public function edit($id)

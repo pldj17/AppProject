@@ -43,7 +43,7 @@
                             <th>Email</th>
                             <th>Rol</th>
                             <th>Registrado</th>
-                            <th>Estado</th>
+                            <th>Perfil</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
@@ -55,7 +55,13 @@
                                     <td>{{$data->email}}</td>
                                     <td>{{ implode(',', $data->roles()->get()->pluck('name')->toArray())}}</td>
                                     <td>{{$data->created_at}}</td>
-                                    <td>Activo</td>
+                                    <td>
+                                        @if(implode(',', $data->profile()->get()->pluck('private')->toArray()) == '1')
+                                            Privado
+                                        @else
+                                            Publico
+                                        @endif
+                                    </td>
                                     <td>
                                         <a href="{{route('perfil', ['id' => $data->id   ])}}" class="btn-accion-tabla" data-toggle="tooltip" data-placement="top" title="Ver perfil de usuario">
                                             <i class="fas fa-eye"></i>

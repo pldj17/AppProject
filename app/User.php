@@ -8,10 +8,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Session;
 use ProjectApp\Profile;
 use ProjectApp\Role;
+// use ProjectApp\LaravelFakeId\RoutesWithFakeIds;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
+    // use RoutesWithFakeIds;
     
     protected $fillable = [
         'name', 'email', 'password',
