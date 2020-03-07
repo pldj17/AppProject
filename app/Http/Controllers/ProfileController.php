@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use ProjectApp\Http\Requests\ValidarPerfil;
+use ProjectApp\Http\Requests\ValidationPassword;
 use ProjectApp\Photo;
 use ProjectApp\Profile;
 use ProjectApp\profile_specialties;
@@ -28,15 +29,30 @@ class ProfileController extends Controller
         return view('profile.index', compact('perfil', 'user', 'photo', 'especialidad_usuario'));
     }
 
-    public function create()
+    public function config(user $user)
     {
-        //
+        $id = $user->id;
+
+        $perfil = Profile::all()->where('user_id', $id)->first();
+        $user = User::with('especialidades')->find($id);
+
+        return view('profile.config', compact('perfil', 'user'));
+    }
+
+    public function configStore(user $user)
+    {
+        $id = $user->id;
+
+        Profile::where('user_id', $id)->update([
+            'private' => request('private')
+        ]);
+        
+        return redirect()->back()->with('mensaje', 'Su perfil ha sido actualizado correctamente');
+
     }
 
     public function store(ValidarPerfil $request, User $user)
     {
-        // dd($user);
-
         $user_id = auth()->user()->id; 
 
         $perfil_id = Profile::where('user_id', $user_id)->get('id');
@@ -49,21 +65,10 @@ class ProfileController extends Controller
             'correo' => request('correo')
         ]);
 
-        $user->especialidades()->sync($request->input('especialidades', []), $request->input('user_id'));
-        // $user->especialidades()->sync($request->input('especialidades', []));
+        $user->especialidades()->sync($request->input('especialidades', []), $request->input('user_id')); 
 
-        // $Perfil_especialidades = $request->especialidades;
 
-        // foreach($Perfil_especialidades as $perfil_especialidad)
-        // {
-        //     $obj = new profile_specialties();
-           
-        //     $obj->specialty_id = $perfil_especialidad;
-        //     $obj->user_id = Auth()->user()->id;
-        //     $obj->save();
-        // }   
-
-         return redirect()->back()->with('mensaje', 'Su perfil ha sido actualizado correctamente');
+        return redirect()->back()->with('mensaje', 'Su perfil ha sido actualizado correctamente');
     }
 
     public function show($id)
@@ -71,18 +76,17 @@ class ProfileController extends Controller
         //
     }
 
-    public function edit(user $user)
+    public function edit(user $user, Request $request)
     {
-        //  $perfil = Profile::with('especialidades')->where('user_id', $id)->get()->toArray();    
-        // $perfil->load('especialidades');
-        // $profiles = Profile::with('especialidades')->get();
+        $id = $user->id;
 
-        // $perfil = Profile::all()->where('user_id', $id);    
-         
-        // $perfil->load('especialidades');
-        //  dd($id);
+        $perfil = Profile::all()->where('user_id', $id)->first();
 
-        
+        if(!$request->active){
+            $request->merge([
+                'private' => 0
+            ]);
+        }
 
         $especialidades = Specialty::orderBy('name')->pluck('name', 'id');
 
@@ -90,22 +94,30 @@ class ProfileController extends Controller
 
         // dd($user, $especialidades);
 
-        return view('profile.edit',compact('especialidades', 'user'));
+        return view('profile.edit',compact('especialidades', 'user', 'perfil'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        return view('profile.ajustes');
+        $user_id = auth()->user()->id; 
 
-        auth()->user()->update($request->all());
+        User::where('id', $user_id)->update([
+            'name' => request('name'),
+            'email' => request('email'),
+        ]);
         
 
         return back()->with('mensaje', 'Su perfil ha sido actualizado correctamente.');
     }
 
-    public function password(Request $request)
+    public function password(ValidationPassword $request)
     {
-        auth()->user()->update(['password' => Hash::make($request->get('password'))]);
+        $user_id = auth()->user()->id; 
+
+        User::where('id', $user_id)->update([
+            'password' => Hash::make($request->get('password'))
+        ]);
+        
 
         return back()->with('mensaje', 'Su perfil ha sido actualizado correctamente.');
     }

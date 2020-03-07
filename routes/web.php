@@ -28,32 +28,23 @@ Route::get('perfil/{id}', 'HomeController@show')->name('perfil_publico');
 Route::group(['middleware' => ['auth']], function(){
 
     Route::get('perfil/{id}','ProfileController@index')->name('perfil'); 
-    Route::post('perfil/actualizar','ProfileController@update')->name('profile.update');
-    Route::post('perfil/password','ProfileController@password')->name('profile.password');
+    Route::post('perfil/actualizar','ProfileController@update')->name('update_inf');
+    Route::post('perfil/password','ProfileController@password')->name('update_password');
 
-    //cambiar perfil anda asi
-    //Route::post('perfil/crear', 'ProfileController@store')->name('guardar_perfil');   
-
-    Route::post('perfil/{user}', 'ProfileController@store')->name('guardar_perfil');   
-    // Route::post('profile/avatar', 'ProfileController@avatar')->name('avatar'); 
-    // Route::get('perfil/editar','ProfileController@edit')->name('show.avatar');
+    Route::post('perfil/{user}', 'ProfileController@store')->name('guardar_perfil'); 
    
-    //sin {}
     Route::post('perfil/{user}/avatar','ProfileController@AvatarUpload')->name('avatar');
 
-
-    //{id}
     Route::get('perfil/{user}/editar', 'ProfileController@edit')->name('editar_perfil');
     
     Route::get('perfil/ajustes', 'ProfileController@update')->name('profile.ajustes');  
-    Route::get('perfil/informacion', 'ProfileController@info')->name('profile.info');
-    Route::get('perfil/contacto', 'ProfileController@contact')->name('profile.contact');
-
-    //publicaciones
-    //sin {}
+    
     Route::post('perfil/post/{user}', 'PhotoController@upload')->name('guardar_post');
     Route::delete('perfil/post/{id}', 'PhotoController@destroy')->name('eliminar_post');
     Route::get('perfil/post/{id}', 'PhotoController@index')->name('perfil_post');
+     
+    Route::post('perfil/{user}/configuracion', 'ProfileController@configStore')->name('config');
+    Route::get('perfil/{user}/configuracion', 'ProfileController@config')->name('config');
     
 });
 

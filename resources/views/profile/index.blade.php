@@ -52,7 +52,7 @@
 
               
 
-              @if ($perfil->private == 0 )
+              @if ($perfil->private == 1 )
                 @if(empty($perfil->address) && (Auth::user()->id == $user->id))
                   <center><i class="fas fa-map-marker-alt mr-1"></i>
                   <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="ubicacion" style="text-decoration:none;"><small>Agregar Ubicación</small></a>
@@ -63,14 +63,14 @@
               @endif
               <br><br></center>
                   
-              @if ($perfil->private == 0 )
+              @if ($perfil->private == 1 )
                 <a href="#" class="btn btn-primary btn-block"><b>Calificar</b></a>                   
               @endif
             </div>
           </div>
 
           <!-- About Me Box -->
-          @if ($perfil->private == 0 )
+          @if ($perfil->private == 1 )
             @include('profile.about_me')
           @endif
           <!-- /.card -->
@@ -78,7 +78,7 @@
         <!-- /.col -->
         <div class="col-md-9">
           <div class="card">
-            @if ($perfil->private == 0 )
+            @if ($perfil->private == 1 )
               @include('includes.tabs')
             @else
               @include('includes.tabsPrivate')
@@ -86,7 +86,7 @@
             <div class="card-body">
               <div class="tab-content">
 
-              @if($perfil->private == 0 )
+              @if($perfil->private == 1 )
 
                 @if (Auth::user()->id == $user->id)
 
@@ -221,14 +221,17 @@
                 <div class="container">
                   <b>Nombre y apellido:</b> <a>{{$user->name}}</a><br>
                   <b>Correo:</b> <a>{{$user->email}}</a><br>
+                  <b>Teléfono:</b> <a>{{$perfil->phone}}</a><br>
                   <b>Fecha de nacimiento:</b> <a>{{date('d-m-Y', strtotime($perfil->date_born))}}</a>
                 </div>
               </div>
 
-              <div class="card-body" style="width:90%;">
-                <button type="button" class="btn btn-primary btn-block" >
+              <div style="display:inline;">
+                <button type="button" class="btn btn-primary btn-block" style="width:50%;">
                   Publicar perfil
                 </button>
+                
+                <a class="far fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="Acerca de..."></a>
                 
               </div>
 

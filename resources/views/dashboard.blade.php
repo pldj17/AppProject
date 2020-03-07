@@ -5,9 +5,11 @@
 @section('contenido')
     @include('includes.mensaje')
 
-  {{-- @if (empty($perfil->id)) --}}
-    
-  {{-- @else --}}
+  @if (empty($perfil->id))
+    @section('title')
+      <h2>Sin servicios disponibles</h2>
+    @endsection
+  @else
   <div class="card card-solid">
     @section('title')
         <h2>Servicios disponibles</h2>
@@ -70,7 +72,7 @@
       </div>
     </div>
   </div>
-  {{-- @endif --}}
+  @endif
 
     
 @endsection

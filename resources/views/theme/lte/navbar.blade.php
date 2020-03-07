@@ -5,12 +5,12 @@
     <li class="nav-item">
       <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
     </li>
-    <li class="nav-item d-none d-sm-inline-block">
+    {{-- <li class="nav-item d-none d-sm-inline-block">
       <a href="{{route("home")}}" class="nav-link">Inicio</a>
     </li>
     <li class="nav-item d-none d-sm-inline-block">
       <a href="#" class="nav-link">Contacto</a>
-    </li>
+    </li> --}}
   </ul>
 
   <!-- SEARCH FORM -->
@@ -43,8 +43,8 @@
               <i class="fas fa-user mr-2"></i> Perfil
             </a>
           <div class="dropdown-divider"></div>
-            <a href="{{ route('profile.ajustes') }}" class="dropdown-item">
-              <i class="fas fa-cog mr-2"></i> Ajustes
+            <a href="{{ route('config', [$user->id]) }}" class="dropdown-item">
+              <i class="fas fa-cog mr-2"></i> Configuración
             </a>
           
           <div class="dropdown-divider"></div>

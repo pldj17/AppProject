@@ -9,6 +9,10 @@
     <script src="{{asset("assets/$theme/plugins/select2/js/select2.full.min.js")}}"></script>
     <script>var url = "{{ route('avatar', [$user->id]) }}";</script>
     <script src="{{ asset ('assets/photo/js.js') }}"></script>
+
+        <!-- InputMask -->
+    {{-- <script src="{{asset("assets/$theme/plugins/moment/moment.min.js")}}"></script>
+    <script src="{{asset("assets/$theme/plugins/inputmask/min/jquery.inputmask.bundle.min.js")}}"></script> --}}
 @endsection
 
 @section('styles')
@@ -43,7 +47,12 @@
                 <div class="card text-center">
                     <div class="card-body">
                         <div class="profile-img p-3">
-                            <img src="{{ asset('/avatar/avatar.png') }}" id="profile-pic" >
+                            @if (empty($perfil->avatar))
+                                <img src="{{ asset('avatar/avatar.png')}}" id="profile-pic">
+                            @else
+                                <img src="{{ asset('uploads/profile_pictures')}}/{{ $perfil->avatar }}" id="profile-pic">  
+                            @endif
+                            {{-- <img src="{{ asset('uploads/profile_pictures')}}/{{ $perfil->avatar }}" id="profile-pic" > --}}
                         </div>
                         <div class="btn btn-dark btn-sm">
                             <input type="file" class="file-upload" id="file-upload" 
@@ -93,13 +102,26 @@
             <form action="{{ route('guardar_perfil', [$user->id]) }}" method="POST" autocomplete="">
                 @csrf
                 <div class="pl-lg-4">
-                  <div class="form-group">
-                    <label for="">Teléfono</label>
-                    <input type="text" class="form-control" name="phone" value="{{Auth::user()->profile->phone ?? ''}}">
-                    @if ($errors->has('phone'))
-                        <div class="error text-danger">{{ $errors->first('phone')}}</div>                        
-                    @endif
-                </div>
+
+                    {{-- <div class="form-group">
+                        <label>US phone mask:</label>
+      
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                          </div>
+                          <input type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                        </div>
+                      </div> --}}
+
+                    <div class="form-group">
+                        <label for="">Teléfono</label>
+                        <input type="text" class="form-control" name="phone" value="{{Auth::user()->profile->phone ?? ''}}">
+                        @if ($errors->has('phone'))
+                            <div class="error text-danger">{{ $errors->first('phone')}}</div>                        
+                        @endif
+                    </div>
+
                     <div class="form-group">
                         <label for="">Dirección</label>
                         <input type="text" class="form-control" name="address" value="{{Auth::user()->profile->address ?? ''}}">
@@ -116,6 +138,8 @@
                         @endif
                     </div>
                     
+                    @if($perfil->private == 1 )
+
                     <div class="form-group">
                       <label for="especialidades">Especialidad</label><br>
                           
@@ -123,16 +147,18 @@
                             @foreach($especialidades as $id => $especialidades)
                                 <option value="{{ $id }}" {{ (in_array($id, old('especialidades', [])) || $user->especialidades->contains($id)) ? 'selected' : '' }}>{{ $especialidades }}</option>
                             @endforeach
-                            {{-- <input type="hidden" name="user_id" value="{{ Auth::user()->id }}"> --}}
+                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
 
                          </select>
 
-                      @if($errors->has('especialidades'))
-                          <div class="invalid-feedback">
-                              {{ $errors->first('especialidades') }}
-                          </div>
-                      @endif
-                  </div>
+                        @if($errors->has('especialidades'))
+                            <div class="invalid-feedback">
+                                {{ $errors->first('especialidades') }}
+                            </div>
+                        @endif
+                    </div>
+
+                    @endif
 
                     <div class="text-center" style="margin-top:23px;">
                         @include('profile.boton-form-editar')
@@ -143,5 +169,6 @@
         </div>
       </div>
     </div>
-       
+    
+
     @endsection
