@@ -15,7 +15,7 @@ class ValidationPassword extends FormRequest
     public function rules()
     {
         return [
-            'old_password'          => 'required',
+            // 'old_password'          => 'required',
             'password'              => 'required|min:8',
             'password_confirmation' => 'required|confirmed'
             // 'password' => ['required', 'string', 'min:8', 'confirmed'],

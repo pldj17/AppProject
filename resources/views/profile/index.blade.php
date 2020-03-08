@@ -171,9 +171,9 @@
                           
                         </div>
                           
-                            {{ implode(',', $post->post()->get()->pluck('description')->toArray())}}
-                          @endif
-                        @endforeach
+                              {{ implode(',', $post->post()->get()->pluck('description')->toArray())}}
+                            @endif
+                          @endforeach
                         
                         <div class="row" style="margin-top:10px;" id="tabla-data">
 
@@ -226,12 +226,11 @@
                 </div>
               </div>
 
-              <div style="display:inline;">
-                <button type="button" class="btn btn-primary btn-block" style="width:50%;">
-                  Publicar perfil
-                </button>
-                
-                <a class="far fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="Acerca de..."></a>
+              <br>
+              <div style="margin-left:15px;">
+                <a href="{{ route('config', [ Auth::user()->id]) }}" class="btn btn-sm btn-primary">
+                  <i class="fas fa-user"></i> Publicar Perfil
+                </a>
                 
               </div>
 

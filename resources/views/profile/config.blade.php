@@ -21,12 +21,15 @@
     @include('includes.form-error')
     @include('includes.mensaje')
 
-    <div class="card card-primary collapsed-card">
+    {{-- collapsed-card para mantener cerrado --}}
+
+    <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">Privacidad de perfil</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
-              <i class="fas fa-plus"></i></button>
+              <i class="fas fa-minus"></i></button>
+              {{-- icon + = plus --}}
             </div>
         </div>
         <!-- /.card-header -->
@@ -34,7 +37,7 @@
             <form action="{{ route('config', [$user->id]) }}" method="POST" autocomplete="">
                 @csrf
                 <div class="form-group">
-                    <div class="custom-control custom-checkbox">
+                    <div class="custom-control custom-checkbox" id="perfil_private">
                         <input class="custom-control-input" type="checkbox" name="private" id="private" value="1" {{ $perfil->private || old('private', 2) === 1 ? 'checked' : '' }}>
                         <label for="private" class="custom-control-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Perfil publico</label>
                     </div>
@@ -51,12 +54,12 @@
         </div>
     </div>
 
-    <div class="card card-primary collapsed-card">
+    <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">Editar Información básica</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
-              <i class="fas fa-plus"></i></button>
+              <i class="fas fa-minus"></i></button>
             </div>
         </div>
 
@@ -89,12 +92,12 @@
           </div>
     </div>
 
-    <div class="card card-primary collapsed-card">
+    <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">Reestablecer contraseña</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
-              <i class="fas fa-plus"></i></button>
+              <i class="fas fa-minus"></i></button>
             </div>
         </div>
 

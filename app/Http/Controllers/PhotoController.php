@@ -30,19 +30,26 @@ class PhotoController extends Controller
         $post->save();
 
         $image_code = '';
-        $images = $request->file('file');
-        foreach($images as $image)
+        if(empty($request->file('file')))
         {
-            $new_name = rand() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('images'), $new_name);
-            $image_code .= '<div class="col-md-3" style="margin-bottom:24px;"><img src="/images/'.$new_name.'" class="img-thumbnail" /></div>';
-            
-            $GuardarImg = new photo();
-            $GuardarImg->file = $new_name;
-            $GuardarImg->user_id = $request->get('user_id');
-            $GuardarImg->post_id = $post->id;
-            $GuardarImg->save();
+            return redirect()->route('perfil', ['id' => Auth::user()->id])->with('mensaje', 'Se guardaron los cambios');
+        }else 
+        {
+            $images = $request->file('file');
+            foreach($images as $image)
+            {
+                $new_name = rand() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('images'), $new_name);
+                $image_code .= '<div class="col-md-3" style="margin-bottom:24px;"><img src="/images/'.$new_name.'" class="img-thumbnail" /></div>';
+                
+                $GuardarImg = new photo();
+                $GuardarImg->file = $new_name;
+                $GuardarImg->user_id = $request->get('user_id');
+                $GuardarImg->post_id = $post->id;
+                $GuardarImg->save();
+            }
         }
+            
 
         return redirect()->route('perfil', ['id' => Auth::user()->id])->with('mensaje', 'Se guardaron los cambios');
     }

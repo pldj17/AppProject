@@ -43,7 +43,7 @@
               <i class="fas fa-user mr-2"></i> Perfil
             </a>
           <div class="dropdown-divider"></div>
-            <a href="{{ route('config', [$user->id]) }}" class="dropdown-item">
+            <a href="{{ route('config', [ Auth::user()->id]) }}" class="dropdown-item">
               <i class="fas fa-cog mr-2"></i> Configuración
             </a>
           
