@@ -19,7 +19,9 @@ class ActualizarPost extends FormRequest
     public function rules()
     {
         return [
-            'image' => 'required|image',
+            'file' => 'image',
+            'user_id' => 'required',
+            'post_id' => 'required'
         ];
     }
 }

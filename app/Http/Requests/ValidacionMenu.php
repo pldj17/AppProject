@@ -21,4 +21,11 @@ class ValidacionMenu extends FormRequest
             'icon' => 'nullable|max:50'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'post' => 'Error al realizar la publicación'
+        ];
+    }
 }

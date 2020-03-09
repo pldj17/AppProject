@@ -174,7 +174,10 @@
                               {{ implode(',', $post->post()->get()->pluck('description')->toArray())}}
                             @endif
                           @endforeach
-                        
+
+                        @if(empty($post->file))
+
+                        @else
                         <div class="row" style="margin-top:10px;" id="tabla-data">
 
                             @foreach ($imgCollection as $post)
@@ -186,14 +189,16 @@
                             @endforeach
                         
                         </div>
+                        @endif
 
+                        
                         <form action="#" method="post">
                           @if (empty(Auth::user()->profile->avatar))
                             <img class="img-fluid img-circle img-sm" src="{{ asset('avatar/avatar.png')}}" alt="Alt Text">
                           @else
                             <img class="img-fluid img-circle img-sm" src="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}" alt="Alt Text">  
                           @endif
-                          <div class="img-push">
+                          <div class="img-push" style="margin-top:15px;">
                             <input type="text" class="form-control form-control-sm" placeholder="Agregar comentario...">
                             {{-- <div class="input-group-append">
                               <button type="submit" class="btn btn-primary">Enviar</button>

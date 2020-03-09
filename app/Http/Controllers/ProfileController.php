@@ -21,6 +21,8 @@ class ProfileController extends Controller
 
         $photo = Photo::with('post')->orderBy('id','desc')->get()->where('user_id', $id)->groupBy('post_id');
 
+        // dd($photo);
+
         $perfil = Profile::all()->where('user_id', $id)->first();
         $user = User::with('especialidades')->find($id);
 

@@ -4,6 +4,7 @@ namespace ProjectApp\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use ProjectApp\Http\Requests\ActualizarPost;
 use ProjectApp\Photo;
 use ProjectApp\Post;
 use ProjectApp\Profile;
@@ -23,15 +24,20 @@ class PhotoController extends Controller
 
     }
 
-    public function upload(Request $request, user $user)
+    public function upload(ActualizarPost $request, user $user)
     {
         $post  = new Post();
         $post->description = $request->get('description');
+        // $post->user_id = $request->get('user_id');
         $post->save();
 
         $image_code = '';
         if(empty($request->file('file')))
         {
+            $GuardarImg = new photo();
+            $GuardarImg->user_id = $request->get('user_id');
+            $GuardarImg->post_id = $post->id;
+            $GuardarImg->save();
             return redirect()->route('perfil', ['id' => Auth::user()->id])->with('mensaje', 'Se guardaron los cambios');
         }else 
         {

@@ -16,7 +16,7 @@ class CreateProfilesTable extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->bigIncrements('id');
             // $table->integer('user_id')->unsigned(); //no acepta valores negativos 
-            $table->integer('private');
+            $table->integer('private')->nullable();
             $table->text('description', 45)->nullable()->default(null);
             $table->string('phone', 45)->nullable()->default(null);
             $table->string('correo')->nullable()->default(null);
