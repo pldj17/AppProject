@@ -57,14 +57,14 @@
               <br><br></center>
 
             
-              @if (($perfil->private == 0))
+              @if (($perfil->private == 1))
                 <a href="#" class="btn btn-primary btn-block"><b>Calificar</b></a>                   
               @endif
           </div>
         </div>
 
         <!-- About Me Box -->
-        @if (($perfil->private == 0))
+        @if (($perfil->private == 1))
           @include('profile.about_me')
         @endif
         <!-- /.card -->
@@ -72,7 +72,7 @@
       <!-- /.col -->
       <div class="col-md-9">
         <div class="card">
-          @if (($perfil->private == 0))
+          @if (($perfil->private == 1))
             @include('includes.tabs')
           @else
             @include('includes.tabsPrivate')
