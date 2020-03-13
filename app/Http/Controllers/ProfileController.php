@@ -22,16 +22,14 @@ class ProfileController extends Controller
 
         $photo = Post::with('photos')->orderBy('id', 'desc')->where('user_id', $id)->get();
 
-        // $photo = Photo::with('post')->orderBy('id','desc')->get()->where('user_id', $id)->groupBy('post_id');
-
-        // dd($post);
+        $posts = Post::count();
 
         $perfil = Profile::all()->where('user_id', $id)->first();
         $user = User::with('especialidades')->find($id);
 
-        // dd($especialidad_usuario);
+        // dd($posts);
 
-        return view('profile.index', compact('perfil', 'user', 'photo', 'especialidad_usuario', 'post'));
+        return view('profile.index', compact('perfil', 'user', 'photo', 'especialidad_usuario', 'posts'));
     }
 
     public function config(user $user)

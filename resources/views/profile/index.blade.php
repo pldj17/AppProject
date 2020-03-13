@@ -69,7 +69,11 @@
                                 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                 <div class="col-md-12">
                                     <strong>Crear publicación:</strong><br><br>
-                                    <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3" placeholder="Descripción"></textarea>
+                                    @if($posts < 1)
+                                      <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3" placeholder="Agregue una publicación"></textarea>
+                                    @else
+                                      <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3" placeholder="Descripción"></textarea>
+                                    @endif
                                 </div>  
                             </div>
                             

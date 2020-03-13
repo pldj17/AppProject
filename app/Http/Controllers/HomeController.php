@@ -34,9 +34,10 @@ class HomeController extends Controller
 
         // $user->paginate(4);
 
-        $profiles = Profile::where('private', 0)->with('user')->get(); 
-        // dd($especialidades, $users, $profiles);
-        return view('dashboard', compact('profiles', 'users', 'especialidades', 'shops', 'categories'));
+        $profiles = Profile::where('private', 1)->with('user')->get(); 
+        $contador = $profiles->count();
+        // dd($contador);
+        return view('dashboard', compact('profiles', 'users', 'especialidades', 'shops', 'categories', 'contador'));
     }
 
     public function show($id)

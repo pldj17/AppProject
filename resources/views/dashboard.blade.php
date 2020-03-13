@@ -5,7 +5,7 @@
 @section('contenido')
     @include('includes.mensaje')
 
-  @if (empty($profiles->id))
+  @if ($contador < 0 )
     @section('title')
       <h2>Sin servicios disponibles</h2>
     @endsection
