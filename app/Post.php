@@ -11,9 +11,14 @@ class Post extends Model
     protected $guarded = ['id'];
 
     //un post puede tener muchas fotos
-    public function Photo()
+    public function Photos()
     {
         return $this->hasMany(Photo::class);
+    }
+
+    public function Coments()
+    {
+        return $this->hasMany(Comment::class);
     }
 
     //un post puede pertenecer a un usuario
@@ -22,9 +27,9 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function getPhotoAttribute(): string 
-    {
-        return url('photos/' . $this->attributes['image']);
-    }
+    // public function getPhotoAttribute(): string 
+    // {
+    //     return url('photos/' . $this->attributes['image']);
+    // }
 
 }

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use ProjectApp\Http\Requests\ValidarPerfil;
 use ProjectApp\Http\Requests\ValidationPassword;
 use ProjectApp\Photo;
+use ProjectApp\Post;
 use ProjectApp\Profile;
 use ProjectApp\profile_specialties;
 use ProjectApp\Specialty;
@@ -19,16 +20,18 @@ class ProfileController extends Controller
     {
         $especialidad_usuario = profile_specialties::where('user_id', $id)->get();
 
-        $photo = Photo::with('post')->orderBy('id','desc')->get()->where('user_id', $id)->groupBy('post_id');
+        $photo = Post::with('photos')->orderBy('id', 'desc')->where('user_id', $id)->get();
 
-        // dd($photo);
+        // $photo = Photo::with('post')->orderBy('id','desc')->get()->where('user_id', $id)->groupBy('post_id');
+
+        // dd($post);
 
         $perfil = Profile::all()->where('user_id', $id)->first();
         $user = User::with('especialidades')->find($id);
 
         // dd($especialidad_usuario);
 
-        return view('profile.index', compact('perfil', 'user', 'photo', 'especialidad_usuario'));
+        return view('profile.index', compact('perfil', 'user', 'photo', 'especialidad_usuario', 'post'));
     }
 
     public function config(user $user)

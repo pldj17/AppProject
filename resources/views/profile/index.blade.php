@@ -110,6 +110,7 @@
                               
                                 {{-- <input type="file" class="custom-file-input" id="customFile" name="image">--}}
                                 <label class="custom-file-label" for="customFile"><i class="far fa-images"></i></label> 
+                                 {{-- <input type="hidden" name="user_id" value="{{ Auth::user()->id }}"> --}}
                                 
                             </div>
                             <div class="col-md-2">
@@ -149,7 +150,7 @@
                                   
                                   @foreach ($imgCollection as $post)
 
-                                    <form action="{{route('eliminar_post', ['id' => $post->post_id])}}" class="d-inline form-eliminar" method="POST"   >
+                                    <form action="{{route('eliminar_post', ['id' => $imgCollection->id])}}" class="d-inline form-eliminar" method="POST"   >
                                       <input type="hidden" name="_method" value="delete">
                                       @csrf 
                                       <button type="submit"  class="btn-accion-tabla eliminar" style="margin-left:20px;" >
@@ -167,32 +168,34 @@
 
                           @foreach ($imgCollection as $post)
                             @if ($loop->first)
-                            <span class="description" title="{{ $post->created_at->format('d-m-Y H:i') }}">{{$post->created_at->diffForHumans()}} </span>
+                            <span class="description" title="{{ $imgCollection->created_at->format('d-m-Y H:i') }}">{{$imgCollection->created_at->diffForHumans()}} </span>
                           
                         </div>
-                          
-                              {{ implode(',', $post->post()->get()->pluck('description')->toArray())}}
+                              {{$imgCollection->description}}
+                              {{-- {{ implode(',', $post->photos()->get()->pluck('description')->toArray())}} --}}
                             @endif
                           @endforeach
 
-                        @if(empty($post->file))
-
-                        @else
+                        
                         <div class="row" style="margin-top:10px;" id="tabla-data">
 
-                            @foreach ($imgCollection as $post)
+                            @foreach ($imgCollection->photos as $a)
+                              @if(empty($a->file))
+
+                              @else
                               <div class="col-lg-4 col-md-4 col-xs-6 thumb">
-                                <a href="/images/{{$post->file }}" class="fancybox" rel="ligthbox" style="width:100%; height:70%">
-                                  <img src="/images/{{$post->file }}" class="zoom img-fluid" alt="" style="width:100%; height:100%">
+                                <a href="/images/{{ $a->file }}" class="fancybox" rel="ligthbox" style="width:100%; height:70%">
+                                  <img src="/images/{{ $a->file }}" class="zoom img-fluid" alt="" style="width:100%; height:100%">
                                 </a>   
                               </div>
+                              @endif
                             @endforeach
                         
                         </div>
-                        @endif
+                        
 
                         
-                        <form action="#" method="post">
+                        {{-- <form action="#" method="post">
                           @if (empty(Auth::user()->profile->avatar))
                             <img class="img-fluid img-circle img-sm" src="{{ asset('avatar/avatar.png')}}" alt="Alt Text">
                           @else
@@ -200,19 +203,19 @@
                           @endif
                           <div class="img-push" style="margin-top:15px;">
                             <input type="text" class="form-control form-control-sm" placeholder="Agregar comentario...">
-                            {{-- <div class="input-group-append">
+                            <div class="input-group-append">
                               <button type="submit" class="btn btn-primary">Enviar</button>
-                            </div> --}}
+                            </div>
                           </div>
-                        </form>
-                        {{-- <form class="form-horizontal">
+                        </form> --}}
+                        <form class="form-horizontal">
                           <div class="input-group input-group-sm mb-0">
                             <input class="form-control form-control-sm" placeholder="Agregar comentario...">
                             <div class="input-group-append">
                               <button type="submit" class="btn btn-primary">Enviar</button>
                             </div>
                           </div>
-                        </form> --}}
+                        </form>
                         
                         <hr>
                     </div>
