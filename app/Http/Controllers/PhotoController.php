@@ -35,12 +35,17 @@ class PhotoController extends Controller
 
     public function upload(ActualizarPost $request, user $user)
     {
-        // if(empty($request->file('file') && ('description')))
-        // {
-        //     return redirect()->route('perfil', ['id' => Auth::user()->id])->with('mensaje', 'Error al realizar la publicación');
-        // }
-        // else
-        // {    
+        $description = $request->get('description');
+        $img = $request->file('file');
+        
+        // dd($description, $img);
+
+        if(empty($description) && empty($img))
+        {
+            return redirect()->route('perfil', ['id' => Auth::user()->id])->with('mensaje', 'Error al realizar la publicación');
+        }
+        else
+        {    
         
             $post  = new Post();
             $post->description = $request->get('description');
@@ -72,7 +77,7 @@ class PhotoController extends Controller
                     $GuardarImg->save();
                 }
             }
-        // }  
+        }  
 
         return redirect()->route('perfil', ['id' => Auth::user()->id])->with('mensaje', 'Se guardaron los cambios');
     }

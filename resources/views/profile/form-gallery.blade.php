@@ -80,6 +80,7 @@
 
                 @else
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                        @if (Auth::user()->id == $user->id)
                         <form action="{{route('eliminar_post', ['id' => $imgCollection->id])}}" class="d-inline form-eliminar" method="POST">
                             <input type="hidden" name="_method" value="delete">
                             @csrf 
@@ -87,7 +88,8 @@
                                 <i class="fa fa-fw fa-times text-danger"></i>
                             </button>
                         </form>
-                        
+                        @endif
+
                         <a href="/images/{{$a->file }}" class="fancybox" rel="ligthbox">
                             <img id="image" src="/images/{{$a->file }}" class="zoom img-fluid " data-toggle="tooltip" data-placement="bottom" title="{{$a->description}}" alt="">
                         </a>                 
