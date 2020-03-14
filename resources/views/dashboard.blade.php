@@ -5,7 +5,7 @@
 @section('contenido')
     @include('includes.mensaje')
 
-  @if ($contador < 0 )
+  @if ($contador <1 )
     @section('title')
       <h2>Sin servicios disponibles</h2>
     @endsection

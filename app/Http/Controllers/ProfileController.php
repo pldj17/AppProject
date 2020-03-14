@@ -5,6 +5,7 @@ namespace ProjectApp\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use ProjectApp\Comment;
 use ProjectApp\Http\Requests\ValidarPerfil;
 use ProjectApp\Http\Requests\ValidationPassword;
 use ProjectApp\Photo;
@@ -27,9 +28,11 @@ class ProfileController extends Controller
         $perfil = Profile::all()->where('user_id', $id)->first();
         $user = User::with('especialidades')->find($id);
 
-        // dd($posts);
+        $comments = Comment::orderBy('id', 'desc')->get();
 
-        return view('profile.index', compact('perfil', 'user', 'photo', 'especialidad_usuario', 'posts'));
+        // dd($comments);
+
+        return view('profile.index', compact('perfil', 'user', 'photo', 'especialidad_usuario', 'posts', 'comments'));
     }
 
     public function config(user $user)

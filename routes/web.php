@@ -32,19 +32,22 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('perfil/password','ProfileController@password')->name('update_password');
 
     Route::post('perfil/{user}', 'ProfileController@store')->name('guardar_perfil'); 
-   
     Route::post('perfil/{user}/avatar','ProfileController@AvatarUpload')->name('avatar');
-
     Route::get('perfil/{user}/editar', 'ProfileController@edit')->name('editar_perfil');
-    
+
     Route::get('perfil/ajustes', 'ProfileController@update')->name('profile.ajustes');  
     
+    // posts
     Route::post('perfil/post/{user}', 'PhotoController@upload')->name('guardar_post');
     Route::delete('perfil/post/{id}', 'PhotoController@destroy')->name('eliminar_post');
     Route::get('perfil/post/{id}', 'PhotoController@index')->name('perfil_post');
-     
+
+    // configuracion
     Route::post('perfil/{user}/configuracion', 'ProfileController@configStore')->name('config');
     Route::get('perfil/{user}/configuracion', 'ProfileController@config')->name('config');
+
+    // comentarios
+    Route::post('/comentarios', 'CommentsController@store')->name('guardar_comentario');
     
 });
 

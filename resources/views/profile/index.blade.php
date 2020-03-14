@@ -140,7 +140,7 @@
 
                           @foreach ($imgCollection as $post)
                             @if ($loop->first)
-                            <span class="description" title="{{ $imgCollection->created_at->format('d-m-Y H:i') }}">{{$imgCollection->created_at->diffForHumans()}} </span>
+                            <span class="description" title="{{ $imgCollection->created_at->format('d-m-Y H:i') }}">{{$imgCollection->created_at->diffForHumans()}}&nbsp;<i class="far fa-clock"></i> </span>
                           
                         </div>
                               {{$imgCollection->description}}
@@ -165,41 +165,57 @@
                         
                         </div>
                         
-
-                        
-                        {{-- <form action="#" method="post">
-                          @if (empty(Auth::user()->profile->avatar))
-                            <img class="img-fluid img-circle img-sm" src="{{ asset('avatar/avatar.png')}}" alt="Alt Text">
-                          @else
-                            <img class="img-fluid img-circle img-sm" src="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}" alt="Alt Text">  
+                        {{-- comentarios --}}
+                        @foreach ($imgCollection as $post)
+                          @if ($loop->first)
+                            <form class="form-horizontal" action="{{ route('guardar_comentario') }}" method="POST" autocomplete="off">
+                              @csrf 
+                              <input type="hidden" name="post_id" value="{{ $imgCollection->id }}">
+                              <div class="input-group input-group-sm mb-0">
+                                <input class="form-control form-control-sm" name="message" placeholder="Agregar comentario...">
+                                <div class="input-group-append">
+                                  <button type="submit" class="btn btn-primary">Enviar</button>
+                                </div>
+                              </div>
+                            </form>
                           @endif
-                          <div class="img-push" style="margin-top:15px;">
-                            <input type="text" class="form-control form-control-sm" placeholder="Agregar comentario...">
-                            <div class="input-group-append">
-                              <button type="submit" class="btn btn-primary">Enviar</button>
-                            </div>
-                          </div>
-                        </form> --}}
-                        <form class="form-horizontal">
-                          <div class="input-group input-group-sm mb-0">
-                            <input class="form-control form-control-sm" placeholder="Agregar comentario...">
-                            <div class="input-group-append">
-                              <button type="submit" class="btn btn-primary">Enviar</button>
-                            </div>
-                          </div>
-                        </form>
+                        @endforeach
+
+                        <br>
                         
+                        @foreach ($comments as  $comment)
+                          @if($comment->post_id == $imgCollection->id)
+
+                            <div class="direct-chat-infos clearfix" style="margin-top:;">
+                              <div class="user-block">
+                                  @if (empty($comment->user->profile->avatar))
+                                    <img class="img-circle img-bordered-sm" src="{{ asset('avatar/avatar.png')}}" alt="user image">
+                                  @else
+                                    <img class="img-circle img-bordered-sm" src="{{ asset('uploads/profile_pictures')}}/{{ $comment->user->profile->avatar }}" alt="user image">
+                                  @endif  
+                                <span class="username">
+                                  <a style="color:#007bff">{{$comment->user->name}}<span class="description" style="float:right;"><i class="far fa-clock">  {{$comment->created_at->diffForHumans()}}</i></span></a>
+                                  
+                                </span>
+                                <p>
+                                  &nbsp;&nbsp;{{$comment->message}}
+                                </p>
+                              </div>
+                              
+                            </div>
+                          @endif
+                        @endforeach
+
                         <hr>
                     </div>
                   </div>
-                <br>
               @endforeach
             </div>
             @else
 
               <div class="active tab-pane" id="activity">
                 <div class="container">
-                  <b>Nombre y apellido:</b> <a>{{$user->name}}</a><br>
+                  <b>Nombre y apellido:</b> <a>{{$comment->user->name}}</a><br>
                   <b>Correo:</b> <a>{{$user->email}}</a><br>
                   <b>Teléfono:</b> <a>{{$perfil->phone}}</a><br>
                   <b>Fecha de nacimiento:</b> <a>{{date('d-m-Y', strtotime($perfil->date_born))}}</a>

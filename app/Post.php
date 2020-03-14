@@ -16,7 +16,7 @@ class Post extends Model
         return $this->hasMany(Photo::class);
     }
 
-    public function Coments()
+    public function Comments()
     {
         return $this->hasMany(Comment::class);
     }

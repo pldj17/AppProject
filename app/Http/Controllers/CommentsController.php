@@ -22,12 +22,12 @@ class CommentsController extends Controller
     {
         $comment = new Comment();
         $comment->user_id = Auth::id();
-        $comment->publication_id = $request->post('id');
+        $comment->post_id = $request->post('post_id');
         $comment->message = $request->post('message');
-        $comment->commented = date('Y-m-d H:i:s');
+        // $comment->commented = date('Y-m-d H:i:s');
         $comment->save();
 
-        return redirect()->back();
+        return redirect()->route('perfil', ['id' => Auth::user()->id]);
     }
 
     public function show($id)
