@@ -12,6 +12,6 @@ class Specialty extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'profile_specialty', 'user_id', 'specialty_id');
+        return $this->belongsToMany(User::class, 'specialty_user', 'user_id', 'specialty_id');
     }
 }

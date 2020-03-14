@@ -13,22 +13,10 @@ class HomeController extends Controller
 
     public function index(user $user)
     {
-        // $esp_por_perfil = profile_specialties::all('id');
-
-        // $perfil = profile_specialties::all()->first(); //condicional para mostrar perfiles solo si tienen alguna especialidad
-
-        // $user_id = User::all()->pluck('id');
-
-        // $especialidades = Specialty::all();
+        $esp_user = Specialty::with('users')->orderBy('id', 'desc')->get();
         
-        // $user_id = profile_specialties::all('user_id');
-
-        // $users = User::with('especialidades')
-        //     ->searchResults()
-        //     ->paginate(1);
-
         $categories = Specialty::all();
-        $shops = User::with(['especialidades'])
+        $users = User::with(['especialidades'])
             ->searchResults()
             ->paginate(9);
 
@@ -36,8 +24,8 @@ class HomeController extends Controller
 
         $profiles = Profile::where('private', 1)->with('user')->get(); 
         $contador = $profiles->count();
-        // dd($contador);
-        return view('dashboard', compact('profiles', 'users', 'especialidades', 'shops', 'categories', 'contador'));
+        // dd($esp_user);
+        return view('dashboard', compact('profiles', 'users', 'especialidades', 'users', 'categories', 'contador'));
     }
 
     public function show($id)

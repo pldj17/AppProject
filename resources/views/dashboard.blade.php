@@ -36,11 +36,11 @@
                           {{ $especialidad->id }}
                         @endforeach
                       @endforeach --}}
-                      @foreach($shops as $shop) 
-                        @foreach($shop->especialidades as $category)
+                      {{-- @foreach($users as $user) 
+                        @foreach($user->especialidades as $category)
                         {{ $category->name }}
                         @endforeach
-                      @endforeach
+                      @endforeach --}}
                     </p>
                     {{-- <ul class="ml-4 mb-0 fa-ul text-muted">
                       <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: {{$profile->address}}</li>
