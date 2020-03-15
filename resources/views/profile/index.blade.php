@@ -9,6 +9,7 @@
     {{-- <script src="{{asset("assets/pages/scripts/admin/index.js")}}" type="text/javascript"></script> --}}
 
     <script src="{{ asset ('assets/profile/js/perfil.js') }}"></script>
+    <script src="{{ asset ('assets/profile/js/comentarios.js') }}"></script>
     <script src="{{ asset ('assets/photo/js.js') }}"></script>
     <script src="{{asset("assets/js/galeria.js")}}"></script>
     {{-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> --}}
@@ -135,7 +136,6 @@
                                   @endforeach
                                 </div>
                               </div>
-                            
                           </span>
 
                           @foreach ($imgCollection as $post)
@@ -168,7 +168,7 @@
                         {{-- comentarios --}}
                         @foreach ($imgCollection as $post)
                           @if ($loop->first)
-                            <form class="form-horizontal" action="{{ route('guardar_comentario') }}" method="POST" autocomplete="off">
+                            <form class="form-horizontal" action="{{ route('guardar_comentario', [$user->id]) }}" method="POST" autocomplete="off">
                               @csrf 
                               <input type="hidden" name="post_id" value="{{ $imgCollection->id }}">
                               <div class="input-group input-group-sm mb-0">
@@ -181,21 +181,48 @@
                           @endif
                         @endforeach
 
-                        <br>
+                        <br><br>
                         
                         @foreach ($comments as  $comment)
                           @if($comment->post_id == $imgCollection->id)
 
-                            <div class="direct-chat-infos clearfix" style="margin-top:;">
-                              <div class="user-block">
+                            <div class="direct-chat-infos clearfix" id="comentario">
+                              <div class="user-block" style="margin-top:-4%;">
                                   @if (empty($comment->user->profile->avatar))
                                     <img class="img-circle img-bordered-sm" src="{{ asset('avatar/avatar.png')}}" alt="user image">
                                   @else
                                     <img class="img-circle img-bordered-sm" src="{{ asset('uploads/profile_pictures')}}/{{ $comment->user->profile->avatar }}" alt="user image">
                                   @endif  
-                                <span class="username">
-                                  <a style="color:#007bff">{{$comment->user->name}}<span class="description" style="float:right;"><i class="far fa-clock">  {{$comment->created_at->diffForHumans()}}</i></span></a>
-                                  
+                                <span class="username" id="comentario">
+                                  <a style="color:#007bff">{{$comment->user->name}}
+                                    {{-- <span style="font-family:cursive; font-size:13px; color:black;">
+                                      <i class="far fa-clock" title="{{$comment->created_at->diffForHumans()}}" style="float:right;"> </i>
+                                    </span> --}}
+                                    @if (Auth::user()->id == $comment->user_id)
+                                      <form action="{{route('eliminar_comentario', ['id' => $comment->id])}}" class="d-inline form-eliminar-comentario" style="float:right;" method="POST">
+                                          @csrf @method("delete")
+                                          <button type="submit" class="btn-accion-tabla eliminar" data-toggle="tooltip" data-placement="bottom" title="Eliminar comentario">
+                                              <i class="fa fa-fw fa-trash text-danger"></i>
+                                          </button>
+                                      </form>
+                                    @endif
+                                    <a class="btn-accion-tabla" data-toggle="tooltip" data-placement="bottom" style="float:right;" title="{{$comment->created_at->diffForHumans()}}">
+                                      <i class="fa fa-clock"></i>
+                                    </a>
+                                   
+                                </a>
+                                   
+                                {{-- @if (Auth::user()->id == $user->id)      
+                                  <div class="btn-group" style="float:right;">
+                                      <form action="{{route('eliminar_comentario', ['id' => $comment->id])}}" class="d-inline form-eliminar" method="POST"   >
+                                        <input type="hidden" name="_method" value="delete">
+                                        @csrf 
+                                        <button type="submit"  class="btn-accion-tabla eliminar" style="margin-left:20px;" >
+                                          <i class="fa fa-trash text-danger"></i>
+                                        </button>
+                                      </form>
+                                  </div>
+                                @endif --}}
                                 </span>
                                 <p>
                                   &nbsp;&nbsp;{{$comment->message}}

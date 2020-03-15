@@ -5,6 +5,7 @@ namespace ProjectApp\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use ProjectApp\Comment;
+use ProjectApp\User;
 
 class CommentsController extends Controller
 {
@@ -18,7 +19,7 @@ class CommentsController extends Controller
         //
     }
 
-    public function store(Request $request)
+    public function store(Request $request, User $user)
     {
         $comment = new Comment();
         $comment->user_id = Auth::id();
@@ -27,7 +28,7 @@ class CommentsController extends Controller
         // $comment->commented = date('Y-m-d H:i:s');
         $comment->save();
 
-        return redirect()->route('perfil', ['id' => Auth::user()->id]);
+        return redirect()->route('perfil', [$user->id]);
     }
 
     public function show($id)
@@ -45,8 +46,17 @@ class CommentsController extends Controller
         //
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        if ($request->ajax()) {
+            if (Comment::destroy($id)) {
+                return response()->json(['mensaje' => 'ok']);
+            } else {
+                return response()->json(['mensaje' => 'ng']);
+            }
+        } else {
+            abort(404);
+        }
+        return redirect()->route('profile.index');
     }
 }

@@ -47,7 +47,8 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('perfil/{user}/configuracion', 'ProfileController@config')->name('config');
 
     // comentarios
-    Route::post('/comentarios', 'CommentsController@store')->name('guardar_comentario');
+    Route::post('perfil/comentarios/{user}', 'CommentsController@store')->name('guardar_comentario');
+    Route::delete('perfil/comentario/{id}', 'CommentsController@destroy')->name('eliminar_comentario');
     
 });
 
