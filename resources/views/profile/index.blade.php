@@ -143,8 +143,10 @@
                             <span class="description" title="{{ $imgCollection->created_at->format('d-m-Y H:i') }}">{{$imgCollection->created_at->diffForHumans()}}&nbsp;<i class="far fa-clock"></i> </span>
                           
                         </div>
+                            <p>
                               {{$imgCollection->description}}
-                              {{-- {{ implode(',', $post->photos()->get()->pluck('description')->toArray())}} --}}
+                            </p>
+                            
                             @endif
                           @endforeach
 
@@ -165,6 +167,23 @@
                         
                         </div>
                         
+                        <p>
+                          <span class="float-right">
+                            <a href="{{ route('mostrar_comentarios') }}" class="link-black text-sm">
+
+                                {{-- @foreach ($count as $item => $key)
+                                    @if($a == $a)
+                                      <i class="far fa-comments mr-1"></i> Comentarios ({{$key->count()}}) 
+                                    @endif   
+                                    @break
+                                @endforeach --}}
+                                
+                            </a>
+                          </span>
+                        </p>
+
+                        <br>
+
                         {{-- comentarios --}}
                         @foreach ($imgCollection as $post)
                           @if ($loop->first)
@@ -189,12 +208,12 @@
                             <div class="direct-chat-infos clearfix" id="comentario">
                               <div class="user-block" style="margin-top:-4%;">
                                   @if (empty($comment->user->profile->avatar))
-                                    <img class="img-circle img-bordered-sm" src="{{ asset('avatar/avatar.png')}}" alt="user image">
+                                    <img class="img-circle img-bordered-sm" src="{{ asset('avatar/avatar.png')}}" alt="user image" style="height:35px; width:35px;">
                                   @else
-                                    <img class="img-circle img-bordered-sm" src="{{ asset('uploads/profile_pictures')}}/{{ $comment->user->profile->avatar }}" alt="user image">
+                                    <img class="img-circle img-bordered-sm" src="{{ asset('uploads/profile_pictures')}}/{{ $comment->user->profile->avatar }}" alt="user image" style="height:35px; width:35px;">
                                   @endif  
                                 <span class="username" id="comentario">
-                                  <a style="color:#007bff">{{$comment->user->name}}
+                                  <a style="color:#007bff; font-size:14px;">{{$comment->user->name}}
                                     {{-- <span style="font-family:cursive; font-size:13px; color:black;">
                                       <i class="far fa-clock" title="{{$comment->created_at->diffForHumans()}}" style="float:right;"> </i>
                                     </span> --}}
@@ -209,24 +228,12 @@
                                     <a class="btn-accion-tabla" data-toggle="tooltip" data-placement="bottom" style="float:right;" title="{{$comment->created_at->diffForHumans()}}">
                                       <i class="fa fa-clock"></i>
                                     </a>
-                                   
                                 </a>
-                                   
-                                {{-- @if (Auth::user()->id == $user->id)      
-                                  <div class="btn-group" style="float:right;">
-                                      <form action="{{route('eliminar_comentario', ['id' => $comment->id])}}" class="d-inline form-eliminar" method="POST"   >
-                                        <input type="hidden" name="_method" value="delete">
-                                        @csrf 
-                                        <button type="submit"  class="btn-accion-tabla eliminar" style="margin-left:20px;" >
-                                          <i class="fa fa-trash text-danger"></i>
-                                        </button>
-                                      </form>
-                                  </div>
-                                @endif --}}
                                 </span>
                                 <p>
                                   &nbsp;&nbsp;{{$comment->message}}
                                 </p>
+                                
                               </div>
                               
                             </div>
@@ -242,7 +249,7 @@
 
               <div class="active tab-pane" id="activity">
                 <div class="container">
-                  <b>Nombre y apellido:</b> <a>{{$comment->user->name}}</a><br>
+                  <b>Nombre y apellido:</b> <a>{{$user->name}}</a><br>
                   <b>Correo:</b> <a>{{$user->email}}</a><br>
                   <b>Teléfono:</b> <a>{{$perfil->phone}}</a><br>
                   <b>Fecha de nacimiento:</b> <a>{{date('d-m-Y', strtotime($perfil->date_born))}}</a>

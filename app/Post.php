@@ -27,9 +27,9 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    // public function getPhotoAttribute(): string 
-    // {
-    //     return url('photos/' . $this->attributes['image']);
-    // }
+    public static function comments_count($id=0){
+
+        return Comment::where('post_id',$id)->get()->count();
+    }
 
 }

@@ -15,14 +15,4 @@ class Profile extends Model
         return $this->belongsTo(User::class);
     }
 
-    //un post puede pertenecer a un solo perfil
-    // public function post()
-    // {
-    //     return $this->hasMany(Post::class);
-    // }
-
-    // public function especialidades()
-    // {
-    //     return $this->belongsToMany(Specialty::class);
-    // }
 }

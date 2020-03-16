@@ -5,13 +5,23 @@ namespace ProjectApp\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use ProjectApp\Comment;
+use ProjectApp\Post;
+use ProjectApp\Profile;
 use ProjectApp\User;
 
 class CommentsController extends Controller
 {
     public function index()
     {
-        //
+        $photo = Post::with('photos')->orderBy('id', 'desc')->where('user_id', $id)->get();
+
+        $posts = Post::count();
+
+        $perfil = Profile::all()->where('user_id', $id)->first();
+        $user = User::with('especialidades')->find($id);
+
+        return view('profile.index', compact('perfil', 'user', 'photo', 'especialidad_usuario', 'posts', 'comments', 'count_comments'));
+
     }
 
     public function create()
@@ -31,9 +41,13 @@ class CommentsController extends Controller
         return redirect()->route('perfil', [$user->id]);
     }
 
-    public function show($id)
+    public function show($imgCollection)
     {
-        //
+
+        $count_comments = Comment::where('post_id', $imgCollection)->get()->count();
+
+        return view('profile.index', compact('count_comments'));
+
     }
 
     public function edit($id)
@@ -46,17 +60,10 @@ class CommentsController extends Controller
         //
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy(Comment $comment)
     {
-        if ($request->ajax()) {
-            if (Comment::destroy($id)) {
-                return response()->json(['mensaje' => 'ok']);
-            } else {
-                return response()->json(['mensaje' => 'ng']);
-            }
-        } else {
-            abort(404);
-        }
-        return redirect()->route('profile.index');
+        $comment->delete();
+
+        return back();        
     }
 }

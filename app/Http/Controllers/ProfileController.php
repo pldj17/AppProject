@@ -4,11 +4,11 @@ namespace ProjectApp\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use ProjectApp\Comment;
 use ProjectApp\Http\Requests\ValidarPerfil;
 use ProjectApp\Http\Requests\ValidationPassword;
-use ProjectApp\Photo;
 use ProjectApp\Post;
 use ProjectApp\Profile;
 use ProjectApp\profile_specialties;
@@ -17,8 +17,10 @@ use ProjectApp\User;
 
 class ProfileController extends Controller
 {
-    public function index($id, user $user)
+    public function index($id)
     {
+        // $count_comments = Comment::where('post_id', $comment)->get()->count();
+
         $especialidad_usuario = profile_specialties::where('user_id', $id)->get();
 
         $photo = Post::with('photos')->orderBy('id', 'desc')->where('user_id', $id)->get();
@@ -28,11 +30,15 @@ class ProfileController extends Controller
         $perfil = Profile::all()->where('user_id', $id)->first();
         $user = User::with('especialidades')->find($id);
 
-        $comments = Comment::orderBy('id', 'desc')->get();
+        $post_id = Post::where('user_id', $id)->get('id');
 
-        // dd($comments);
+        $comments = Comment::whereIn('post_id', $post_id)->get();
+        
+         $count = Comment::orderBy('id', 'desc')->get()->groupBy('post_id');
 
-        return view('profile.index', compact('perfil', 'user', 'photo', 'especialidad_usuario', 'posts', 'comments'));
+        // dd($count);
+
+        return view('profile.index', compact('perfil', 'user', 'photo', 'especialidad_usuario', 'posts', 'comments', 'count'));
     }
 
     public function config(user $user)
