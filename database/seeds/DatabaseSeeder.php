@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call(EspecialidadesTableSeeder::class);
+        
+        // $this->call(MenuAdminTableSeeder::class);
 
         $this->call(RolesTableSeeder::class);
 

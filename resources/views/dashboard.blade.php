@@ -28,19 +28,8 @@
 
                     <h2 class="lead"><b>{{$profile->user->name}}</b></h2>
                     
-                    {{-- <p class="text-muted text-sm"><b>Especialidad: </b> {{ implode(', ', $profile->especialidades()->get()->pluck('name')->toArray())}} </p> --}}
-
                     <p class="text-muted text-sm"><b>Especialidad: </b> 
-                      {{-- @foreach($users as $user)
-                        @foreach($user->especialidades as $especialidad)
-                          {{ $especialidad->id }}
-                        @endforeach
-                      @endforeach --}}
-                      {{-- @foreach($users as $user) 
-                        @foreach($user->especialidades as $category)
-                        {{ $category->name }}
-                        @endforeach
-                      @endforeach --}}
+                        {{ implode(', ', $profile->user->especialidades()->get()->pluck('name')->toArray()) }}
                     </p>
                     {{-- <ul class="ml-4 mb-0 fa-ul text-muted">
                       <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: {{$profile->address}}</li>
