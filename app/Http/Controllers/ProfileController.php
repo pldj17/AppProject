@@ -14,16 +14,19 @@ use ProjectApp\Profile;
 use ProjectApp\profile_specialties;
 use ProjectApp\Specialty;
 use ProjectApp\User;
+use ProjectApp\Profile as favorite;
 
 class ProfileController extends Controller
 {
+    protected $user_id;
+    
     public function index($id)
     {
         // $count_comments = Comment::where('post_id', $comment)->get()->count();
 
         $especialidad_usuario = profile_specialties::where('user_id', $id)->get();
 
-        $photo = Post::with('photos')->orderBy('id', 'desc')->where('user_id', $id)->get();
+        $post = Post::with('photos')->orderBy('id', 'desc')->where('user_id', $id)->get();
 
         $posts = Post::count();
 
@@ -34,11 +37,12 @@ class ProfileController extends Controller
 
         $comments = Comment::whereIn('post_id', $post_id)->get();
         
-         $count = Comment::orderBy('id', 'desc')->get()->groupBy('post_id');
+        $count = Comment::orderBy('id', 'desc')->get()->groupBy('post_id');
 
+        $contador = '';
         // dd($count);
 
-        return view('profile.index', compact('perfil', 'user', 'photo', 'especialidad_usuario', 'posts', 'comments', 'count'));
+        return view('profile.index', compact('perfil', 'user', 'post', 'especialidad_usuario', 'posts', 'comments', 'count', 'contador'));
     }
 
     public function config(user $user)

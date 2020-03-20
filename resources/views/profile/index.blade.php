@@ -102,7 +102,7 @@
 
 
             <div class="card-body" id="tabla-data">
-              @foreach ($photo as $imgCollection)
+              @foreach ($post as $imgCollection)
                 
                     <div class="active tab-pane" id="activity">
                       <div class="post">
@@ -114,28 +114,30 @@
                           @endif
                           <span class="username">
                             <a href="#">{{$user->name}}</a>
+                            @if (Auth::user()->id == $user->id)  
                               <div class="btn-group" style="float:right;">
-                                <button type="button" class="btn btn-tool" data-toggle="dropdown" style="display:">
-                                  <i class="fas fa-ellipsis-v"></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right" id="tabla-data" role="menu">
-                                  <a href="#" class="dropdown-item"><i class="fa fa-edit"></i>&nbsp; <small>Editar</small></a>
-                                  
-                                  @foreach ($imgCollection as $post)
+                                  <button type="button" class="btn btn-tool" data-toggle="dropdown" style="display:">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                  </button>
+                                  <div class="dropdown-menu dropdown-menu-right" id="tabla-data" role="menu">
+                                    <a href="#" class="dropdown-item"><i class="fa fa-edit"></i>&nbsp; <small>Editar</small></a>
+                                    
+                                    @foreach ($imgCollection as $post)
 
-                                    <form action="{{route('eliminar_post', ['id' => $imgCollection->id])}}" class="d-inline form-eliminar" method="POST"   >
-                                      <input type="hidden" name="_method" value="delete">
-                                      @csrf 
-                                      <button type="submit"  class="btn-accion-tabla eliminar" style="margin-left:20px;" >
-                                        <i class="fa fa-trash text-danger"></i>&nbsp; Eliminar
-                                      </button>
-                                    </form>
-                                    @if ($loop->first)
-                                        @break
-                                    @endif
-                                  @endforeach
+                                      <form action="{{route('eliminar_post', ['id' => $imgCollection->id])}}" class="d-inline form-eliminar" method="POST"   >
+                                        <input type="hidden" name="_method" value="delete">
+                                        @csrf 
+                                        <button type="submit"  class="btn-accion-tabla eliminar" style="margin-left:20px;" >
+                                          <i class="fa fa-trash text-danger"></i>&nbsp; Eliminar
+                                        </button>
+                                      </form>
+                                      @if ($loop->first)
+                                          @break
+                                      @endif
+                                    @endforeach
+                                  </div>
                                 </div>
-                              </div>
+                              @endif
                           </span>
 
                           @foreach ($imgCollection as $post)
@@ -167,21 +169,17 @@
                         
                         </div>
                         
+                        @if($comments->where('post_id', $imgCollection->id)->count() == 0)
+                        
+                        @else
                         <p>
                           <span class="float-right">
-                            <a href="{{ route('mostrar_comentarios') }}" class="link-black text-sm">
-
-                                {{-- @foreach ($count as $item => $key)
-                                    @if($a == $a)
-                                      <i class="far fa-comments mr-1"></i> Comentarios ({{$key->count()}}) 
-                                    @endif   
-                                    @break
-                                @endforeach --}}
-                                
+                            <a href="{{ route('mostrar_comentarios', [$imgCollection->id, $user->id] ) }}" class="link-black text-sm">
+                              <i class="far fa-comments mr-1"></i> Comentarios ({{ $comments->where('post_id', $imgCollection->id)->count() }}) 
                             </a>
                           </span>
                         </p>
-
+                        @endif
                         <br>
 
                         {{-- comentarios --}}
@@ -204,41 +202,45 @@
                         
                         @foreach ($comments as  $comment)
                           @if($comment->post_id == $imgCollection->id)
-
-                            <div class="direct-chat-infos clearfix" id="comentario">
-                              <div class="user-block" style="margin-top:-4%;">
-                                  @if (empty($comment->user->profile->avatar))
-                                    <img class="img-circle img-bordered-sm" src="{{ asset('avatar/avatar.png')}}" alt="user image" style="height:35px; width:35px;">
-                                  @else
-                                    <img class="img-circle img-bordered-sm" src="{{ asset('uploads/profile_pictures')}}/{{ $comment->user->profile->avatar }}" alt="user image" style="height:35px; width:35px;">
-                                  @endif  
-                                <span class="username" id="comentario">
-                                  <a style="color:#007bff; font-size:14px;">{{$comment->user->name}}
-                                    {{-- <span style="font-family:cursive; font-size:13px; color:black;">
-                                      <i class="far fa-clock" title="{{$comment->created_at->diffForHumans()}}" style="float:right;"> </i>
-                                    </span> --}}
-                                    @if (Auth::user()->id == $comment->user_id)
-                                      <form action="{{route('eliminar_comentario', ['id' => $comment->id])}}" class="d-inline form-eliminar-comentario" style="float:right;" method="POST">
-                                          @csrf @method("delete")
-                                          <button type="submit" class="btn-accion-tabla eliminar" data-toggle="tooltip" data-placement="bottom" title="Eliminar comentario">
-                                              <i class="fa fa-fw fa-trash text-danger"></i>
-                                          </button>
-                                      </form>
-                                    @endif
-                                    <a class="btn-accion-tabla" data-toggle="tooltip" data-placement="bottom" style="float:right;" title="{{$comment->created_at->diffForHumans()}}">
-                                      <i class="fa fa-clock"></i>
+                            {{-- @if($comments->where('post_id', $imgCollection->id)->count() > 0 && $comments->where('post_id', $imgCollection->id)->count() <=2) --}}
+                              <div class="direct-chat-infos clearfix" id="comentario">
+                                <div class="user-block" style="margin-top:-4%;">
+                                    @if (empty($comment->user->profile->avatar))
+                                      <img class="img-circle img-bordered-sm" src="{{ asset('avatar/avatar.png')}}" alt="user image" style="height:35px; width:35px;">
+                                    @else
+                                      <img class="img-circle img-bordered-sm" src="{{ asset('uploads/profile_pictures')}}/{{ $comment->user->profile->avatar }}" alt="user image" style="height:35px; width:35px;">
+                                    @endif  
+                                  <span class="username" id="comentario">
+                                    <a style="color:#007bff; font-size:14px;">{{$comment->user->name}}
+                                      @if (Auth::user()->id == $comment->user_id)
+                                        <form action="{{route('eliminar_comentario', ['id' => $comment->id])}}" class="d-inline form-eliminar-comentario" style="float:right;" method="POST">
+                                            @csrf @method("delete")
+                                            <button type="submit" class="btn-accion-tabla eliminar" data-toggle="tooltip" data-placement="bottom" title="Eliminar comentario">
+                                                <i class="fa fa-fw fa-trash text-danger"></i>
+                                            </button>
+                                        </form>
+                                      @endif
+                                      <a class="btn-accion-tabla" data-toggle="tooltip" data-placement="bottom" style="float:right;" title="{{$comment->created_at->diffForHumans()}}">
+                                        <i class="fa fa-clock"></i>
+                                      </a>
                                     </a>
-                                </a>
-                                </span>
-                                <p>
-                                  &nbsp;&nbsp;{{$comment->message}}
-                                </p>
-                                
+                                  </span>
+                                  <p>
+                                      &nbsp;&nbsp;{{$comment->message}}
+                                  </p>
+                                  
+                                </div>
                               </div>
-                              
-                            </div>
+                            {{-- @endif --}}
                           @endif
-                        @endforeach
+                        @endforeach 
+
+                        @if($comments->where('post_id', $imgCollection->id)->count() > 1) 
+                          <div class="text-center">
+                            <a href="javascript:void(0)" class="uppercase">Ver comentarios</a>
+                            
+                          </div>
+                        @endif
 
                         <hr>
                     </div>
@@ -257,12 +259,13 @@
               </div>
 
               <br>
-              <div style="margin-left:15px;">
-                <a href="{{ route('config', [ Auth::user()->id]) }}" class="btn btn-sm btn-primary">
-                  <i class="fas fa-user"></i> Publicar Perfil
-                </a>
-                
-              </div>
+              @if (Auth::user()->id == $user->id)
+                <div style="margin-left:15px;">
+                  <a href="{{ route('config', [ Auth::user()->id]) }}" class="btn btn-sm btn-primary">
+                    <i class="fas fa-user"></i> Publicar Perfil
+                  </a>
+                </div>
+              @endif
 
             @endif
           </div>  

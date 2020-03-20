@@ -2,6 +2,7 @@
 
 namespace ProjectApp\Http\Controllers;
 
+use ProjectApp\Favorite;
 use ProjectApp\Photo;
 use ProjectApp\Profile;
 use ProjectApp\profile_specialties;
@@ -16,14 +17,15 @@ class HomeController extends Controller
         $esp_user = Specialty::with('users')->orderBy('id', 'desc')->get();
         
         $categories = Specialty::all();
-        $users = User::with(['especialidades']);
+        $users = User::with(['especialidades'])->get();
 
-        // $user->paginate(4);
+        $fav_user = Favorite::get();
 
         $profiles = Profile::where('private', 1)->with('user')->get(); 
         $contador = $profiles->count();
-        // dd($esp_user);
-        return view('dashboard', compact('profiles', 'users', 'especialidades', 'users', 'categories', 'contador'));
+        
+        // dd($fav_user);
+        return view('dashboard', compact('profiles', 'users', 'especialidades', 'users', 'categories', 'contador', 'fav_user'));
     }
 
     public function show($id)

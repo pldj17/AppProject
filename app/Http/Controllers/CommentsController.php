@@ -13,14 +13,14 @@ class CommentsController extends Controller
 {
     public function index()
     {
-        $photo = Post::with('photos')->orderBy('id', 'desc')->where('user_id', $id)->get();
+        // $photo = Post::with('photos')->orderBy('id', 'desc')->where('user_id', $id)->get();
 
-        $posts = Post::count();
+        // $posts = Post::count();
 
-        $perfil = Profile::all()->where('user_id', $id)->first();
-        $user = User::with('especialidades')->find($id);
+        // $perfil = Profile::all()->where('user_id', $id)->first();
+        // $user = User::with('especialidades')->find($id);
 
-        return view('profile.index', compact('perfil', 'user', 'photo', 'especialidad_usuario', 'posts', 'comments', 'count_comments'));
+        // return view('profile.index', compact('perfil', 'user', 'photo', 'especialidad_usuario', 'posts', 'comments', 'count_comments'));
 
     }
 
@@ -41,12 +41,12 @@ class CommentsController extends Controller
         return redirect()->route('perfil', [$user->id]);
     }
 
-    public function show($imgCollection)
+    public function show($comment)
     {
 
-        $count_comments = Comment::where('post_id', $imgCollection)->get()->count();
+        $count_comments = Comment::where('post_id', $comment)->get()->count();
 
-        return view('profile.index', compact('count_comments'));
+        return view('profile.comments.show', compact('count_comments'));
 
     }
 

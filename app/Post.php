@@ -32,4 +32,6 @@ class Post extends Model
         return Comment::where('post_id',$id)->get()->count();
     }
 
+    
+
 }

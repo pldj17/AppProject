@@ -49,7 +49,14 @@ Route::group(['middleware' => ['auth']], function(){
     // comentarios
     Route::post('perfil/comentarios/{user}', 'CommentsController@store')->name('guardar_comentario');
     Route::delete('perfil/comentario/{comment}', 'CommentsController@destroy')->name('eliminar_comentario');
-	Route::get('perfil/comentarios', 'ProfileController@index')->name('mostrar_comentarios');
+    Route::get('perfil/comentarios/{comment}', 'CommentsController@show')->name('mostrar_comentarios');
+    
+    //favoritos
+    Route::post('perfil/fav/{id}','FavoritesController@saveJob')->name('guardar_fav');
+    Route::post('perfil/unfav/{id}','FavoritesController@unsaveJob')->name('eliminar_fav');
+
+    Route::get('fav/{proId}','ProfileController@like')->name('user_fav');
+    Route::post('favorite/{post}/add','FavoritesController@add')->name('profile.favorite');
     
 });
 

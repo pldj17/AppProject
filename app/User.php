@@ -97,6 +97,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Profile::class); //esta relacion buscara en la tabla Profile una llave foranea con el nombre de user_id
     }
 
+    public function favorite_profiles()
+    {
+        return $this->belongsToMany(Profile::class, 'favorites')->withTimestamps();
+    }
+
     //Query Scope
     public function scopeName($query, $name )
     {
