@@ -44,6 +44,15 @@
             <p>Inicio</p>
           </a>
         </li>
+        @auth()
+          <li class="nav-item">
+            <a href="{{route('mostrar_fav', $id = Auth::user()->id)}}" class="nav-link">
+              {{-- <i class="nav-icon fas fa-home"></i> --}}
+              <i class="fas fa-bookmark"></i>&nbsp; &nbsp;
+              <p>Favoritos</p>
+            </a>
+          </li>
+        @endauth
 
        {{--  <li class="nav-item has-treeview">
           <a href="{{route("usuario")}}" class="nav-link">

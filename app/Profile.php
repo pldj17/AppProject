@@ -20,4 +20,9 @@ class Profile extends Model
         return $this->belongsToMany(User::class, 'favorites')->withTimestamps();
     }
 
+    // public function favorite_to_users()
+    // {
+    //     return $this->belongsToMany(User::class, 'favorites', 'profile_id', 'user_id' )->withTimestamps();
+    // }
+
 }

@@ -19,7 +19,7 @@ class HomeController extends Controller
         $categories = Specialty::all();
         $users = User::with(['especialidades'])->get();
 
-        $fav_user = Favorite::get();
+        $fav_user = Favorite::all('user_id');
 
         $profiles = Profile::where('private', 1)->with('user')->get(); 
         $contador = $profiles->count();

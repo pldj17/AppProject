@@ -52,11 +52,8 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('perfil/comentarios/{comment}', 'CommentsController@show')->name('mostrar_comentarios');
     
     //favoritos
-    Route::post('perfil/fav/{id}','FavoritesController@saveJob')->name('guardar_fav');
-    Route::post('perfil/unfav/{id}','FavoritesController@unsaveJob')->name('eliminar_fav');
-
-    Route::get('fav/{proId}','ProfileController@like')->name('user_fav');
     Route::post('favorite/{post}/add','FavoritesController@add')->name('profile.favorite');
+    Route::get('favoritos/{id}', 'FavoritesController@show')->name('mostrar_fav');
     
 });
 

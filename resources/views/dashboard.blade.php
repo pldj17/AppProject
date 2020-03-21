@@ -56,13 +56,12 @@
                             progressBar: true,
                         })" class="btn btn-sm bg-teal"><i class="far fa-bookmark" data-toggle="tooltip" data-placement="bottom" title="Agregar a favoritos"></i>
                     @else
-                      @foreach($fav_user as $fav)
-                        @if ($loop->first)
+                      {{-- @foreach($fav_user as $fav)
+                        @if ($loop->first) --}}
                           <a href="javascript:void(0);" onclick="document.getElementById('favorite-form-{{ $profile->id }}').submit();"
                             class="btn btn-sm bg-teal {{ !Auth::user()->favorite_profiles->where('pivot.profile_id',$profile->id && 'pivot.user_id', auth()->user()->id)}}">
-                            @if( $fav->user_id == auth()->user()->id && $fav->profile_id == $profile->id)
-                            {{-- @if(implode($profile->user->favorite_profiles()->get()->pluck('user_id')->toArray()) == auth()->user()->id &&
-                                implode($profile->user->favorite_profixles()->get()->pluck('profile_id')->toArray()) != $profile->id) --}}
+                            {{-- @if( $fav->user_id == auth()->user()->id) --}}
+                            @if(implode($profile->user->favorite_profiles()->get()->pluck('user_id', 'profile_id')->toArray()) != null)
                               <i class="fas fa-bookmark" data-toggle="tooltip" data-placement="bottom" title="Remover de favoritos"></i>
                             @else
                               <i class="far fa-bookmark" data-toggle="tooltip" data-placement="bottom" title="Agregar a favoritos"></i>
@@ -72,8 +71,8 @@
                               @csrf
                             </form>
                           </a>
-                        @endif
-                      @endforeach
+                        {{-- @endif
+                      @endforeach --}}
                     @endguest
                
                   <a href="{{route('perfil', ['id' => $profile->user_id])}}" class="btn btn-sm btn-primary">

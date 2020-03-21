@@ -32,6 +32,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Specialty::class);
     }
 
+    public function favorite_profiles()
+    {
+        return $this->belongsToMany(Profile::class, 'favorites')->withTimestamps();
+    }
+
+    // public function favorite_profiles()
+    // {
+    //     return $this->belongsToMany(Profile::class, 'favorites', 'profile_id', 'user_id')->withTimestamps();
+    // }
+
     //, 'profile_specialty', 'user_id', 'specialty_id'
 
     public function scopeSearchResults($query)
@@ -95,11 +105,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function profile()
     {
         return $this->hasOne(Profile::class); //esta relacion buscara en la tabla Profile una llave foranea con el nombre de user_id
-    }
-
-    public function favorite_profiles()
-    {
-        return $this->belongsToMany(Profile::class, 'favorites')->withTimestamps();
     }
 
     //Query Scope
