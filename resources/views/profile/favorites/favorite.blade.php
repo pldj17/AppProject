@@ -30,8 +30,6 @@
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
               <i class="fas fa-minus"></i></button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-              <i class="fas fa-times"></i></button>
           </div>
         </div>
         <div class="card-body p-0">
@@ -61,7 +59,7 @@
                 
                         <tr>
                             <td>
-                                {{$p->id}}
+                               #
                             </td>
                             <td>
                                 <a>
@@ -89,16 +87,19 @@
                                 @endforeach  
                             </td>
                             <td class="project-actions text-right">
-                                <a class="btn btn-primary btn-sm" href="#">
+                                <a class="btn btn-primary btn-sm" href="{{route('perfil', ['id' => $p->user_id])}}">
                                     <i class="fas fa-user">
                                     </i>
                                     Ver perfil
                                 </a>
-                                <a class="btn btn-danger btn-sm" href="#">
+                                <a class="btn btn-danger btn-sm" href="javascript:void(0);" onclick="document.getElementById('favorite-form-{{ $p->id }}').submit();">
                                     <i class="fas fa-trash">
                                     </i>
                                     Remover de favoritos
                                 </a>
+                                <form id="favorite-form-{{ $p->id }}" method="post" action="{{ route('profile.favorite',$p->id) }}" style="display: none;">
+                                    @csrf
+                                </form>
                             </td>
                         </tr> 
                        
