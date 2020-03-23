@@ -123,10 +123,10 @@ class ProfileController extends Controller
                 Auth::logout();
                 return redirect()->back();
             } else {
-                return redirect()->back()->with('mensaje', 'La nueva contraseña no puede ser la misma que la contraseña anterior');
+                return redirect()->back()->with('error', 'La nueva contraseña no puede ser la misma que la contraseña anterior');
             }
         } else {
-            return redirect()->back()->with('mensaje', 'La contraseña actual no coincide.');
+            return redirect()->back()->with('error', 'La contraseña actual no coincide.');
         }
 
     }

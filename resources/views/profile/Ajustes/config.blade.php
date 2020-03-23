@@ -20,6 +20,7 @@
 <div class="container-fluid">
     @include('includes.form-error')
     @include('includes.mensaje')
+    @include('includes.mensaje_error')
 
     {{-- collapsed-card para mantener cerrado --}}
     @if(Auth::user()->id == $user->id)

@@ -32,6 +32,7 @@
     <div class="container-fluid">
       @include('includes.form-error')
       @include('includes.mensaje')
+      @include('includes.mensaje_error')
       <div class="row">
         <div class="col-md-3">
 

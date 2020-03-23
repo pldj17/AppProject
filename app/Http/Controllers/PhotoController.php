@@ -42,7 +42,7 @@ class PhotoController extends Controller
 
         if(empty($description) && empty($img))
         {
-            return redirect()->route('perfil', ['id' => Auth::user()->id])->with('mensaje', 'Error al realizar la publicación');
+            return redirect()->route('perfil', ['id' => Auth::user()->id])->with('error', 'Error al realizar la publicación');
         }
         else
         {    
@@ -60,7 +60,7 @@ class PhotoController extends Controller
                 // $GuardarImg->user_id = $request->get('user_id');
                 $GuardarImg->post_id = $post->id;
                 $GuardarImg->save();
-                return redirect()->route('perfil', ['id' => Auth::user()->id])->with('mensaje', 'Se guardaron los cambios');
+                return redirect()->route('perfil', ['id' => Auth::user()->id])->with('mensaje', 'La publicación se realizó con éxito');
             }else 
             {
                 $images = $request->file('file');
@@ -79,7 +79,7 @@ class PhotoController extends Controller
             }
         }  
 
-        return redirect()->route('perfil', ['id' => Auth::user()->id])->with('mensaje', 'Se guardaron los cambios');
+        return redirect()->route('perfil', ['id' => Auth::user()->id])->with('mensaje', 'La publicación se realizó con éxito');
     }
 
     public function show($id)

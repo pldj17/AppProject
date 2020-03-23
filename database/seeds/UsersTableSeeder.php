@@ -1,16 +1,13 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use ProjectApp\Profile;
 use ProjectApp\User;
 use ProjectApp\Role;
 
 class UsersTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
+
     public function run()
     {
 
@@ -24,6 +21,16 @@ class UsersTableSeeder extends Seeder
             'name' => 'user',
             'email' => 'user@user.com',
             'password' => bcrypt('123456789')
+        ]);
+
+        Profile::create([
+            'user_id' => $admin->id, 
+            'private' => 0
+        ]);
+
+        Profile::create([
+            'user_id' => $user->id, 
+            'private' => 0
         ]);
 
         $admin->roles()->sync(1);
