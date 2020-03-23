@@ -2,15 +2,12 @@
 
 use Illuminate\Database\Seeder;
 use ProjectApp\Menu;
+use ProjectApp\MenuRole;
 use ProjectApp\Specialty;
 
 class MenusTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
+    
     public function run()
     {
         $Administracion = Menu::create([
@@ -51,6 +48,46 @@ class MenusTableSeeder extends Seeder
             'name' => 'MenuRol',
             'url' => 'admin/menu-rol',
             'icon' => 'fa-bars'
+        ]);
+
+        MenuRole::create([
+            'role_id' => 1, 
+            'menu_id' => $Administracion->id
+        ]);
+
+        MenuRole::create([
+            'role_id' => 1, 
+            'menu_id' => $Usuario->id
+        ]);
+
+        MenuRole::create([
+            'role_id' => 1, 
+            'menu_id' => $Especialidades->id
+        ]);
+
+        MenuRole::create([
+            'role_id' => 1, 
+            'menu_id' => $Rol->id
+        ]);
+
+        MenuRole::create([
+            'role_id' => 1, 
+            'menu_id' => $Permiso->id
+        ]);
+
+        MenuRole::create([
+            'role_id' => 1, 
+            'menu_id' => $PermisoRol->id
+        ]);
+
+        MenuRole::create([
+            'role_id' => 1, 
+            'menu_id' => $Menu->id
+        ]);
+
+        MenuRole::create([
+            'role_id' => 1, 
+            'menu_id' => $MenuRol->id
         ]);
     }
 }
