@@ -32,8 +32,10 @@ class FavoritesController extends Controller
         $perfil = Auth::user()->favorite_profiles;
 
         $especialidad = user::with('especialidades')->get();
-        //  dd($perfil, $especialidad);
+        // dd($perfil);
 
-        return view('profile.favorites.favorite', compact('perfiles', 'users', 'perfil', 'especialidad'));
+        $favs = Favorite::where('user_id', auth()->user()->id)->get();
+
+        return view('profile.favorites.favorite', compact('favs', 'perfil', 'especialidad'));
     }
 }

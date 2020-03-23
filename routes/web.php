@@ -41,10 +41,11 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('perfil/post/{user}', 'PhotoController@upload')->name('guardar_post');
     Route::delete('perfil/post/{id}', 'PhotoController@destroy')->name('eliminar_post');
     Route::get('perfil/post/{id}', 'PhotoController@index')->name('perfil_post');
+    Route::get('perfil/post/{id}/editar', 'PhotoController@edit')->name('editar_post');
 
     // configuracion
-    Route::post('perfil/{user}/configuracion', 'ProfileController@configStore')->name('config');
-    Route::get('perfil/{user}/configuracion', 'ProfileController@config')->name('config');
+    Route::post('perfil/{user}/configuracion', 'ConfigController@store')->name('config');
+    Route::get('perfil/{user}/configuracion', 'ConfigController@index')->name('config');
 
     // comentarios
     Route::post('perfil/comentarios/{user}', 'CommentsController@store')->name('guardar_comentario');

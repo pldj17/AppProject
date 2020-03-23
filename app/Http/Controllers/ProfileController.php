@@ -45,28 +45,6 @@ class ProfileController extends Controller
         return view('profile.index', compact('perfil', 'user', 'post', 'especialidad_usuario', 'posts', 'comments', 'count', 'contador'));
     }
 
-    public function config(user $user)
-    {
-        $id = $user->id;
-
-        $perfil = Profile::all()->where('user_id', $id)->first();
-        $user = User::with('especialidades')->find($id);
-
-        return view('profile.config', compact('perfil', 'user'));
-    }
-
-    public function configStore(user $user)
-    {
-        $id = $user->id;
-
-        Profile::where('user_id', $id)->update([
-            'private' => request('private')
-        ]);
-        
-        return redirect()->back()->with('mensaje', 'Su perfil ha sido actualizado correctamente');
-
-    }
-
     public function store(ValidarPerfil $request, User $user)
     {
         $user_id = auth()->user()->id; 
@@ -126,16 +104,31 @@ class ProfileController extends Controller
         return back()->with('mensaje', 'Su perfil ha sido actualizado correctamente.');
     }
 
-    public function password(ValidationPassword $request)
+    public function password(Request $request)
     {
-        $user_id = auth()->user()->id; 
-
-        User::where('id', $user_id)->update([
-            'password' => Hash::make($request->get('password'))
+        $this->validate($request,[
+            'old_password' => 'required',
+            'password' => 'required|confirmed',
         ]);
-        
 
-        return back()->with('mensaje', 'Su perfil ha sido actualizado correctamente.');
+        $hashedPassword = Auth::user()->password;
+        if (Hash::check($request->old_password,$hashedPassword))
+        {
+            if (!Hash::check($request->password,$hashedPassword))
+            {
+                $user = User::find(Auth::id());
+                $user->password = Hash::make($request->password);
+                $user->save();
+                // Toastr::success('Contraseña cambiada correctamente','Success');
+                Auth::logout();
+                return redirect()->back();
+            } else {
+                return redirect()->back()->with('mensaje', 'La nueva contraseña no puede ser la misma que la contraseña anterior');
+            }
+        } else {
+            return redirect()->back()->with('mensaje', 'La contraseña actual no coincide.');
+        }
+
     }
 
     public function AvatarUpload(Request $request)

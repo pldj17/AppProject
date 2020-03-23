@@ -120,7 +120,7 @@
                                     <i class="fas fa-ellipsis-v"></i>
                                   </button>
                                   <div class="dropdown-menu dropdown-menu-right" id="tabla-data" role="menu">
-                                    <a href="#" class="dropdown-item"><i class="fa fa-edit"></i>&nbsp; <small>Editar</small></a>
+                                    {{-- <a href="#" class="dropdown-item"><i class="fa fa-edit"></i>&nbsp; <small>Editar</small></a> --}}
                                     
                                     @foreach ($imgCollection as $post)
 
