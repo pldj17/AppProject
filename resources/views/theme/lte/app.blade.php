@@ -39,6 +39,37 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+    {{-- firebase --}}
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+    {{-- <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script> --}}
+    <link rel="manifest" href="{{ asset ('manifest.json') }}">
+
+    {{-- <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyClQpFR2KthO4HZ1xtma701O8sef0TSPPU",
+        authDomain: "app-project-notification.firebaseapp.com",
+        databaseURL: "https://app-project-notification.firebaseio.com",
+        projectId: "app-project-notification",
+        storageBucket: "app-project-notification.appspot.com",
+        messagingSenderId: "748046306262",
+        appId: "1:748046306262:web:e94c153f5751d62c717277",
+        measurementId: "G-883ZLR55RS"
+      };
+
+      firebase.initializeApp(firebaseConfig);
+
+      const messaging = firebase.messaging(); 
+            messaging
+              .requestPermission()
+              .then(function(){ 
+                  console.log ('Permiso de notificación otorgado.'); 
+              }).
+              catch(function(err){ 
+                console.log('No se puede obtener permiso para notificar.', err); 
+              });
+    </script> --}}
+
     
   </head>
 
@@ -165,6 +196,9 @@
      <script src="{{asset("assets/js/funciones.js")}}"></script>
      {{-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> --}}
      
+     {{-- firebase --}}
+     <script src="{{asset('assets/js/firebase.js')}}"></script>
+
     @yield("scripts")
 
   </body>
