@@ -5,23 +5,14 @@ namespace ProjectApp\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use ProjectApp\Comment;
-use ProjectApp\Post;
-use ProjectApp\Profile;
 use ProjectApp\User;
+use ProjectApp\Notification;
 
 class CommentsController extends Controller
 {
     public function index()
     {
-        // $photo = Post::with('photos')->orderBy('id', 'desc')->where('user_id', $id)->get();
-
-        // $posts = Post::count();
-
-        // $perfil = Profile::all()->where('user_id', $id)->first();
-        // $user = User::with('especialidades')->find($id);
-
-        // return view('profile.index', compact('perfil', 'user', 'photo', 'especialidad_usuario', 'posts', 'comments', 'count_comments'));
-
+        //
     }
 
     public function create()
@@ -37,6 +28,10 @@ class CommentsController extends Controller
         $comment->message = $request->post('message');
         // $comment->commented = date('Y-m-d H:i:s');
         $comment->save();
+
+        $noti = new Notification;
+        $token = 'dKyIuQ6nW4U:APA91bHanH5jq9cRytIzL-U4MlV2sct0_X5Vjm0u-TuSexbngW5jNp9xCIzrxNsRJQOvgmfXmGdJkei_VNMSy4--8lJ29xXC3p9F6gzDQGci6SxWJj_jraiFIdtmjesUWXlvJ8CbXjgw';
+        $noti->toSingleDevice($token, 'title', 'body', null, null);
 
         return redirect()->route('perfil', [$user->id]);
     }

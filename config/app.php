@@ -178,6 +178,7 @@ return [
         // ProjectApp\Providers\BroadcastServiceProvider::class,
         ProjectApp\Providers\EventServiceProvider::class,
         ProjectApp\Providers\RouteServiceProvider::class,
+        LaravelFCM\FCMServiceProvider::class,
 
     ],
 
@@ -232,6 +233,8 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'FCM'      => LaravelFCM\Facades\FCM::class,
+    	'FCMGroup' => LaravelFCM\Facades\FCMGroup::class, 
     ],
 
 ];

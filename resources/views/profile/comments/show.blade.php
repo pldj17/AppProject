@@ -1,7 +1,7 @@
-<div class="card-body" id="tabla-data">
+<div class="card-body">
     @foreach ($post as $imgCollection)
       
-          <div class="active tab-pane" id="activity">
+          <div class="active tab-pane">
             <div class="post">
               <div class="user-block">
                 @if (empty($perfil->avatar))
@@ -15,12 +15,12 @@
                       <button type="button" class="btn btn-tool" data-toggle="dropdown" style="display:">
                         <i class="fas fa-ellipsis-v"></i>
                       </button>
-                      <div class="dropdown-menu dropdown-menu-right" id="tabla-data" role="menu">
+                      <div class="dropdown-menu dropdown-menu-right" role="menu">
                         <a href="#" class="dropdown-item"><i class="fa fa-edit"></i>&nbsp; <small>Editar</small></a>
                         
                         @foreach ($imgCollection as $post)
 
-                          <form action="{{route('eliminar_post', ['id' => $imgCollection->id])}}" class="d-inline form-eliminar" method="POST"   >
+                          <form action="{{route('eliminar_post', ['id' => $imgCollection->id])}}" class="d-inlin" method="POST"   >
                             <input type="hidden" name="_method" value="delete">
                             @csrf 
                             <button type="submit"  class="btn-accion-tabla eliminar" style="margin-left:20px;" >
