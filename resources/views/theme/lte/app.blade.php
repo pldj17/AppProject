@@ -56,7 +56,19 @@
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
         <section class="content-header" style="margin-left:3%;">
-            @yield('title')
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                @yield('title')
+              </div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  @yield('bottom')
+                </ol>
+              </div>
+            </div>
+          </div>
+            
         </section>
         <section class="content">
           @yield('contenido')
