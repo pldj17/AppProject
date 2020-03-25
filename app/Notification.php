@@ -3,6 +3,7 @@
 namespace ProjectApp;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
@@ -10,6 +11,11 @@ use FCM;
 
 class Notification extends Model
 {
+    use SoftDeletes;
+
+    protected $fillable = ['comment_id', 'post_id', 'user_id'];
+    protected $dates = ['delete_ate'];
+
     public static function toSingleDevice($token=null, $title=null, $body=null, $icon, $click_action){
         $optionBuilder = new OptionsBuilder();
         $optionBuilder->setTimeToLive(60*20);
@@ -27,7 +33,7 @@ class Notification extends Model
         $notification = $notificationBuilder->build();
         $data = $dataBuilder->build();
 
-        $token = "$token";
+        $token = $token;
 
         $downstreamResponse = FCM::sendTo($token, $option, $notification, $data);
 
@@ -41,7 +47,7 @@ class Notification extends Model
         $downstreamResponse->tokensWithError();
     }
 
-    public static function toMultiDevice($model, $token=null, $title=null, $body=null, $icon, $click_action){
+    public static function toMultiDevice($model, $title=null, $body=null, $icon, $click_action){
         $optionBuilder = new OptionsBuilder();
         $optionBuilder->setTimeToLive(60*20);
 
@@ -72,8 +78,8 @@ class Notification extends Model
         $downstreamResponse->tokensWithError();
     }
 
-    public static function numberAlert(){
+    // public static function numberAlert(){
 
-    }
+    // }
 
 }

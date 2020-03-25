@@ -21,7 +21,8 @@ const messaging = firebase.messaging();
                 console.log("Permiso de notificación otorgado.");
                 return messaging.getToken()
 
-            }).then(function(token){
+            }).then(function(token){    
+                $('#device_token').val(token);
                 console.log(token)
             }).
 

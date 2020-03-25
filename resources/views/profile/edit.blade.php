@@ -123,14 +123,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="">Dirección</label>
-                        <input type="text" class="form-control" name="address" value="{{Auth::user()->profile->address ?? ''}}">
-                        @if ($errors->has('address'))
-                            <div class="error text-danger">{{ $errors->first('address')}}</div>                        
-                        @endif
-                    </div>
-
-                    <div class="form-group">
                         <label for="">Descripción</label>
                         <textarea name="description" id="" cols="" rows="" class="form-control">{{Auth::user()->profile->description ?? ''}}</textarea>
                         @if ($errors->has('description'))
@@ -168,7 +160,70 @@
           </div>
         </div>
       </div>
+
     </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-secondary">
+            <div class="card-header">
+              <h5 class="card-title">Agregar dirección</h5>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                {{-- <div class="btn-group">
+                  <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
+                    <i class="fas fa-wrench"></i>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-right" role="menu">
+                    <a href="#" class="dropdown-item">Action</a>
+                    <a href="#" class="dropdown-item">Another action</a>
+                    <a href="#" class="dropdown-item">Something else here</a>
+                    <a class="dropdown-divider"></a>
+                    <a href="#" class="dropdown-item">Separated link</a>
+                  </div>
+                </div> 
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>--}}
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="form-group">
+                    <label for="">Dirección</label>
+                    <input type="text" class="form-control" name="address" value="{{Auth::user()->profile->address ?? ''}}">
+                    @if ($errors->has('address'))
+                        <div class="error text-danger">{{ $errors->first('address')}}</div>                        
+                    @endif
+                    <div class="form-group">
+                        <label for="address">{{ trans('cruds.shop.fields.address') }}</label>
+                        <input class="form-control map-input {{ $errors->has('address') ? 'is-invalid' : '' }}" type="text" name="address" id="address" value="{{ old('address', $shop->address) }}">
+                        <input type="hidden" name="latitude" id="address-latitude" value="{{ old('latitude', $shop->latitude) ?? '0' }}" />
+                        <input type="hidden" name="longitude" id="address-longitude" value="{{ old('longitude', $shop->longitude) ?? '0' }}" />
+                        @if($errors->has('address'))
+                            <div class="invalid-feedback">
+                                {{ $errors->first('address') }}
+                            </div>
+                        @endif
+                        <span class="help-block">{{ trans('cruds.shop.fields.address_helper') }}</span>
+                    </div>
+                    <div id="address-map-container" class="mb-2" style="width:100%;height:400px; ">
+                        <div style="width: 100%; height: 100%" id="address-map"></div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    
     
 
     @endsection
+    @section('scripts')
+<script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&callback=initialize&language=en&region=GB" async defer></script>
+<script src="assets/js/mapInput.js"></script>
+@endsection

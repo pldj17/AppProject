@@ -42,7 +42,8 @@
 
     {{-- firebase --}}
     <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
-    <link rel="manifest" href="{{ asset ('manifest.json') }}">
+    {{-- <link rel="manifest" href="manifest.json"> --}}
+    <link rel="manifest" href="{{ asset ("manifest.json") }}">
 
 
     
@@ -101,7 +102,7 @@
 
     $(function () {
     //Initialize Select2 Elements
-    $('.select2').select2()
+    // $('.select2').select2()
 
     //Initialize Select2 Elements
     $('.select2bs4').select2({

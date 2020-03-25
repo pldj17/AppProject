@@ -51,6 +51,8 @@ class RegisterController extends Controller
             'private' => 0,
         ]);
 
+        //  User::where('id', auth()->user()->id)->update(['device_token' => $request->device_token]);
+
         //  $user->roles()->attach(Role::where('name', 'user')->first()); //pedimos el rol con el nombre user, attach se encarga de las tablas relacionadas
         
         // return $user;

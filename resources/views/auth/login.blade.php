@@ -18,6 +18,9 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   
+   {{-- firebase --}}
+   <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+   <link rel="manifest" href="{{ asset ("manifest.json") }}">
  
 
 
@@ -61,6 +64,7 @@
         </div>
 
         <div class="text-center">
+            <input type="hidden" name="device_token" id="device_token">
             <button type="submit" class="btn btn-primary my-2">{{ __('Ingresar') }}</button>
         </div>
     </form>
@@ -101,6 +105,9 @@
     <script src="{{asset("assets/$theme/plugins/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
     <!-- AdminLTE App -->
     <script src="{{asset("assets/$theme/dist/js/adminlte.min.js")}}"></script>
+
+     {{-- firebase --}}
+     <script src="{{asset('assets/js/firebase.js')}}"></script>
 
 </body>
 </html>

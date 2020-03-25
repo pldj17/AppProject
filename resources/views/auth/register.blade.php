@@ -19,6 +19,10 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
     <script src="{{asset("assets/pages/scripts/session/register.js")}}"></script>
+
+     {{-- firebase --}}
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+    <link rel="manifest" href="{{ asset ('manifest.json') }}">
     
     </head>
     <body class="hold-transition register-page">
@@ -116,6 +120,7 @@
 
                     {{-- crear cuenta --}}
                     <div class="text-center">
+                        {{-- <input type="hidden" name="device_token" id="device_token"> --}}
                         <button type="submit" id="btnvalidar" class="btn btn-primary mt-4" value="Validar">{{ __('Crear cuenta') }}</button>
                     </div>
                 </form>
@@ -137,5 +142,7 @@
     <script src="{{asset("assets/$theme/plugins/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
     <!-- AdminLTE App -->
     <script src="{{asset("assets/$theme/dist/js/adminlte.min.js")}}"></script>
+     {{-- firebase --}}
+     <script src="{{asset('assets/js/firebase.js')}}"></script>
     </body>
 </html>

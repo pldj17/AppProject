@@ -7,6 +7,7 @@ use ProjectApp\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use ProjectApp\role;
+use ProjectApp\User;
 
 class LoginController extends Controller
 {
@@ -24,6 +25,8 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
+        User::where('id', auth()->user()->id)->update(['device_token' => $request->device_token]);
+        
         $roles = $user->roles()->get();
         if ($roles->isNotEmpty()) {
             $user->setSession($roles->toArray());
@@ -33,5 +36,6 @@ class LoginController extends Controller
             return redirect('login')->withErrors(['error' => 'Este usuario no tiene un rol activo']);
         }
     }
+
 
 }

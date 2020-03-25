@@ -37,6 +37,9 @@ Route::group(['middleware' => ['auth']], function(){
 
     Route::get('perfil/ajustes', 'ProfileController@update')->name('profile.ajustes');  
     
+    //informacion de contacto
+    Route::get('perfil/contacto/{id}', 'ProfileController@index')->name('perfil_contact');
+
     // posts
     Route::post('perfil/post/{user}', 'PhotoController@upload')->name('guardar_post');
     Route::delete('perfil/post/{id}', 'PhotoController@destroy')->name('eliminar_post');

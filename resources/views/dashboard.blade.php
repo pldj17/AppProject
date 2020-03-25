@@ -4,6 +4,10 @@
     Inicio
 @endsection
 
+@section('title')
+  <h2>Servicios disponibles</h2>
+@endsection
+
 @section('contenido')
     @include('includes.mensaje')
 
@@ -12,10 +16,7 @@
     <div class="card-body pb-0">
       <div class="row d-flex align-items-stretch">
         @foreach($profiles as $profile)
-          @if(implode(', ', $profile->user->especialidades()->get()->pluck('id')->toArray()) != null)
-            @section('title')
-              <h2>Servicios disponibles</h2>
-            @endsection
+            
             <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
               <div class="card bg-light">
                 <div class="card-header text-muted border-bottom-0">
@@ -73,11 +74,7 @@
                 </div>
               </div>
             </div>
-          @else
-            @if ($loop->first)
-              <h2>Sin servicios disponibles</h2>
-            @endif
-          @endif
+          
         @endforeach
       </div>
     </div>

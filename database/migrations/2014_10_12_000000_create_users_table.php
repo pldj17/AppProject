@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('active')->default('1');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password',100);
+            $table->string('device_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->charset = 'utf8mb4';

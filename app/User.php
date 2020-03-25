@@ -16,7 +16,7 @@ class User extends Authenticatable implements MustVerifyEmail
     // use RoutesWithFakeIds;
     
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'device_token'
     ];
 
     protected $hidden = [
