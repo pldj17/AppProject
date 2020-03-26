@@ -24,7 +24,7 @@ class HomeController extends Controller
         $profiles = Profile::where('private', 1)->with('user')->get(); 
         $contador = $profiles->count();
         
-        // dd($fav_user);
+        // dd($profiles);
         return view('dashboard', compact('profiles', 'users', 'especialidades', 'users', 'categories', 'contador', 'fav_user'));
     }
 

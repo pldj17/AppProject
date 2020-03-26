@@ -8,7 +8,10 @@ use ProjectApp\User;
 class Profile extends Model
 {
 
-    protected $guarded = [];
+    // protected $table = 'profiles';
+    // protected $fillable = ['private', 'description', 'phone', 'correo', 'avatar', 'date_born', 'address_address',
+    //                        'address_latitude', 'address_longitude'];
+    protected $guarded = ['id'];
 
     public function user()
     {

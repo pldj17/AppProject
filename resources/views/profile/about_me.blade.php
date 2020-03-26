@@ -20,21 +20,21 @@
     
       <hr>
 
-      <strong><i class="fas fa-book mr-1"></i>Formación</strong>
+      {{-- <strong><i class="fas fa-book mr-1"></i>Formación</strong>
 
       <p class="text-muted">
         B.S. in Computer Science from the University of Tennessee at Knoxville
       </p>
 
-      <hr>
+      <hr> --}}
 
       <strong><i class="fas fa-map-marker-alt mr-1"></i> Ubicación</strong><br>
 
       {{-- si user_id == auth::user()- --}}
-      @if (empty($perfil->address) && (Auth::user()->id == $user->id))
+      @if (empty($perfil->address_address) && (Auth::user()->id == $user->id))
         <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="ubicacion" style="text-decoration:none;"><small>Agregar Ubicación</small></a>
       @else
-        <small class="text-muted">{{$perfil->address}}</small>
+        <small class="text-muted">{{$perfil->address_address}}</small>
       @endif
 
       {{-- <p class="text-muted">{{$perfil->address ?? 'Agregar ubicacion'}}</p> --}}

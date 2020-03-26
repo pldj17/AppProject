@@ -9,10 +9,41 @@
     <script src="{{asset("assets/$theme/plugins/select2/js/select2.full.min.js")}}"></script>
     <script>var url = "{{ route('avatar', [$user->id]) }}";</script>
     <script src="{{ asset ('assets/photo/js.js') }}"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/5.4.1/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCPtKyI4BdM48KZ5rZNtF_SCGTXGjk1C8c"></script>
         <!-- InputMask -->
-    {{-- <script src="{{asset("assets/$theme/plugins/moment/moment.min.js")}}"></script>
-    <script src="{{asset("assets/$theme/plugins/inputmask/min/jquery.inputmask.bundle.min.js")}}"></script> --}}
+    <script src="{{asset("assets/$theme/plugins/moment/moment.min.js")}}"></script>
+    <script src="{{asset("assets/$theme/plugins/inputmask/min/jquery.inputmask.bundle.min.js")}}"></script>
+
+    <script>
+
+        var searchInput = 'search_input';
+
+        $(document).ready(function () {
+            var autocomplete;
+            autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+                types: ['geocode'],
+            });
+            
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                var near_place = autocomplete.getPlace();
+                document.getElementById('latitude_input').value = near_place.geometry.location.lat();
+                document.getElementById('longitude_input').value = near_place.geometry.location.lng();
+                
+                document.getElementById('latitude_view').innerHTML = near_place.geometry.location.lat();
+                document.getElementById('longitude_view').innerHTML = near_place.geometry.location.lng();
+            });
+        });
+
+        $(document).on('change', '#'+searchInput, function () {
+            document.getElementById('latitude_input').value = '';
+            document.getElementById('longitude_input').value = '';
+            document.getElementById('latitude_view').innerHTML = '';
+            document.getElementById('longitude_view').innerHTML = '';
+        });
+
+    </script>
+
 @endsection
 
 @section('styles')
@@ -113,15 +144,25 @@
                           <input type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
                         </div>
                       </div> --}}
-
-                    <div class="form-group">
-                        <label for="">Teléfono</label>
-                        <input type="text" class="form-control" name="phone" value="{{Auth::user()->profile->phone ?? ''}}">
-                        @if ($errors->has('phone'))
-                            <div class="error text-danger">{{ $errors->first('phone')}}</div>                        
-                        @endif
-                    </div>
-
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                              <label for="">Teléfono</label>
+                              <input type="text" class="form-control" name="phone" value="{{Auth::user()->profile->phone ?? ''}}">
+                              @if ($errors->has('phone'))
+                                  <div class="error text-danger">{{ $errors->first('phone')}}</div>                        
+                              @endif
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                            <label>Localización</label>
+                            <input type="text" class="form-control" name="address_address" id="search_input" value="{{Auth::user()->profile->address_address ?? ''}}"/>
+                            {{-- <input type="hidden" id="latitude_input" name="latitude_input"/>
+                            <input type="hidden" id="longitude_input" name="longitude_input"/> --}}
+                          </div>
+                        </div>
+                      </div>
                     <div class="form-group">
                         <label for="">Descripción</label>
                         <textarea name="description" id="" cols="" rows="" class="form-control">{{Auth::user()->profile->description ?? ''}}</textarea>
@@ -162,68 +203,6 @@
       </div>
 
     </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card card-secondary">
-            <div class="card-header">
-              <h5 class="card-title">Agregar dirección</h5>
-
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
-                {{-- <div class="btn-group">
-                  <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
-                    <i class="fas fa-wrench"></i>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right" role="menu">
-                    <a href="#" class="dropdown-item">Action</a>
-                    <a href="#" class="dropdown-item">Another action</a>
-                    <a href="#" class="dropdown-item">Something else here</a>
-                    <a class="dropdown-divider"></a>
-                    <a href="#" class="dropdown-item">Separated link</a>
-                  </div>
-                </div> 
-                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                  <i class="fas fa-times"></i>
-                </button>--}}
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="form-group">
-                    <label for="">Dirección</label>
-                    <input type="text" class="form-control" name="address" value="{{Auth::user()->profile->address ?? ''}}">
-                    @if ($errors->has('address'))
-                        <div class="error text-danger">{{ $errors->first('address')}}</div>                        
-                    @endif
-                    <div class="form-group">
-                        <label for="address">{{ trans('cruds.shop.fields.address') }}</label>
-                        <input class="form-control map-input {{ $errors->has('address') ? 'is-invalid' : '' }}" type="text" name="address" id="address" value="{{ old('address', $shop->address) }}">
-                        <input type="hidden" name="latitude" id="address-latitude" value="{{ old('latitude', $shop->latitude) ?? '0' }}" />
-                        <input type="hidden" name="longitude" id="address-longitude" value="{{ old('longitude', $shop->longitude) ?? '0' }}" />
-                        @if($errors->has('address'))
-                            <div class="invalid-feedback">
-                                {{ $errors->first('address') }}
-                            </div>
-                        @endif
-                        <span class="help-block">{{ trans('cruds.shop.fields.address_helper') }}</span>
-                    </div>
-                    <div id="address-map-container" class="mb-2" style="width:100%;height:400px; ">
-                        <div style="width: 100%; height: 100%" id="address-map"></div>
-                    </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    
-    
 
     @endsection
-    @section('scripts')
-<script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&callback=initialize&language=en&region=GB" async defer></script>
-<script src="assets/js/mapInput.js"></script>
-@endsection
+   

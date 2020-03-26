@@ -54,9 +54,10 @@ class ProfileController extends Controller
         Profile::where('user_id', $user_id)->update([
             
             'phone' => request('phone'),
-            'address' => request('address'),
+            // 'address' => request('address'),
             'description' => request('description'),
-            'correo' => request('correo')
+            'correo' => request('correo'),
+            'address_address' => request('address_address')
         ]);
 
         $user->especialidades()->sync($request->input('especialidades', []), $request->input('user_id')); 

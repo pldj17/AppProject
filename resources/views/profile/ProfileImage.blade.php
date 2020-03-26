@@ -16,12 +16,12 @@
       
 
       @if ($perfil->private == 1 )
-        @if(empty($perfil->address) && (Auth::user()->id == $user->id))
+        @if(empty($perfil->address_address) && (Auth::user()->id == $user->id))
           <center><i class="fas fa-map-marker-alt mr-1"></i>
           <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="ubicacion" style="text-decoration:none;"><small>Agregar Ubicación</small></a>
         @else
           <center><i class="fas fa-map-marker-alt mr-1"></i>
-          <small class="text-muted">{{$perfil->address}}</small>
+          <small class="text-muted">{{$perfil->address_address}}</small>
         @endif
       @endif
       <br><br></center>

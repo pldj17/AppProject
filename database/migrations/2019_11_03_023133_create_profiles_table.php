@@ -20,9 +20,9 @@ class CreateProfilesTable extends Migration
             $table->text('description', 45)->nullable()->default(null);
             $table->string('phone', 45)->nullable()->default(null);
             $table->string('correo')->nullable()->default(null);
-            $table->string('address', 45)->nullable()->default(null);
             $table->string('avatar', 45)->nullable()->default(null);
             $table->string('date_born')->nullable()->default(null);
+            $table->string('address_address')->nullable();
             $table->timestamps();
 
             $table->bigInteger('user_id')->unsigned()->index()->nullable(); 
