@@ -28,8 +28,8 @@ class CommentsController extends Controller
         $comment->user_id = Auth::id();
         $comment->post_id = $request->post('post_id');
         $comment->message = $request->post('message');
-        $comment->commented = date('Y-m-d H:i:s');
-       
+        // $comment->commented = date('Y-m-d H:i:s');
+        $comment->save();
         // if($comment->save()){
 
         //     $noti = new Notification;
@@ -44,7 +44,7 @@ class CommentsController extends Controller
 
         
 
-        // return redirect()->route('perfil', [$user->id]);
+        return redirect()->route('perfil', [$user->id]);
     }
 
     public function show($comment)

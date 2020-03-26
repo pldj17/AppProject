@@ -11,7 +11,7 @@
           </a>
       </li>
       <li class="nav-item">
-          <a class="nav-link" href="#settings" data-toggle="tab">
+          <a class="nav-link" href="{{route('perfil_contact', ['id' => $user->id])}}">
               Contactos
           </a>
       </li>

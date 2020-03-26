@@ -122,7 +122,7 @@
       <div class="col-md-6">
         <div class="card card-secondary">
           <div class="card-header">
-            <h3 class="card-title">información básica</h3>
+            <h3 class="card-title">Información básica</h3>
 
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -133,39 +133,16 @@
             <form action="{{ route('guardar_perfil', [$user->id]) }}" method="POST" autocomplete="">
                 @csrf
                 <div class="pl-lg-4">
-
-                    {{-- <div class="form-group">
-                        <label>US phone mask:</label>
-      
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                          </div>
-                          <input type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
-                        </div>
-                      </div> --}}
-                      <div class="row">
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                              <label for="">Teléfono</label>
-                              <input type="text" class="form-control" name="phone" value="{{Auth::user()->profile->phone ?? ''}}">
-                              @if ($errors->has('phone'))
-                                  <div class="error text-danger">{{ $errors->first('phone')}}</div>                        
-                              @endif
-                          </div>
-                        </div>
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                            <label>Localización</label>
-                            <input type="text" class="form-control" name="address_address" id="search_input" value="{{Auth::user()->profile->address_address ?? ''}}"/>
-                            {{-- <input type="hidden" id="latitude_input" name="latitude_input"/>
-                            <input type="hidden" id="longitude_input" name="longitude_input"/> --}}
-                          </div>
-                        </div>
-                      </div>
+                     
+                    <div class="form-group">
+                      <label>Localización</label>
+                      <input type="text" class="form-control" name="address_address" id="search_input" value="{{Auth::user()->profile->address_address ?? ''}}"/>
+                      {{-- <input type="hidden" id="latitude_input" name="latitude_input"/>
+                      <input type="hidden" id="longitude_input" name="longitude_input"/> --}}
+                    </div>
                     <div class="form-group">
                         <label for="">Descripción</label>
-                        <textarea name="description" id="" cols="" rows="" class="form-control">{{Auth::user()->profile->description ?? ''}}</textarea>
+                        <textarea name="description" id="" cols="" rows="" class="form-control" placeholder="Escribe acerca de ti">{{Auth::user()->profile->description ?? ''}}</textarea>
                         @if ($errors->has('description'))
                             <div class="error text-danger">{{ $errors->first('description')}}</div>                        
                         @endif
@@ -176,7 +153,7 @@
                     <div class="form-group">
                       <label for="especialidades">Especialidad</label><br>
                           
-                         <select class="select2bs4 {{ $errors->has('especialidades') ? 'is-invalid' : '' }}" name="especialidades[]" id="especialidades" multiple data-placeholder="" style="width: 100%;">
+                         <select class="select2bs4 {{ $errors->has('especialidades') ? 'is-invalid' : '' }}" name="especialidades[]" id="especialidades" multiple data-placeholder="Puede seleccionar mas de uno" style="width: 100%;">
                             @foreach($especialidades as $id => $especialidades)
                                 <option value="{{ $id }}" {{ (in_array($id, old('especialidades', [])) || $user->especialidades->contains($id)) ? 'selected' : '' }}>{{ $especialidades }}</option>
                             @endforeach
@@ -190,19 +167,79 @@
                             </div>
                         @endif
                     </div>
-
+                    <div class="text-center" style="margin-top:60px;">
+                      {{-- @include('profile.boton-form-editar') --}}
+                  </div>
                     @endif
 
-                    <div class="text-center" style="margin-top:23px;">
+                    @if($perfil->private != 1)
+                      <div class="form-group">
+                        <label for="">Teléfono</label>
+                        <input type="text" class="form-control" placeholder="Ingrese su número de teléfono" name="phone" value="{{Auth::user()->profile->phone ?? ''}}">
+                        @if ($errors->has('phone'))
+                            <div class="error text-danger">{{ $errors->first('phone')}}</div>                        
+                        @endif
+                      </div>
+                      <div class="text-center" style="margin-top:23px;">
                         @include('profile.boton-form-editar')
-                    </div>
+                      </div>
+                    @endif
+                    
+                    
                 </div>
-            </form>
+            {{-- </form> --}}
           </div>
         </div>
       </div>
 
     </div>
+
+    @if($perfil->private == 1 )
+ 
+        <div class="row">
+          <div class="col-12">
+            <!-- Default box -->
+            <div class="card card-secondary">
+              <div class="card-header">
+                <h3 class="card-title">Información de contacto</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i></button>
+                </div>
+              </div>
+              <div class="card-body">
+                {{-- <form action="{{ route('guardar_contatc', [$user->id]) }}" method="POST" autocomplete="">
+                  @csrf --}}
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                          <label for="">Teléfono</label>
+                          <input type="text" class="form-control" placeholder="Ingrese su número de teléfono" name="phone" value="{{Auth::user()->profile->phone ?? ''}}">
+                          @if ($errors->has('phone'))
+                              <div class="error text-danger">{{ $errors->first('phone')}}</div>                        
+                          @endif
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label for="">Mail</label>
+                        <input type="text" class="form-control" placeholder="Ingrese su correo electrónico" name="correo" value="{{Auth::user()->profile->correo ?? ''}}">
+                        @if ($errors->has('correo'))
+                            <div class="error text-danger">{{ $errors->first('correo')}}</div>                        
+                        @endif
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-center" style="margin-top:23px;">
+                    @include('profile.boton-form-editar')
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      @endif
 
     @endsection
    

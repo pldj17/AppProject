@@ -4,87 +4,149 @@
     Perfil
 @endsection
 
+@section("styles")
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/profile/css/edit.css') }}">
+@endsection
+
 @section('scripts')
-    <script src="{{asset("assets/js/galeria.js")}}"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+
+@endsection
+
+@section('title')
+    <h2>Mi perfil</h2>
 @endsection
 
 @section('contenido')
-    @include('users.partials.header', [
-        'title' => auth()->user()->name
-    ])   
-    <div class="container-fluid mt--7">
-        
-        <div class="row justify-content-md-center">
-            <div class="col-xl-11 order-xl-2 mb-4 mb-xl-0">
-                <div class="card card-profile shadow">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-3 order-lg-2">
-                            <div class="card-profile-image">
-                                <a href="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}" class="zoom img-fluid">
-                                    @if (empty(Auth::user()->profile->avatar))
-                                        <img src="{{ asset('avatar/avatar.png')}}" class="card-img-top rounded-circle mx-auto d-block" style="height:180px; width:180px;">
-                                    @else
-                                        <img src="{{ asset('uploads/profile_pictures')}}/{{ Auth::user()->profile->avatar }}" rel="ligthbox" class="card-img-top d-block fancybox" style="width:180px; height:180px; borderdius:50%;">  
-                                    @endif
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-                        <div class="d-flex justify-content-between">
-                            <a href="{{ route('profile.edit') }}" class="btn btn-sm btn-default float-right">{{ __('Editar perfil') }}</a>
-                        </div>
-                    </div><br>
-                    <div class="card-body pt-0 pt-md-4">
-                        <div class="row">
-                            <div class="col">
-                                {{-- <div class="card-profile-stats d-flex justify-content-center mt-md-5">
-                                    <div>
-                                        <span class="heading">22</span>
-                                        <span class="description">{{ __('Friends') }}</span>
-                                    </div>
-                                    <div>
-                                        <span class="heading">10</span>
-                                        <span class="description">{{ __('Photos') }}</span>
-                                    </div>
-                                    <div>
-                                        <span class="heading">89</span>
-                                        <span class="description">{{ __('Comments') }}</span>
-                                    </div>
-                                </div> --}}
-                            </div>
-                        </div>
-                        <div class="text-center">
-                            <h3>
-                                {{ auth()->user()->name }}<span class="font-weight-light"></span>
-                                <h6>Se unió el: {{date('d F, Y', strtotime(Auth::user()->created_at))}}</h6> 
-                            </h3>
-                            <div class="h5 font-weight-300">
-                                <i class="ni location_pin mr-2">{{Auth::user()->profile->address}}</i>
-                            </div>
-                            {{-- <div class="h5 mt-4">
-                                <i class="ni business_briefcase-24 mr-2"></i>{{ __('Developer') }}
-                            </div>
-                            <div>
-                                <i class="ni education_hat mr-2"></i>{{Auth::user()->profile->description}}
-                            </div> --}}
-                            <hr class="my-4" />
 
+<div class="container-fluid">
+    @include('includes.form-error')
+    @include('includes.mensaje')
+    <div class="row">
+        <div class="col-md-3">
 
-                            @include('profile/tabs')
+            <!-- Profile Image -->
+            @include('profile.ProfileImage')
 
+            <!-- About Me Box -->
+            @if (($perfil->private == 1))
+            @include('profile.about_me')
+            @endif
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-9">
+            <div class="card">
+            @if (($perfil->private == 1))
+                <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                    <a class="nav-link " href="{{route('perfil',  ['id' => $user->id])}}">
+                        Actividades
+                    </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="{{route("perfil_post", ['id' => $user->id])}}">
+                            Fotos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{route('perfil_contact', ['id' => $user->id])}}">
+                            Contactos
+                        </a>
+                    </li>
+                </ul>
+            </div>
+                @else
+                <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                    <a class="nav-link " href="{{route('perfil',  ['id' => $user->id])}}">
+                        Mi información
+                    </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            Favoritos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" id="custom-content-below-settings-tab" data-toggle="pill" href="#custom-content-below-settings" role="tab" aria-controls="custom-content-below-settings" aria-selected="false">
+                        <i class="far fa-question-circle"  style="margin-top:40%" data-toggle="tooltip" data-placement="bottom" title="Acerca de..."></i>
+                    </a>
+                    </li>
+                    {{-- <li class="nav-item" >
+                        <a class="nav-link" href="#settings" data-toggle="tab"  style="float:right;">
+                        <i class="far fa-question-circle"  style="margin-top:40%" data-toggle="tooltip" data-placement="bottom" title="Acerca de..."></i>
+                        </a>
+                    </li> --}}
+                </ul>
+                </div>
+            @endif
+                <div class="card-body">
+                    <div class="tab-content">
 
-                            <p>{{ __('Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci..') }}</p>
-                            <a href="#">{{ __('Más información') }}</a>
+                        <div class="card-body">
+
+                            <strong><i class="fas fa-phone-alt mr-1"></i> Teléfono</strong><br>
+                    
+                            @if (empty($perfil->phone) && (Auth::user()->id == $user->id))
+                            <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="phone" style="text-decoration:none;"><small>Agregar teléfono</small></a>
+                            @else
+                            <small class="text-muted">{{$perfil->phone}}</small>
+                            @endif
+                        
+                            <hr>
+                    
+                            <strong><i class="fas fa-envelope mr-1"></i> Correo electrónico</strong><br>
+                    
+                            @if (empty($perfil->correo) && (Auth::user()->id == $user->id))
+                            <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="ubicacion" style="text-decoration:none;"><small>Correo electrónico</small></a>
+                            @else
+                            <small class="text-muted">{{$perfil->correo}}</small>
+                            @endif
+                    
+                            <hr>
+                            
+                            {{-- <strong><i class="fab fa-whatsapp"></i> Whatsaap</strong><br>
+                    
+                            @if (empty($perfil->description) && (Auth::user()->id == $user->id))
+                            <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="ubicacion" style="text-decoration:none;"><small>Agregar Descripción</small></a>
+                            @else
+                            <small class="text-muted">{{$perfil->description}}</small>
+                            @endif --}}
                         </div>
+
                     </div>
                 </div>
             </div>
+            {{-- <div class="card" style="background-color:#343a40;">
+                <div class="card-body">
+                    
+                    <ul id="networks">
+                        <li>
+                            <strong style="color: white;">Redes Sociales:</strong><br>
+                        </li>
+                        <li>
+                            <a href="https://twitter.com/pldj17" target="_blank">
+                                <img src="{{asset('assets/profile/img/twitter.png') }}">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.facebook.com/priscila.duarte.75839923" target="_blank">
+                                <img src="{{asset('assets/profile/img/facebook.png') }}">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/pldj01/?hl=es-la" target="_blank">
+                                <img src="{{asset('assets/profile/img/instagram.png') }}">
+                            </a>
+                        </li>
+                    </ul>
+                
+                </div>
+            </div> --}}
         </div>
-        
-        {{-- @include("layouts.footers.auth") --}}
+    </div>
+</div>
 
 @endsection

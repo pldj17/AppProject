@@ -24,7 +24,7 @@ class ValidarPerfil extends FormRequest
     public function rules()
     {
         return [
-            'phone' => 'numeric|min:11111|max:9999999999',
+            'phone' => 'nullable|numeric|min:11111|max:9999999999',
             'address' => '',
             'description' => 'min:5',
             'specialty_id' => 'unique'
