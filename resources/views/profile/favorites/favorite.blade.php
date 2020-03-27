@@ -21,10 +21,7 @@
     @include('includes.form-error')
     @include('includes.mensaje')
 
-    @foreach($favs as $fav)
-        @if ($loop->first && $fav->user_id == auth()->user()->id)
 
-        <!-- Default box -->
         <div class="card">
             <div class="card-header">
             <h3 class="card-title">Perfiles guardados</h3>
@@ -62,7 +59,6 @@
                 <tbody>
                     
                     @foreach($perfil as $key=>$p)
-                    
                     
                             <tr>
                                 <td>
@@ -114,19 +110,7 @@
                 </tbody>
             </table>
             </div>
-            <!-- /.card-body -->
         </div>
-        <!-- /.card -->
-
-        @else
-
-        <div class="container">
-            Tu lista de perfiles favoritos esta vacía!
-        </div>
-
-        @endif
-    @endforeach
-
     </div>
 
 @endsection

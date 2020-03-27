@@ -17,8 +17,7 @@ class HomeController extends Controller
         $esp_user = Specialty::with('users')->orderBy('id', 'desc')->get();
         
         $categories = Specialty::all();
-        $users = User::with(['especialidades'])->searchResults()
-        ->paginate(9);
+        $users = User::with(['especialidades'])->get();
 
         $fav_user = Favorite::all('user_id');
 

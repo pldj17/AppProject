@@ -128,17 +128,20 @@
                         <li>
                             <strong style="color: white;">Redes Sociales:</strong><br>
                         </li>
-                        
+                        @if($perfil->facebook != null)
                         <li>
                             <a href="{{$perfil->facebook}}" target="_blank">
                                 <img src="{{asset('assets/profile/img/facebook.png') }}">
                             </a>
                         </li>
-                        <li>
-                            <a href="{{$perfil->whatsapp}}" target="_blank">
-                                <img src="{{asset('assets/profile/img/whatsapp.jpg') }}">
-                            </a>
-                        </li>
+                        @endif
+                        @if($perfil->whatsapp != null)
+                            <li>
+                                <a href="{{$perfil->whatsapp}}" target="_blank">
+                                    <img src="{{asset('assets/profile/img/whatsapp.png') }}">
+                                </a>
+                            </li>
+                        @endif
                         {{-- <li>
                             <a href="https://www.instagram.com/pldj01/?hl=es-la" target="_blank">
                                 <img src="{{asset('assets/profile/img/instagram.png') }}">

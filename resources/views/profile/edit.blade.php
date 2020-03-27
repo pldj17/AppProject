@@ -209,19 +209,19 @@
                   <div class="row">
                     <div class="col-sm-6">
                       <div class="form-group">
-                          <label for="">Facebook</label>
-                          <input type="text" class="form-control" placeholder="Agregue link de su perfil de facebook" name="facebook" value="{{Auth::user()->profile->facebook ?? ''}}">
-                          @if ($errors->has('facebook'))
-                              <div class="error text-danger">{{ $errors->first('facebook')}}</div>                        
-                          @endif
+                        <label for="">Facebook</label>
+                        <input type="text" class="form-control" placeholder="Agregue link de su perfil de facebook" name="facebook" value="{{Auth::user()->profile->facebook ?? ''}}">
+                        @if ($errors->has('facebook'))
+                            <div class="error text-danger">{{ $errors->first('facebook')}}</div>                        
+                        @endif
                       </div>
                     </div>
                     <div class="col-sm-6">
                       <div class="form-group">
-                        <label for="">Número de Whatsaap</label>
-                        <input type="text" class="form-control" placeholder="" name="whatsaap" value="{{Auth::user()->profile->whatsaap ?? ''}}">
-                        @if ($errors->has('whatsaap'))
-                            <div class="error text-danger">{{ $errors->first('whatsaap')}}</div>                        
+                        <label for="">Número de whatsapp</label>
+                        <input type="text" class="form-control" placeholder="+595--- --- ---" name="whatsapp" value="{{Auth::user()->profile->whatsapp ?? ''}}">
+                        @if ($errors->has('whatsapp'))
+                            <div class="error text-danger">{{ $errors->first('whatsapp')}}</div>                        
                         @endif
                       </div>
                     </div>

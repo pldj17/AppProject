@@ -24,10 +24,11 @@ class ValidarPerfil extends FormRequest
     public function rules()
     {
         return [
-            'phone' => 'nullable|max:9999999999999',
+            'phone' => 'nullable|numeric|max:9999999999999',
             'address' => '',
             'description' => 'min:5',
-            'specialty_id' => 'unique'
+            'specialty_id' => 'unique',
+            'whatsapp' => 'numeric|nullable',
         ];
     }
 }

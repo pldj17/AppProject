@@ -4,6 +4,14 @@
     Inicio
 @endsection
 
+@section('scripts')
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/5.4.1/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCPtKyI4BdM48KZ5rZNtF_SCGTXGjk1C8c"></script>
+    <script src="{{asset("assets/profile/js/localization.js")}}"></script>
+
+@endsection
+
 @section('contenido')
     @include('includes.mensaje')
 
@@ -17,21 +25,21 @@
         <h2>Servicios disponibles</h2>
     @endsection
     <div class="card-body pb-0">
-      <form class="geodir-listing-search gd-search-bar-style" name="geodir-listing-search" action="{{ route('home') }}" method="get" autocomplete="off">
+      <form action="{{route('home')}}" method="get" autocomplete="off">
         <div class="container" style="display:inline-flex; background:white;">
-        
+          {{-- <div class="form-group"> --}}
             <select name="category" class="form-control select2">
                 <option selected="selected">Buscar por:</option>
                 @foreach($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                 @endforeach
             </select>
-        
+          {{-- </div> --}}
             <div class="col-md-6" style="display:inline-flex; background:white;">
-                <div class="form-group">
-                    <input type="text" class="form-control form-group-sm" name="search" id="search_input" placeholder="Seleccione un lugar"/>
+                <div class="input-group">
+                    <input type="search" class="form-control form-group-sm" name="search" id="search_input" placeholder="Seleccione un lugar"/>
                 </div>
-                <div class="form-group">
+                <div class="input-group">
                     <button type="submit" class="btn btn-default">
                         <span class="fas fa-search"></span>
                     </button>
