@@ -78,7 +78,7 @@
                                 <div class="col-md-12">
                                     <strong>Crear publicación:</strong><br><br>
                                     @if($posts < 1)
-                                      <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3" placeholder="Agregue una publicación"></textarea>
+                                      <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3" placeholder="Crear mi primera publicación"></textarea>
                                     @else
                                       <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3" placeholder="Descripción"></textarea>
                                     @endif

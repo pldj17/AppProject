@@ -11,38 +11,11 @@
     <script src="{{ asset ('assets/photo/js.js') }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/5.4.1/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCPtKyI4BdM48KZ5rZNtF_SCGTXGjk1C8c"></script>
+    <script src="{{asset("assets/profile/js/localization.js")}}"></script>
         <!-- InputMask -->
     <script src="{{asset("assets/$theme/plugins/moment/moment.min.js")}}"></script>
     <script src="{{asset("assets/$theme/plugins/inputmask/min/jquery.inputmask.bundle.min.js")}}"></script>
-
-    <script>
-
-        var searchInput = 'search_input';
-
-        $(document).ready(function () {
-            var autocomplete;
-            autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
-                types: ['geocode'],
-            });
-            
-            google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                var near_place = autocomplete.getPlace();
-                document.getElementById('latitude_input').value = near_place.geometry.location.lat();
-                document.getElementById('longitude_input').value = near_place.geometry.location.lng();
-                
-                document.getElementById('latitude_view').innerHTML = near_place.geometry.location.lat();
-                document.getElementById('longitude_view').innerHTML = near_place.geometry.location.lng();
-            });
-        });
-
-        $(document).on('change', '#'+searchInput, function () {
-            document.getElementById('latitude_input').value = '';
-            document.getElementById('longitude_input').value = '';
-            document.getElementById('latitude_view').innerHTML = '';
-            document.getElementById('longitude_view').innerHTML = '';
-        });
-
-    </script>
+    
 
 @endsection
 
@@ -231,6 +204,28 @@
                       </div>
                     </div>
                   </div>
+
+                  <label for="">Redes sociales:</label>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                          <label for="">Facebook</label>
+                          <input type="text" class="form-control" placeholder="Agregue link de su perfil de facebook" name="facebook" value="{{Auth::user()->profile->facebook ?? ''}}">
+                          @if ($errors->has('facebook'))
+                              <div class="error text-danger">{{ $errors->first('facebook')}}</div>                        
+                          @endif
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label for="">Número de Whatsaap</label>
+                        <input type="text" class="form-control" placeholder="" name="whatsaap" value="{{Auth::user()->profile->whatsaap ?? ''}}">
+                        @if ($errors->has('whatsaap'))
+                            <div class="error text-danger">{{ $errors->first('whatsaap')}}</div>                        
+                        @endif
+                      </div>
+                    </div>
+                  </div>
                   <div class="text-center" style="margin-top:23px;">
                     @include('profile.boton-form-editar')
                   </div>
@@ -239,6 +234,7 @@
             </div>
           </div>
         </div>
+        
       @endif
 
     @endsection

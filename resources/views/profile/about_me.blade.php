@@ -12,7 +12,7 @@
 
       <strong><i class="fas fa-pencil-alt mr-1"></i> Especialidad</strong><br>
 
-      @if (empty($especialidad_usuario) && (Auth::user()->id == $user->id))
+      @if (empty(implode(', ',$user->especialidades()->get()->pluck('name')->toArray())) && (Auth::user()->id == $user->id))
         <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="especialidad" style="text-decoration:none;"><small>Agregar especialidad</small></a>
       @else
         <p class="text-muted">{{ implode(', ',$user->especialidades()->get()->pluck('name')->toArray())}}</p>

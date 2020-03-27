@@ -50,9 +50,9 @@ class User extends Authenticatable implements MustVerifyEmail
             ->when(request()->filled('search'), function($query) {
                 $query->where(function($query) {
                     $search = request()->input('search');
-                    $query->where('name', 'LIKE', "%$search%")
-                        ->orWhere('description', 'LIKE', "%$search%")
-                        ->orWhere('address', 'LIKE', "%$search%");
+                    $query->where('name', 'LIKE', "%$search%");
+                        // ->orWhere('description', 'LIKE', "%$search%")
+                        // ->orWhere('address_address', 'LIKE', "%$search%");
                 });
             })
             ->when(request()->filled('especialidad'), function($query) {

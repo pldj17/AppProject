@@ -17,7 +17,8 @@ class HomeController extends Controller
         $esp_user = Specialty::with('users')->orderBy('id', 'desc')->get();
         
         $categories = Specialty::all();
-        $users = User::with(['especialidades'])->get();
+        $users = User::with(['especialidades'])->searchResults()
+        ->paginate(9);
 
         $fav_user = Favorite::all('user_id');
 
@@ -36,5 +37,21 @@ class HomeController extends Controller
         $user = User::find($id);
 
         return view('profile.index', compact('perfil', 'user', 'photo'));
+    }
+
+    public function search()
+    {
+        $categories = Specialty::all();
+        $users = User::with(['especialidades'])
+        ->searchResults()
+        ->paginate(9);
+
+        $fav_user = Favorite::all('user_id');
+
+        $profiles = Profile::where('private', 1)->with('user')->get(); 
+        $contador = $profiles->count();
+        
+        // dd($profiles);
+        return view('search', compact('profiles', 'users', 'especialidades', 'users', 'categories', 'contador', 'fav_user'));
     }
 }

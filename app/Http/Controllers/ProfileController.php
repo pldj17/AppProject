@@ -28,7 +28,7 @@ class ProfileController extends Controller
 
         $post = Post::with('photos')->orderBy('id', 'desc')->where('user_id', $id)->get();
 
-        $posts = Post::count();
+        $posts = Post::where('user_id', $id)->count();
 
         $perfil = Profile::all()->where('user_id', $id)->first();
         $user = User::with('especialidades')->find($id);
@@ -40,7 +40,7 @@ class ProfileController extends Controller
         $count = Comment::orderBy('id', 'desc')->get()->groupBy('post_id');
 
         $contador = '';
-        // dd($count);
+        // dd($post);
 
         return view('profile.index', compact('perfil', 'user', 'post', 'especialidad_usuario', 'posts', 'comments', 'count', 'contador'));
     }
@@ -53,11 +53,12 @@ class ProfileController extends Controller
         
         Profile::where('user_id', $user_id)->update([
             
-            'phone' => request('phone'),
-            // 'address' => request('address'),
+            'phone' =>  request('phone'),
             'description' => request('description'),
             'correo' => request('correo'),
-            'address_address' => request('address_address')
+            'address_address' => request('address_address'),
+            'facebook' => request('facebook'),
+            'whatsapp' => 'https://api.whatsapp.com/send?phone='.request('whatsapp').'&text=Hola&source=&data='
         ]);
 
         $user->especialidades()->sync($request->input('especialidades', []), $request->input('user_id')); 
@@ -66,9 +67,18 @@ class ProfileController extends Controller
         return redirect()->back()->with('mensaje', 'Su perfil ha sido actualizado correctamente');
     }
 
-    public function show($id)
+    public function contact($id)
     {
-        //
+        $especialidad_usuario = profile_specialties::where('user_id', $id)->get();
+
+        $post = Post::with('photos')->orderBy('id', 'desc')->where('user_id', $id)->get();
+
+        $posts = Post::where('user_id', $id)->count();
+
+        $perfil = Profile::all()->where('user_id', $id)->first();
+        $user = User::with('especialidades')->find($id);
+
+        return view('profile.contact', compact('perfil', 'user'));
     }
 
     public function edit(user $user, Request $request)

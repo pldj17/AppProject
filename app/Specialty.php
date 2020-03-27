@@ -14,4 +14,11 @@ class Specialty extends Model
     {
         return $this->belongsToMany(User::class, 'specialty_user', 'user_id', 'specialty_id');
     }
+
+    public function scopeName($query, $name )
+    {
+        if($name){
+            return $query->where('name', 'LIKE', "%$name%"); //%antes y despues significa cualquier palabra semejante antes o despues a la palabra que se esta buscando
+        }
+    }
 }

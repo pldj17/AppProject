@@ -119,32 +119,36 @@
                     </div>
                 </div>
             </div>
-            {{-- <div class="card" style="background-color:#343a40;">
+            @if(empty($perfil->facebook) && empty($perfil->whatsapp))
+            @else
+            <div class="card" style="background-color:#343a40;">
                 <div class="card-body">
                     
                     <ul id="networks">
                         <li>
                             <strong style="color: white;">Redes Sociales:</strong><br>
                         </li>
+                        
                         <li>
-                            <a href="https://twitter.com/pldj17" target="_blank">
-                                <img src="{{asset('assets/profile/img/twitter.png') }}">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.facebook.com/priscila.duarte.75839923" target="_blank">
+                            <a href="{{$perfil->facebook}}" target="_blank">
                                 <img src="{{asset('assets/profile/img/facebook.png') }}">
                             </a>
                         </li>
                         <li>
+                            <a href="{{$perfil->whatsapp}}" target="_blank">
+                                <img src="{{asset('assets/profile/img/whatsapp.jpg') }}">
+                            </a>
+                        </li>
+                        {{-- <li>
                             <a href="https://www.instagram.com/pldj01/?hl=es-la" target="_blank">
                                 <img src="{{asset('assets/profile/img/instagram.png') }}">
                             </a>
-                        </li>
+                        </li>  --}}
                     </ul>
                 
                 </div>
-            </div> --}}
+            </div>
+            @endif
         </div>
     </div>
 </div>

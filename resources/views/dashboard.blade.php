@@ -17,8 +17,36 @@
         <h2>Servicios disponibles</h2>
     @endsection
     <div class="card-body pb-0">
+      <form class="geodir-listing-search gd-search-bar-style" name="geodir-listing-search" action="{{ route('home') }}" method="get" autocomplete="off">
+        <div class="container" style="display:inline-flex; background:white;">
+        
+            <select name="category" class="form-control select2">
+                <option selected="selected">Buscar por:</option>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </select>
+        
+            <div class="col-md-6" style="display:inline-flex; background:white;">
+                <div class="form-group">
+                    <input type="text" class="form-control form-group-sm" name="search" id="search_input" placeholder="Seleccione un lugar"/>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default">
+                        <span class="fas fa-search"></span>
+                    </button>
+                </div>
+            </div> 
+        </div>
+    </form>
+    <hr>
+
+
       <div class="row d-flex align-items-stretch">
         @foreach($profiles as $profile)
+        {{-- @if(implode(', ', $profile->user->especialidades()->get()->pluck('name')->toArray()) == null) --}}
+
+        {{-- @else --}}
           <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
             <div class="card bg-light">
               <div class="card-header text-muted border-bottom-0">
@@ -80,6 +108,7 @@
               </div>
             </div>
           </div>
+          {{-- @endif --}}
         @endforeach
       </div>
     </div>

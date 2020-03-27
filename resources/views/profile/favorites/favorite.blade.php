@@ -21,6 +21,9 @@
     @include('includes.form-error')
     @include('includes.mensaje')
 
+    @foreach($favs as $fav)
+        @if ($loop->first && $fav->user_id == auth()->user()->id)
+
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
@@ -36,7 +39,7 @@
                 
             </div>
             </div>
-            <div class="card-body p-0">
+            <div class="table-responsive">
             <table class="table table-striped projects">
                 <thead>
                     <tr>
@@ -114,6 +117,15 @@
             <!-- /.card-body -->
         </div>
         <!-- /.card -->
+
+        @else
+
+        <div class="container">
+            Tu lista de perfiles favoritos esta vacía!
+        </div>
+
+        @endif
+    @endforeach
 
     </div>
 

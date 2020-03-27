@@ -25,7 +25,7 @@
                    
                     <div class="form-group row">
                         <div class="col-md-4">
-                            {{ Form::open(['route' => 'rol', 'method' => 'GET', 'class' => 'form-inline pull-right']) }}
+                            {{ Form::open(['route' => 'especialidad', 'method' => 'GET', 'class' => 'form-inline pull-right']) }}
                                 <div class="form-group">
                                     {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Realizar búsqueda', 'autocomplete' => 'off']) }}
                                 </div>

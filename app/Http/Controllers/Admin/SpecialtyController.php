@@ -9,10 +9,13 @@ use Helper\AppProject;
 
 class SpecialtyController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $name = $request->get('name');
         can('ver-especialidad');
-        $datas = Specialty::orderBy('name')->get();
+        $datas = Specialty::orderBy('name')
+                ->name($name)
+                ->paginate(6);
         return view('admin.especialidad.index', compact('datas'));
     }
 
