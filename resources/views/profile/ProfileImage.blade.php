@@ -26,8 +26,11 @@
       @endif
       <br><br></center>
           
-      @if ($perfil->private == 1 )
+      {{-- @if ($perfil->private == 1 )
         <a href="#" class="btn btn-primary btn-block"><b>Calificar</b></a>                   
-      @endif
+      @endif --}}
+      <div class="row justify-content-center">
+        @include('profile.rating.rating')
+      </div>
     </div>
 </div>

@@ -31,13 +31,13 @@
             <select name="category" class="form-control select2">
                 <option selected="selected">Buscar por:</option>
                 @foreach($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                  <option value="{{ $category->id }}"{{ old('category', request()->input('category')) == $category->id ? ' selected' : '' }}>{{ $category->name }}</option>
                 @endforeach
             </select>
           {{-- </div> --}}
             <div class="col-md-6" style="display:inline-flex; background:white;">
                 <div class="input-group">
-                    <input type="search" class="form-control form-group-sm" name="search" id="search_input" placeholder="Seleccione un lugar"/>
+<input class="form-control form-group-sm" id="search_input" name="search" value="{{ old('search', request()->input('search')) }}" type="text" placeholder="Search for" aria-label="Search for" autocomplete="off" />                  
                 </div>
                 <div class="input-group">
                     <button type="submit" class="btn btn-default">

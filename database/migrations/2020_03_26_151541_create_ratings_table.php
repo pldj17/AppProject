@@ -10,10 +10,15 @@ class CreateRatingsTable extends Migration
     {
         Schema::create('ratings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('profile_id');
-            $table->integer('user_id');
-            $table->double('raiting');
+            $table->double('rating');
             $table->timestamps();
+
+            $table->bigInteger('profile_id')->unsigned()->index(); 
+            $table->foreign('profile_id')->references('id')->on('profiles')->onDelete('cascade')->onUpdate('cascade');
+
+            $table->bigInteger('user_id')->unsigned()->index(); 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+
         });
     }
 

@@ -11,6 +11,7 @@
 |
 */
 
+use ProjectApp\Http\Controllers\RatingController;
 
 Route::get('/', function () {
     return view('dashboard');
@@ -58,6 +59,9 @@ Route::group(['middleware' => ['auth']], function(){
     //favoritos
     Route::post('favorite/{post}/add','FavoritesController@add')->name('profile.favorite');
     Route::get('favoritos/{id}', 'FavoritesController@show')->name('mostrar_fav');
+
+    route::get('perfil/{id}/puntuar', 'RatingController@index')->name('rating');
+    
     
 });
 

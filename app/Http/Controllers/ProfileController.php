@@ -15,6 +15,7 @@ use ProjectApp\profile_specialties;
 use ProjectApp\Specialty;
 use ProjectApp\User;
 use ProjectApp\Profile as favorite;
+use ProjectApp\Rating;
 
 class ProfileController extends Controller
 {
@@ -22,7 +23,11 @@ class ProfileController extends Controller
     
     public function index($id)
     {
-        // $count_comments = Comment::where('post_id', $comment)->get()->count();
+        $rating = Rating::where('profile_id', $id)->get();
+        $ratingCount = $rating->count();
+        $a = Rating::get()->where('profile_id', $id);
+        $avgStar = $a->avg('rating');
+
 
         $especialidad_usuario = profile_specialties::where('user_id', $id)->get();
 
@@ -40,9 +45,10 @@ class ProfileController extends Controller
         $count = Comment::orderBy('id', 'desc')->get()->groupBy('post_id');
 
         $contador = '';
-        // dd($post);
+        
+        // dd($avgStar);
 
-        return view('profile.index', compact('perfil', 'user', 'post', 'especialidad_usuario', 'posts', 'comments', 'count', 'contador'));
+        return view('profile.index', compact('perfil', 'user', 'post', 'especialidad_usuario', 'posts', 'comments', 'count', 'contador', 'rating', 'ratingCount', 'avgStar'));
     }
 
     public function store(ValidarPerfil $request, User $user)
@@ -58,7 +64,7 @@ class ProfileController extends Controller
             'correo' => request('correo'),
             'address_address' => request('address_address'),
             'facebook' => request('facebook'),
-            'whatsapp' => 'https://api.whatsapp.com/send?phone=595'.request('whatsapp').'&text=Hola&source=&data='
+            'whatsapp' => 'https://api.whatsapp.com/send?phone=595'.request('whatsapp').'&text=Hola&source=&data=',
         ]);
 
         $user->especialidades()->sync($request->input('especialidades', []), $request->input('user_id')); 
@@ -69,16 +75,16 @@ class ProfileController extends Controller
 
     public function contact($id)
     {
-        $especialidad_usuario = profile_specialties::where('user_id', $id)->get();
-
-        $post = Post::with('photos')->orderBy('id', 'desc')->where('user_id', $id)->get();
-
-        $posts = Post::where('user_id', $id)->count();
-
+        
         $perfil = Profile::all()->where('user_id', $id)->first();
         $user = User::with('especialidades')->find($id);
 
-        return view('profile.contact', compact('perfil', 'user'));
+        $rating = Rating::where('profile_id', $id)->get();
+        $ratingCount = $rating->count();
+        $a = Rating::get()->where('profile_id', $id);
+        $avgStar = $a->avg('rating');
+        
+        return view('profile.contact', compact('perfil', 'user', 'rating', 'ratingCount', 'avgStar'));
     }
 
     public function edit(user $user, Request $request)

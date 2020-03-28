@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rating extends Model
 {
-    protected $fillable = [
-        'profile_id', 'user_id', 'raiting'
-    ];
+    protected $table = "ratings";
+    protected $fillable = ['raiting', 'profile_id', 'user_id'];
+    protected $guarded = ['id'];
+
 }

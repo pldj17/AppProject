@@ -15,5 +15,10 @@
               Contactos
           </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{route('rating', ['id' => $user->id])}}">
+            Calificar
+        </a>
+    </li>
     </ul>
 </div>

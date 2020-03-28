@@ -37,27 +37,25 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Profile::class, 'favorites')->withTimestamps();
     }
 
-    // public function favorite_profiles()
-    // {
-    //     return $this->belongsToMany(Profile::class, 'favorites', 'profile_id', 'user_id')->withTimestamps();
-    // }
-
-    //, 'profile_specialty', 'user_id', 'specialty_id'
+    public function rating()
+    {
+        return $this->belongsToMany(Profile::class, 'ratings');
+    }
 
     public function scopeSearchResults($query)
     {
-        return $query->where('active', 1)
+        return $query
             ->when(request()->filled('search'), function($query) {
-                $query->where(function($query) {
+                $query->whereHas('profile', function($query) {
                     $search = request()->input('search');
-                    $query->where('name', 'LIKE', "%$search%");
+                    $query->where('address_address', 'LIKE', "%$search%");
                         // ->orWhere('description', 'LIKE', "%$search%")
                         // ->orWhere('address_address', 'LIKE', "%$search%");
                 });
             })
-            ->when(request()->filled('especialidad'), function($query) {
+            ->when(request()->filled('category'), function($query) {
                 $query->whereHas('especialidades', function($query) {
-                    $query->where('id', request()->input('especialidad'));
+                    $query->where('id', request()->input('category'));
                 });
             });
     }

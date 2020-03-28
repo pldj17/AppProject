@@ -8,9 +8,6 @@ use ProjectApp\User;
 class Profile extends Model
 {
 
-    // protected $table = 'profiles';
-    // protected $fillable = ['private', 'description', 'phone', 'correo', 'avatar', 'date_born', 'address_address',
-    //                        'address_latitude', 'address_longitude'];
     protected $guarded = ['id'];
 
     public function user()
@@ -23,9 +20,14 @@ class Profile extends Model
         return $this->belongsToMany(User::class, 'favorites')->withTimestamps();
     }
 
-    // public function favorite_to_users()
-    // {
-    //     return $this->belongsToMany(User::class, 'favorites', 'profile_id', 'user_id' )->withTimestamps();
-    // }
+    public function ratings()
+    {
+        return $this->belongsToMany(User::class, 'ratings');
+    }
+
+    public function getRatingAttribute()
+    {
+        return $this->ratings->avg('rating');
+    }
 
 }

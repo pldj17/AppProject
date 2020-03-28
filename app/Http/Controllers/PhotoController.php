@@ -8,6 +8,7 @@ use ProjectApp\Http\Requests\ActualizarPost;
 use ProjectApp\Photo;
 use ProjectApp\Post;
 use ProjectApp\Profile;
+use ProjectApp\Rating;
 use ProjectApp\User;
 
 class PhotoController extends Controller
@@ -16,20 +17,21 @@ class PhotoController extends Controller
     public function index($id)
     {
         $post_id = Post::get()->where('user_id', $id);
-        // 'file', '!=', '' && 
-        // $photo = Photo::with('post')->orderBy('id','desc')->get()->where('file', '!=', '')->groupBy($post_id);
 
         $publicacion = Post::with('photos')->where('user_id', $id)->get();
-        // $publicacion = Post::with('photos')->orderBy('id', 'desc')->get()->where('user_id', $id)->groupBy('id');
 
         $photo = Post::with('photos')->orderBy('id', 'desc')->where('user_id', $id)->get();
 
         $perfil = Profile::all()->where('user_id', $id)->first();
         $user = User::find($id);
 
+        $rating = Rating::where('profile_id', $id)->get();
+        $ratingCount = $rating->count();
+        $a = Rating::get()->where('profile_id', $id);
+        $avgStar = $a->avg('rating');
         //  dd($publicacion);
 
-        return view('profile.gallery', compact('perfil', 'user', 'photo', 'post_id', 'id', 'publicacion'));
+        return view('profile.gallery', compact('perfil', 'user', 'photo', 'post_id', 'id', 'publicacion', 'rating', 'ratingCount', 'avgStar'));
 
     }
 
