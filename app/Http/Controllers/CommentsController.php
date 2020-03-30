@@ -29,18 +29,18 @@ class CommentsController extends Controller
         $comment->post_id = $request->post('post_id');
         $comment->message = $request->post('message');
         // $comment->commented = date('Y-m-d H:i:s');
-        $comment->save();
-        // if($comment->save()){
+        // $comment->save();
+        if($comment->save()){
 
-        //     $noti = new Notification;
-        //     $token = 'djEvzJ9zMpQ:APA91bG1PQ-AfJLtSikGu1HocyxdzpyBo-8rzaAr9cMw9_0g5eH8ffFjI3YkimFpwbTZokCGIW6X5b3pR5YHb_3OXjC_-iO8068iTRPDWzjvuoxinNKn-vwYx9BCH2VpZYjgF5W7crKz';
-        //     $noti->toSingleDevice($token, 'title', 'body', null, null);
+            $noti = new Notification;
+            $token = 'fnj-5Xe-ei8:APA91bHc-NCO2h-ZCxxE08RmITgw4dHXkz8TUC6VaG1ZpFgnLUTySS63JwlZY3Hlyd6V_60q5jPcXBN_4u8568hS55CUPDFyUHb0gnFNbRLLXFdx8uR1uxIzcp1AF4K0M2T9_BsTMrEy';
+            $noti->toSingleDevice($token, 'title', 'body', null, null);
 
 
-        //     return redirect()->route('perfil', [$user->id]);
+            return redirect()->route('perfil', [$user->id]);
            
             
-        // }
+        }
 
         
 

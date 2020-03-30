@@ -47,6 +47,40 @@ label.requerido:after{
     color: #0936bd;
 }
 
+.rating{
+    direction: rtl;    
+}
+
+.rating i{
+    color: #313131;
+    transition: 0.3s all;
+}
+
+.rating i:hover{
+    color: #0936bd;
+    transition: 0.3s all;
+}
+
+.b1:hover ~ i{
+    color:#0936bd;
+}
+
+.b2:hover ~ i{
+    color:#0936bd;
+}
+
+.b3:hover ~ i{
+    color:#0936bd;
+}
+
+.b4:hover ~ i{
+    color:#0936bd;
+}
+
+.b5:hover ~ i{
+    color:#0936bd;
+}
+
 
 /* css prueba */
 

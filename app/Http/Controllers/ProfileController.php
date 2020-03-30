@@ -45,10 +45,12 @@ class ProfileController extends Controller
         $count = Comment::orderBy('id', 'desc')->get()->groupBy('post_id');
 
         $contador = '';
-        
-        // dd($avgStar);
 
-        return view('profile.index', compact('perfil', 'user', 'post', 'especialidad_usuario', 'posts', 'comments', 'count', 'contador', 'rating', 'ratingCount', 'avgStar'));
+        $puntuaciones = [1,2,3,4,5];
+        
+        //  dd($puntuaciones);
+
+        return view('profile.index', compact('perfil', 'user', 'puntuaciones', 'post', 'especialidad_usuario', 'posts', 'comments', 'count', 'contador', 'rating', 'ratingCount', 'avgStar'));
     }
 
     public function store(ValidarPerfil $request, User $user)
@@ -65,6 +67,7 @@ class ProfileController extends Controller
             'address_address' => request('address_address'),
             'facebook' => request('facebook'),
             'whatsapp' => 'https://api.whatsapp.com/send?phone=595'.request('whatsapp').'&text=Hola&source=&data=',
+            // 'link_whatsapp' => 'https://api.whatsapp.com/send?phone=595'.profile::get('whatsapp').'&text=Hola&source=&data='
         ]);
 
         $user->especialidades()->sync($request->input('especialidades', []), $request->input('user_id')); 

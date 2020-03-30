@@ -39,7 +39,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function rating()
     {
-        return $this->belongsToMany(Profile::class, 'ratings');
+        return $this->belongsToMany(Profile::class, 'ratings', 'user_id', 'profile_id');
     }
 
     public function scopeSearchResults($query)

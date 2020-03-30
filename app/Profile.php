@@ -22,7 +22,7 @@ class Profile extends Model
 
     public function ratings()
     {
-        return $this->belongsToMany(User::class, 'ratings');
+        return $this->belongsToMany(User::class, 'ratings', 'user_id', 'profile_id');
     }
 
     public function getRatingAttribute()

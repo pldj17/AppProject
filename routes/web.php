@@ -57,10 +57,11 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('perfil/comentarios/{comment}', 'CommentsController@show')->name('mostrar_comentarios');
     
     //favoritos
-    Route::post('favorite/{post}/add','FavoritesController@add')->name('profile.favorite');
+    Route::post('favorite/{perfil}/add','FavoritesController@add')->name('profile.favorite');
     Route::get('favoritos/{id}', 'FavoritesController@show')->name('mostrar_fav');
 
     route::get('perfil/{id}/puntuar', 'RatingController@index')->name('rating');
+    Route::post('rating/{id}/puntar','RatingController@store')->name('new_rating');
     
     
 });

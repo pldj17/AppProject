@@ -6,7 +6,7 @@
 
 @section('scripts')
   
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/5.4.1/jquery.min.js"></script>
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/5.4.1/jquery.min.js"></script> --}}
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCPtKyI4BdM48KZ5rZNtF_SCGTXGjk1C8c"></script>
     <script src="{{asset("assets/profile/js/localization.js")}}"></script>
 

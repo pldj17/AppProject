@@ -6,6 +6,7 @@ use ProjectApp\Favorite;
 use ProjectApp\Photo;
 use ProjectApp\Profile;
 use ProjectApp\profile_specialties;
+use ProjectApp\Rating;
 use ProjectApp\Specialty;
 use ProjectApp\User;
 
@@ -17,18 +18,24 @@ class HomeController extends Controller
         $esp_user = Specialty::with('users')->orderBy('id', 'desc')->get();
         
         $categories = Specialty::all();
-        $users = User::with(['especialidades', 'profile'])
-        ->searchResults();
+        $users = User::with(['especialidades', 'profile', 'rating'])
+        ->searchResults()->get();
         // ->paginate(5);
 
         $fav_user = Favorite::all('user_id');
 
-        $profiles = Profile::where('private', 1)->with('user')->get(); 
+        $profiles = Profile::where('private', 1)->with('user', 'ratings')->get(); 
         $contador = $profiles->count();
-        
-        // dd($users);
 
-        return view('dashboard', compact('profiles', 'users', 'especialidades', 'users', 'categories', 'contador', 'fav_user'));
+        // rating
+        $rating = Rating::get();
+        $ratingCount = $rating->count();
+        $a = '';
+        $avgStar = '';
+        
+        //  dd($avgStar);
+
+        return view('dashboard', compact('profiles', 'users', 'especialidades', 'users', 'categories', 'contador', 'fav_user', 'a', 'avgStar', 'rating'));
     }
 
     public function show($id)
