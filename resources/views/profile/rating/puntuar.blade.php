@@ -10,6 +10,7 @@
 @endsection
 
 @section('scripts')
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script>var url = "{{ route('new_rating', [$perfil->id]) }}";</script>
 {{-- <script>
     $(function(){
@@ -100,142 +101,126 @@
                 </ul>
                 </div>
             @endif
-                <div class="card-body">
-                    <div class="tab-content">
-                        
-                        <div class="card-body">
-
-                            <div class="card-body">
-                                <div class="row">
-                                  <div class="col-md-8">
-                                    <p class="text-center">
-                                      <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
-                                    </p>
-                
-                                    <div class="chart">
-                                        <div class="form-group">
-                                    
-                                            <div class="row justify-content-center">
-                                                <h1 style="font-size:500%;">{{bcdiv($avgStar, '1', 1)}}</h1>
-                                                
-                                            </div> 
-                                            @include('profile.rating.rating')
-                                          </div>
-                                    </div>
-                                  </div>
-                                  <div class="col-md-4">
-                                    <form action="{{ route('new_rating', [$perfil->id]) }}" method="post">
-                                        @csrf
-                                        <div class="form-group" style="margin-top:26px;">
-                                            <div class="row justify-content-center">
-                                              <h5>Elige una clasificación por estrellas</h5>
-                                            </div><br>
-                                            <div class="row justify-content-center " >
-
-                                                <div class="star_content rating">
-                                                    <i class="fas fa-star fa-2x b1"><input name="rate" value="1" type="hidden" class="star" style="opacity:0;"/> </i> 
-                                                    <i class="fas fa-star fa-2x b2"><input name="rate" value="2" type="hidden" class="star" style="opacity:0;"/> </i> 
-                                                    <i class="fas fa-star fa-2x b3"><input name="rate" value="3" type="hidden" class="star" style="opacity:0;"/> </i> 
-                                                    <i class="fas fa-star fa-2x b4"><input name="rate" value="4" type="hidden" class="star" style="opacity:0;"/> </i> 
-                                                    <i class="fas fa-star fa-2x b5"><input name="rate" value="5" type="hidden" class="star" style="opacity:0;"/> </i>
-                                                    {{-- {{$perfil->id}} --}}
-                                                </div>
-                                                    <input type="hidden" name="profile_id" value="{{ $perfil->id }}">
-                                                
-                                            </div>
-                                            
-                                        </div>
-                                        <button type="submit" name="submitRatingStar" id="submitRatingStar" class="btn btn-primary btn-sm" style="float:right;">Enviar puntuación</button>
-                                    </form>
-                                  </div>
-                                </div>
-                              </div>
-
-                            {{-- <div class="row">
-                                <div class="col-sm-4">
-                                  <div class="form-group">
-                                    
-                                    <div class="row justify-content-center">
-                                        <h1 style="font-size:500%;">{{bcdiv($avgStar, '1', 1)}}</h1>
-                                        @include('profile.rating.rating')
-                                    </div> 
-                                  </div>
-                                </div>
-
-
-                                <div class="row" style="margin-rigth:50px;">
-                                    <div id="content" class="col-lg-12">
-                                        <div class="alert alert-success" style="display: none;">Rating recibido: <span id="rate"></span></div>
-                                        <form action="{{ route('new_rating', [$perfil->id]) }}" method="post">
-                                            @csrf
-                                            <div class="form-group" style="margin-top:26px;">
-                                                <div class="row justify-content-center">
-                                                  <h5>Elige una clasificación por estrellas</h5>
-                                                </div><br>
-                                                <div class="row justify-content-center " >
-    
-                                                    <div class="star_content rating">
-                                                        <i class="fas fa-star fa-2x b1"><input name="rate" value="1" type="hidden" class="star" style="opacity:0;"/> </i> 
-                                                        <i class="fas fa-star fa-2x b2"><input name="rate" value="2" type="hidden" class="star" style="opacity:0;"/> </i> 
-                                                        <i class="fas fa-star fa-2x b3"><input name="rate" value="3" type="hidden" class="star" style="opacity:0;"/> </i> 
-                                                        <i class="fas fa-star fa-2x b4"><input name="rate" value="4" type="hidden" class="star" style="opacity:0;"/> </i> 
-                                                        <i class="fas fa-star fa-2x b5"><input name="rate" value="5" type="hidden" class="star" style="opacity:0;"/> </i>
-                                                        {{$perfil->id}}
-                                                    </div>
-                                                        <input type="hidden" name="profile_id" value="{{ $perfil->id }}">
-                                                    
-                                                </div>
-                                                
-                                            </div>
-                                            <button type="submit" name="submitRatingStar" id="submitRatingStar" class="btn btn-primary btn-sm" style="float:right;">Enviar puntuación</button>
-                                        </form>
-                                    </div>
-                                </div> --}}
-
-
-                                {{-- <div class="col-sm-8">
-                                    <form method="POST" action="{{ route('new_rating', '[$perfil->id])') }}" id="formulario">
-                                        @csrf
-                                        <div class="form-group" style="margin-top:26px;">
-                                            <div class="row justify-content-center">
-                                              <h5>Elige una clasificación por estrellas</h5>
-                                            </div><br>
-                                            <div class="row justify-content-center rating" >
-
-                                                <li class="list-inline-item b1 click" value="5">
-                                                    <i class="fas fa-star fa-2x "></i>
-                                                </li>
-                                                <li class="list-inline-item b2 click" value="4">
-                                                    <i class="fas fa-star fa-2x "></i>
-                                                </li>
-                                                <li class="list-inline-item b3 click" value="3">
-                                                    <i class="fas fa-star fa-2x "></i>
-                                                </li>
-                                                <li class="list-inline-item b4 click" value="2">
-                                                    <i class="fas fa-star fa-2x "></i>
-                                                </li>
-                                                <li class="list-inline-item b5 click" value="1">
-                                                    <i class="fas fa-star fa-2x "></i>
-                                                </li>
-
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-0">
-                                            <div class="col-md-2 offset-md-10">
-                                                <button type="submit" class="btn btn-primary" id="BtnRegistrar">
-                                                    Enviar
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div> --}}
-                            {{-- </div> --}}
-                            
-                              
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group" style="margin-left:10%;">
+                        <p style="text-aling:center;">
+                            <strong>Calificaciones</strong>
+                        </p><br>
+                        <h1 style="font-size:500%; margin-right:50%;">{{bcdiv($avgStar, '1', 1)}}</h1>
+                        @include('profile.rating.rating')
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        {{-- @foreach($rating as $r)    --}}
+                            {{-- @if($perfil->id == auth()->user()->id && $r->profile_id == auth()->user()->id)
+                                
+                            @else --}}
+                                {{-- @if($loop->first) --}}
+                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
+                                        Puntuar servicios
+                                    </button>
+                                {{-- {{$perfil->id}}{{auth()->user()->id}} {{$r->profile_id}} {{auth()->user()->id}} --}}
+                                {{-- @endif --}}
+                            {{-- @endif --}}
+                        {{-- @endforeach --}}
+                      </div>
                     </div>
                 </div>
+            </div>
+            <div>
+                @foreach($RatingStar as $r)
+                    @if($r->profile_id == $perfil->id)
+                        <div class="container" style="margin-left:35px;">
+                            <h5>Tu puntuación</h5>
+                        </div>
+                        {{$r->id}}
+                        <div class="card-footer card-comments">
+                            <div class="card-comment">
+                                @if (   empty(auth()->user()->profile->avatar))
+                                    <img class="img-circle img-sm" src="{{ asset('avatar/avatar.png')}}" alt="User Image">
+                                @else
+                                    <img class="img-circle img-sm" src="{{ asset('uploads/profile_pictures')}}/{{ auth()->user()->profile->avatar }}" alt="User Image">
+                                @endif
+                            <div class="comment-text">
+                                <small class="username">
+                                    {{auth()->user()->name}}
+                                <span class="text-muted float-right">{{$r->created_at->diffForHumans()}}</span><br>
+                                <span class="text-muted float-right">
+                                    <a href="{{route('editar_rating', ['id' => $r->id])}}" class="btn-accion-tabla" data-toggle="tooltip" data-placement="bottom" title="Editar este registro">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                </span>
+                                <br>
+                                <span class="text-muted float-right">
+                                    <form action="{{route('eliminar_rating', ['id' => $r->id])}}" class="d-inline" method="POST">
+                                        @csrf @method("delete")
+                                        <button type="submit" class="btn-accion-tabla eliminar" data-toggle="tooltip" data-placement="bottom" title="Eliminar puntuacion">
+                                            <i class="fa fa-fw fa-trash text-danger"></i>
+                                        </button>
+                                    </form>
+                                </span>
+                                </small>
+                                <ul class="list-inline">
+                                    <li class="list-inline-item"><i class="fas fa-star {{$r->rating >= 1 ? ' blue' : ''}}"></i></li>
+                                    <li class="list-inline-item"><i class="fas fa-star {{$r->rating >= 2 ? ' blue' : ''}}"></i></li>
+                                    <li class="list-inline-item"><i class="fas fa-star {{$r->rating >= 3 ? ' blue' : ''}}"></i></li>
+                                    <li class="list-inline-item"><i class="fas fa-star {{$r->rating >= 4 ? ' blue' : ''}}"></i></li>
+                                    <li class="list-inline-item"><i class="fas fa-star {{$r->rating >= 5 ? ' blue' : ''}}"></i></li>
+                                </ul>
+                                <b>{{$r->title_rating}}</b><br>
+                                {{$r->description_rating}}
+                            </div>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
+                @if($R != null)
+                    <div class="container" style="margin-top:10px; height:13px; margin-left:35px;">
+                        <h5>Puntuaciones</h5>
+                    </div>
+                @endif
+                @foreach($R as $r)
+                    @if($r->profile_id == $perfil->id && $r->user_id != auth()->user()->id)
+                        <br>
+                        @foreach($usuarios as $u)
+                            @if($u->id == $r->user_id)
+                                <div class="card-footer card-comments" style="background-color:white;">
+                                    <div class="card-comment">
+                                        @if (empty($u->avatar))
+                                            <img class="img-circle img-sm" src="{{ asset('avatar/avatar.png')}}" alt="User Image">
+                                        @else
+                                            <img class="img-circle img-sm" src="{{ asset('uploads/profile_pictures')}}/{{$u->avatar }}" alt="User Image">
+                                        @endif
+                                    <div class="comment-text">
+                                        <small class="username">
+                                            {{$u->user->name}}
+                                        <span class="text-muted float-right">{{$r->created_at->diffForHumans()}}</span>
+                                        </small>
+                                        
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item"><i class="fas fa-star {{$r->rating >= 1 ? ' blue' : ''}}"></i></li>
+                                            <li class="list-inline-item"><i class="fas fa-star {{$r->rating >= 2 ? ' blue' : ''}}"></i></li>
+                                            <li class="list-inline-item"><i class="fas fa-star {{$r->rating >= 3 ? ' blue' : ''}}"></i></li>
+                                            <li class="list-inline-item"><i class="fas fa-star {{$r->rating >= 4 ? ' blue' : ''}}"></i></li>
+                                            <li class="list-inline-item"><i class="fas fa-star {{$r->rating >= 5 ? ' blue' : ''}}"></i></li>
+                                        </ul>
+                                        <b>{{$r->title_rating}}</b><br>
+                                        {{$r->description_rating}}
+                                    </div>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+                    @endif
+                @endforeach
+            </div>
         </div>
     </div>
+</div>
+</div>
 </div>
 
 @section('scripts')
@@ -246,7 +231,11 @@
             $.ajax({
                 type: "POST",
                 url: url,
-                data: {rate: $('input[name="rate"]').val(), profile_id: $('input[name="profile_id"]').val()},
+                data: {rate: $('input[name="rate"]').val(), 
+                profile_id: $('input[name="profile_id"]').val()
+                title_rating: $('input[name="title_rating"]').val()
+                description_rating: $('input[name"description_rating"]').val()
+                    },
                 success: function(response) {
                     $('.alert-success').fadeIn(2000);
                     $('#rate').text(response);
@@ -256,17 +245,54 @@
         });              
     });    
 </script>
-{{-- <script>
-    $(function(){
-        
-        $(".click").click(function(e) {
-            e.preventDefault();
-            var data = $(this).attr("value");
-            alert(data);    
-        });
-    
-    });
-</script> --}}
 @endsection
+{{-- modal --}}
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Elige una clasificación por estrellas</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{ route('new_rating', [$perfil->id]) }}" method="post">
+                @csrf
+                <div class="modal-body">
+                    <div class="form-group" style="margin-top:15px;">
+                        <div class="row justify-content-center " >
+
+                            <div class="container star rating" style="margin-left:10%;">
+                                <input name="rate" value="5" type="radio" class="star" id="star-1"/> <label for="star-1" data-dataid="1"></label>  
+                                <input name="rate" value="4" type="radio" class="star" id="star-2"/> <label for="star-2" data-dataid="2"></label>  
+                                <input name="rate" value="3" type="radio" class="star" id="star-3"/> <label for="star-3" data-dataid="3"></label>  
+                                <input name="rate" value="2" type="radio" class="star" id="star-4"/> <label for="star-4" data-dataid="4"></label>  
+                                <input name="rate" value="1" type="radio" class="star" id="star-5"/> <label for="star-5" data-dataid="5"></label> 
+                                {{-- {{$perfil->id}} --}}
+                            </div>
+                                <input type="hidden" name="profile_id" value="{{ $perfil->id }}">
+                            
+                        </div>
+                    </div> <br><br>
+                    <div class="form-group">
+                        <div class="form-group">
+                            <input type="title" name="title_rating" class="form-control" id="title" placeholder="Pon título a tu opinión">
+                        </div>
+                        <div class="form-group">
+                            <textarea type="description" name="description_rating" class="form-control" id="description" placeholder="Dinos que tal te ha parecido"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" name="submitRatingStar" id="submitRatingStar" class="btn btn-primary btn-sm">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- fin modal --}}
+
+
 @endsection
 

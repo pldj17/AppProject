@@ -19,8 +19,24 @@ class RatingController extends Controller
         $ratingCount = $rating->count();
         $a = Rating::get()->where('profile_id', $id);
         $avgStar = $a->avg('rating');
-        $puntuaciones = [1,2,3,4,5];
-        return view('profile.rating.puntuar', compact('perfil', 'puntuaciones', 'user', 'rating', 'ratingCount', 'avgStar'));
+
+        //rating realizado por usuario en sesion
+        $RatingStar = Rating::get()->whereIn('user_id', auth()->user()->id, 'profile_id', $id);
+
+        $allRatings = Rating::where('profile_id', $id)->get();
+
+        $rating = Rating::get();
+
+        //rating de todos los usuarios menos del usuario en sesion
+        $R = Rating::where('profile_id', $id)->get();
+
+        $countRatings = $R->count();
+
+        $usuarios = profile::get();
+
+        // dd($usuarios);
+
+        return view('profile.rating.puntuar', compact('perfil', 'RatingStar', 'user', 'rating', 'ratingCount', 'avgStar', 'allRatings', 'countRatings', 'R', 'usuarios', 'rating'));
     }
 
     public function create()
@@ -35,6 +51,8 @@ class RatingController extends Controller
         $rating->user_id = Auth::id();
         $rating->profile_id = request('profile_id');
         $rating->rating = request('rate');
+        $rating->title_rating = request('title_rating');
+        $rating->description_rating = request('description_rating');
         $rating->save();
 
         return redirect()->back()->with('mensaje', 'Su perfil ha sido actualizado correctamente');
@@ -47,16 +65,21 @@ class RatingController extends Controller
 
     public function edit($id)
     {
-        //
+        $perfil = Profile::all()->where('user_id', $id)->first();
+        $data = Rating::findOrFail($id);  //findOrFail si no encuentra un registro manda el 404 a diferencia de find
+        return view('profile.rating.puntuar', compact('data', 'perfil'));
     }
 
     public function update(Request $request, $id)
     {
-        //
+        Rating::findOrFail($id)->update($request->all());
+        return redirect('rating')->with('mensaje', 'Puntuación actualizada con exito');
     }
 
-    public function destroy($id)
+    public function destroy(Rating $rating)
     {
-        //
+        $rating->delete();
+
+        return back();    
     }
 }

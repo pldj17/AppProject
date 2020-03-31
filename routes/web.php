@@ -60,9 +60,12 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('favorite/{perfil}/add','FavoritesController@add')->name('profile.favorite');
     Route::get('favoritos/{id}', 'FavoritesController@show')->name('mostrar_fav');
 
+    //rating - puntuaciones de perfiles por servicios
     route::get('perfil/{id}/puntuar', 'RatingController@index')->name('rating');
     Route::post('rating/{id}/puntar','RatingController@store')->name('new_rating');
-    
+    Route::delete('perfil/{rating}/eliminar', 'RatingController@destroy')->name('eliminar_rating');
+    Route::get('perfil/{id}/rating', 'RatingController@edit')->name('editar_rating');
+    Route::put('perfil/{id}/rating', 'RatingController@update')->name('actualizar_rating');
     
 });
 
