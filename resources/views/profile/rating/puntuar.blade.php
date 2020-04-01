@@ -114,18 +114,17 @@
                     </div>
                     <div class="col-sm-6">
                       <div class="form-group">
-                        {{-- @foreach($rating as $r)    --}}
-                            {{-- @if($perfil->id == auth()->user()->id && $r->profile_id == auth()->user()->id)
-                                
+                        {{-- @foreach($rating as $r)   
+                            @if($r->profile_id == $perfil->id && $r->user_id == auth()->user()->id || $perfil->id == auth()->user()->id)                            
                             @else --}}
                                 {{-- @if($loop->first) --}}
                                     <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
                                         Puntuar servicios
                                     </button>
-                                {{-- {{$perfil->id}}{{auth()->user()->id}} {{$r->profile_id}} {{auth()->user()->id}} --}}
+                                {{-- {{$r->profile_id}}{{$perfil->id}} {{$r->user_id}} {{auth()->user()->id}} --}}
                                 {{-- @endif --}}
-                            {{-- @endif --}}
-                        {{-- @endforeach --}}
+                            {{-- @endif
+                        @endforeach --}}
                       </div>
                     </div>
                 </div>
@@ -139,7 +138,7 @@
                         {{$r->id}}
                         <div class="card-footer card-comments">
                             <div class="card-comment">
-                                @if (   empty(auth()->user()->profile->avatar))
+                                @if (empty(auth()->user()->profile->avatar))
                                     <img class="img-circle img-sm" src="{{ asset('avatar/avatar.png')}}" alt="User Image">
                                 @else
                                     <img class="img-circle img-sm" src="{{ asset('uploads/profile_pictures')}}/{{ auth()->user()->profile->avatar }}" alt="User Image">
@@ -149,7 +148,7 @@
                                     {{auth()->user()->name}}
                                 <span class="text-muted float-right">{{$r->created_at->diffForHumans()}}</span><br>
                                 <span class="text-muted float-right">
-                                    <a href="{{route('editar_rating', ['id' => $r->id])}}" class="btn-accion-tabla" data-toggle="tooltip" data-placement="bottom" title="Editar este registro">
+                                    <a href="{{route('editar_rating', [$r->id])}}" class="btn-accion-tabla" data-toggle="tooltip" data-placement="bottom" title="Editar este registro">
                                         <i class="fa fa-edit"></i>
                                     </a>
                                 </span>
@@ -157,7 +156,7 @@
                                 <span class="text-muted float-right">
                                     <form action="{{route('eliminar_rating', ['id' => $r->id])}}" class="d-inline" method="POST">
                                         @csrf @method("delete")
-                                        <button type="submit" class="btn-accion-tabla eliminar" data-toggle="tooltip" data-placement="bottom" title="Eliminar puntuacion">
+                                        <button type="submit" class="btn-accion-tabla eliminar" data-toggle="tooltip" data-placement="bottom" title="Eliminar puntuación">
                                             <i class="fa fa-fw fa-trash text-danger"></i>
                                         </button>
                                     </form>
@@ -177,7 +176,7 @@
                         </div>
                     @endif
                 @endforeach
-                @if($R != null)
+                @if($count > 1)
                     <div class="container" style="margin-top:10px; height:13px; margin-left:35px;">
                         <h5>Puntuaciones</h5>
                     </div>
@@ -263,11 +262,11 @@
                         <div class="row justify-content-center " >
 
                             <div class="container star rating" style="margin-left:10%;">
-                                <input name="rate" value="5" type="radio" class="star" id="star-1"/> <label for="star-1" data-dataid="1"></label>  
-                                <input name="rate" value="4" type="radio" class="star" id="star-2"/> <label for="star-2" data-dataid="2"></label>  
-                                <input name="rate" value="3" type="radio" class="star" id="star-3"/> <label for="star-3" data-dataid="3"></label>  
-                                <input name="rate" value="2" type="radio" class="star" id="star-4"/> <label for="star-4" data-dataid="4"></label>  
-                                <input name="rate" value="1" type="radio" class="star" id="star-5"/> <label for="star-5" data-dataid="5"></label> 
+                                <input name="rate" value="5" type="radio" class="star" id="star-1"/> <label for="star-1" data-dataid="1" required></label>  
+                                <input name="rate" value="4" type="radio" class="star" id="star-2"/> <label for="star-2" data-dataid="2" required></label>  
+                                <input name="rate" value="3" type="radio" class="star" id="star-3"/> <label for="star-3" data-dataid="3" required></label>  
+                                <input name="rate" value="2" type="radio" class="star" id="star-4"/> <label for="star-4" data-dataid="4" required></label>  
+                                <input name="rate" value="1" type="radio" class="star" id="star-5"/> <label for="star-5" data-dataid="5" required></label> 
                                 {{-- {{$perfil->id}} --}}
                             </div>
                                 <input type="hidden" name="profile_id" value="{{ $perfil->id }}">

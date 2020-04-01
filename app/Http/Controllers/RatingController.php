@@ -2,6 +2,7 @@
 
 namespace ProjectApp\Http\Controllers;
 
+use Dotenv\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use ProjectApp\Profile;
@@ -24,8 +25,9 @@ class RatingController extends Controller
         $RatingStar = Rating::get()->whereIn('user_id', auth()->user()->id, 'profile_id', $id);
 
         $allRatings = Rating::where('profile_id', $id)->get();
-
-        $rating = Rating::get();
+       
+        $rating = Rating::all()->where('profile_id', $id, 'user_id' != auth()->user()->id);
+        $count = $rating->count();
 
         //rating de todos los usuarios menos del usuario en sesion
         $R = Rating::where('profile_id', $id)->get();
@@ -34,9 +36,9 @@ class RatingController extends Controller
 
         $usuarios = profile::get();
 
-        // dd($usuarios);
+        dd($rating);
 
-        return view('profile.rating.puntuar', compact('perfil', 'RatingStar', 'user', 'rating', 'ratingCount', 'avgStar', 'allRatings', 'countRatings', 'R', 'usuarios', 'rating'));
+        return view('profile.rating.puntuar', compact('perfil', 'RatingStar', 'user', 'rating', 'ratingCount', 'avgStar', 'allRatings', 'count', 'R', 'usuarios', 'rating'));
     }
 
     public function create()
@@ -67,13 +69,20 @@ class RatingController extends Controller
     {
         $perfil = Profile::all()->where('user_id', $id)->first();
         $data = Rating::findOrFail($id);  //findOrFail si no encuentra un registro manda el 404 a diferencia de find
-        return view('profile.rating.puntuar', compact('data', 'perfil'));
+        return view('profile.rating.edit_rating', compact('data', 'perfil'));
     }
 
     public function update(Request $request, $id)
     {
-        Rating::findOrFail($id)->update($request->all());
-        return redirect('rating')->with('mensaje', 'Puntuación actualizada con exito');
+
+        Rating::where('id', $id)->update([
+            'rating' => request('rate'),
+            'title_rating' => request('title_rating'),
+            'description_rating' => request('description_rating'),
+            'profile_id' => request('profile_id'),
+            'user_id' => Auth::id()
+        ]);
+        return redirect()->back()->with('mensaje', 'Puntuación actualizada con exito');
     }
 
     public function destroy(Rating $rating)
