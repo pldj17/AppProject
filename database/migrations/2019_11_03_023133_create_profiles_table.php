@@ -24,7 +24,8 @@ class CreateProfilesTable extends Migration
             $table->string('date_born')->nullable()->default(null);
             $table->string('address_address')->nullable();
             $table->string('facebook',200)->nullable();
-            $table->string('whatsapp',200)->nullable();
+            $table->integer('whatsapp',200)->nullable();
+            $table->string('link_whatsapp',200)->nullable();
             $table->timestamps();
 
             $table->bigInteger('user_id')->unsigned()->index()->nullable(); 

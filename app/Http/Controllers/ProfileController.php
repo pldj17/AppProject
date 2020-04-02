@@ -66,8 +66,8 @@ class ProfileController extends Controller
             'correo' => request('correo'),
             'address_address' => request('address_address'),
             'facebook' => request('facebook'),
-            'whatsapp' => 'https://api.whatsapp.com/send?phone=595'.request('whatsapp').'&text=Hola&source=&data=',
-            // 'link_whatsapp' => 'https://api.whatsapp.com/send?phone=595'.profile::get('whatsapp').'&text=Hola&source=&data='
+            'whatsapp' => request('whatsapp'),
+            'link_whatsapp' => 'https://api.whatsapp.com/send?phone=595'.request('whatsapp').'&text=Hola&source=&data='
         ]);
 
         $user->especialidades()->sync($request->input('especialidades', []), $request->input('user_id')); 

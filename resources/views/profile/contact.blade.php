@@ -142,7 +142,7 @@
                         @endif
                         @if($perfil->whatsapp != null)
                             <li>
-                                <a href="{{$perfil->whatsapp}}" target="_blank">
+                                <a href="{{$perfil->link_whatsapp}}" target="_blank">
                                     <img src="{{asset('assets/profile/img/whatsapp.png') }}">
                                 </a>
                             </li>

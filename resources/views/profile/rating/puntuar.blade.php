@@ -10,20 +10,8 @@
 @endsection
 
 @section('scripts')
-<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-<script>var url = "{{ route('new_rating', [$perfil->id]) }}";</script>
-{{-- <script>
-    $(function(){
-        
-        $(".click").click(function(e) {
-            $http.post("/", {data})
-            e.preventDefault();
-            var data = $(this).attr("value");
-            alert(data);    
-        });
-    
-    });
-</script> --}}
+    {{-- <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script> --}}
+    <script>var url = "{{ route('new_rating', [$perfil->id]) }}";</script>
 @endsection
 
 @section('title')
@@ -135,7 +123,7 @@
                         <div class="container" style="margin-left:35px;">
                             <h5>Tu puntuación</h5>
                         </div>
-                        {{$r->id}}
+                        {{-- {{$r->id}} --}}
                         <div class="card-footer card-comments">
                             <div class="card-comment">
                                 @if (empty(auth()->user()->profile->avatar))
@@ -146,13 +134,17 @@
                             <div class="comment-text">
                                 <small class="username">
                                     {{auth()->user()->name}}
-                                <span class="text-muted float-right">{{$r->created_at->diffForHumans()}}</span><br>
-                                <span class="text-muted float-right">
-                                    <a href="{{route('editar_rating', [$r->id])}}" class="btn-accion-tabla" data-toggle="tooltip" data-placement="bottom" title="Editar este registro">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                </span>
-                                <br>
+                                </small>
+                                <small>
+                                    <span class="text-muted float-right">{{$r->created_at->diffForHumans()}}</span><br>
+                                    <span class="text-muted float-right">
+                                        <a href="{{route('editar_rating', [$r->id])}}" class="btn-accion-tabla" data-toggle="tooltip" data-placement="bottom" title="Editar puntuación">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                    </span>
+                                </small>
+                                {{-- <br> --}}
+                                <small>
                                 <span class="text-muted float-right">
                                     <form action="{{route('eliminar_rating', ['id' => $r->id])}}" class="d-inline" method="POST">
                                         @csrf @method("delete")
@@ -162,12 +154,13 @@
                                     </form>
                                 </span>
                                 </small>
+                               
                                 <ul class="list-inline">
-                                    <li class="list-inline-item"><i class="fas fa-star {{$r->rating >= 1 ? ' blue' : ''}}"></i></li>
-                                    <li class="list-inline-item"><i class="fas fa-star {{$r->rating >= 2 ? ' blue' : ''}}"></i></li>
-                                    <li class="list-inline-item"><i class="fas fa-star {{$r->rating >= 3 ? ' blue' : ''}}"></i></li>
-                                    <li class="list-inline-item"><i class="fas fa-star {{$r->rating >= 4 ? ' blue' : ''}}"></i></li>
-                                    <li class="list-inline-item"><i class="fas fa-star {{$r->rating >= 5 ? ' blue' : ''}}"></i></li>
+                                    <li class="list-inline-item"><i class="fas fa-star fa-lg {{$r->rating >= 1 ? ' blue' : ''}}"></i></li>
+                                    <li class="list-inline-item"><i class="fas fa-star fa-lg {{$r->rating >= 2 ? ' blue' : ''}}"></i></li>
+                                    <li class="list-inline-item"><i class="fas fa-star fa-lg {{$r->rating >= 3 ? ' blue' : ''}}"></i></li>
+                                    <li class="list-inline-item"><i class="fas fa-star fa-lg {{$r->rating >= 4 ? ' blue' : ''}}"></i></li>
+                                    <li class="list-inline-item"><i class="fas fa-star fa-lg {{$r->rating >= 5 ? ' blue' : ''}}"></i></li>
                                 </ul>
                                 <b>{{$r->title_rating}}</b><br>
                                 {{$r->description_rating}}
@@ -196,15 +189,17 @@
                                     <div class="comment-text">
                                         <small class="username">
                                             {{$u->user->name}}
-                                        <span class="text-muted float-right">{{$r->created_at->diffForHumans()}}</span>
+                                        </small>
+                                        <small>
+                                            <span class="text-muted float-right">{{$r->created_at->diffForHumans()}}</span>
                                         </small>
                                         
                                         <ul class="list-inline">
-                                            <li class="list-inline-item"><i class="fas fa-star {{$r->rating >= 1 ? ' blue' : ''}}"></i></li>
-                                            <li class="list-inline-item"><i class="fas fa-star {{$r->rating >= 2 ? ' blue' : ''}}"></i></li>
-                                            <li class="list-inline-item"><i class="fas fa-star {{$r->rating >= 3 ? ' blue' : ''}}"></i></li>
-                                            <li class="list-inline-item"><i class="fas fa-star {{$r->rating >= 4 ? ' blue' : ''}}"></i></li>
-                                            <li class="list-inline-item"><i class="fas fa-star {{$r->rating >= 5 ? ' blue' : ''}}"></i></li>
+                                            <li class="list-inline-item"><i class="fas fa-star fa-lg {{$r->rating >= 1 ? ' blue' : ''}}"></i></li>
+                                            <li class="list-inline-item"><i class="fas fa-star fa-lg {{$r->rating >= 2 ? ' blue' : ''}}"></i></li>
+                                            <li class="list-inline-item"><i class="fas fa-star fa-lg {{$r->rating >= 3 ? ' blue' : ''}}"></i></li>
+                                            <li class="list-inline-item"><i class="fas fa-star fa-lg {{$r->rating >= 4 ? ' blue' : ''}}"></i></li>
+                                            <li class="list-inline-item"><i class="fas fa-star fa-lg {{$r->rating >= 5 ? ' blue' : ''}}"></i></li>
                                         </ul>
                                         <b>{{$r->title_rating}}</b><br>
                                         {{$r->description_rating}}
@@ -222,29 +217,7 @@
 </div>
 </div>
 
-@section('scripts')
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('input.star').rating();
-        $('button#submitRatingStar').on('click', function() {
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: {rate: $('input[name="rate"]').val(), 
-                profile_id: $('input[name="profile_id"]').val()
-                title_rating: $('input[name="title_rating"]').val()
-                description_rating: $('input[name"description_rating"]').val()
-                    },
-                success: function(response) {
-                    $('.alert-success').fadeIn(2000);
-                    $('#rate').text(response);
-                }
-            });
-            return false;
-        });              
-    });    
-</script>
-@endsection
+
 {{-- modal --}}
 <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
@@ -262,11 +235,11 @@
                         <div class="row justify-content-center " >
 
                             <div class="container star rating" style="margin-left:10%;">
-                                <input name="rate" value="5" type="radio" class="star" id="star-1"/> <label for="star-1" data-dataid="1" required></label>  
-                                <input name="rate" value="4" type="radio" class="star" id="star-2"/> <label for="star-2" data-dataid="2" required></label>  
-                                <input name="rate" value="3" type="radio" class="star" id="star-3"/> <label for="star-3" data-dataid="3" required></label>  
-                                <input name="rate" value="2" type="radio" class="star" id="star-4"/> <label for="star-4" data-dataid="4" required></label>  
-                                <input name="rate" value="1" type="radio" class="star" id="star-5"/> <label for="star-5" data-dataid="5" required></label> 
+                                <input name="rating" value="5" type="radio" class="star" id="star-1"/> <label for="star-1" data-dataid="1" required></label>  
+                                <input name="rating" value="4" type="radio" class="star" id="star-2"/> <label for="star-2" data-dataid="2" required></label>  
+                                <input name="rating" value="3" type="radio" class="star" id="star-3"/> <label for="star-3" data-dataid="3" required></label>  
+                                <input name="rating" value="2" type="radio" class="star" id="star-4"/> <label for="star-4" data-dataid="4" required></label>  
+                                <input name="rating" value="1" type="radio" class="star" id="star-5"/> <label for="star-5" data-dataid="5" required></label> 
                                 {{-- {{$perfil->id}} --}}
                             </div>
                                 <input type="hidden" name="profile_id" value="{{ $perfil->id }}">
@@ -292,6 +265,43 @@
 </div>
 {{-- fin modal --}}
 
+@section('scripts')
+{{-- <script type="text/javascript">
+function validateForm() {
+    var radios = document.getElementsByName("rate");
+    var formValid = false;
 
+    var i = 0;
+    while (!formValid && i < radios.length) {
+        if (radios[i].checked) formValid = true;
+        i++;        
+    }
+
+    if (!formValid) alert("Must check some option!");
+    return formValid;
+}​
+
+
+    $(document).ready(function() {
+        $('input.star').rating();
+        $('button#submitRatingStar').on('click', function() {
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {rate: $('input[name="rate"]').val(), 
+                profile_id: $('input[name="profile_id"]').val()
+                title_rating: $('input[name="title_rating"]').val()
+                description_rating: $('input[name"description_rating"]').val()
+                    },
+                success: function(response) {
+                    $('.alert-success').fadeIn(2000);
+                    $('#rate').text(response);
+                }
+            });
+            return false;
+        });              
+    });    
+</script> --}}
+@endsection
 @endsection
 

@@ -34,6 +34,7 @@
                                 </div>
                             {{ Form::close() }}
                         </div>
+                        <b><h6>Total:</h6></b>&nbsp;&nbsp;{{$users->count()}}
                     </div>
                 <div class="table-responsive">
                     <table id="tabla-data" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -44,6 +45,8 @@
                             <th>Rol</th>
                             <th>Registrado</th>
                             <th>Perfil</th>
+                            <th>Especialidad</th>
+                            <th>Posts</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
@@ -56,11 +59,17 @@
                                     <td>{{ implode(',', $data->roles()->get()->pluck('name')->toArray())}}</td>
                                     <td>{{$data->created_at}}</td>
                                     <td>
-                                        @if(implode(',', $data->profile()->get()->pluck('private')->toArray()) == '1')
+                                        @if(implode(',', $data->profile()->get()->pluck('private')->toArray()) == '0' || implode(',', $data->profile()->get()->pluck('private')->toArray()) == '')
                                             Privado
                                         @else
                                             Publico
                                         @endif
+                                    </td>
+                                    <td>
+                                        {{ implode(', ',$data->especialidades()->get()->pluck('name')->toArray())}}
+                                    </td>
+                                    <td>
+                                        {{$data->post()->count()}}
                                     </td>
                                     <td>
                                         <a href="{{route('perfil', ['id' => $data->id   ])}}" class="btn-accion-tabla" data-toggle="tooltip" data-placement="top" title="Ver perfil de usuario">

@@ -37,7 +37,7 @@
           {{-- </div> --}}
             <div class="col-md-6" style="display:inline-flex; background:white;">
                 <div class="input-group">
-<input class="form-control form-group-sm" id="search_input" name="search" value="{{ old('search', request()->input('search')) }}" type="text" placeholder="Search for" aria-label="Search for" autocomplete="off" />                  
+                  <input class="form-control form-group-sm" id="search_input" name="search" value="{{ old('search', request()->input('search')) }}" type="text" placeholder="Search for" aria-label="Search for" autocomplete="off" />                  
                 </div>
                 <div class="input-group">
                     <button type="submit" class="btn btn-default">
@@ -52,9 +52,9 @@
 
       <div class="row d-flex align-items-stretch">
         @foreach($profiles as $profile)
-        {{-- @if(implode(', ', $profile->user->especialidades()->get()->pluck('name')->toArray()) == null) --}}
+        @if(implode(', ', $profile->user->especialidades()->get()->pluck('name')->toArray()) == null)
 
-        {{-- @else --}}
+        @else
           <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
             <div class="card bg-light">
               <div class="card-header text-muted border-bottom-0">
@@ -69,10 +69,10 @@
                     <p class="text-muted text-sm"><b>Especialidad: </b> 
                         {{ implode(', ', $profile->user->especialidades()->get()->pluck('name')->toArray()) }}
                     </p>
-                    {{-- <ul class="ml-4 mb-0 fa-ul text-muted">
-                      <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: {{$profile->address}}</li>
-                      <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Telefono: {{$profile->phone}}</li>
-                    </ul> --}}
+                    <ul class="ml-4 mb-0 fa-ul text-muted">
+                      <li class="small"><span class="fa-li"><i class="fas fa-map-marker-alt mr-1"></i></span> Localidad: {{$profile->address_address}}</li>
+                      {{-- <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Telefono: {{$profile->phone}}</li> --}}
+                    </ul>
                   </div>
                   <div class="col-5 text-center">
                       @if (empty($profile->avatar))
@@ -116,7 +116,7 @@
               </div>
             </div>
           </div>
-          {{-- @endif --}}
+          @endif
         @endforeach
       </div>
     </div>

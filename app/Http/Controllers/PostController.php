@@ -30,7 +30,7 @@ class PostController extends Controller
 
     }
 
-    public function store(ActualizarPost $request)
+    public function store(Request $request)
     {        
         
     }

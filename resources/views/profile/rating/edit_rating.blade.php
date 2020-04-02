@@ -33,8 +33,8 @@
                             @csrf @method("put")
                             <div class="modal-body">
                                 <div class="form-group" style="margin-top:15px;">
-                                    <div class="row justify-content-center " >
-            
+                                    <div class="row " >
+
                                         <div class="container star rating" style="margin-left:10%;">
                                             <input name="rate" value="5" type="radio" class="star" id="star-1"/> <label for="star-1" data-dataid="1" required></label> 
                                             <input name="rate" value="4" type="radio" class="star" id="star-2"/> <label for="star-2" data-dataid="2" required></label>  
@@ -47,17 +47,17 @@
                                         
                                     </div>
                                 </div> <br><br>
-                                <div class="form-group">
+                                <div class="container">
                                     <div class="form-group">
                                         <input type="title" name="title_rating" value="{{old('title_rating', $data->title_rating ?? '')}}" class="form-control" id="title" placeholder="Pon título a tu opinión">
                                     </div>
                                     <div class="form-group">
-                                        <textarea type="description" name="description_rating" value="{{old('description_rating', $data->description_rating ?? '')}}" class="form-control" id="description" placeholder="Dinos que tal te ha parecido"></textarea>
+                                        <input type="title" name="description_rating" value="{{old('description_rating', $data->description_rating ?? '')}}" class="form-control" id="title" placeholder="Dinos que tal te ha parecido">
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer justify-content-between">
-                                <a href="{{route('rating', ['id' => Auth::user()->id])}}" class="btn btn-default"> Cancelar</a>
+                                <a href="{{URL::previous()}}" class="btn btn-default"> Cancelar</a>
                                 <button type="submit" name="submitRatingStar" id="submitRatingStar" class="btn btn-primary btn-sm">Actualizar</button>
                             </div>
                         </form>

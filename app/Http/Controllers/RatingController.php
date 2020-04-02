@@ -2,9 +2,9 @@
 
 namespace ProjectApp\Http\Controllers;
 
-use Dotenv\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use ProjectApp\Http\Requests\ValidarRating;
 use ProjectApp\Profile;
 use ProjectApp\Rating;
 use ProjectApp\User;
@@ -36,7 +36,7 @@ class RatingController extends Controller
 
         $usuarios = profile::get();
 
-        dd($rating);
+        // dd($rating);
 
         return view('profile.rating.puntuar', compact('perfil', 'RatingStar', 'user', 'rating', 'ratingCount', 'avgStar', 'allRatings', 'count', 'R', 'usuarios', 'rating'));
     }
@@ -46,18 +46,17 @@ class RatingController extends Controller
         //
     }
 
-    public function store(Request $request)
-    {
-        // dd($request);
+    public function store(ValidarRating $request)
+    {        
         $rating = new Rating();
         $rating->user_id = Auth::id();
         $rating->profile_id = request('profile_id');
-        $rating->rating = request('rate');
+        $rating->rating = request('rating');
         $rating->title_rating = request('title_rating');
         $rating->description_rating = request('description_rating');
         $rating->save();
 
-        return redirect()->back()->with('mensaje', 'Su perfil ha sido actualizado correctamente');
+        return redirect()->back()->with('mensaje', 'Su puntuación se ha guardado correctamente');
     }
 
     public function show($id)
@@ -67,14 +66,12 @@ class RatingController extends Controller
 
     public function edit($id)
     {
-        $perfil = Profile::all()->where('user_id', $id)->first();
         $data = Rating::findOrFail($id);  //findOrFail si no encuentra un registro manda el 404 a diferencia de find
-        return view('profile.rating.edit_rating', compact('data', 'perfil'));
+        return view('profile.rating.edit_rating', compact('data'));
     }
 
-    public function update(Request $request, $id)
+    public function update(ValidarRating $request, $id)
     {
-
         Rating::where('id', $id)->update([
             'rating' => request('rate'),
             'title_rating' => request('title_rating'),
