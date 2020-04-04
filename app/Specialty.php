@@ -10,15 +10,15 @@ class Specialty extends Model
     protected $fillable = ['name'];
     protected $guarded = ['id'];
 
-    public function users()
+    public function profiles()
     {
-        return $this->belongsToMany(User::class, 'specialty_user', 'user_id', 'specialty_id');
+        return $this->belongsToMany(Profile::class, 'specialty_user', 'user_id', 'specialty_id');
     }
 
     public function scopeName($query, $name )
     {
         if($name){
-            return $query->where('name', 'LIKE', "%$name%"); //%antes y despues significa cualquier palabra semejante antes o despues a la palabra que se esta buscando
+            return $query->where('name', 'LIKE', "%$name%"); 
         }
     }
 }

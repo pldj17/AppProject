@@ -31,7 +31,7 @@ class FavoritesController extends Controller
     {
         $perfil = Auth::user()->favorite_profiles;
 
-        $especialidad = user::with('especialidades')->get();
+        $especialidad = profile::with('especialidades')->get();
         // dd($perfil);
 
         $favs = Favorite::where('user_id', auth()->user()->id)->get();

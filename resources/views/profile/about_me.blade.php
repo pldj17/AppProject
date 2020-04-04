@@ -12,21 +12,13 @@
 
       <strong><i class="fas fa-pencil-alt mr-1"></i> Especialidad</strong><br>
 
-      @if (empty(implode(', ',$user->especialidades()->get()->pluck('name')->toArray())) && (Auth::user()->id == $user->id))
+      @if (empty(implode(', ',$perfil->especialidades()->get()->pluck('name')->toArray())) && (Auth::user()->id == $user->id))
         <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="especialidad" style="text-decoration:none;"><small>Agregar especialidad</small></a>
       @else
-        <p class="text-muted">{{ implode(', ',$user->especialidades()->get()->pluck('name')->toArray())}}</p>
+        <p class="text-muted">{{ implode(', ',$perfil->especialidades()->get()->pluck('name')->toArray())}}</p>
       @endif
     
       <hr>
-
-      {{-- <strong><i class="fas fa-book mr-1"></i>Formación</strong>
-
-      <p class="text-muted">
-        B.S. in Computer Science from the University of Tennessee at Knoxville
-      </p>
-
-      <hr> --}}
 
       <strong><i class="fas fa-map-marker-alt mr-1"></i> Ubicación</strong><br>
 

@@ -36,11 +36,11 @@
                                     <div class="row " >
 
                                         <div class="container star rating" style="margin-left:10%;">
-                                            <input name="rate" value="5" type="radio" class="star" id="star-1"/> <label for="star-1" data-dataid="1" required></label> 
-                                            <input name="rate" value="4" type="radio" class="star" id="star-2"/> <label for="star-2" data-dataid="2" required></label>  
-                                            <input name="rate" value="3" type="radio" class="star" id="star-3"/> <label for="star-3" data-dataid="3" required></label>  
-                                            <input name="rate" value="2" type="radio" class="star" id="star-4"/> <label for="star-4" data-dataid="4" required></label>  
-                                            <input name="rate" value="1" type="radio" class="star" id="star-5"/> <label for="star-5" data-dataid="5" required></label> 
+                                            <input name="rating" value="5" type="radio" class="star" id="star-1"/> <label for="star-1" data-dataid="1" required></label> 
+                                            <input name="rating" value="4" type="radio" class="star" id="star-2"/> <label for="star-2" data-dataid="2" required></label>  
+                                            <input name="rating" value="3" type="radio" class="star" id="star-3"/> <label for="star-3" data-dataid="3" required></label>  
+                                            <input name="rating" value="2" type="radio" class="star" id="star-4"/> <label for="star-4" data-dataid="4" required></label>  
+                                            <input name="rating" value="1" type="radio" class="star" id="star-5"/> <label for="star-5" data-dataid="5" required></label> 
                                             {{-- {{$perfil->id}} --}}
                                         </div>
                                             <input type="hidden" name="profile_id" value="{{old('profile_id', $data->profile_id ?? '')}}">

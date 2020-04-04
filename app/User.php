@@ -27,10 +27,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function especialidades()
-    {
-        return $this->belongsToMany(Specialty::class);
-    }
+    // public function especialidades()
+    // {
+    //     return $this->belongsToMany(Specialty::class);
+    // }
 
     public function favorite_profiles()
     {

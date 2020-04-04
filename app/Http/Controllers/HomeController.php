@@ -2,6 +2,7 @@
 
 namespace ProjectApp\Http\Controllers;
 
+use Illuminate\Http\Request;
 use ProjectApp\Favorite;
 use ProjectApp\Photo;
 use ProjectApp\Profile;
@@ -13,29 +14,30 @@ use ProjectApp\User;
 class HomeController extends Controller
 {
 
-    public function index(user $user)
+    public function index(Request $request, user $user)
     {
-        $esp_user = Specialty::with('users')->orderBy('id', 'desc')->get();
+        $esp_user = Specialty::with('profiles')->orderBy('id', 'desc')->get();
         
         $categories = Specialty::all();
-        $users = User::with(['especialidades', 'profile', 'rating'])
-        ->searchResults()->get();
+        $users = User::with(['profile', 'rating'])->get();
         // ->paginate(5);
 
         $fav_user = Favorite::all('user_id');
 
-        $profiles = Profile::where('private', 1)->with('user', 'ratings')->get(); 
+        $address_address = $request->get('address_address');
+        $name = $request->get('name');
+        $profiles = Profile::where('private', 1)->with(['especialidades', 'user', 'ratings'])
+                ->searchResults()
+                ->paginate(9); 
+
         $contador = $profiles->count();
 
         // rating
-        $rating = Rating::get();
+        $rating = Rating::get('avg_rating')->groupBy('profile_id');
         $ratingCount = $rating->count();
-        $a = '';
-        $avgStar = '';
-        
-        //  dd($avgStar);
 
-        return view('dashboard', compact('profiles', 'users', 'especialidades', 'users', 'categories', 'contador', 'fav_user', 'a', 'avgStar', 'rating'));
+        return view('dashboard', compact('profiles', 'users', 'especialidades', 'users', 'categories', 'contador', 
+                    'fav_user', 'rating', 'ratingCount'));
     }
 
     public function show($id)
@@ -46,21 +48,5 @@ class HomeController extends Controller
         $user = User::find($id);
 
         return view('profile.index', compact('perfil', 'user', 'photo'));
-    }
-
-    public function search()
-    {
-        $categories = Specialty::all();
-        $users = User::with(['especialidades', 'profile'])
-        ->searchResults()
-        ->paginate(9);
-
-        $fav_user = Favorite::all('user_id');
-
-        $profiles = Profile::where('private', 1)->with('user')->get(); 
-        $contador = $profiles->count();
-        
-        // dd($profiles);
-        return view('search', compact('profiles', 'users', 'especialidades', 'users', 'categories', 'contador', 'fav_user'));
     }
 }

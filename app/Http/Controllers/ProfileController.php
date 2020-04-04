@@ -28,15 +28,14 @@ class ProfileController extends Controller
         $a = Rating::get()->where('profile_id', $id);
         $avgStar = $a->avg('rating');
 
-
         $especialidad_usuario = profile_specialties::where('user_id', $id)->get();
 
         $post = Post::with('photos')->orderBy('id', 'desc')->where('user_id', $id)->get();
 
         $posts = Post::where('user_id', $id)->count();
 
-        $perfil = Profile::all()->where('user_id', $id)->first();
-        $user = User::with('especialidades')->find($id);
+        $perfil = Profile::with('especialidades')->where('user_id', $id)->first();
+        $user = User::find($id);
 
         $post_id = Post::where('user_id', $id)->get('id');
 
@@ -53,7 +52,7 @@ class ProfileController extends Controller
         return view('profile.index', compact('perfil', 'user', 'puntuaciones', 'post', 'especialidad_usuario', 'posts', 'comments', 'count', 'contador', 'rating', 'ratingCount', 'avgStar'));
     }
 
-    public function store(ValidarPerfil $request, User $user)
+    public function store(ValidarPerfil $request, Profile $user)
     {
         $user_id = auth()->user()->id; 
 
@@ -79,8 +78,8 @@ class ProfileController extends Controller
     public function contact($id)
     {
         
-        $perfil = Profile::all()->where('user_id', $id)->first();
-        $user = User::with('especialidades')->find($id);
+        $perfil = Profile::with('especialidades')->where('user_id', $id)->first();
+        $user = User::find($id);
 
         $rating = Rating::where('profile_id', $id)->get();
         $ratingCount = $rating->count();
@@ -90,7 +89,7 @@ class ProfileController extends Controller
         return view('profile.contact', compact('perfil', 'user', 'rating', 'ratingCount', 'avgStar'));
     }
 
-    public function edit(user $user, Request $request)
+    public function edit(Profile $user, Request $request)
     {
         $id = $user->id;
 

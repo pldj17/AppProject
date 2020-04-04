@@ -82,7 +82,7 @@
                                 </td>
                                 <td class="project_progress">
                                     @foreach($especialidad as $e)
-                                        @if($e->id == $p->user_id)
+                                        @if($e->id == $p->id)
                                             <small>
                                                 {{ implode(', ', $e->especialidades()->get()->pluck('name')->toArray()) }}
                                             </small>

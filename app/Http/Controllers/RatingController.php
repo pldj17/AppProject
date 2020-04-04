@@ -13,8 +13,8 @@ class RatingController extends Controller
 {
     public function index($id)
     {
-        $perfil = Profile::all()->where('user_id', $id)->first();
-        $user = User::with('especialidades')->find($id);
+        $perfil = Profile::with('especialidades')->where('user_id', $id)->first();
+        $user = User::find($id);
 
         $rating = Rating::where('profile_id', $id)->get();
         $ratingCount = $rating->count();
@@ -46,14 +46,21 @@ class RatingController extends Controller
         //
     }
 
-    public function store(ValidarRating $request)
-    {        
+    public function store(ValidarRating $request, $id)
+    {           
         $rating = new Rating();
         $rating->user_id = Auth::id();
         $rating->profile_id = request('profile_id');
         $rating->rating = request('rating');
         $rating->title_rating = request('title_rating');
         $rating->description_rating = request('description_rating');
+
+        $rating->save();
+        $all_rating = Rating::get()->where('profile_id', $id);
+        $avg_rating = $all_rating->avg('rating');
+
+        $rating->avg_rating = $avg_rating;
+
         $rating->save();
 
         return redirect()->back()->with('mensaje', 'Su puntuación se ha guardado correctamente');
@@ -72,13 +79,31 @@ class RatingController extends Controller
 
     public function update(ValidarRating $request, $id)
     {
-        Rating::where('id', $id)->update([
-            'rating' => request('rate'),
-            'title_rating' => request('title_rating'),
-            'description_rating' => request('description_rating'),
-            'profile_id' => request('profile_id'),
-            'user_id' => Auth::id()
-        ]);
+        $rating = Rating::findOrFail($id);
+        $rating->user_id = Auth::id();
+        $rating->profile_id = request('profile_id');
+        $rating->rating = request('rating');
+        $rating->title_rating = request('title_rating');
+        $rating->description_rating = request('description_rating');
+
+        $rating->save();
+        
+        // $rating = Rating::findOrFail($id);
+        // $all_rating = Rating::get()->where('profile_id', $id);
+        // $avg_rating = $all_rating->avg('rating');
+
+        // $rating->avg_rating = $avg_rating;
+        // dd($all_rating);
+        // $rating->save();
+
+        // Rating::where('id', $id)->update([
+        //     'rating' => request('rate'),
+        //     'title_rating' => request('title_rating'),
+        //     'description_rating' => request('description_rating'),
+        //     'profile_id' => request('profile_id'),
+        //     'user_id' => Auth::id()
+        // ]);
+
         return redirect()->back()->with('mensaje', 'Puntuación actualizada con exito');
     }
 

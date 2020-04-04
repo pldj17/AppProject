@@ -17,7 +17,7 @@ class CreateSpecialtyUserTable extends Migration
             $table->bigIncrements('id');
             
             $table->bigInteger('user_id')->unsigned()->index();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreign('user_id')->references('id')->on('profiles')->onDelete('restrict')->onUpdate('restrict');
 
             $table->bigInteger('specialty_id')->unsigned()->index(); 
             $table->foreign('specialty_id')->references('id')->on('specialties')->onDelete('restrict')->onUpdate('restrict');

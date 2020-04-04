@@ -66,7 +66,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        {{ implode(', ',$data->especialidades()->get()->pluck('name')->toArray())}}
+                                        {{ implode(', ',$data->profile->especialidades()->get()->pluck('name')->toArray())}}
                                     </td>
                                     <td>
                                         {{$data->post()->count()}}

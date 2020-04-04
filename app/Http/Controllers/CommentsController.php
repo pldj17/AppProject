@@ -41,9 +41,6 @@ class CommentsController extends Controller
            
             
         }
-
-        
-
         return redirect()->route('perfil', [$user->id]);
     }
 

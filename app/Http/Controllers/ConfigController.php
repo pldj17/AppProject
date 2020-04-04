@@ -15,8 +15,8 @@ class ConfigController extends Controller
     {
         $id = $user->id;
 
-        $perfil = Profile::all()->where('user_id', $id)->first();
-        $user = User::with('especialidades')->find($id);
+        $perfil = Profile::with('especialidades')->where('user_id', $id)->first();
+        $user = User::find($id);
 
         return view('profile.ajustes.config', compact('perfil', 'user'));
     }
