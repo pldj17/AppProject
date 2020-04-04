@@ -102,17 +102,12 @@
                     </div>
                     <div class="col-sm-6">
                       <div class="form-group">
-                        {{-- @foreach($rating as $r)   
-                            @if($r->profile_id == $perfil->id && $r->user_id == auth()->user()->id || $perfil->id == auth()->user()->id)                            
-                            @else --}}
-                                {{-- @if($loop->first) --}}
-                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
-                                        Puntuar servicios
-                                    </button>
-                                {{-- {{$r->profile_id}}{{$perfil->id}} {{$r->user_id}} {{auth()->user()->id}} --}}
-                                {{-- @endif --}}
-                            {{-- @endif
-                        @endforeach --}}
+                            @if(empty($comment) && $perfil->user_id != auth()->user()->id)
+                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
+                                    Puntuar servicios
+                                    {{ $perfil->user_id}}{{auth()->user()->id}}
+                                </button>
+                            @endif
                       </div>
                     </div>
                 </div>
@@ -137,11 +132,11 @@
                                 </small>
                                 <small>
                                     <span class="text-muted float-right">{{$r->created_at->diffForHumans()}}</span><br>
-                                    <span class="text-muted float-right">
+                                    {{-- <span class="text-muted float-right">
                                         <a href="{{route('editar_rating', [$r->id])}}" class="btn-accion-tabla" data-toggle="tooltip" data-placement="bottom" title="Editar puntuación">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                    </span>
+                                    </span> --}}
                                 </small>
                                 {{-- <br> --}}
                                 <small>
@@ -169,13 +164,16 @@
                         </div>
                     @endif
                 @endforeach
-                @if($count > 1)
-                    <div class="container" style="margin-top:10px; height:13px; margin-left:35px;">
-                        <h5>Puntuaciones</h5>
-                    </div>
-                @endif
+               
                 @foreach($R as $r)
                     @if($r->profile_id == $perfil->id && $r->user_id != auth()->user()->id)
+                    @if($countRatings >= 1 )
+                        @if($loop->first)
+                            <div class="container" style="margin-top:10px; height:13px; margin-left:35px;">
+                                <h5>Puntuaciones</h5>
+                            </div>
+                        @endif
+                    @endif
                         <br>
                         @foreach($usuarios as $u)
                             @if($u->id == $r->user_id)
@@ -265,43 +263,5 @@
 </div>
 {{-- fin modal --}}
 
-@section('scripts')
-{{-- <script type="text/javascript">
-function validateForm() {
-    var radios = document.getElementsByName("rate");
-    var formValid = false;
-
-    var i = 0;
-    while (!formValid && i < radios.length) {
-        if (radios[i].checked) formValid = true;
-        i++;        
-    }
-
-    if (!formValid) alert("Must check some option!");
-    return formValid;
-}​
-
-
-    $(document).ready(function() {
-        $('input.star').rating();
-        $('button#submitRatingStar').on('click', function() {
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: {rate: $('input[name="rate"]').val(), 
-                profile_id: $('input[name="profile_id"]').val()
-                title_rating: $('input[name="title_rating"]').val()
-                description_rating: $('input[name"description_rating"]').val()
-                    },
-                success: function(response) {
-                    $('.alert-success').fadeIn(2000);
-                    $('#rate').text(response);
-                }
-            });
-            return false;
-        });              
-    });    
-</script> --}}
-@endsection
 @endsection
 

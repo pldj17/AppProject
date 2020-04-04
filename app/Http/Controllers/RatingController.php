@@ -23,22 +23,22 @@ class RatingController extends Controller
 
         //rating realizado por usuario en sesion
         $RatingStar = Rating::get()->whereIn('user_id', auth()->user()->id, 'profile_id', $id);
-
         $allRatings = Rating::where('profile_id', $id)->get();
-       
         $rating = Rating::all()->where('profile_id', $id, 'user_id' != auth()->user()->id);
         $count = $rating->count();
 
         //rating de todos los usuarios menos del usuario en sesion
         $R = Rating::where('profile_id', $id)->get();
-
         $countRatings = $R->count();
-
         $usuarios = profile::get();
+        $user_id = auth()->user()->id;
+        $auth = rating::where('profile_id', $id)->where('user_id', $user_id)->get();
+        // $ratingComment = 
+        $comment = count($auth);
+        //  dd($rating, $auth, $id);
 
-        // dd($rating);
-
-        return view('profile.rating.puntuar', compact('perfil', 'RatingStar', 'user', 'rating', 'ratingCount', 'avgStar', 'allRatings', 'count', 'R', 'usuarios', 'rating'));
+        return view('profile.rating.puntuar', compact('perfil', 'RatingStar', 'user', 'rating', 'ratingCount', 
+                    'avgStar', 'allRatings', 'count', 'R', 'usuarios', 'countRatings', 'comment'));
     }
 
     public function create()
