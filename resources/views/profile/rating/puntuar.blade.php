@@ -105,7 +105,6 @@
                             @if(empty($comment) && $perfil->user_id != auth()->user()->id)
                                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
                                     Puntuar servicios
-                                    {{ $perfil->user_id}}{{auth()->user()->id}}
                                 </button>
                             @endif
                       </div>

@@ -181,7 +181,7 @@
                         @else
                         <p>
                           <span class="float-right">
-                            <a href="{{ route('mostrar_comentarios', [$imgCollection->id, $user->id] ) }}" class="link-black text-sm">
+                            <a href="{{ route('mostrar_comentarios', [$user->id, $imgCollection->id] ) }}" class="link-black text-sm" style="text-decoration:none;">
                               <i class="far fa-comments mr-1"></i> Comentarios ({{ $comments->where('post_id', $imgCollection->id)->count() }}) 
                             </a>
                           </span>
@@ -209,6 +209,7 @@
                         
                         @foreach ($comments as  $comment)
                           @if($comment->post_id == $imgCollection->id)
+                          @if($loop->last)
                             {{-- @if($comments->where('post_id', $imgCollection->id)->count() > 0 && $comments->where('post_id', $imgCollection->id)->count() <=2) --}}
                               <div class="direct-chat-infos clearfix" id="comentario">
                                 <div class="user-block" style="margin-top:-4%;">
@@ -238,13 +239,13 @@
                                   
                                 </div>
                               </div>
-                            {{-- @endif --}}
+                            @endif
                           @endif
                         @endforeach 
 
                         @if($comments->where('post_id', $imgCollection->id)->count() > 1) 
                           <div class="text-center">
-                            <a href="javascript:void(0)" class="uppercase">Ver comentarios</a>
+                            <a href="{{route('mostrar_comentarios', [$user->id, $imgCollection->id])}}" class="uppercase">Ver comentarios</a>
                             
                           </div>
                         @endif

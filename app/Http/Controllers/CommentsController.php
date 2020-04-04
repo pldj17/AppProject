@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use ProjectApp\Comment;
 use ProjectApp\User;
 use ProjectApp\Notification;
+use ProjectApp\Post;
+use ProjectApp\Profile;
 
 class CommentsController extends Controller
 {
@@ -44,12 +46,18 @@ class CommentsController extends Controller
         return redirect()->route('perfil', [$user->id]);
     }
 
-    public function show($comment)
+    public function show($id, $comment)
     {
-
+        // dd($comment, $id);
+ 
+        $perfil = Profile::with('especialidades')->where('user_id', $id)->first();
+        $user = User::find($id);
+        $post = Post::with('photos')->orderBy('id', 'desc')->where('user_id', $id)->get();
+        $post_id = Post::where('user_id', $id)->get('id');
+        $comments = Comment::whereIn('post_id', $post_id)->get();
         $count_comments = Comment::where('post_id', $comment)->get()->count();
 
-        return view('profile.comments.show', compact('count_comments'));
+        return view('profile.comments.show', compact('count_comments', 'user', 'perfil', 'post', 'comments'));
 
     }
 
