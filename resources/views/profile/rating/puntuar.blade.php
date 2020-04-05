@@ -58,7 +58,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="{{route('rating', ['id' => $user->id])}}">
-                                Calificar
+                                Puntuaciones
                             </a>
                         </li>
                     </ul>
@@ -94,7 +94,7 @@
                     <div class="col-sm-6">
                       <div class="form-group" style="margin-left:10%;">
                         <p style="text-aling:center;">
-                            <strong>Calificaciones</strong>
+                            <strong>Calificaciones y opiniones</strong>
                         </p><br>
                         <h1 style="font-size:500%; margin-right:50%;">{{bcdiv($avgStar, '1', 1)}}</h1>
                         @include('profile.rating.rating')
@@ -115,7 +115,7 @@
                 @foreach($RatingStar as $r)
                     @if($r->profile_id == $perfil->id)
                         <div class="container" style="margin-left:35px;">
-                            <h5>Tu puntuación</h5>
+                            <h5>Tu revisión</h5>
                         </div>
                         {{-- {{$r->id}} --}}
                         <div class="card-footer card-comments">

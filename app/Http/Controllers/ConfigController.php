@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use ProjectApp\Http\Requests\ValidationPassword;
 use ProjectApp\Profile;
+use ProjectApp\Rating;
 use ProjectApp\User;
 
 class ConfigController extends Controller
@@ -25,10 +26,15 @@ class ConfigController extends Controller
     public function store(user $user)
     {
         $id = $user->id;
-
+        $rating = new Rating();
+        $rating->rating = 0;
+        $rating->profile_id = $id;
+        $rating->save();
         Profile::where('user_id', $id)->update([
             'private' => request('private')
         ]);
+
+        
         
         return redirect()->back()->with('mensaje', 'Su perfil ha sido actualizado correctamente');
     }

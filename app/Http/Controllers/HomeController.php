@@ -33,8 +33,10 @@ class HomeController extends Controller
         $contador = $profiles->count();
 
         // rating
-        $rating = Rating::get('avg_rating')->groupBy('profile_id');
+        $rating = Rating::get()->groupBy('profile_id');
         $ratingCount = $rating->count();
+
+        // dd($rating);
 
         return view('dashboard', compact('profiles', 'users', 'especialidades', 'users', 'categories', 'contador', 
                     'fav_user', 'rating', 'ratingCount'));

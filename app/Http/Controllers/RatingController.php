@@ -16,9 +16,9 @@ class RatingController extends Controller
         $perfil = Profile::with('especialidades')->where('user_id', $id)->first();
         $user = User::find($id);
 
-        $rating = Rating::where('profile_id', $id)->get();
+        $rating = Rating::where('profile_id', $id)->where('rating', '>=', 1)->get();
         $ratingCount = $rating->count();
-        $a = Rating::get()->where('profile_id', $id);
+        $a = Rating::get()->where('profile_id', $id)->where('rating', '>=', 1);
         $avgStar = $a->avg('rating');
 
         //rating realizado por usuario en sesion
@@ -28,7 +28,7 @@ class RatingController extends Controller
         $count = $rating->count();
 
         //rating de todos los usuarios menos del usuario en sesion
-        $R = Rating::where('profile_id', $id)->get();
+        $R = Rating::where('profile_id', $id)->where('rating', '>=', 1)->get();
         $countRatings = $R->count();
         $usuarios = profile::get();
         $user_id = auth()->user()->id;
@@ -56,7 +56,7 @@ class RatingController extends Controller
         $rating->description_rating = request('description_rating');
 
         $rating->save();
-        $all_rating = Rating::get()->where('profile_id', $id);
+        $all_rating = Rating::get()->where('profile_id', $id)->where('rating', '>=', 1);
         $avg_rating = $all_rating->avg('rating');
 
         $rating->avg_rating = $avg_rating;

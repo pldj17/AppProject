@@ -17,7 +17,7 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{route('rating', ['id' => $user->id])}}">
-            Calificar
+            Puntuaciones
         </a>
     </li>
     </ul>

@@ -65,6 +65,14 @@
               @if($perfil->private == 1 )
 
                 @if (Auth::user()->id == $user->id)
+                    @if($perfil->address_address == null && $perfil->description == null && empty(implode(', ',$perfil->especialidades()->get()->pluck('name')->toArray())))
+                      <div class="alert alert-info alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h5><i class="icon fas fa-info"></i> Alert!</h5>
+                        Complete el formulario de informaciones para que su perfil este visible. 
+                        <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" style="text-decoration:none; color:blue;">Agregar información</a>
+                      </div>
+                    @endif
 
                   <div class="active tab-pane" id="activity">
 

@@ -16,6 +16,7 @@
 
 @section('styles')
   <link rel="stylesheet" type="text/css" href="{{asset('assets/css/galeria.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{asset('assets/css/custom.css') }}">
 @endsection
 
 @section('contenido')
@@ -116,25 +117,19 @@
                   </div>
                 </div>
                 <div class="card-footer text-left">
-
-                  {{-- @foreach($rating as $key => $value) 
-                  @foreach($value as $r)
-                    @if($r->profile_id == $profile->id) 
-              
-                      <li class="list-inline-item"><i class="fas fa-star fa-lg {{$r >= 1 ? ' blue' : ''}}"></i></li>
-                      <li class="list-inline-item"><i class="fas fa-star fa-lg {{$r >= 2 ? ' blue' : ''}}"></i></li>
-                      <li class="list-inline-item"><i class="fas fa-star fa-lg {{$r >= 3 ? ' blue' : ''}}"></i></li>
-                      <li class="list-inline-item"><i class="fas fa-star fa-lg {{$r >= 4 ? ' blue' : ''}}"></i></li>
-                      <li class="list-inline-item"><i class="fas fa-star fa-lg {{$r >= 5 ? ' blue' : ''}}"></i></li>  
-                      @else
-                      <li class="list-inline-item"><i class="fas fa-star fa-lg {{$r >= 1 ? ' blue' : ''}}"></i></li>
-                      <li class="list-inline-item"><i class="fas fa-star fa-lg {{$r >= 2 ? ' blue' : ''}}"></i></li>
-                      <li class="list-inline-item"><i class="fas fa-star fa-lg {{$r >= 3 ? ' blue' : ''}}"></i></li>
-                      <li class="list-inline-item"><i class="fas fa-star fa-lg {{$r >= 4 ? ' blue' : ''}}"></i></li>
-                      <li class="list-inline-item"><i class="fas fa-star fa-lg {{$r >= 5 ? ' blue' : ''}}"></i></li>
-                    @endif      
+                  @foreach($rating as $key => $value) 
+                    @foreach($value as $r) 
+                      @if($r->profile_id == $profile->id) 
+                        @if($loop->last)
+                          <li class="list-inline-item"><i class="fas fa-star fa-lg {{$r->avg_rating >= 1 ? ' blue' : ''}}"></i></li>
+                          <li class="list-inline-item"><i class="fas fa-star fa-lg {{$r->avg_rating >= 2 ? ' blue' : ''}}"></i></li>
+                          <li class="list-inline-item"><i class="fas fa-star fa-lg {{$r->avg_rating >= 3 ? ' blue' : ''}}"></i></li>
+                          <li class="list-inline-item"><i class="fas fa-star fa-lg {{$r->avg_rating >= 4 ? ' blue' : ''}}"></i></li>
+                          <li class="list-inline-item"><i class="fas fa-star fa-lg {{$r->avg_rating >= 5 ? ' blue' : ''}}"></i></li>  
+                        @endif
+                      @endif
+                    @endforeach
                   @endforeach
-                  @endforeach --}}
                 </div>
               </div>
             </div>
