@@ -18,8 +18,6 @@
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
-    <script src="{{asset("assets/pages/scripts/session/register.js")}}"></script>
-
      {{-- firebase --}}
     <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
     <link rel="manifest" href="{{ asset ('manifest.json') }}">
@@ -39,25 +37,25 @@
                     @csrf
 
                     {{-- nombre --}}
-                    <div class="form-group{{ $errors->has('first_name') ? ' has-danger' : '' }}">
+                    <div class="form-group{{$errors->has('first_name') ? ' has-danger' : ''}}">
                         <div class="input-group-alternative mb-3">
-                            <input id="nombre" class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Nombre') }}" type="text" name="first_name" value="{{ old('first_name') }}">
+                            <input id="first_name" class="form-control{{$errors->has('first_name') ? ' is-invalid' : ''}}" placeholder="Nombre" type="text" name="first_name" value="{{old('first_name')}}">
                         </div>
                         @if ($errors->has('first_name'))
                             <span class="invalid-feedback" style="display: block;" role="alert">
-                                <strong>{{ $errors->first('first_name') }}</strong>
+                                <strong>{{$errors->first('first_name')}}</strong>
                             </span>
                         @endif
                     </div>
 
                     {{-- apellido --}}
-                    <div class="form-group{{ $errors->has('last_name') ? ' has-danger' : '' }}">
+                    <div class="form-group{{$errors->has('last_name') ? ' has-danger' : ''}}">
                         <div class="input-group-alternative mb-3">
-                            <input class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Apellido') }}" type="text" name="last_name" value="{{ old('last_name') }}">
+                            <input class="form-control{{ $errors->has('last_name') ? ' is-invalid' : ''}}" placeholder="Apellido" type="text" name="last_name" value="{{old('last_name')}}">
                         </div>
                         @if ($errors->has('last_name'))
                             <span class="invalid-feedback" style="display: block;" role="alert">
-                                <strong>{{ $errors->first('last_name') }}</strong>
+                                <strong>{{$errors->first('last_name')}}</strong>
                             </span>
                         @endif
                     </div>
@@ -66,7 +64,6 @@
                     <div class="form-group{{ $errors->has('date') ? ' has-danger' : '' }}">
                         <div class="input-group-alternative mb-3">
                             <input class="form-control{{ $errors->has('date_born') ? ' is-invalid' : '' }}" type="date" name="date_born" max="3000-12-31" min="1000-01-01" name="date_born" value="{{ old('date_born') }}"  autocomplete="date_born">
-                            {{-- <input readonly="readonly"  type="date" placeholder="Fecha de nacimiento" class="form-control @error('date') is-invalid @enderror" name="date_born" value="{{ old('date_born') }}"  autocomplete="date_born"> --}}
                         </div>
                         @if ($errors->has('date_born'))
                             <span class="invalid-feedback" style="display: block;" role="alert">
@@ -76,12 +73,9 @@
                     </div>
 
                     {{-- email --}}
-                    <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
+                    <div class="form-group{{$errors->has('email') ? ' has-danger' : ''}}">
                         <div class="input-group-alternative mb-3">
-                            {{-- <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                            </div> --}}
-                            <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" type="email" name="email" value="{{ old('email') }}">
+                            <input class="form-control{{$errors->has('email') ? ' is-invalid' : ''}}" placeholder="Email" type="email" name="email" value="{{old('email')}}">
                         </div>
                         @if ($errors->has('email'))
                             <span class="invalid-feedback" style="display: block;" role="alert">
@@ -91,29 +85,25 @@
                     </div>
 
                     {{-- contrasena --}}
-                    <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
+                    <div class="form-group{{$errors->has('password') ? ' has-danger' : ''}}">
                         <div class="input-group-alternative">
-                            {{-- <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                            </div> --}}
-                            <input id="pass" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Contraseña') }}" type="password" name="password">
-                            {{-- <i class="fa fa-eye" id="show" style="margin-top:4%; margin-left:2%; margin-right:2%;"></i> --}}
+                            <input id="pass" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="Contraseña" type="password" name="password">
                         </div>
                         @if ($errors->has('password'))
                             <span class="invalid-feedback" style="display: block;" role="alert">
-                                <strong>{{ $errors->first('password') }}</strong>
+                                <strong>{{$errors->first('password')}}</strong>
                             </span>
                         @endif
                     </div>
 
                     {{-- confirmar contrasena --}}
-                    <div class="form-group{{ $errors->has('password_confirmation') ? ' has-danger' : '' }}">
+                    <div class="form-group{{$errors->has('password_confirmation') ? ' has-danger' : ''}}">
                         <div class="input-group-alternative">
-                            <input id="pass" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Confirmar contraseña') }}" type="password" name="password_confirmation">
+                            <input id="pass" class="form-control{{$errors->has('password') ? ' is-invalid' : ''}}" placeholder="Confirmar contraseña" type="password" name="password_confirmation">
                         </div>
                         @if ($errors->has('password_confirmation'))
                             <span class="invalid-feedback" style="display: block;" role="alert">
-                                <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                <strong>{{$errors->first('password_confirmation')}}</strong>
                             </span>
                         @endif
                     </div>
@@ -121,13 +111,13 @@
                     {{-- crear cuenta --}}
                     <div class="text-center">
                         {{-- <input type="hidden" name="device_token" id="device_token"> --}}
-                        <button type="submit" id="btnvalidar" class="btn btn-primary mt-4" value="Validar">{{ __('Crear cuenta') }}</button>
+                        <button type="submit" id="btnvalidar" class="btn btn-primary mt-4" value="Validar">Crear cuenta</button>
                     </div>
                 </form>
 
                 <div class="row mt-3">
                     <div class="col-12 text-right">
-                        <a href="{{ route('login') }}" class="text-center">¿Ya eres miembro?</a>
+                        <a href="{{route('login')}}" class="text-center">¿Ya eres miembro?</a>
                     </div>
                 </div>
 

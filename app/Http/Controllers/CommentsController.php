@@ -36,26 +36,24 @@ class CommentsController extends Controller
 
             $noti = new Notification;
             $token = 'fnj-5Xe-ei8:APA91bHc-NCO2h-ZCxxE08RmITgw4dHXkz8TUC6VaG1ZpFgnLUTySS63JwlZY3Hlyd6V_60q5jPcXBN_4u8568hS55CUPDFyUHb0gnFNbRLLXFdx8uR1uxIzcp1AF4K0M2T9_BsTMrEy';
-            $noti->toSingleDevice($token, 'title', 'body', null, null);
-
-
-            return redirect()->route('perfil', [$user->id]);
-           
-            
+            $noti->toSingleDevice($token, 'title', 'body', null, null);    
+            return redirect()->route('perfil', [$user->id]);  
         }
-        return redirect()->route('perfil', [$user->id]);
+       
     }
 
-    public function show($id, $comment)
+    public function show($id, $post)
     {
         // dd($comment, $id);
  
         $perfil = Profile::with('especialidades')->where('user_id', $id)->first();
         $user = User::find($id);
-        $post = Post::with('photos')->orderBy('id', 'desc')->where('user_id', $id)->get();
+        $post = Post::with('photos')->orderBy('id', 'desc')->where('user_id', $id)->where('id', $post)->get();
         $post_id = Post::where('user_id', $id)->get('id');
         $comments = Comment::whereIn('post_id', $post_id)->get();
-        $count_comments = Comment::where('post_id', $comment)->get()->count();
+        $count_comments = Comment::where('post_id', $post)->get()->count();
+
+        // dd($post);
 
         return view('profile.comments.show', compact('count_comments', 'user', 'perfil', 'post', 'comments'));
 
