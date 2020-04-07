@@ -22,9 +22,10 @@ messaging.setBackgroundMessageHandler(function(payLoad){
 
     var notificationTitle  = 'Background message Title';
     var notificationOptions = {
-        body: 'background Message body',
+        body: 'Background Message body',
         icon: '/firebase-logo.png'
     };
 
-    return self.registration.showNotification(notificationTitle, notificationOptions);
+    return self.registration.showNotification(notificationTitle, 
+        notificationOptions);
 });

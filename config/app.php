@@ -178,8 +178,9 @@ return [
         // ProjectApp\Providers\BroadcastServiceProvider::class,
         ProjectApp\Providers\EventServiceProvider::class,
         ProjectApp\Providers\RouteServiceProvider::class,
-        LaravelFCM\FCMServiceProvider::class,
-
+        LaravelFCM\FCMServiceProvider::class,	
+        Barryvdh\DomPDF\ServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*
@@ -234,7 +235,9 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'FCM'      => LaravelFCM\Facades\FCM::class,
-    	'FCMGroup' => LaravelFCM\Facades\FCMGroup::class, 
+        'FCMGroup' => LaravelFCM\Facades\FCMGroup::class, 
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

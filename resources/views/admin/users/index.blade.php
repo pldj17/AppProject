@@ -34,6 +34,29 @@
                                 </div>
                             {{ Form::close() }}
                         </div>
+                    </div>
+                    <div class="container" style="display:inline-flex">
+                        <form method="GET" action="{{route('pdf')}}" target="_blank" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <div class="control">
+                                    <button type="submit" class="btn btn-primary"> PDF</button>
+                                </div>
+                            </div>
+                        </form> &nbsp;&nbsp;&nbsp;&nbsp;
+                        <form method="GET" action="{{route('excel')}}" target="_blank" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <div class="control">
+                                    <button type="submit" class="btn btn-primary"> EXCEL</button>
+                                </div>
+                            </div>
+                        </form> &nbsp;&nbsp;&nbsp;&nbsp;
+                        <form method="GET" action="{{route('csv')}}" target="_blank" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <div class="control">
+                                    <button type="submit" class="btn btn-primary"> CSV</button>
+                                </div>
+                            </div>
+                        </form> &nbsp;&nbsp;&nbsp;&nbsp;
                         <b><h6>Total:</h6></b>&nbsp;&nbsp;{{$users->count()}}
                     </div>
                 <div class="table-responsive">

@@ -11,7 +11,7 @@
 |
 */
 
-use ProjectApp\Http\Controllers\RatingController;
+use ProjectApp\Exports\UsersExport;
 
 Route::get('/', function () {
     return view('dashboard');
@@ -70,8 +70,6 @@ Route::group(['middleware' => ['auth']], function(){
 });
 
 
-
-
 Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => ['auth']], function(){
     
     // Rutas usuario
@@ -81,7 +79,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => ['aut
     Route::get('usuario/{id}/editar', 'UserController@edit')->name('editar_usuario');
     Route::put('usuario/{id}', 'UserController@update')->name('actualizar_usuario');
     Route::delete('usuario/{id}', 'UserController@destroy')->name('eliminar_usuario');
-    // Route::get('usuario/{id}/ver', 'UserController@show')->name('ver_perfil');
+    Route::get('user/report', 'UserController@report')->name('pdf');
+    Route::get('user/reportExcel', 'UserController@reportExcel')->name('excel');
+    Route::get('user/reportCsv', 'UserController@reportCvs')->name('csv');
 
     // Rutas permisos
     Route::get('permiso', 'PermissionController@index')->name('permiso');
@@ -125,12 +125,3 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => ['aut
     Route::delete('especialidad/{id}', 'SpecialtyController@destroy')->name('eliminar_especialidad');
 
 });
-
-// // Rutas especialidades
-// Route::get('especialidad', 'SpecialtyController@index')->name('especialidad');
-// Route::get('especialidad/crear', 'SpecialtyController@create')->name('crear_especialidad');
-// Route::post('especialidad', 'SpecialtyController@store')->name('guardar_especialidad');
-// Route::get('especialidad/{id}/editar', 'SpecialtyController@edit')->name('editar_especialidad');
-// Route::put('especialidad/{id}', 'SpecialtyController@update')->name('actualizar_especialidad');
-// Route::delete('especialidad/{id}', 'SpecialtyController@destroy')->name('eliminar_especialidad');
-

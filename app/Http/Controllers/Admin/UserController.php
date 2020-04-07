@@ -2,12 +2,14 @@
 
 namespace ProjectApp\Http\Controllers\Admin;
 
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use ProjectApp\Http\Controllers\Controller;
 use ProjectApp\User;
 use ProjectApp\Role;
 use Illuminate\Support\Facades\Auth;
-use ProjectApp\Photo;
+use Maatwebsite\Excel\Facades\Excel;
+use ProjectApp\Exports\UsersExport;
 use ProjectApp\Profile;
 
 class UserController extends Controller
@@ -33,19 +35,6 @@ class UserController extends Controller
         }
         return view('admin.users.edit')->with(['user'=> User::find($id), 'roles' => Role::all()]);
     }
-    
-    // public function show($id, User $user, Profile $perfil)
-    // {
-
-    //     $photo = Photo::with('post')->orderBy('id','desc')->get()->where('user_id', $id)->groupBy('post_id');
-
-    //     $perfil = Profile::all()->where('user_id', $id)->first();
-    //     $user = user::find($id);
-
-    //     dd($photo);
-
-    //     return view('profile.index', compact('perfil', 'user', 'photo'));
-    // }
 
     public function update(Request $request, $id)
     {
@@ -69,5 +58,22 @@ class UserController extends Controller
         } else {
             abort(404);
         }
+    }
+    
+    public function report()
+    {
+        $users = User::orderBy('id', 'ASC')->get();
+        $pdf = PDF::loadView('reports/users', compact('users'));
+        return $pdf->stream();
+    }
+
+    public function reportExcel()
+    {
+        return (new UsersExport)->download('users.xlsx');
+    }
+
+    public function reportCvs()
+    {
+        return (new UsersExport)->download('users.csv');
     }
 }
