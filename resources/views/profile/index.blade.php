@@ -264,22 +264,30 @@
               @endforeach
             </div>
             @else
-
-              <div class="active tab-pane" id="activity">
-                <div class="container">
-                  <b>Nombre y apellido:</b> <a>{{$user->name}}</a><br>
-                  <b>Correo:</b> <a>{{$user->email}}</a><br>
-                  <b>Teléfono:</b> <a>{{$perfil->phone}}</a><br>
-                  <b>Fecha de nacimiento:</b> <a>{{date('d-m-Y', strtotime($perfil->date_born))}}</a>
-                </div>
-              </div>
-
-              <br>
               @if (Auth::user()->id == $user->id)
+                <div class="active tab-pane" id="activity">
+                  <div class="container">
+                    <b>Nombre y apellido:</b> <a>{{$user->name}}</a><br>
+                    <b>Correo:</b> <a>{{$user->email}}</a><br>
+                    <b>Teléfono:</b> <a>{{$perfil->phone}}</a><br>
+                    <b>Fecha de nacimiento:</b> <a>{{date('d-m-Y', strtotime($perfil->date_born))}}</a>
+                  </div>
+                </div>
+                <br>
                 <div style="margin-left:15px;">
                   <a href="{{ route('config', [ Auth::user()->id]) }}" class="btn btn-sm btn-primary">
                     <i class="fas fa-user"></i> Publicar Perfil
                   </a>
+                </div>
+              @else
+                <div class="active tab-pane" id="activity">
+                  <div class="container">
+                    <div class="alert alert-info alert-dismissible">
+                      {{-- <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> --}}
+                      <h5><i class="icon fas fa-info"></i> Alert!</h5>
+                        Perfil privado <i class="fas fa-user-lock fa-2x"></i>
+                    </div>
+                  </div>
                 </div>
               @endif
 

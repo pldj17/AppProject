@@ -57,7 +57,7 @@
                                 </div>
                             </div>
                         </form> &nbsp;&nbsp;&nbsp;&nbsp;
-                        <b><h6>Total:</h6></b>&nbsp;&nbsp;{{$users->count()}}
+                        <b><h6 style="float:left;">Total:</h6></b>&nbsp;&nbsp;{{$users->count()}}
                     </div>
                 <div class="table-responsive">
                     <table id="tabla-data" class="table table-striped table-bordered" cellspacing="0" width="100%">
