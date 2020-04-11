@@ -83,17 +83,17 @@
                                     <td>{{ implode(',', $data->roles()->get()->pluck('name')->toArray())}}</td>
                                     <td>{{$data->created_at}}</td>
                                     <td>
-                                        @if($data->active == 1)
-                                            Activo
-                                        @else
-                                            Inactivo
-                                        @endif
-                                    </td>
-                                    <td>
                                         @if(implode(',', $data->profile()->get()->pluck('private')->toArray()) == '0' || implode(',', $data->profile()->get()->pluck('private')->toArray()) == '')
                                             Privado
                                         @else
                                             Publico
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($data->active == 1)
+                                            Activo
+                                        @else
+                                            Inactivo
                                         @endif
                                     </td>
                                     <td>

@@ -12,7 +12,7 @@
         }
         #users td, #users th {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 5px;
         }
         #users tr:nth-child(even){background-color: #f2f2f2;}
         #users tr:hover {background-color: #ddd;}
@@ -40,6 +40,7 @@
                 <th>Rol</th>
                 <th>Registrado</th>
                 <th>Perfil</th>
+                <th>Estado</th>
                 <th>Especialidad</th>
                 <th>Posts</th>
             </tr>
@@ -52,12 +53,19 @@
                         <td>{{$data->name}}</td>
                         <td>{{$data->email}}</td>
                         <td>{{ implode(',', $data->roles()->get()->pluck('name')->toArray())}}</td>
-                        <td>{{$data->created_at}}</td>
+                        <td>{{$data->created_at->format('Y-m-d')}}</td>
                         <td>
                             @if(implode(',', $data->profile()->get()->pluck('private')->toArray()) == '0' || implode(',', $data->profile()->get()->pluck('private')->toArray()) == '')
                                 Privado
                             @else
                                 Publico
+                            @endif
+                        </td>
+                        <td>
+                            @if($data->active == 1)
+                                Activo
+                            @else
+                                Inactivo
                             @endif
                         </td>
                         <td>
