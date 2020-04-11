@@ -3,6 +3,7 @@
 namespace ProjectApp\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use ProjectApp\Http\Requests\ValidationPassword;
 use ProjectApp\Profile;
@@ -33,10 +34,19 @@ class ConfigController extends Controller
         Profile::where('user_id', $id)->update([
             'private' => request('private')
         ]);
-
-        
         
         return redirect()->back()->with('mensaje', 'Su perfil ha sido actualizado correctamente');
+    }
+
+    public function active(user $user)
+    {
+        $id = $user->id;
+        User::where('id', $id)->update([
+            'active' => request('active')
+        ]);
+
+        Auth::logout();
+        return redirect('/');
     }
 
     public function password(ValidationPassword $request)

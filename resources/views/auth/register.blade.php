@@ -22,6 +22,8 @@
     <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
     <link rel="manifest" href="{{ asset ('manifest.json') }}">
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
     </head>
     <body class="hold-transition register-page">
         <div class="register-box">
@@ -39,7 +41,7 @@
                     {{-- nombre --}}
                     <div class="form-group{{$errors->has('first_name') ? ' has-danger' : ''}}">
                         <div class="input-group-alternative mb-3">
-                            <input id="first_name" class="form-control{{$errors->has('first_name') ? ' is-invalid' : ''}}" placeholder="Nombre" type="text" name="first_name" value="{{old('first_name')}}">
+                            <input id="first_name" class="form-control{{$errors->has('first_name') ? ' is-invalid' : ''}}" placeholder="Nombre" type="text" name="first_name" value="{{old('first_name')}}" onblur="firstNameValidate()">
                         </div>
                         @if ($errors->has('first_name'))
                             <span class="invalid-feedback" style="display: block;" role="alert">
@@ -63,7 +65,7 @@
                     {{-- fecha de nacimiento --}}
                     <div class="form-group{{ $errors->has('date') ? ' has-danger' : '' }}">
                         <div class="input-group-alternative mb-3">
-                            <input class="form-control{{ $errors->has('date_born') ? ' is-invalid' : '' }}" type="date" name="date_born" max="3000-12-31" min="1000-01-01" name="date_born" value="{{ old('date_born') }}"  autocomplete="date_born">
+                            <input class="form-control{{ $errors->has('date_born') ? ' is-invalid' : '' }}" type="date" name="date_born" max="3000-12-31" min="1000-01-01" name="date_born" value="{{ old('date_born') }}" onblur="myFunction()" id="fechaInspeccion" autocomplete="date_born">
                         </div>
                         @if ($errors->has('date_born'))
                             <span class="invalid-feedback" style="display: block;" role="alert">
@@ -133,6 +135,33 @@
     <!-- AdminLTE App -->
     <script src="{{asset("assets/$theme/dist/js/adminlte.min.js")}}"></script>
      {{-- firebase --}}
-     <script src="{{asset('assets/js/firebase.js')}}"></script>
+    <script src="{{asset('assets/js/firebase.js')}}"></script>
+
+    <script>
+        var myDate = $('#fechaInspeccion');
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;
+        var yyyy = today.getFullYear()-17;
+        if(dd < 10)
+        dd = '0' + dd;
+
+        if(mm < 10)
+        mm = '0' + mm;
+
+        today = yyyy + '-' + mm + '-' + dd;
+        myDate.attr("max", today);
+
+        function myFunction(){
+        var date = myDate.val();
+        if(Date.parse(date)){
+            if(date > today){
+                alert('Debe ser mayor de edad para poder registrarse');
+            myDate.val("");
+            }
+        }
+        }
+    </script>
+
     </body>
 </html>

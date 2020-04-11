@@ -61,6 +61,8 @@
         @foreach($profiles as $k => $profile)
           @if(implode(', ', $profile->especialidades()->get()->pluck('name')->toArray()) == null)
 
+          @elseif($profile->user->active == null)
+
           @else
             <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
               <div class="card bg-light">

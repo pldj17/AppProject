@@ -6,18 +6,9 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreatePermissionRoleTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('permission_role', function (Blueprint $table) {
-            // $table->unsignedInteger('role_id');
-            // $table->foreign('role_id', 'fk_permissionrole_role')->references('id')->on('roles')->onDelete('restrict')->onUpdate('restrict');
-            // $table->unsignedInteger('permission_id');
-            // $table->foreign('permission_id', 'fk_permissionrole_permission')->references('id')->on('permission')->onDelete('restrict')->onUpdate('restrict');
             
             $table->bigInteger('role_id')->unsigned()->index(); // this is working
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('restrict')->onUpdate('restrict');
@@ -30,11 +21,6 @@ class CreatePermissionRoleTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('permission_role');

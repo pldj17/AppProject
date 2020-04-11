@@ -13,32 +13,37 @@ class RatingController extends Controller
 {
     public function index($id)
     {
-        $perfil = Profile::with('especialidades')->where('user_id', $id)->first();
         $user = User::find($id);
 
-        $rating = Rating::where('profile_id', $id)->where('rating', '>=', 1)->get();
-        $ratingCount = $rating->count();
-        $a = Rating::get()->where('profile_id', $id)->where('rating', '>=', 1);
-        $avgStar = $a->avg('rating');
+        if ( $user->active == 1 ){
+            $perfil = Profile::with('especialidades')->where('user_id', $id)->first();
 
-        //rating realizado por usuario en sesion
-        $RatingStar = Rating::get()->whereIn('user_id', auth()->user()->id, 'profile_id', $id);
-        $allRatings = Rating::where('profile_id', $id)->get();
-        $rating = Rating::all()->where('profile_id', $id, 'user_id' != auth()->user()->id);
-        $count = $rating->count();
+            $rating = Rating::where('profile_id', $id)->where('rating', '>=', 1)->get();
+            $ratingCount = $rating->count();
+            $a = Rating::get()->where('profile_id', $id)->where('rating', '>=', 1);
+            $avgStar = $a->avg('rating');
 
-        //rating de todos los usuarios menos del usuario en sesion
-        $R = Rating::where('profile_id', $id)->where('rating', '>=', 1)->get();
-        $countRatings = $R->count();
-        $usuarios = profile::get();
-        $user_id = auth()->user()->id;
-        $auth = rating::where('profile_id', $id)->where('user_id', $user_id)->get();
-        // $ratingComment = 
-        $comment = count($auth);
-        //  dd($rating, $auth, $id);
+            //rating realizado por usuario en sesion
+            $RatingStar = Rating::get()->whereIn('user_id', auth()->user()->id, 'profile_id', $id);
+            $allRatings = Rating::where('profile_id', $id)->get();
+            $rating = Rating::all()->where('profile_id', $id, 'user_id' != auth()->user()->id);
+            $count = $rating->count();
 
-        return view('profile.rating.puntuar', compact('perfil', 'RatingStar', 'user', 'rating', 'ratingCount', 
-                    'avgStar', 'allRatings', 'count', 'R', 'usuarios', 'countRatings', 'comment'));
+            //rating de todos los usuarios menos del usuario en sesion
+            $R = Rating::where('profile_id', $id)->where('rating', '>=', 1)->get();
+            $countRatings = $R->count();
+            $usuarios = profile::get();
+            $user_id = auth()->user()->id;
+            $auth = rating::where('profile_id', $id)->where('user_id', $user_id)->get();
+            $comment = count($auth);
+            //  dd($rating, $auth, $id);
+
+            return view('profile.rating.puntuar', compact('perfil', 'RatingStar', 'user', 'rating', 'ratingCount', 
+                        'avgStar', 'allRatings', 'count', 'R', 'usuarios', 'countRatings', 'comment'));
+        }
+        else{
+            return redirect()->route('home');
+        }
     }
 
     public function create()

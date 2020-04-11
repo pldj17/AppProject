@@ -14,8 +14,7 @@ class PostController extends Controller
 
     public function index()
     {
-        // $posts = Post::orderBy('id','DESC')->where('user_id', Auth::id())->paginate(10);
-        // return view('profile.index', compact('posts'));
+        //
     }
 
     public function create(array $data)

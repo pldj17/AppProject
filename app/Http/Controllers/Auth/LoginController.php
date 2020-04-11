@@ -25,6 +25,8 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
+        User::where('id', auth()->user()->id)->update(['active' => $request->active]);
+
         User::where('id', auth()->user()->id)->update(['device_token' => $request->device_token]);
         
         $roles = $user->roles()->get();

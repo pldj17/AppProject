@@ -6,18 +6,9 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateMenuRoleTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('menu_role', function (Blueprint $table) {
-            // $table->unsignedInteger('role_id');
-            // $table->foreign('role_id', 'fk_menurole_role')->references('id')->on('roles')->onDelete('restrict')->onUpdate('restrict');
-            // $table->unsignedInteger('menu_id');
-            // $table->foreign('menu_id', 'fk_menurole_menu')->references('id')->on('menus')->onDelete('restrict')->onUpdate('restrict');
             
             $table->bigInteger('role_id')->unsigned()->index(); // this is working
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('restrict')->onUpdate('restrict');
@@ -30,11 +21,6 @@ class CreateMenuRoleTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('menu_role');

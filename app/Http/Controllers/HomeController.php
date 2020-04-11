@@ -19,7 +19,7 @@ class HomeController extends Controller
         $esp_user = Specialty::with('profiles')->orderBy('id', 'desc')->get();
         
         $categories = Specialty::all();
-        $users = User::with(['profile', 'rating'])->get();
+        $users = User::with(['profile', 'rating'])->where('active', '1')->get();
         // ->paginate(5);
 
         $fav_user = Favorite::all('user_id');

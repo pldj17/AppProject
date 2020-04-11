@@ -16,23 +16,29 @@ class PhotoController extends Controller
 
     public function index($id)
     {
-        $post_id = Post::get()->where('user_id', $id);
-
-        $publicacion = Post::with('photos')->where('user_id', $id)->get();
-
-        $photo = Post::with('photos')->orderBy('id', 'desc')->where('user_id', $id)->get();
-
-        $perfil = Profile::all()->where('user_id', $id)->first();
         $user = User::find($id);
 
-        $rating = Rating::where('profile_id', $id)->get();
-        $ratingCount = $rating->count();
-        $a = Rating::get()->where('profile_id', $id);
-        $avgStar = $a->avg('rating');
-        //  dd($publicacion);
+        if ( $user->active == 1 ){
+            
+            $post_id = Post::get()->where('user_id', $id);
 
-        return view('profile.gallery', compact('perfil', 'user', 'photo', 'post_id', 'id', 'publicacion', 'rating', 'ratingCount', 'avgStar'));
+            $publicacion = Post::with('photos')->where('user_id', $id)->get();
 
+            $photo = Post::with('photos')->orderBy('id', 'desc')->where('user_id', $id)->get();
+
+            $perfil = Profile::all()->where('user_id', $id)->first();
+
+            $rating = Rating::where('profile_id', $id)->get();
+            $ratingCount = $rating->count();
+            $a = Rating::get()->where('profile_id', $id);
+            $avgStar = $a->avg('rating');
+            //  dd($publicacion);
+
+            return view('profile.gallery', compact('perfil', 'user', 'photo', 'post_id', 'id', 'publicacion', 'rating', 'ratingCount', 'avgStar'));
+        
+        }else{
+            return redirect()->route('home');
+        }
     }
 
     public function upload(ActualizarPost $request, user $user)

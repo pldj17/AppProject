@@ -19,7 +19,7 @@ class CreateRatingsTable extends Migration
             $table->bigInteger('profile_id')->unsigned()->index(); 
             $table->foreign('profile_id')->references('id')->on('profiles')->onDelete('cascade')->onUpdate('cascade');
 
-            $table->bigInteger('user_id')->unsigned()->index(); 
+            $table->bigInteger('user_id')->unsigned()->index()->nullable(); 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
         });

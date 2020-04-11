@@ -35,7 +35,7 @@
                             {{ Form::close() }}
                         </div>
                     </div>
-                    <div class="container" style="display:inline-flex">
+                    <div class="container-responsive" style="display:inline-flex">
                         <form method="GET" action="{{route('pdf')}}" target="_blank" enctype="multipart/form-data">
                             <div class="form-group">
                                 <div class="control">
@@ -68,6 +68,7 @@
                             <th>Rol</th>
                             <th>Registrado</th>
                             <th>Perfil</th>
+                            <th>Estado</th>
                             <th>Especialidad</th>
                             <th>Posts</th>
                             <th>Acciones</th>
@@ -81,6 +82,13 @@
                                     <td>{{$data->email}}</td>
                                     <td>{{ implode(',', $data->roles()->get()->pluck('name')->toArray())}}</td>
                                     <td>{{$data->created_at}}</td>
+                                    <td>
+                                        @if($data->active == 1)
+                                            Activo
+                                        @else
+                                            Inactivo
+                                        @endif
+                                    </td>
                                     <td>
                                         @if(implode(',', $data->profile()->get()->pluck('private')->toArray()) == '0' || implode(',', $data->profile()->get()->pluck('private')->toArray()) == '')
                                             Privado
@@ -101,12 +109,12 @@
                                         <a href="{{route('editar_usuario', ['id' => $data->id])}}" class="btn-accion-tabla" data-toggle="tooltip" data-placement="top" title="Editar rol de usuario">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                        {{-- <form action="{{route('eliminar_usuario', ['id' => $data->id])}}" class="d-inline form-eliminar" method="POST">
+                                        <form action="{{route('eliminar_usuario', ['id' => $data->id])}}" class="d-inline form-eliminar" method="POST">
                                             @csrf @method("delete")
-                                            <button type="submit" class="btn-accion-tabla eliminar" data-toggle="tooltip" data-placement="bottom" title="Eliminar este registro">
+                                            <button type="submit" class="btn-accion-tabla eliminar" data-toggle="tooltip" data-placement="bottom" title="Desactivar usuario">
                                                 <i class="fa fa-fw fa-trash text-danger"></i>
                                             </button>
-                                        </form> --}}
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

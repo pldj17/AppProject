@@ -35,7 +35,7 @@ class CommentsController extends Controller
         if($comment->save()){
 
             $noti = new Notification;
-            $token = 'fnj-5Xe-ei8:APA91bHc-NCO2h-ZCxxE08RmITgw4dHXkz8TUC6VaG1ZpFgnLUTySS63JwlZY3Hlyd6V_60q5jPcXBN_4u8568hS55CUPDFyUHb0gnFNbRLLXFdx8uR1uxIzcp1AF4K0M2T9_BsTMrEy';
+            $token = 'dPortD2Ejqo:APA91bF_FiuL9ZBGP8DndiJjdSZ-Le7bf0fv1j3l68N7T64RNwdxixd98aUbH7XaCZyqDxsen2LUzROaGcTXfdvFmaAKGh7A7rx2abzOSV_M_nNp-ibr-PcJTfPrPT8A25_NA2nKE7Zf';
             $noti->toSingleDevice($token, 'title', 'body', null, null);    
             return redirect()->route('perfil', [$user->id]);  
         }

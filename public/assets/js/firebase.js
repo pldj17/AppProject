@@ -22,7 +22,7 @@ const messaging = firebase.messaging();
                 return messaging.getToken()
 
             }).then(function(token){    
-                // $('#device_token').val(token);
+                $('#device_token').val(token);
                 console.log(token)
             }).
 

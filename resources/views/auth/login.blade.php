@@ -65,6 +65,7 @@
 
         <div class="text-center">
             <input type="hidden" name="device_token" id="device_token">
+            <input type="hidden" name="active" value="1">
             <button type="submit" class="btn btn-primary my-2">{{ __('Ingresar') }}</button>
         </div>
     </form>

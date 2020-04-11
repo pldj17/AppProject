@@ -23,33 +23,43 @@ class ProfileController extends Controller
     
     public function index($id)
     {
-        $rating = Rating::where('profile_id', $id)->get();
-        $ratingCount = $rating->count();
-        $a = Rating::get()->where('profile_id', $id);
-        $avgStar = $a->avg('rating');
 
-        $especialidad_usuario = profile_specialties::where('user_id', $id)->get();
-
-        $post = Post::with('photos')->orderBy('id', 'desc')->where('user_id', $id)->get();
-
-        $posts = Post::where('user_id', $id)->count();
-
-        $perfil = Profile::with('especialidades')->where('user_id', $id)->first();
         $user = User::find($id);
 
-        $post_id = Post::where('user_id', $id)->get('id');
+        if ( $user->active == 1 ){
 
-        $comments = Comment::whereIn('post_id', $post_id)->get();
+            $rating = Rating::where('profile_id', $id)->get();
+            $ratingCount = $rating->count();
+            $a = Rating::get()->where('profile_id', $id);
+            $avgStar = $a->avg('rating');
+
+            $especialidad_usuario = profile_specialties::where('user_id', $id)->get();
+
+            $post = Post::with('photos')->orderBy('id', 'desc')->where('user_id', $id)->get();
+
+            $posts = Post::where('user_id', $id)->count();
+
+            $perfil = Profile::with('especialidades')->where('user_id', $id)->first();
         
-        $count = Comment::orderBy('id', 'desc')->get()->groupBy('post_id');
 
-        $contador = '';
+            $post_id = Post::where('user_id', $id)->get('id');
 
-        $puntuaciones = [1,2,3,4,5];
-        
-        //  dd($puntuaciones);
+            $comments = Comment::whereIn('post_id', $post_id)->get();
+            
+            $count = Comment::orderBy('id', 'desc')->get()->groupBy('post_id');
 
-        return view('profile.index', compact('perfil', 'user', 'puntuaciones', 'post', 'especialidad_usuario', 'posts', 'comments', 'count', 'contador', 'rating', 'ratingCount', 'avgStar'));
+            $contador = '';
+
+            $puntuaciones = [1,2,3,4,5];
+            
+            //dd($user->active);
+
+            return view('profile.index', compact('perfil', 'user', 'puntuaciones', 'post', 'especialidad_usuario', 'posts', 'comments', 'count', 'contador', 'rating', 'ratingCount', 'avgStar'));
+        }
+        else{
+            return redirect()->route('home');
+        }
+
     }
 
     public function store(ValidarPerfil $request, Profile $user)
@@ -77,16 +87,20 @@ class ProfileController extends Controller
 
     public function contact($id)
     {
-        
-        $perfil = Profile::with('especialidades')->where('user_id', $id)->first();
         $user = User::find($id);
 
-        $rating = Rating::where('profile_id', $id)->get();
-        $ratingCount = $rating->count();
-        $a = Rating::get()->where('profile_id', $id);
-        $avgStar = $a->avg('rating');
-        
-        return view('profile.contact', compact('perfil', 'user', 'rating', 'ratingCount', 'avgStar'));
+        if ( $user->active == 1 ){
+            
+            $perfil = Profile::with('especialidades')->where('user_id', $id)->first();
+            $rating = Rating::where('profile_id', $id)->get();
+            $ratingCount = $rating->count();
+            $a = Rating::get()->where('profile_id', $id);
+            $avgStar = $a->avg('rating');
+            
+            return view('profile.contact', compact('perfil', 'user', 'rating', 'ratingCount', 'avgStar'));
+        }else{
+            return redirect()->route('home');
+        }    
     }
 
     public function edit(Profile $user, Request $request)
@@ -183,18 +197,5 @@ class ProfileController extends Controller
         // return redirect()->back()->with('message', 'Su foto de perfil ha sido actualizado!');
     }
 
-    // public function destroy(Request $request, $id)
-    // {
-    //     if ($request->ajax()) {
-    //         if (Profile::destroy($id)) {
-    //             return response()->json(['mensaje' => 'ok']);
-    //         } else {
-    //             return response()->json(['mensaje' => 'ng']);
-    //         }
-    //     } else {
-    //         abort(404);
-    //     }
-    //     return redirect()->route('profile.index');
-    // }
 
 }

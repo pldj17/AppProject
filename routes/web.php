@@ -50,6 +50,7 @@ Route::group(['middleware' => ['auth']], function(){
     // configuracion
     Route::post('perfil/{user}/configuracion', 'ConfigController@store')->name('config');
     Route::get('perfil/{user}/configuracion', 'ConfigController@index')->name('config');
+    Route::post('perfil/{user}/active', 'ConfigController@active')->name('active');
 
     // comentarios
     Route::post('perfil/comentarios/{user}', 'CommentsController@store')->name('guardar_comentario');

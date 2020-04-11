@@ -4,6 +4,7 @@ namespace ProjectApp;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Session;
 use ProjectApp\Profile;
@@ -14,7 +15,8 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
     // use RoutesWithFakeIds;
-    
+    use SoftDeletes;
+
     protected $fillable = [
         'name', 'email', 'password', 'device_token'
     ];
@@ -26,6 +28,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $dates = ['deleted_at'];
 
     // public function especialidades()
     // {

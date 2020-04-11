@@ -43,16 +43,16 @@
                             <input class="custom-control-input" type="checkbox" name="private" id="private" value="1" {{ $perfil->private || old('private', 2) === 1 ? 'checked' : '' }}>
                             <label for="private" class="custom-control-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Perfil publico</label>
                         </div>
-                        @if($errors->has('active'))
+                        @if($errors->has('private'))
                             <div class="invalid-feedback">
-                                {{ $errors->first('active') }}
+                                {{ $errors->first('private') }}
                             </div>
                         @endif
                     </div>
                     <div class="text-center" style="margin-top:23px;">
                         @include('profile.boton-form-editar')
                     </div>
-            </form>
+                </form>
             </div>
         </div>
 
@@ -146,6 +146,41 @@
                         <div class="text-center" style="margin-top:23px;">
                             @include('profile.boton-form-editar')
                         </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Activar/desactivar perfil</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i></button>
+                {{-- icon + = plus --}}
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <form action="{{ route('active', [$user->id]) }}" method="POST" autocomplete="">
+                    @csrf
+                    <div class="form-group">
+                        <div class="container">
+                            <small>Si desactivas tu cuenta, esta ya no estará disponible y nadie podra acceder a ella ni a las publicaciones que realizaste.
+                            Una vez desactivada, ésta se volverá a activar cuando vuelvas a iniciar sesión.</small>
+                        </div><br>
+                        <div class="custom-control custom-checkbox" id="perfil_active">
+                            <input class="custom-control-input" type="checkbox" name="active" id="active" value="1" {{ $user->active || old('active', 2) === 0 ? 'checked' : '' }}>
+                            <label for="active" class="custom-control-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Perfil Activo</label>
+                        </div>
+                        @if($errors->has('active'))
+                            <div class="invalid-feedback">
+                                {{ $errors->first('active') }}
+                            </div>
+                        @endif
+                    </div>
+                    <div class="text-center" style="margin-top:23px;">
+                        @include('profile.boton-form-editar')
                     </div>
                 </form>
             </div>

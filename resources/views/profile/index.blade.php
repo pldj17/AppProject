@@ -23,6 +23,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/photo/fotoPerfil.css') }}">
 @endsection
 
+
 @section('title')
   <h2>Mi perfil</h2>
 @endsection
@@ -69,7 +70,7 @@
                       <div class="alert alert-info alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-info"></i> Alert!</h5>
-                        Complete el formulario de informaciones para que su perfil este visible. 
+                        Complete el formulario de informaciones para que su perfil este visible en el inicio. 
                         <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" style="text-decoration:none; color:blue;">Agregar información</a>
                       </div>
                     @endif
@@ -96,9 +97,7 @@
                             <div class="col-md-5 mr--1">
                               <input type="file" class="custom-file-input" name="file[]" id="file" accept="image/*" multiple />
                               
-                                {{-- <input type="file" class="custom-file-input" id="customFile" name="image">--}}
                                 <label class="custom-file-label" for="customFile"><i class="far fa-images"></i></label> 
-                                 {{-- <input type="hidden" name="user_id" value="{{ Auth::user()->id }}"> --}}
                                 
                             </div>
                             <div class="col-md-2">
@@ -135,7 +134,6 @@
                                     <i class="fas fa-ellipsis-v"></i>
                                   </button>
                                   <div class="dropdown-menu dropdown-menu-right" id="tabla-data" role="menu">
-                                    {{-- <a href="#" class="dropdown-item"><i class="fa fa-edit"></i>&nbsp; <small>Editar</small></a> --}}
                                     
                                     @foreach ($imgCollection as $post)
 
@@ -190,7 +188,7 @@
                         <p>
                           <span class="float-right">
                             <a href="{{ route('mostrar_comentarios', [$user->id, $imgCollection->id] ) }}" class="link-black text-sm" style="text-decoration:none;">
-                              <i class="far fa-comments mr-1"></i> Comentarios ({{ $comments->where('post_id', $imgCollection->id)->count() }}) 
+                              <i class="far fa-comments mr-1"></i> Comentarios ({{ $comments->where('post_id', $imgCollection->id)->count() }})
                             </a>
                           </span>
                         </p>
@@ -216,7 +214,7 @@
                         <br><br>
                         
                         @foreach ($comments as  $comment)
-                          @if($comment->post_id == $imgCollection->id)
+                          @if($comment->post_id == $imgCollection->id  && $comment->user->active == 1)
                           @if($loop->last)
                             {{-- @if($comments->where('post_id', $imgCollection->id)->count() > 0 && $comments->where('post_id', $imgCollection->id)->count() <=2) --}}
                               <div class="direct-chat-infos clearfix" id="comentario">
@@ -297,3 +295,4 @@
       </div>
     </div>
 @endsection
+{{-- @endif --}}
