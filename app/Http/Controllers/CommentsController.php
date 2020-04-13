@@ -12,11 +12,15 @@ use ProjectApp\Profile;
 
 class CommentsController extends Controller
 {
-    // protected $profile;
+    protected $comment;
 
-    public function index()
+    public function comment($comment_id)
     {
-        //
+        if(Notification::where('comment_id', $comment_id)->update(['read_at' => date('Y-m-d H:i:s')])){
+            
+            dump(Comment::find($comment_id));
+
+        }
     }
 
     public function create()
@@ -30,13 +34,17 @@ class CommentsController extends Controller
         $comment->user_id = Auth::id();
         $comment->post_id = $request->post('post_id');
         $comment->message = $request->post('message');
-        // $comment->commented = date('Y-m-d H:i:s');
-        // $comment->save();
         if($comment->save()){
 
             $noti = new Notification;
-            $token = 'dPortD2Ejqo:APA91bF_FiuL9ZBGP8DndiJjdSZ-Le7bf0fv1j3l68N7T64RNwdxixd98aUbH7XaCZyqDxsen2LUzROaGcTXfdvFmaAKGh7A7rx2abzOSV_M_nNp-ibr-PcJTfPrPT8A25_NA2nKE7Zf';
-            $noti->toSingleDevice($token, 'title', 'body', null, null);    
+            $noti->comment_id = $comment->id;
+            $noti->post_id     = $request->post('post_id');
+
+            if($noti->save()){
+                $url = route('noti_comment', $comment->id);
+                $noti->toMultiDevice(User::all(), 'title', 'body', null, $url);    
+            }
+
             return redirect()->route('perfil', [$user->id]);  
         }
        

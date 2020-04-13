@@ -41,9 +41,9 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
     {{-- firebase --}}
-    <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
     {{-- <link rel="manifest" href="manifest.json"> --}}
-    <link rel="manifest" href="{{ asset ("manifest.json") }}">
+    <link rel="manifest" href="{{ asset ('manifest.json') }}">
 
 
     

@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use ProjectApp\Menu;
+use ProjectApp\Notification;
+
 // use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
         });
         View::share('theme', 'lte');
 
+        View::share('numberAlert', Notification::numberAlert());
         // \Carbon::setLocale(config('app.locale'));
     }
 }

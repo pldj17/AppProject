@@ -156,7 +156,7 @@
         var date = myDate.val();
         if(Date.parse(date)){
             if(date > today){
-                alert('Debe ser mayor de edad para poder registrarse');
+                // alert('Debe ser mayor de edad para poder registrarse');
             myDate.val("");
             }
         }

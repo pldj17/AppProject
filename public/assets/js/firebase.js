@@ -34,4 +34,6 @@ const messaging = firebase.messaging();
 
 messaging.onMessage((payLoad) => {
     console.log(payLoad);
+    $('.number-alert').empty().html(payLoad.data['gcm.notification.badge'])
+    $('.number-message').empty().html('Tienes ' + payLoad.data['gcm.notification.badge' + ' notificaciones'])
 })

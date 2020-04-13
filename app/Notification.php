@@ -4,11 +4,11 @@ namespace ProjectApp;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use LaravelFCM\Facades\FCM;
+// use LaravelFCM\Facades\FCM;
 use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
-// use FCM;
+use FCM;
 
 class Notification extends Model
 {
@@ -17,13 +17,13 @@ class Notification extends Model
     protected $fillable = ['comment_id', 'post_id', 'user_id'];
     protected $dates = ['delete_ate'];
 
-    public static function toSingleDevice($token=null, $title=null, $body=null, $icon, $click_action){
+    public function scopeToSingleDevice($query, $token=null, $title=null, $body=null, $icon, $click_action){
         $optionBuilder = new OptionsBuilder();
         $optionBuilder->setTimeToLive(60*20);
         $notificationBuilder = new PayloadNotificationBuilder($title);
         $notificationBuilder->setBody($body)
                             ->setSound('default')
-                            ->setBadge(1)
+                            ->setBadge($this->where('read_at', null)->count())
                             ->setIcon($icon)
                             ->setClickAction($click_action);
         $dataBuilder = new PayloadDataBuilder();
@@ -41,14 +41,14 @@ class Notification extends Model
         $downstreamResponse->tokensWithError();
     }
 
-    public static function toMultiDevice($model, $title=null, $body=null, $icon, $click_action){
+    public function scopeToMultiDevice($query, $model, $title=null, $body=null, $icon, $click_action){
         $optionBuilder = new OptionsBuilder();
         $optionBuilder->setTimeToLive(60*20);
 
         $notificationBuilder = new PayloadNotificationBuilder($title);
         $notificationBuilder->setBody($body)
                             ->setSound('default')
-                            ->setBadge(1)
+                            ->setBadge($this->where('read_at', null)->count())
                             ->setIcon($icon)
                             ->setClickAction($click_action);
 
@@ -72,8 +72,13 @@ class Notification extends Model
         $downstreamResponse->tokensWithError();
     }
 
-    // public static function numberAlert(){
+    public function scopeRead()
+    {
+        return $this->where('read_at', null)->get();
+    }
 
-    // }
+    public function scopeNumberAlert(){
+        return $this->where('read_at', null)->count();
+    }
 
 }

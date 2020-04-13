@@ -15,6 +15,7 @@ public/photos
 /public/sccs
 /public/vendor
 /public/uploads
+/resources/lang/vendor
 .env
 .env.backup
 .phpunit.result.cache
