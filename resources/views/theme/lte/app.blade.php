@@ -175,6 +175,29 @@
      {{-- firebase --}}
      <script src="{{asset('assets/js/firebase.js')}}"></script>
 
+     <script>
+       $(document).ready(function(){
+
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+
+        $('.show-noti').on('click',function(){
+            $.ajax({
+                url: "{{ route('read_comment') }}",  
+                type: 'post',
+                dataType: 'html',
+                success:function(data){
+                  $('.comment-notification').html(data);
+                }
+            })
+        });
+        
+       });
+     </script>
+
     @yield("scripts")
 
   </body>

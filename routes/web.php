@@ -57,6 +57,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::delete('perfil/comentario/{comment}', 'CommentsController@destroy')->name('eliminar_comentario');
     Route::get('perfil/comentarios/{id}{post}', 'CommentsController@show')->name('mostrar_comentarios');
     Route::get('/comentarios/{id}', 'CommentsController@comment')->name('noti_comment');
+    Route::post('/comentarios/read', 'CommentsController@readComment')->name('read_comment');
     
     //favoritos
     Route::post('favorite/{perfil}/add','FavoritesController@add')->name('profile.favorite');

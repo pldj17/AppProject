@@ -72,7 +72,7 @@ class Notification extends Model
         $downstreamResponse->tokensWithError();
     }
 
-    public function scopeRead()
+    public function scopeRead($query)
     {
         return $this->where('read_at', null)->get();
     }

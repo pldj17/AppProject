@@ -28,12 +28,6 @@
   <h2>Mi perfil</h2>
 @endsection
 
-@section('bottom')
-  @if(Auth::user()->id != $user->id)
-    <button type="button" class="btn btn-block btn-primary">Agg a Fav</button>
-  @endif
-@endsection
-
 @section('contenido')  
 
     <div class="container-fluid">
