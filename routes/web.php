@@ -13,6 +13,11 @@
 
 use ProjectApp\Exports\UsersExport;
 
+// offline PWA
+Route::get('/offline', function () {    
+    return view('modules/laravelpwa/offline');
+});
+
 Route::get('/', function () {
     return view('dashboard');
 });

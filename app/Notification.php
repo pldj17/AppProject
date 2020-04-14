@@ -4,11 +4,11 @@ namespace ProjectApp;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-// use LaravelFCM\Facades\FCM;
 use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
 use FCM;
+use Illuminate\Support\Facades\Auth;
 
 class Notification extends Model
 {
@@ -77,7 +77,8 @@ class Notification extends Model
         return $this->where('read_at', null)->get();
     }
 
-    public function scopeNumberAlert(){
+    public function scopeNumberAlert()
+    {
         return $this->where('read_at', null)->count();
     }
 

@@ -4,6 +4,7 @@ namespace ProjectApp\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use ProjectApp\Comment;
 use ProjectApp\User;
 use ProjectApp\Notification;
@@ -16,16 +17,17 @@ class CommentsController extends Controller
 
     public function comment($comment_id)
     {
+
         if(Notification::where('comment_id', $comment_id)->update(['read_at' => date('Y-m-d H:i:s')])){
             
-            dump(Comment::find($comment_id));
+             dump(Comment::find($comment_id));
 
         }
     }
 
     public function readComment(Request $r)
     {
-        if($r->ajax()){
+        if($r->ajax() ){
             $noti = Notification::read();
             return view('read.readComment', compact('noti'));
         }
@@ -37,16 +39,31 @@ class CommentsController extends Controller
         $comment->user_id = Auth::id();
         $comment->post_id = $request->post('post_id');
         $comment->message = $request->post('message');
+        $comment->perfil_post_id = $request->post('perfil_post_id');
         if($comment->save()){
+
+            // $noti = new Notification;
+            // $noti->comment_id = $comment->id;
+            // $noti->post_id     = $request->post('post_id');
+
+            // if($noti->save()){
+            //     $url  = route('noti_comment', $comment->id);
+            //     $noti->toMultiDevice(User::all(), 'AppProject', 'Nueva notificación', null, $url);    
+            // }
 
             $noti = new Notification;
             $noti->comment_id = $comment->id;
-            $noti->post_id     = $request->post('post_id');
+            $noti->post_id    = $request->post('post_id');
+            $noti->token      = $request->post('token_perfil');
+            $noti->perfil_post_id = $request->post('perfil_post_id');
+            $noti->user_id    = $user->id;
 
             if($noti->save()){
-                $url = route('noti_comment', $comment->id);
-                $noti->toMultiDevice(User::all(), 'title', 'body', null, $url);    
+                $token      = $request->post('token_perfil');
+                $url = route('noti_comment', $comment->id, $user->id);
+                $noti->toSingleDevice($token, 'title', 'body', null, $url);    
             }
+
 
             return redirect()->route('perfil', [$user->id]);  
         }

@@ -3,6 +3,7 @@
     <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   
     <title>Registrarse</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,7 +24,10 @@
     <link rel="manifest" href="{{ asset ('manifest.json') }}">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+  
+    {{-- assets de PWA --}}
+    @laravelPWA
+    
     </head>
     <body class="hold-transition register-page">
         <div class="register-box">

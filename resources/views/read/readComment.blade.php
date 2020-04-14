@@ -12,6 +12,7 @@
                 <small><i class="fas fa-clock-o"></i>{{ $n->created_at->diffForHumans() }}</small>
                 <br>
             </small>
+            <hr>
             {{-- <p>Show order from <b>Sa</b>
                 <small>
                     <button class="btn btn-info btn-xs pull-right btn-read" value="{{ $n->comment_id }}">Read</button>
