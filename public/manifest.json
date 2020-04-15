@@ -1,3 +1,55 @@
 {
-    "gcm_sender_id": "103953800507"
-}
+    "gcm_sender_id": "103953800507",
+
+    "short_name": "PWA",
+    "name": "PWA",
+    "theme_color": "#fff",
+    "background_color": "#fff",
+    "display": "standalone",
+    "icons": [
+  
+       {
+        "src": "/images/icons/icon-72x72.png",
+        "type": "image/png",
+        "sizes": "72x72"
+      },
+      {
+        "src": "/images/icons/icon-96x96.png",
+        "type": "image/png",
+        "sizes": "96x96"
+      },
+       {
+        "src": "/images/icons/icon-128x128.png",
+        "type": "image/png",
+        "sizes": "128x128"
+      },
+      {
+        "src": "/images/icons/icon-144x144.png",
+        "type": "image/png",
+        "sizes": "144x144"
+      },
+      {
+        "src": "/images/icons/icon-152x152.png",
+        "type": "image/png",
+        "sizes": "152x152"
+      },
+      {
+        "src": "/images/icons/icon-192x192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "/images/icons/icon-384x384.png",
+        "type": "image/png",
+        "sizes": "384x384"
+      },
+      {
+        "src": "icons/icon-512x512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ],
+    "start_url": "http://127.0.0.1:8000/",
+    "orientation": "portrait"
+  
+  }
