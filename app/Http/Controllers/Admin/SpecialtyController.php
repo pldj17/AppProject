@@ -38,7 +38,7 @@ class SpecialtyController extends Controller
 
     public function edit($id)
     {
-
+        can('editar-especialidad');
         $data = Specialty::findOrFail($id);
         return view('admin.especialidad.edit', compact('data'));
     }
@@ -51,6 +51,7 @@ class SpecialtyController extends Controller
 
     public function destroy(Request $request, $id)
     {
+        can('eliminar-especialidad');
         if ($request->ajax()) {
             if (Specialty::destroy($id)) {
                 return response()->json(['mensaje' => 'ok']);

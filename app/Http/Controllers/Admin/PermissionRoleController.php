@@ -11,7 +11,8 @@ class PermissionRoleController extends Controller
 {
     
     public function index()
-    {
+    {   
+        can('ver-permiso-rol');
         $rols = Role::orderBy('id')->pluck('name', 'id')->toArray();
         $permisos = Permission::get();
         $permisosRols = Permission::with('roles')->get()->pluck('roles', 'id')->toArray();
