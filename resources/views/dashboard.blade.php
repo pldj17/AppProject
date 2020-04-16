@@ -21,7 +21,6 @@
 
 @section('contenido')
     @include('includes.mensaje')
-
   @if ($contador <1 )
     @section('title')
       <h2>Sin servicios disponibles</h2>
@@ -56,6 +55,7 @@
     </form>
     <hr>
 
+    <div class="loader" id="loader" style="position:absolute; margin-left:50%; margin-right:50%;">Loading...</div>
 
       <div class="row d-flex align-items-stretch">
         @foreach($profiles as $k => $profile)

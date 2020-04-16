@@ -22,6 +22,9 @@
    {{-- firebase --}}
    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
    <link rel="manifest" href="{{ asset ("manifest.json") }}">
+
+   {{-- loader --}}
+   <link rel="stylesheet" href="{{asset("assets/css/loader.css")}}">
  
     {{-- assets de PWA --}}
     @laravelPWA
@@ -29,12 +32,14 @@
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
+  
   <div class="login-logo">
     <a href="{{asset("/")}}"><b>App</b>Project</a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
+    <div class="loader" id="loader" style="position:absolute; margin-left:50%; margin-right:50%;">Loading...</div>
       <p class="login-box-msg">Iniciar sesión</p>
 
       <form role="form" method="POST" action="{{ route('login') }}">
@@ -87,7 +92,8 @@
             <a href="{{ route('register') }}" class="text-center">Crear cuenta</a>
         </div>
     </div>
-      
+    
+
     <script>
         //ojito para ver password
         $(document).ready(function(){
@@ -111,6 +117,10 @@
 
      {{-- firebase --}}
      <script src="{{asset('assets/js/firebase.js')}}"></script>
+
+     {{-- loader --}}
+     <script src="{{asset("assets/js/loader.js")}}"></script>
+
 
 </body>
 </html>

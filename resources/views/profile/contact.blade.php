@@ -95,9 +95,9 @@
                             <strong><i class="fas fa-phone-alt mr-1"></i> Teléfono</strong><br>
                     
                             @if (empty($perfil->phone) && (Auth::user()->id == $user->id))
-                            <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="phone" style="text-decoration:none;"><small>Agregar teléfono</small></a>
+                                <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="phone" style="text-decoration:none;"><small>Agregar teléfono</small></a>
                             @else
-                            <small class="text-muted">{{$perfil->phone}}</small>
+                                <small class="text-muted">{{$perfil->phone}}</small>
                             @endif
                         
                             <hr>
@@ -105,9 +105,9 @@
                             <strong><i class="fas fa-envelope mr-1"></i> Correo electrónico</strong><br>
                     
                             @if (empty($perfil->correo) && (Auth::user()->id == $user->id))
-                            <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="ubicacion" style="text-decoration:none;"><small>Correo electrónico</small></a>
+                                <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="ubicacion" style="text-decoration:none;"><small>Correo electrónico</small></a>
                             @else
-                            <small class="text-muted">{{$perfil->correo}}</small>
+                                <small class="text-muted">{{$perfil->correo}}</small>
                             @endif
                     
                             <hr>

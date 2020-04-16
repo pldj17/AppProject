@@ -46,6 +46,9 @@
     {{-- <link rel="manifest" href="manifest.json"> --}}
     <link rel="manifest" href="{{ asset ('manifest.json') }}">
     
+    {{-- loader --}}
+    <link rel="stylesheet" href="{{asset("assets/css/loader.css")}}">
+
     {{-- assets de PWA --}}
     @laravelPWA
 
@@ -188,6 +191,9 @@
      <script src="{{asset("assets/js/funciones.js")}}"></script>
      {{-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> --}}
      
+     {{-- loader --}}
+     <script src="{{asset("assets/js/loader.js")}}"></script>
+
      {{-- firebase --}}
      <script src="{{asset('assets/js/firebase.js')}}"></script>
 

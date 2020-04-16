@@ -25,6 +25,9 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   
+    {{-- loader --}}
+   <link rel="stylesheet" href="{{asset("assets/css/loader.css")}}">
+
     {{-- assets de PWA --}}
     @laravelPWA
     
@@ -36,6 +39,7 @@
             </div>
 
             <div class="card">
+                
                 <div class="card-body register-card-body">
                 <p class="login-box-msg">Registrarse</p>
 
@@ -53,6 +57,7 @@
                             </span>
                         @endif
                     </div>
+                    <div class="loader" id="loader" style="position:absolute; margin-left:50%; margin-right:50%;">Loading...</div>
 
                     {{-- apellido --}}
                     <div class="form-group{{$errors->has('last_name') ? ' has-danger' : ''}}">
@@ -140,6 +145,9 @@
     <script src="{{asset("assets/$theme/dist/js/adminlte.min.js")}}"></script>
      {{-- firebase --}}
     <script src="{{asset('assets/js/firebase.js')}}"></script>
+
+     {{-- loader --}}
+     <script src="{{asset("assets/js/loader.js")}}"></script>
 
     <script>
         var myDate = $('#fechaInspeccion');

@@ -1,17 +1,14 @@
-@extends("theme.$theme.app")
-
-@section('titulo')
-    Offline
-@endsection
-
-@section('contenido') 
-<div class="container-fluid">
-    <div class="row">
-      <div class="col-md-3">
-        <h1>You are currently not connected to any networks.</h1>
-      </div>
-    </div>
-</div>
-
-@endsection
-sgfsdfgsdgfsdf
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>Home Page</title>
+ </head>
+ <body>
+   <div style="text-align:center; margin-top:40px;">
+     {{-- <img src="{{ asset('assets/offline/offline.svg')}}" width="80" height="80" /> --}}
+     <h3>Boo! No tienes conexión a internet.</h3>
+     <p>Verifique su conexión de red e intente nuevamente.</p>
+   <div>
+  </body>
+</html>
