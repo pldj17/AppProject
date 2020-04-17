@@ -63,6 +63,7 @@
                     <table id="tabla-data" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Nombre</th>
                             <th>Email</th>
                             <th>Rol</th>
@@ -78,6 +79,7 @@
                         <tbody>
                             @foreach($users as $data)
                                 <tr>
+                                    <td>{{$data->id}}</td>
                                     <td>{{$data->name}}</td>
                                     <td>{{$data->email}}</td>
                                     <td>{{ implode(',', $data->roles()->get()->pluck('name')->toArray())}}</td>

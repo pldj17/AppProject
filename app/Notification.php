@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Notification extends Model
 {
-    use SoftDeletes;
+    // use SoftDeletes;
 
     protected $fillable = ['comment_id', 'post_id', 'user_id'];
     protected $dates = ['delete_ate'];

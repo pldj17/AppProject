@@ -7,6 +7,7 @@
 @section("styles")
     <link rel="stylesheet" type="text/css" href="{{asset('assets/profile/css/edit.css') }}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/custom.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/galeria.css') }}">
 @endsection
 
 @section('scripts')
@@ -40,27 +41,27 @@
             <div class="card">
             @if (($perfil->private == 1))
                 <div class="card-header p-2">
-                    <ul class="nav nav-pills">
-                        <li class="nav-item">
-                        <a class="nav-link " href="{{route('perfil',  ['id' => $user->id])}}">
+                    <ul class="nav nav-pills" id="ul-tab">
+                    <li class="nav-item">
+                        <a class="nav-link" id="li-act" href="{{route('perfil',  ['id' => $user->id])}}">
                             Actividades
                         </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="{{route("perfil_post", ['id' => $user->id])}}">
-                                Fotos
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="{{route('perfil_contact', ['id' => $user->id])}}">
-                                Contactos
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="{{route('rating', ['id' => $user->id])}}">
-                                Puntuaciones
-                            </a>
-                        </li>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " id="li-img" href="{{route("perfil_post", ['id' => $user->id])}}">
+                            Fotos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="li-cont" href="{{route('perfil_contact', ['id' => $user->id])}}">
+                            Contactos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" id="li-pun" href="{{route('rating', ['id' => $user->id])}}">
+                            Puntuaciones
+                        </a>
+                    </li>
                     </ul>
                 </div>
             @else

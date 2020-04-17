@@ -6,6 +6,7 @@
 
 @section("styles")
     <link rel="stylesheet" type="text/css" href="{{asset('assets/profile/css/edit.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/galeria.css') }}">
 @endsection
 
 @section('scripts')
@@ -38,29 +39,29 @@
             <div class="card">
             @if (($perfil->private == 1))
                 <div class="card-header p-2">
-                <ul class="nav nav-pills">
+                    <ul class="nav nav-pills" id="ul-tab">
                     <li class="nav-item">
-                    <a class="nav-link " href="{{route('perfil',  ['id' => $user->id])}}">
-                        Actividades
-                    </a>
+                        <a class="nav-link" id="li-act" href="{{route('perfil',  ['id' => $user->id])}}">
+                            Actividades
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="{{route("perfil_post", ['id' => $user->id])}}">
+                        <a class="nav-link " id="li-img" href="{{route("perfil_post", ['id' => $user->id])}}">
                             Fotos
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{route('perfil_contact', ['id' => $user->id])}}">
+                        <a class="nav-link active" id="li-cont" href="{{route('perfil_contact', ['id' => $user->id])}}">
                             Contactos
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('rating', ['id' => $user->id])}}">
+                        <a class="nav-link" id="li-pun" href="{{route('rating', ['id' => $user->id])}}">
                             Puntuaciones
                         </a>
                     </li>
-                </ul>
-            </div>
+                    </ul>
+                </div>
                 @else
                 <div class="card-header p-2">
                 <ul class="nav nav-pills">
@@ -91,34 +92,30 @@
                     <div class="tab-content">
 
                         <div class="card-body">
-
-                            <strong><i class="fas fa-phone-alt mr-1"></i> Teléfono</strong><br>
-                    
-                            @if (empty($perfil->phone) && (Auth::user()->id == $user->id))
-                                <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="phone" style="text-decoration:none;"><small>Agregar teléfono</small></a>
-                            @else
-                                <small class="text-muted">{{$perfil->phone}}</small>
-                            @endif
+                            @if($perfil->phone != null && $perfil->correo != null)
+                                @if($perfil->phone != null)
+                                    <strong><i class="fas fa-phone-alt mr-1"></i> Teléfono</strong><br>
+                                        @if (empty($perfil->phone) && (Auth::user()->id == $user->id))
+                                            <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="phone" style="text-decoration:none;"><small>Agregar teléfono</small></a>
+                                        @else
+                                            <small class="text-muted">{{$perfil->phone}}</small>
+                                        @endif
+                                    <hr>
+                                @endif
+                                
                         
-                            <hr>
-                    
-                            <strong><i class="fas fa-envelope mr-1"></i> Correo electrónico</strong><br>
-                    
-                            @if (empty($perfil->correo) && (Auth::user()->id == $user->id))
-                                <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="ubicacion" style="text-decoration:none;"><small>Correo electrónico</small></a>
+                                @if($perfil->facebook != null)
+                                    <strong><i class="fas fa-envelope mr-1"></i> Correo electrónico</strong><br>
+                                        @if (empty($perfil->correo) && (Auth::user()->id == $user->id))
+                                            <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="ubicacion" style="text-decoration:none;"><small>Correo electrónico</small></a>
+                                        @else
+                                            <small class="text-muted">{{$perfil->correo}}</small>
+                                        @endif
+                                    <hr>
+                                @endif
                             @else
-                                <small class="text-muted">{{$perfil->correo}}</small>
+                                <h5>Sin información de contacto.</h5>
                             @endif
-                    
-                            <hr>
-                            
-                            {{-- <strong><i class="fab fa-whatsapp"></i> Whatsaap</strong><br>
-                    
-                            @if (empty($perfil->description) && (Auth::user()->id == $user->id))
-                            <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="ubicacion" style="text-decoration:none;"><small>Agregar Descripción</small></a>
-                            @else
-                            <small class="text-muted">{{$perfil->description}}</small>
-                            @endif --}}
                         </div>
 
                     </div>

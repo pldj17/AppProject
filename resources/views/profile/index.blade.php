@@ -166,7 +166,7 @@
                               @if(empty($a->file))
 
                               @else
-                              <div class="col-lg-4 col-md-4 col-xs-6 thumb">
+                              <div class="col-md-4 col-xs-6 thumb" id="img-post">
                                 <a href="/images/{{ $a->file }}" class="fancybox" rel="ligthbox" style="width:100%; height:70%">
                                   <img src="/images/{{ $a->file }}" class="zoom img-fluid" alt="" style="width:100%; height:100%">
                                 </a>   

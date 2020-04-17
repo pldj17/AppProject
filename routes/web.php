@@ -13,6 +13,8 @@
 
 use ProjectApp\Exports\UsersExport;
 
+Auth::routes(['verify' => true]);
+
 // offline PWA
 Route::get('/offline', function () {    
     return view('modules/laravelpwa/offline');
@@ -22,16 +24,18 @@ Route::get('/', function () {
     return view('dashboard');
 });
 
-Auth::routes(['verify' => true]);
 
-Auth::routes();
+
+// Auth::routes();
+
+
 
 //verificacion de correo ->middleware('verified');
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('perfil/{id}', 'HomeController@show')->name('perfil_publico');
 
-Route::group(['middleware' => ['auth']], function(){
+Route::group(['middleware' => ['auth', 'verified']], function(){
 
     Route::get('perfil/{id}','ProfileController@index')->name('perfil'); 
     Route::post('perfil/actualizar','ProfileController@update')->name('update_inf');
@@ -78,7 +82,7 @@ Route::group(['middleware' => ['auth']], function(){
 });
 
 
-Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => ['auth']], function(){
+Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => ['auth', 'verified']], function(){
     
     // Rutas usuario
     Route::get('usuario', 'UserController@index')->name('usuario');

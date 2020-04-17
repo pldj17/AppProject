@@ -61,7 +61,7 @@ class CommentsController extends Controller
             if($noti->save()){
                 $token      = $request->post('token_perfil');
                 $url = route('noti_comment', $comment->id, $user->id);
-                $noti->toSingleDevice($token, 'title', 'body', null, $url);    
+                $noti->toSingleDevice($token, 'PWA', 'Nueva notificación', null, $url);    
             }
 
 

@@ -31,6 +31,8 @@
     <h2>Editar perfil</h2>
 @endsection
 
+@if(Auth::user()->id == $user->id)
+
 @section('contenido')
 <div class="container-fluid">
     @include('includes.form-error')
@@ -238,4 +240,8 @@
       @endif
 
     @endsection
-   
+    @else
+    <script>
+        window.location.href = '{{ route('editar_perfil', [ Auth::user()->id]) }}';
+    </script>
+@endif
