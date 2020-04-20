@@ -38,7 +38,7 @@ Route::get('perfil/{id}', 'HomeController@show')->name('perfil_publico');
 Route::group(['middleware' => ['auth', 'verified']], function(){
 
     Route::get('perfil/{id}','ProfileController@index')->name('perfil'); 
-    Route::post('perfil/actualizar','ProfileController@update')->name('update_inf');
+    Route::post('perfil/actualizar','ConfigController@update')->name('update_inf');
     Route::post('perfil/password','ProfileController@password')->name('update_password');
 
     Route::post('perfil/{user}', 'ProfileController@store')->name('guardar_perfil'); 

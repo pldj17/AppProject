@@ -5,6 +5,7 @@ namespace ProjectApp\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use ProjectApp\Http\Requests\ValidarConfig;
 use ProjectApp\Http\Requests\ValidationPassword;
 use ProjectApp\Profile;
 use ProjectApp\Rating;
@@ -61,8 +62,9 @@ class ConfigController extends Controller
         return back()->with('mensaje', 'Su perfil ha sido actualizado correctamente.');
     }
 
-    public function update(Request $request)
+    public function update(ValidarConfig $request)
     {
+        
         $user_id = auth()->user()->id; 
 
         User::where('id', $user_id)->update([

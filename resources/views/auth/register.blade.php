@@ -35,7 +35,7 @@
     <body class="hold-transition register-page">
         <div class="register-box">
             <div class="register-logo">
-                <a href="{{asset("dashboard")}}"><b>App</b>Project</a>
+                <a href="{{asset("/")}}"><b>App</b>Project</a>
             </div>
 
             <div class="card">

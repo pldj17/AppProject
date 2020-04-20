@@ -4,17 +4,14 @@ namespace ProjectApp\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use ProjectApp\Comment;
 use ProjectApp\Http\Requests\ValidarPerfil;
-use ProjectApp\Http\Requests\ValidationPassword;
 use ProjectApp\Post;
 use ProjectApp\Profile;
 use ProjectApp\profile_specialties;
 use ProjectApp\Specialty;
 use ProjectApp\User;
-use ProjectApp\Profile as favorite;
 use ProjectApp\Rating;
 
 class ProfileController extends Controller
@@ -124,18 +121,18 @@ class ProfileController extends Controller
         return view('profile.edit',compact('especialidades', 'user', 'perfil'));
     }
 
-    public function update(Request $request)
-    {
-        $user_id = auth()->user()->id; 
+    // public function update(Request $request)
+    // {
+    //     $user_id = auth()->user()->id; 
 
-        User::where('id', $user_id)->update([
-            'name' => request('name'),
-            'email' => request('email'),
-        ]);
+    //     User::where('id', $user_id)->update([
+    //         'name' => request('name'),
+    //         'email' => request('email'),
+    //     ]);
         
 
-        return back()->with('mensaje', 'Su perfil ha sido actualizado correctamente.');
-    }
+    //     return back()->with('mensaje', 'Su perfil ha sido actualizado correctamente.');
+    // }
 
     public function password(Request $request)
     {
