@@ -2,6 +2,7 @@
 
 namespace ProjectApp;
 
+use Illuminate\Auth\Authenticatable as AuthenticableTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,6 +17,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable;
     // use RoutesWithFakeIds;
     use SoftDeletes;
+    use AuthenticableTrait;
 
     protected $fillable = [
         'name', 'email', 'password', 'device_token'

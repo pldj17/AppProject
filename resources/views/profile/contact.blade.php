@@ -104,7 +104,7 @@
                                 @endif
                                 
                         
-                                @if($perfil->facebook != null)
+                                @if($perfil->correo != null)
                                     <strong><i class="fas fa-envelope mr-1"></i> Correo electrónico</strong><br>
                                         @if (empty($perfil->correo) && (Auth::user()->id == $user->id))
                                             <a href="{{route("editar_perfil", ['id' => Auth::user()->id])}}" class="ubicacion" style="text-decoration:none;"><small>Correo electrónico</small></a>

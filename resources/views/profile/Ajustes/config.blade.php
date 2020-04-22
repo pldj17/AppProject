@@ -66,31 +66,44 @@
             </div>
 
             <div class="card-body">
-                <form action="{{ route('update_inf') }}" method="POST" autocomplete="">
-                    @csrf
-                    <div class="pl-lg-4">
-
-                        <div class="form-group">
-                            <label for="">Nombre y Apellido</label>
-                            <input type="text" class="form-control" name="name" value="{{Auth::user()->name ?? ''}}">
-                            @if ($errors->has('name'))
-                                <div class="error text-danger">{{ $errors->first('name')}}</div>                        
-                            @endif
-                        </div>
-
-                        <div class="form-group">
-                            <label for="">Dirección</label>
-                            <input type="text" class="form-control" name="email" value="{{Auth::user()->email ?? ''}}">
-                            @if ($errors->has('email'))
-                                <div class="error text-danger">{{ $errors->first('email')}}</div>                        
-                            @endif
-                        </div>
-
-                        <div class="text-center" style="margin-top:23px;">
-                            @include('profile.boton-form-editar')
-                        </div>
-                    </div>
-                </form>
+                <table class="table">
+                    <thead>
+                      {{-- <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Task</th>
+                        <th>Progress</th>
+                        <th style="width: 40px">Label</th>
+                      </tr> --}}
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                            <b>Nombre y apellido:</b>
+                            <br>
+                            &nbsp;&nbsp;{{Auth::user()->name ?? ''}} 
+                        </td>
+                        <td>
+                            <a href="{{ route('editar_config', $id = auth()->user()->id) }}" class="btn-accion-tabla">
+                             <i class="fa fa-edit" style="float:right;" data-toggle="tooltip" data-placement="bottom" title="Editar nombre"></i>
+                            </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                            <b>Email:</b>
+                            <br>
+                            &nbsp;&nbsp;{{Auth::user()->email ?? ''}} 
+                        </td>
+                        <td>
+                            <a href="#" class="btn-accion-tabla" data-toggle="modal" data-target="#abrirmodal">
+                                <i class="fa fa-edit" style="float:right;" data-toggle="tooltip" data-placement="bottom" title="Editar email"></i>
+                            </a>
+                        </td>
+                      </tr>
+                     
+                    </tbody>
+                   
+                  </table>
             </div>
         </div>
 
@@ -191,4 +204,97 @@
         </script>
     @endif
 </div>
+
+        @if(!empty(Session::get('error_code')) && Session::get('error_code') == 5)
+            <script>
+                $(function() {
+                    $('#myModal').modal('show');
+                });
+            </script>
+        @endif
+
+
+    <!--Inicio del modal agregar-->
+
+    <div class="modal fade" id="abrirmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalCenterTitle">Verificar contraseña</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+            
+                <div class="modal-body">
+                    <form action="{{route('verificar_contrasena')}}" id="form-general" class="form-horizontal" method="POST" autocomplete="off">
+                        @csrf
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="password" class="control-label requerido">&nbsp;&nbsp;&nbsp;&nbsp;Introduzca su contraseña para continuar</label>
+                                <div class="col-lg-12">
+                                    <input type="password" placeholder="Contraseña actual" name="oold_password" id="input-current-password" class="form-control form-control-alternative{{ $errors->has('oold_password') ? ' is-invalid' : '' }}" value="">
+                            
+                                    @if ($errors->has('oold_password'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('oold_password') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <div style="float:right">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button type="sumit" class="btn btn-success">Continuar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!--Fin del modal-->
+
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalCenterTitle">Cambiar correo electrónico</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+            
+                <div class="modal-body">
+                    <form action="{{route('update_email', ['id' => auth()->user()->id])}}" id="form-general" class="form-horizontal" method="POST" autocomplete="off">
+                        @csrf @method("put")
+                        <div class="box-body">
+                            <div class="form-group">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="email" class="col-lg-3 control-label requerido">Email</label>
+                                        <div class="col-lg-12">
+                                            <input type="text" name="email" email="email" id="email" class="form-control" value="{{old('email', $data->email ?? '')}}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <div style="float:right">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button type="sumit" class="btn btn-success">Continuar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!--Fin del modal-->
+
 @endsection

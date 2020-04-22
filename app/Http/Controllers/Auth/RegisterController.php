@@ -59,6 +59,9 @@ class RegisterController extends Controller
         //asignar rol de usuario al registrarse
         $role = Role::select('id')->where('name','user')->first(); //especialidad
         $user->roles()->attach($role);
+
+        // $user->sendEmailVerificationNotification();
+
         return $user;
     }
 

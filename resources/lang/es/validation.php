@@ -151,6 +151,7 @@ return [
         'last_name'             => 'apellido',
         'date_born'            => 'fecha de nacimiento',
         'fecha_nac'             => 'fecha de nacimiento',
+        'oold_password '        => 'contraseña',
         'password'              => 'contraseña',
         'password_confirmation' => 'confirmación de la contraseña',
         'city'                  => 'ciudad',

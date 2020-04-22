@@ -60,6 +60,11 @@ Route::group(['middleware' => ['auth', 'verified']], function(){
     Route::post('perfil/{user}/configuracion', 'ConfigController@store')->name('config');
     Route::get('perfil/{user}/configuracion', 'ConfigController@index')->name('config');
     Route::post('perfil/{user}/active', 'ConfigController@active')->name('active');
+    Route::get('config/{id}/editar', 'ConfigController@editName')->name('editar_config');
+    Route::put('config/{id}', 'ConfigController@updateName')->name('upda_confName');
+    Route::put('config/{id}/email', 'ConfigController@updateEmail')->name('update_email');
+    Route::post('perfil/config/email','ConfigController@verificar_contrasena')->name('verificar_contrasena');
+
 
     // comentarios
     Route::post('perfil/comentarios/{user}', 'CommentsController@store')->name('guardar_comentario');
