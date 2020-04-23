@@ -7,7 +7,7 @@ use ProjectApp\User;
 use ProjectApp\Menu;
 use ProjectApp\Permission;
 
-class role extends Model
+class Role extends Model
 {
 
     protected $table='roles';
