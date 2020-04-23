@@ -25,13 +25,13 @@ class CommentsController extends Controller
         }
     }
 
-    public function readComment(Request $r)
-    {
-        if($r->ajax() ){
-            $noti = Notification::read();
-            return view('read.readComment', compact('noti'));
-        }
-    }
+    // public function readComment(Request $r)
+    // {
+    //     if($r->ajax() ){
+    //         $noti = Notification::read();
+    //         return view('read.readComment', compact('noti'));
+    //     }
+    // }
 
     public function store(Request $request, User $user)
     {

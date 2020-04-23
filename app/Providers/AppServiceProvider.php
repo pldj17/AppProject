@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
         });
         View::share('theme', 'lte');
 
-        View::share('numberAlert', Notification::numberAlert());
+        // View::share('numberAlert', Notification::numberAlert());
         // \Carbon::setLocale(config('app.locale'));
     }
 }

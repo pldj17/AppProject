@@ -13,13 +13,17 @@
     @if (auth()->user())
 
       <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown show-noti">
+      {{-- <li class="nav-item dropdown show-noti">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell fa-lg"></i>
-          <small class="badge-warning navbar-badge number-alert">{{$numberAlert}}</small>
+          <small class="badge-warning navbar-badge number-alert">
+          {{$numberAlert}}
+        </small>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <small class="dropdown-item dropdown-header number-message">Tienes {{$numberAlert}} Notifications</small>
+          <small class="dropdown-item dropdown-header number-message">Tienes 
+            {{$numberAlert}} 
+            Notifications</small>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item comment-notification">
             
@@ -27,7 +31,7 @@
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer"><small>Ver todas las notificaciones</small></a>
         </div>
-      </li>
+      </li> --}}
 
       <li class="nav-item">
         <a class="nav-link" data-toggle="dropdown" href="#">

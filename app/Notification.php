@@ -72,14 +72,14 @@ class Notification extends Model
         $downstreamResponse->tokensWithError();
     }
 
-    public function scopeRead($query)
-    {
-        return $this->where('read_at', null)->get();
-    }
+    // public function scopeRead($query)
+    // {
+    //     return $this->where('read_at', null)->get();
+    // }
 
-    public function scopeNumberAlert()
-    {
-        return $this->where('read_at', null)->count();
-    }
+    // public function scopeNumberAlert()
+    // {
+    //     return $this->where('read_at', null)->count();
+    // }
 
 }
