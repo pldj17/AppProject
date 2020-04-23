@@ -23,11 +23,5 @@ class RolesTableSeeder extends Seeder
                 'name' => $value
             ]);
         }
-
-        // Role::truncate();
-
-        // Role::create(['name' => 'admin', 'description' => 'Rol de admin para uso de la aplicación']);
-
-        // Role::create(['name' => 'user', 'description' => 'Rol de user para uso de la aplicación']);
     }
 }
