@@ -38,7 +38,7 @@ class HomeController extends Controller
 
         // dd($rating);
 
-        return view('dashboard', compact('profiles', 'users', 'especialidades', 'users', 'categories', 'contador', 
+        return view('dashboard', compact('profiles', 'users', 'users', 'categories', 'contador', 
                     'fav_user', 'rating', 'ratingCount'));
     }
 
