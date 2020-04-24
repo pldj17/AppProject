@@ -27,11 +27,11 @@
   <h2>Mi perfil</h2>
 @endsection
 
-@section('bottom')
+{{-- @section('bottom')
   @if(Auth::user()->id != $user->id)
     <button type="button" class="btn btn-block btn-primary">Agg a Fav</button>
   @endif
-@endsection
+@endsection --}}
 
 @section('contenido')  
 
@@ -126,19 +126,21 @@
 
                     {{-- comentarios --}}
                     @foreach ($imgCollection as $post)
-                      @if ($loop->first)
-                        <form class="form-horizontal" action="{{ route('guardar_comentario', [$user->id]) }}" method="POST" autocomplete="off">
-                          @csrf 
-                          <input type="hidden" name="post_id" value="{{ $imgCollection->id }}">
-                          <div class="input-group input-group-sm mb-0">
-                            <input class="form-control form-control-sm" name="message" placeholder="Agregar comentario...">
-                            <div class="input-group-append">
-                              <button type="submit" class="btn btn-primary">Enviar</button>
-                            </div>
-                          </div>
-                        </form>
-                      @endif
-                    @endforeach
+                          @if ($loop->first)
+                            <form class="form-horizontal" action="{{ route('guardar_comentario', [$user->id, $perfil->id]) }}" method="POST" autocomplete="off">
+                              @csrf 
+                              <input type="hidden" name="post_id" value="{{ $imgCollection->id }}">
+                              <input type="hidden" name="token_perfil" value="{{$perfil->user->device_token}}">
+                              <input type="hidden" name="perfil_post_id" value="{{$imgCollection->user_id}}">
+                              <div class="input-group input-group-sm mb-0">
+                                <input class="form-control form-control-sm" name="message" placeholder="Agregar comentario...">
+                                <div class="input-group-append">
+                                  <button type="submit" class="btn btn-primary">Enviar</button>
+                                </div>
+                              </div>
+                            </form>
+                          @endif
+                        @endforeach
 
                     <br><br>
                     

@@ -25,13 +25,13 @@ class CommentsController extends Controller
         }
     }
 
-    // public function readComment(Request $r)
-    // {
-    //     if($r->ajax() ){
-    //         $noti = Notification::read();
-    //         return view('read.readComment', compact('noti'));
-    //     }
-    // }
+    public function readComment(Request $r)
+    {
+        if($r->ajax() ){
+            $noti = Notification::read();
+            return view('read.readComment', compact('noti'));
+        }
+    }
 
     public function store(Request $request, User $user)
     {
@@ -39,7 +39,7 @@ class CommentsController extends Controller
         $comment->user_id = Auth::id();
         $comment->post_id = $request->post('post_id');
         $comment->message = $request->post('message');
-        $comment->perfil_post_id = $request->post('perfil_post_id');
+        // $comment->perfil_post_id = $request->post('perfil_post_id');
         if($comment->save()){
 
             // $noti = new Notification;
@@ -54,12 +54,11 @@ class CommentsController extends Controller
             $noti = new Notification;
             $noti->comment_id = $comment->id;
             $noti->post_id    = $request->post('post_id');
-            $noti->token      = $request->post('token_perfil');
-            $noti->perfil_post_id = $request->post('perfil_post_id');
+            // $noti->token      = $request->post('token_perfil');
             $noti->user_id    = $user->id;
 
             if($noti->save()){
-                $token      = $request->post('token_perfil');
+                $token = $request->post('token_perfil');
                 $url = route('noti_comment', $comment->id, $user->id);
                 $noti->toSingleDevice($token, 'PWA', 'Nueva notificación', null, $url);    
             }

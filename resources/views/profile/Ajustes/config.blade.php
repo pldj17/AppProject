@@ -233,11 +233,11 @@
                             <div class="form-group">
                                 <label for="password" class="control-label requerido">&nbsp;&nbsp;&nbsp;&nbsp;Introduzca su contraseña para continuar</label>
                                 <div class="col-lg-12">
-                                    <input type="password" placeholder="Contraseña actual" name="oold_password" id="input-current-password" class="form-control form-control-alternative{{ $errors->has('oold_password') ? ' is-invalid' : '' }}" value="">
+                                    <input type="password" placeholder="Contraseña actual" name="contraseña" id="input-current-password" class="form-control form-control-alternative{{ $errors->has('contraseña') ? ' is-invalid' : '' }}" value="">
                             
-                                    @if ($errors->has('oold_password'))
+                                    @if ($errors->has('contraseña'))
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('oold_password') }}</strong>
+                                            <strong>{{ $errors->first('contraseña') }}</strong>
                                         </span>
                                     @endif
                                 </div>

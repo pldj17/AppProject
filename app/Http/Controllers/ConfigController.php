@@ -101,11 +101,11 @@ class ConfigController extends Controller
     public function verificar_contrasena(Request $request)
     {
         $this->validate($request,[
-            'oold_password' => 'required'
+            'contraseña' => 'required'
         ]);
         
         $hashedPassword = Auth::user()->password;
-        if (Hash::check($request->oold_password,$hashedPassword))
+        if (Hash::check($request->contraseña,$hashedPassword))
         {
             return redirect()->back()->with('error_code', 5);
         }else {

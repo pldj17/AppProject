@@ -9,7 +9,7 @@
     {{-- <script src="{{asset("assets/pages/scripts/admin/index.js")}}" type="text/javascript"></script> --}}
 
     <script src="{{ asset ('assets/profile/js/perfil.js') }}"></script>
-    <script src="{{ asset ('assets/profile/js/comentarios.js') }}"></script>
+    <script src="{{ asset ('assets/profile/js/post.js') }}"></script>
     <script src="{{ asset ('assets/photo/js.js') }}"></script>
     <script src="{{asset("assets/js/galeria.js")}}"></script>
     {{-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> --}}
@@ -109,7 +109,7 @@
             </div><!-- /.card-body -->
 
 
-            <div class="card-body" id="tabla-data">
+            <div class="card-body" id="publicacion">
               @foreach ($post as $imgCollection)
                 
                     <div class="active tab-pane" id="activity">
@@ -131,7 +131,7 @@
                                     
                                     @foreach ($imgCollection as $post)
 
-                                      <form action="{{route('eliminar_post', ['id' => $imgCollection->id])}}" class="d-inline form-eliminar" method="POST"   >
+                                      <form action="{{route('eliminar_post', ['id' => $imgCollection->id])}}" class="d-inline form-eliminar-publicacion" method="POST"   >
                                         <input type="hidden" name="_method" value="delete">
                                         @csrf 
                                         <button type="submit"  class="btn-accion-tabla eliminar" style="margin-left:20px;" >
@@ -279,7 +279,7 @@
                     <div class="alert alert-info alert-dismissible">
                       {{-- <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> --}}
                       <h5><i class="icon fas fa-info"></i> Alert!</h5>
-                        Perfil privado <i class="fas fa-user-lock fa-2x"></i>
+                        <b>Perfil privado</b> <i class="fas fa-user-lock fa-2x"></i>
                     </div>
                   </div>
                 </div>
